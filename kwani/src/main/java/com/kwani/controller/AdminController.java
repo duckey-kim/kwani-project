@@ -24,7 +24,7 @@ import com.kwani.service.TableService;
 import lombok.Setter;
 
 /**
- * Handles requests for the application home page.
+ * Handles requests for the application home page.2
  */
 @Controller
 @RequestMapping("/admin/*")
