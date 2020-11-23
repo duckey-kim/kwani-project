@@ -1,0 +1,130 @@
+*{
+	margin: 0;
+	padding :0;
+	left: 0;
+	top: 0;
+	box-sizing: border-box;
+}
+
+a{
+	text-decoration: none;
+	color: black;
+}
+
+table{
+	border-collpase: collpase;
+	width: 100%;
+}
+
+th, td{
+	padding: 5px;
+	text-align: left;
+	border-bottom: 1px solid white;
+}
+
+th,tr,td{
+	font: 100;
+	text-align: left;
+}
+
+tr{
+	margin-bottom: 10vw;
+}
+
+body{
+	height:1126px;
+}
+
+.th1{
+	width: 30%;
+}
+
+.mypage-header{
+	width: 100%;
+	height: 126px;
+	display: flex;
+	align-items:center;
+	background-color: #26254B;
+	color:white;
+}
+
+.mypage-header .header-item{
+	width: 100px;
+	font:white;
+}
+
+.mypage-nav{
+	width: 100%;
+}
+
+.nav-left{
+	width: 50%;
+	display: flex;
+	justify-content: space-between;
+}
+.mypage-nav .nav-item{
+	background-color:lightpink;
+}
+
+.mypage-body{
+	width: 100%;
+}
+
+.mypage-body .body-item{
+	margin-bottom: 3vw;
+	justify-content: center;
+}
+
+.body-item .item-header{
+	margin-bottom: 2vw;
+}
+
+.container {
+	display:flex;
+}
+
+.item a{
+	display: block;
+}
+
+.item-body .item{
+	margin-right: 2vw;
+}
+
+.bg-bl{
+	background-color: #FFEBE1;
+}
+
+/* Style the search field */
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+/* Clear floats */
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}

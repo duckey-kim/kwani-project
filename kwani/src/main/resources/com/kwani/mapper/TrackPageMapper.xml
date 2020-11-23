@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kwani.mapper.TrackPageMapper">
+
+<resultMap type="hashMap" id="result"></resultMap>
+
+<select id="getTrackList" resultMap="result">
+<![CDATA[
+select t.track_id, a.nm, at.grop_id, t.track_ttl, t.track_url, t.track_lyrics, al.album_img, al.album_id, al.album_ttl 
+from t_tracks t, t_artist_tracks at, t_artist a, t_album al
+where t.track_id = at.track_id
+and a.grop_id = at.grop_id
+and al.album_id = t.album_id
+and t.track_id = #{trackId}
+]]>
+</select>
+
+
+<select id="getAlbumList" resultMap="result">
+<![CDATA[
+select distinct al.album_id, al.album_ttl, al.album_img, al.rles_dt 
+from t_artist a, t_artist_tracks at, t_tracks t, t_album al
+where a.grop_id = at.grop_id
+and t.track_id = at.track_id
+and al.album_id = t.album_id
+and a.grop_id in (select at.grop_id from t_tracks t, t_artist_tracks at
+where t.track_id = at.track_id
+and t.track_id = #{trackId})
+order by al.rles_dt desc
+]]>
+</select>
+
+</mapper>

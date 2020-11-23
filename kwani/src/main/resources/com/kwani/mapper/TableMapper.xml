@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0 //EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kwani.mapper.TableMapper">
+
+	<resultMap type="hashMap" id="selectMap"></resultMap>
+
+	
+	<select id="getArtistGroup" resultMap="selectMap">
+	select * from t_artist_group where grop_id=#{gropId} and solo_id=#{soloId}
+	
+	</select>
+	<select id="getAlbumById" resultMap="AlbumResult">
+	
+	select * from t_album where album_id =#{albumId}
+	</select>
+	
+	
+	<select id="getUser" resultMap="UserResult">
+	select * from t_user where email =#{email}
+	
+	</select>
+	
+	<select id="getTracksToInsert" resultMap="TrackResult">
+	select t.track_id,t.track_ttl from t_tracks t
+	where t.track_id not in(
+	select track_id
+	from t_artist_tracks
+	)
+	</select>
+
+
+<!--USER MAP -->
+	<resultMap type="com.kwani.domain.UserVO" id="UserResult">
+		<result property="email" column="EMAIL" />
+		<result property="nick" column="NICK" />
+		<result property="pwd" column="PWD" />
+		<result property="userImg" column="USER_IMG" />
+		<result property="moodCd" column="MOOD_CD" />
+		<result property="genreCd" column="GENRE_CD" />
+		<result property="situCd" column="SITU_CD" />
+		<result property="stusCd" column="STUS_CD" />
+	</resultMap>
+
+	<!--ALBUM MAP -->
+	<resultMap type="com.kwani.domain.AlbumVO" id="AlbumResult">
+		<result property="albumId" column="ALBUM_ID" />
+		<result property="albumTtl" column="ALBUM_TTL" />
+		<result property="albumImg" column="ALBUM_IMG" />
+		<result property="rlesDt" column="RLES_DT" />
+		<result property="trackTot" column="TOT" />
+	</resultMap>
+
+	<!--TRACKS MAP -->
+	<resultMap type="com.kwani.domain.TracksVO" id="TrackResult">
+		<result property="trackId" column="TRACK_ID" />
+		<result property="trackTtl" column="TRACK_TTL" />
+		<result property="trackUrl" column="TRACK_URL" />
+		<result property="albumId" column="ALBUM_ID" />
+	</resultMap>
+
+	<!--ARTIST MAP -->
+	<resultMap type="com.kwani.domain.ArtistVO" id="ArtistResult">
+		<result property="gropId" column="GROP_ID" />
+		<result property="nm" column="NM" />
+	</resultMap>
+
+	<!--ADMIN MAP -->
+	<resultMap type="com.kwani.domain.AdminVO" id="AdminResult">
+		<result property="mngrId" column="MNGR_ID" />
+		<result property="pwd" column="PWD" />
+	</resultMap>
+
+
+	<!--INSERT ARTIST -->
+	<insert id="insertArtist">
+		insert into t_artist (grop_id,nm,sex,type,debut_dt)
+		values(seq_grop.nextval,#{nm},#{sex},#{type},#{debutDt})
+	</insert>
+
+
+	<!--INSERT ALBUM -->
+	<insert id="insertAlbum">
+		insert into t_album (album_id,album_ttl,rles_dt,ALBUM_IMG)
+		values(seq_album.nextval,#{albumTtl},#{rlesDt},#{albumImg})
+	</insert>
+
+
+
+	<!--INSERT TRACK WITH ALBUMID -->
+	<insert id="insertTrack">
+		insert into t_tracks
+		(track_id,track_ttl,track_url,album_id)
+		values(seq_tracks.nextval,#{trackTtl},#{trackUrl},#{albumId})
+	</insert>
+
+	<!--INSERT USER -->
+	<insert id="insertUser">
+		insert into t_user (email,nick,pwd)
+		values(#{email},#{nick},#{pwd})
+	</insert>
+
+	<!--INSERT ARTIST AND TRACK -->
+	<insert id="insertArtistTrack">
+		insert into t_artist_tracks (track_id,grop_id)
+		values(#{trackId},#{gropId})
+	</insert>
+
+	<!--INSERT ARTIST AND GROUP -->
+	<insert id="insertArtistGroup">
+		insert into t_artist_group(grop_id,solo_id)
+		values(#{gropId},#{soloId})
+
+	</insert>
+
+
+	<!--작성완료 -->
+	<select id="getAlbumList" resultMap="AlbumResult">
+		select
+		album_id,album_ttl,rles_dt from t_album
+	</select>
+	
+	<select id="getAlbum" resultMap="AlbumResult">
+	select album_id,album_ttl,rles_dt from t_album where album_ttl=#{albumTtl}
+	
+	</select>
+
+	<!--작성완료 -->
+	
+	<select id="getTracks" resultMap="TrackResult">
+	select track_id,track_ttl,track_url,album_id from t_tracks where track_ttl=#{trackTtl}
+	</select>
+
+	<select id="getTrackList" resultMap="TrackResult">
+		select
+		track_id,track_ttl,track_url from t_tracks
+	</select>
+
+	<!--작성완료 -->
+	<select id="getArtistList" resultMap="ArtistResult">
+		select grop_id,nm from t_artist
+	</select>
+	
+	<select id="getArtist" resultMap="ArtistResult">
+		select grop_id,nm from t_artist where nm =#{nm}
+		<!-- ;넣엇네요.. -->
+	</select>
+	
+	<select id="getArtistById" resultMap="ArtistResult">
+	select * from t_artist where grop_id=#{gropId}
+	</select>
+	
+	<select id="getTracksById" resultMap="TrackResult">
+	select * from t_tracks where track_id =#{trackId}
+	</select>
+
+
+	<select id="getAdmin" resultMap="AdminResult">
+		select mngr_id,pwd from t_mngr
+		where mngr_id =#{mngrId}
+	</select>
+	
+	<select id="getTracksArtistTrack" resultMap="selectMap">
+	select * from t_artist_tracks where track_id=#{trackId}
+	</select>
+
+</mapper>

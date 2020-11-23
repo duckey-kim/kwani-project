@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kwani.mapper.ArtistPageMapper">
+
+<resultMap type="hashMap" id="result"></resultMap>
+
+<select id="getArtistInfo" resultMap="result">
+<![CDATA[
+select nm, grop_img, to_char(debut_dt, 'yyyy-mm-dd') debut_dt from t_artist
+where grop_id = #{gropId}
+]]>
+</select>
+
+<select id="getArtistTrackList" resultMap="result">
+<![CDATA[
+select t.track_id, t.track_ttl, a.grop_id, a.grop_img, a.nm, al.album_id, al.album_ttl, al.album_img
+from t_artist a, t_artist_tracks at, t_tracks t, t_album al
+where a.grop_id = at.grop_id
+and t.track_id = at.track_id
+and al.album_id = t.album_id
+and a.grop_id = #{gropId}
+order by al.rles_dt desc
+]]>
+</select>
+
+<select id="getArtistAlbumList" resultMap="result">
+<![CDATA[
+select distinct al.album_id, al.album_ttl, al.album_img, al.rles_dt
+from t_artist a, t_artist_tracks at, t_tracks t, t_album al
+where a.grop_id = at.grop_id
+and t.track_id = at.track_id
+and al.album_id = t.album_id
+and a.grop_id = #{gropId}
+order by al.rles_dt desc
+]]>
+</select>
+
+</mapper>

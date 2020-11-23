@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kwani.mapper.TrackMapper">
+
+<resultMap type="com.kwani.domain.TrackVO" id="TrackResult">
+	<result property="trackId" column="track_id"/>
+	<result property="trackTitle" column="track_ttl"/>
+	<result property="albumId" column="album_id"/>
+</resultMap>
+
+<select id = "getList" resultMap="TrackResult">
+	SELECT * FROM T_TRACKS
+</select>
+
+<insert id="insert">
+	INSERT INTO T_TRACKS (TRACK_ID, TRACK_TTL, ALBUM_ID)
+	VALUES (#{TRACK_ID}, #{TRACK_TTL}, #{ALBUM_ID})
+</insert>
+
+<select id="read" resultMap="TrackResult">
+	SELECT * FROM T_TRACKS
+	WHERE TRACK_TTL = {#TRACK_TTL}
+</select> 
+
+</mapper>
