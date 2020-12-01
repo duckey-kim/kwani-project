@@ -8,18 +8,19 @@ import com.kwani.domain.UserVO;
 
 public interface MyPageService {
 
-	public int setPlaylistId(PlaylistVO playlistVO);
+	public int createPlaylist(PlaylistVO playlistVO);
 	public int modifyPlaylist(PlaylistVO playlistVO);
 	public int countPlaylistTrack(Integer plylstId);
 	public int removePlaylist(Integer plylstId);
 
-	public List<Map<String,String>> getListLibrary(String email);
+	public UserVO getUser(String email);
+	public List<PlaylistVO> getListPlaylist(String email);
+	public List<Map<String,String>> getListLibrary(String object);
 	public List<Map<String,String>> getListLikedArtist(String email);
 	public List<Map<String,String>> getListLikedTrack(String email);
 	public List<Map<String,String>> getListLikedAlbum(String email);
-	public List<Map<String,String>> getListPlaylist(String email);
 	public List<Map<String,String>> getPlaylistDetail(Integer plylstId);
-	public UserVO getUser(String email);
+	public List<Map<String,String>> findTrack(String searchTxt);
 
 
 	//public int registerPlaylist(PlaylistVO playlistVO);

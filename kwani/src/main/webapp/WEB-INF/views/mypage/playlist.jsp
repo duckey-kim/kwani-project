@@ -120,28 +120,28 @@
 						</div>
 						<div class="item-body">
 							<div class="item-div">
-								<c:forEach items="${playlist}" var="playlist">
+								<c:forEach items="${playlist}" var="plylst">
 									<table class="table">
 										<tr>
 											<th class="th"></th>
 											<th class="th"></th>
 										</tr>
 										<tr>
-											<td class="td8" colspan="2"><img class="myArtistImg" src="/resources/image/album/${playlist.PLYLST_IMG}"></td>
+											<td class="td8" colspan="2"><img class="myArtistImg" src="/resources/image/album/${plylst.plylstImg}"></td>
 										</tr>
 
 										<tr>
 											<td><form action="/mypage/playlistDetail" method="post">
-													<input type="hidden" value="${playlist.PLYLST_ID}" name="plylstId">
+													<input type="hidden" value="${plylst.plylstId}" name="plylstId">
 													<input type="hidden" value="${user.email}" name="email">
 													<input type="hidden" value="${user.nick}" name="nick">
 													<input type="hidden" value="${user.userImg}" name="userImg">
 													<button class="button2" style="text-align: left">
-														<c:out value="${playlist.NM}" />
+														<c:out value="${plylst.nm}" />
 													</button>
 												</form></td>
 											<td><form action="/mypage/playlist/delete" method="post">
-													<input type="hidden" value="${playlist.PLYLST_ID}" name="plylstId">
+													<input type="hidden" value="${plylst.plylstId}" name="plylstId">
 													<input type="hidden" value="${user.email}" name="email">
 													<input type="hidden" value="${user.nick}" name="nick">
 													<input type="hidden" value="${user.userImg}" name="userImg">
