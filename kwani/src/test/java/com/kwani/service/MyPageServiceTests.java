@@ -29,7 +29,7 @@ public class MyPageServiceTests {
 		playlistVO.setDesc("");
 		
 		log.info("Before : " + playlistVO);
-		myPageService.setPlaylistId(playlistVO);
+		myPageService.createPlaylist(playlistVO);
 		log.info("After : " + playlistVO);
 		
 	}
