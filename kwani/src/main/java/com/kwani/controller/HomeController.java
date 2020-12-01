@@ -1,6 +1,5 @@
 package com.kwani.controller;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -35,5 +34,20 @@ public class HomeController {
 		System.out.println("sessionName : " + session.getAttribute("userEmail"));
 
 		return "/home";
+	}
+
+	@GetMapping("/recommend")
+	public String moveToRcmd() {
+		// recommend 혹은 recommend/ 까지만 입력해서 url 이동하면 일반 추천 페이지로 보내준다
+		return "redirect:/recommend/common";
+	}
+	
+	@GetMapping("/admin")
+	public String moveToAdmin() {
+		return "/admin/home";
+	}
+	@GetMapping({"/admin/modify","/admin/modify/"})
+	public String moveToAdminModify() {
+		return "/admin/modify/home";
 	}
 }

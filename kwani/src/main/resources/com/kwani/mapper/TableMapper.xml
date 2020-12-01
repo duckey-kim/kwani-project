@@ -6,32 +6,36 @@
 
 	<resultMap type="hashMap" id="selectMap"></resultMap>
 
-	
+	<select id="getSeqGropCurrval" resultType="int">
+		select seq_grop.currval from dual
+	</select>
+
+
 	<select id="getArtistGroup" resultMap="selectMap">
-	select * from t_artist_group where grop_id=#{gropId} and solo_id=#{soloId}
-	
+		select * from t_artist_group where grop_id=#{gropId} and solo_id=#{soloId}
+
 	</select>
 	<select id="getAlbumById" resultMap="AlbumResult">
-	
-	select * from t_album where album_id =#{albumId}
+
+		select * from t_album where album_id =#{albumId}
 	</select>
-	
-	
+
+
 	<select id="getUser" resultMap="UserResult">
-	select * from t_user where email =#{email}
-	
+		select * from t_user where email =#{email}
+
 	</select>
-	
+
 	<select id="getTracksToInsert" resultMap="TrackResult">
-	select t.track_id,t.track_ttl from t_tracks t
-	where t.track_id not in(
-	select track_id
-	from t_artist_tracks
-	)
+		select t.track_id,t.track_ttl from t_tracks t
+		where t.track_id not in(
+		select track_id
+		from t_artist_tracks
+		)
 	</select>
 
 
-<!--USER MAP -->
+	<!--USER MAP -->
 	<resultMap type="com.kwani.domain.UserVO" id="UserResult">
 		<result property="email" column="EMAIL" />
 		<result property="nick" column="NICK" />
@@ -49,7 +53,7 @@
 		<result property="albumTtl" column="ALBUM_TTL" />
 		<result property="albumImg" column="ALBUM_IMG" />
 		<result property="rlesDt" column="RLES_DT" />
-		<result property="trackTot" column="TOT" />
+		<result property="stusCd" column="STUS_CD" />
 	</resultMap>
 
 	<!--TRACKS MAP -->
@@ -82,7 +86,8 @@
 
 	<!--INSERT ALBUM -->
 	<insert id="insertAlbum">
-		insert into t_album (album_id,album_ttl,rles_dt,ALBUM_IMG)
+		insert into t_album
+		(album_id,album_ttl,rles_dt,album_img)
 		values(seq_album.nextval,#{albumTtl},#{rlesDt},#{albumImg})
 	</insert>
 
@@ -120,17 +125,25 @@
 		select
 		album_id,album_ttl,rles_dt from t_album
 	</select>
-	
+
 	<select id="getAlbum" resultMap="AlbumResult">
-	select album_id,album_ttl,rles_dt from t_album where album_ttl=#{albumTtl}
-	
+		select album_id,album_ttl,rles_dt from t_album where album_ttl=#{albumTtl}
+
 	</select>
 
 	<!--작성완료 -->
-	
+
 	<select id="getTracks" resultMap="TrackResult">
-	select track_id,track_ttl,track_url,album_id from t_tracks where track_ttl=#{trackTtl}
+		select track_id,track_ttl,track_url,album_id from t_tracks where
+		track_ttl=#{trackTtl}
 	</select>
+
+	<select id="checkTracks" resultMap="TrackResult">
+		select track_id from t_tracks
+		where track_ttl=#{trackTtl}
+		and album_id=#{albumId}
+	</select>
+
 
 	<select id="getTrackList" resultMap="TrackResult">
 		select
@@ -139,30 +152,46 @@
 
 	<!--작성완료 -->
 	<select id="getArtistList" resultMap="ArtistResult">
-		select grop_id,nm from t_artist
+		select grop_id,nm from
+		t_artist
 	</select>
-	
+
 	<select id="getArtist" resultMap="ArtistResult">
 		select grop_id,nm from t_artist where nm =#{nm}
 		<!-- ;넣엇네요.. -->
 	</select>
-	
+
 	<select id="getArtistById" resultMap="ArtistResult">
-	select * from t_artist where grop_id=#{gropId}
+		select * from t_artist where grop_id=#{gropId}
 	</select>
-	
+
 	<select id="getTracksById" resultMap="TrackResult">
-	select * from t_tracks where track_id =#{trackId}
+		select * from t_tracks where track_id =#{trackId}
 	</select>
 
 
 	<select id="getAdmin" resultMap="AdminResult">
 		select mngr_id,pwd from t_mngr
 		where mngr_id =#{mngrId}
+		and pwd =#{pwd}
 	</select>
-	
+
 	<select id="getTracksArtistTrack" resultMap="selectMap">
-	select * from t_artist_tracks where track_id=#{trackId}
+		select * from t_artist_tracks where track_id=#{trackId}
 	</select>
+
+	<!--UPDATE ALBUM -->
+	<update id="updateAlbum">
+		update t_album
+		set album_img =#{album.albumImg},
+		album_ttl=#{album.albumTtl},
+		stus_cd=#{album.stusCd},
+		rles_dt=#{album.rlesDt},
+		up_date =sysdate,
+		up_user =#{upUser}
+		where album_id=#{album.albumId}
+		
+
+	</update>
 
 </mapper>
