@@ -164,7 +164,7 @@ a {
 .loginBox {
     border-radius: 10%;
     width: 800px;
-    height: 700px;
+    height: 900px;
     border: 1px solid black;
     background-color: whitesmoke;
 }
@@ -176,27 +176,32 @@ a {
 }
 
 .loginForm {
-    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 80px;
     text-align: center;
+    height: 200px;
 }
 
-.fieldEmail {
+.emailField {
     width: 100%;
     height: 40px;
 }
 
-.duplcheck {
-    margin-top: 10px;
-}
-
-.fieldNick {
+.nickField {
     width: 100%;
     height: 40px;
     padding-top: 10px;
 }
 
-.fieldPwd {
+.pwdField {
     padding-top: 10px;
+    width: 100%;
+    height: 40px;
+}
+
+.pwdReField {
     width: 100%;
     height: 40px;
 }
@@ -204,14 +209,6 @@ a {
 .inputEmail {
     width: 60%;
     height: 40px;
-}
-
-.doubleBtn {
-    width: 50px;
-    height: 25px;
-    background-color: rosybrown;
-    color: whitesmoke;
-
 }
 
 .inputNick {
@@ -224,8 +221,12 @@ a {
     height: 40px;
 }
 
+.inputPwdRe {
+    width: 60%;
+    height: 40px;
+}
+
 .loginBtn {
-    margin-top: 30px;
     margin-bottom: 10px;
     background-color: red; 
     border: none;
@@ -234,7 +235,8 @@ a {
     text-align: center;
     text-decoration: none;
     font-size: 16px;
-    width: 80%;
+    width: 60%;
+    margin-top: 50px;
 }
 
 .socialLoginBtn {
@@ -243,8 +245,8 @@ a {
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    height: 300px;
-    margin-top: 30px;
+    height: 350px;
+    margin-top: 50px;
 }
 
 .googleBtn {
@@ -285,8 +287,6 @@ a {
     line-height: 25px;
 
 }
-
-
 
 #rightSideBar {
     width: 10%;

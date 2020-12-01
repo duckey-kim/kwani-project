@@ -16,7 +16,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
-	href="/resources/css/withdrawal.css">
+	href="/resources/css/findUserPwd1.css">
 </head>
 <body>
 	<div id="main">
@@ -58,21 +58,18 @@
 					<div class="h1">
 						<h1>Settings</h1>
 					</div>
-					<form action="/user/withdrawalAction" method="POST">
-						<div class="utilBtnContainer">
-							<input type="button" class="update" value="개인정보변경"> <input
-								type="button" class="delete" value="회원탈퇴">
-						</div>
+					<form action="/search/findUserPwdAction" method="POST">
 						<div class="fieldEmail">
+							<input class="inputEmail" id="email" placeholder="Id (email)"
+								type="email" name="IdEmail" />
+						</div>
+						<div class="fieldPwd">
 							<input class="inputEmail" id="email" placeholder="Email"
 								type="email" name="email" />
 						</div>
-						<div class="textContainer">
-							정말로 탈퇴하시겠습니까? <br>
-						</div>
-						<div class="btnContainer">
-							<button class="successBtn" type="submit" onclick="return checkInput()">SUCCESS</button>
-							<a href="/" class="cancelBtn">Cancel</a>
+						<div class="successBtnContainer">
+							<!-- 인증번호를 요청하고, 요청이 성공했으면 다음페이지로 이동하고, 실패하면 여기로 다시온다. -->
+							<button class="successBtn" type="submit">인증번호요청</button>
 						</div>
 					</form>
 				</div>
@@ -94,22 +91,13 @@
 
 <script type="text/javascript">
 
-function checkInput() {
+	console.log("${msg}");
 	
-	let email = document.getElementById("email").value;
-
-
-	if(email.length == 0) {
-		alert('이메일을 입력하세요');
-		return false;
-	}
+	if("${msg}" != "") 
+		alert("${msg}")
 	
-	return true;
-}
-
-
-
-
+	
+	
 
 	window.onscroll = function() {
 		myFunction()
