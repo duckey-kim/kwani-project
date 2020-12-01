@@ -95,11 +95,35 @@ a {
   }
 
 #musicPlayer {
+	display: flex;
     width: 40%;
     height: 60px;
     color: red;
     text-align: center;
     line-height: 60px;
+}
+.albumImg{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    text-align: center;
+    width: 20%;
+}
+.cd{
+	height: 30px;
+	width: 45%;
+}
+.playBtn{
+	display: flex;
+	height: 60px;
+	align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    width: 80%;
+}
+.musicBtn{
+	height: 30px;
+	width: 10%;
 }
 
 #pageLogo {

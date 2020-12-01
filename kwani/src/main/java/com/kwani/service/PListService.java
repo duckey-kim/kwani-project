@@ -6,16 +6,17 @@ import com.kwani.domain.PListVO;
 
 public interface PListService {
 	
-	////ÇÃ·¹ÀÌ¸®½ºÆ® »ó¼¼ ÆäÀÌÁö °ü·Ã-----------------------------------
-	public PListVO getListName(int plylstId);
+	////í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ ìƒì„¸ í˜ì´ì§€ ê´€ë ¨-----------------------------------
+	public PListVO getListName(Integer plylstId);
 
-	public List<PListVO> getListDtl(int plylstId);
+	public List<PListVO> getListDtl(Integer plylstId);
 	
-	//ÀÏ¹İÃßÃµ ÆäÀÌÁö °ü·Ã-------------------------------------------
+	//ì¼ë°˜ì¶”ì²œ í˜ì´ì§€ ê´€ë ¨-------------------------------------------
 	public List<PListVO> getAllList();
 	
-	//³ë·¡ °Ë»ö ÆäÀÌÁö----------------------------------------------
-	//°Ë»öÇØ¼­ ³ª¿Â °á°ú°ª ºÒ·¯¿À±â
+	
+	//ë…¸ë˜ ê²€ìƒ‰ í˜ì´ì§€----------------------------------------------
+	//ê²€ìƒ‰í•´ì„œ ë‚˜ì˜¨ ê²°ê³¼ê°’ ë¶ˆëŸ¬ì˜¤ê¸°
 	public List<PListVO> getSearchRst(String searchTxt);
 
 

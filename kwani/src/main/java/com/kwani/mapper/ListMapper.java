@@ -7,17 +7,16 @@ import org.apache.ibatis.annotations.Select;
 import com.kwani.domain.PListVO;
 
 public interface ListMapper {
-	//ÇÃ·¹ÀÌ¸®½ºÆ® »ó¼¼ ÆäÀÌÁö
-	public PListVO getListName(int plylstId);
-	
-	public List<PListVO> getListDtl(int plylstId);
-	
+	//í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ ìƒì„¸ í˜ì´ì§€
+		public PListVO getListName(Integer plylstId);
+		
+		public List<PListVO> getListDtl(Integer plylstId);
+		
 
-	//ÀÏ¹İÃßÃµ ÆäÀÌÁö °ü·Ã 
-	public List<PListVO> getAllList();
-	
-	//³ë·¡ °Ë»ö ÆäÀÌÁö 	
-	public List<PListVO> getSearchRst(String searchTxt);
-	
-	
+		//ì¼ë°˜ì¶”ì²œ í˜ì´ì§€ ê´€ë ¨ 
+		public List<PListVO> getAllList();
+		
+		//ë…¸ë˜ ê²€ìƒ‰ í˜ì´ì§€ 	
+		public List<PListVO> getSearchRst(String searchTxt);
+		
 }
