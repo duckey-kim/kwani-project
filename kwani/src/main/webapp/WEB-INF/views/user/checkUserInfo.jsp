@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -15,7 +14,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
-	href="/resources/css/userInfoCheck.css">
+	href="/resources/css/checkUserInfo.css">
 </head>
 <body>
 	<div id="main">
@@ -27,7 +26,7 @@
 			<div id="header_navbar">
 				<div id="musicPlayer">musicPlayer</div>
 				<div id="pageLogo">
-					<a href="/home">Last.fm</a>
+					<a href="/">Last.fm</a>
 				</div>
 				<div id="navbarUtil">
 					<button class="subnavbtn" onclick="openSearch()">
@@ -57,7 +56,7 @@
 					<div class="h1">
 						<h1>Settings</h1>
 					</div>
-					<form action="/user/userInfoCheckAction" method="POST">
+					<form action="/user/checkUserInfoAction" method="POST">
 						<div class="utilBtnContainer">
 							<input type="button" class="update" value="개인정보변경"> <input
 								type="button" class="delete" value="회원탈퇴">
@@ -100,19 +99,20 @@
 
 	// 만약 정보가 불일치 하면, 모달창을 띄운다.
 	// 서버에서 해당 정보를 가져온다.
-
 	let email = document.getElementById("email").value;
 	let pwd = document.getElementById("password").value;
 
 	/* 서버에 입력한 정보가 없을 때, null일 때 */
 
 	console.log('${pwdMsg}');
+	console.log('${sessionMsg}')
 	
+	/* if("${sessionMsg}" != "") {
+		alert("${sessionMsg}");
+	} */
 	
 	if ("${pwdMsg}" != "") {
-		/* if ('${userInputPwd}' != '${pwd}') { */
-			alert("${pwdMsg}");
-		/* } */
+		alert("${pwdMsg}");
 	}
 
 	if ("${msg}" != "") {

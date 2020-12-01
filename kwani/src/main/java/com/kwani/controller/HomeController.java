@@ -1,10 +1,11 @@
 package com.kwani.controller;
 
+import java.util.Calendar;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.kwani.service.UserService;
@@ -30,8 +31,17 @@ public class HomeController {
 			model.addAttribute("sessionName", session.getAttribute("userEmail"));
 			model.addAttribute("userNick", userNick);
 		}
-
 		System.out.println("sessionName : " + session.getAttribute("userEmail"));
+
+		Calendar calendar = Calendar.getInstance();
+
+		int year = calendar.get(calendar.YEAR);
+		int month = calendar.get(calendar.MONTH) + 1;
+		int date = calendar.get(calendar.DATE);
+
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		model.addAttribute("date", date);
 
 		return "/home";
 	}
@@ -41,13 +51,15 @@ public class HomeController {
 		// recommend 혹은 recommend/ 까지만 입력해서 url 이동하면 일반 추천 페이지로 보내준다
 		return "redirect:/recommend/common";
 	}
-	
+
 	@GetMapping("/admin")
 	public String moveToAdmin() {
 		return "/admin/home";
 	}
-	@GetMapping({"/admin/modify","/admin/modify/"})
+
+	@GetMapping({ "/admin/modify", "/admin/modify/" })
 	public String moveToAdminModify() {
 		return "/admin/modify/home";
 	}
+
 }

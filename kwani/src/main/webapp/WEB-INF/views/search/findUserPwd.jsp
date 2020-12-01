@@ -16,7 +16,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
-	href="/resources/css/userInfoModify.css">
+	href="/resources/css/findUserPwd.css">
 </head>
 <body>
 	<div id="main">
@@ -28,7 +28,7 @@
 			<div id="header_navbar">
 				<div id="musicPlayer">musicPlayer</div>
 				<div id="pageLogo">
-					<a href="/user/home">Last.fm</a>
+					<a href="/">Last.fm</a>
 				</div>
 				<div id="navbarUtil">
 					<button class="subnavbtn" onclick="openSearch()">
@@ -58,35 +58,12 @@
 					<div class="h1">
 						<h1>Settings</h1>
 					</div>
-					<form action="/user/userInfoModifyAction" method="POST">
 						<div class="utilBtnContainer">
-							<input type="button" class="update" value="개인정보변경"> <input
-								type="button" class="delete" value="회원탈퇴">
+							<a href="/search/findUserPwd1" class="nextBtn">이메일로 찾기</a>
 						</div>
-						<div class="userImgContainer">
-							<div class="userImg">사용자의 사진</div>
-							<div class="uploadImg">
-								<!-- <input type="file" name="imgFiles" id=""> -->
-							</div>
+						<div class="btnContainer">
+							<a href="/home" class="cancelBtn">Cancel</a>
 						</div>
-						<div class="fieldEmail">
-							<input class="inputEmail" name="email" value="${sessionName}"
-								id="email" placeholder="Email" type="email" readonly />
-						</div>
-						<div class="fieldNick">
-							<input class="inputNick" id="nick" name="nick"
-								placeholder="Nickname" type="text" required />
-						</div>
-						<div class="fieldPwd">
-							<input class="inputPwd" id="password" placeholder="Password"
-								type="password" name="pwd" required /> <input class="input"
-								type="hidden" name="targetUrl" value="">
-
-						</div>
-						<div class="successBtnContainer">
-							<button class="successBtn" type="submit">SUCCESS</button>
-						</div>
-					</form>
 				</div>
 				<!-- loginBox -->
 			</div>
@@ -130,7 +107,6 @@ window.onclick = function(event){
         overlay.style.display = "none";
     }
 }
-
 
 </script>
 
