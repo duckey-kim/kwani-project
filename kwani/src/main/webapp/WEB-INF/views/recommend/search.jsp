@@ -1,4 +1,4 @@
-                <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -33,9 +33,9 @@
             </div>
             <div id="myOverlay" class="overlay">
                 <div class="overlay-content">
-                  <form action="/recommend/search" method="get" name="searchForm">
+                  <form action="/recommend/search" method="get" name="searchForm" onsubmit="return checkTxt();">
                     <input type="text" placeholder="Search.." name="searchTxt" value="">
-                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
                   </form>
                 </div>
             </div><!--myOverlay-->
@@ -48,24 +48,28 @@
                 <div class="searchRst"><p><c:out value="${searchTxt}"/>에 대한 검색 결과</p></div>
                 <div class="rstTap">
                     <form action="#">
-                        <button type="button" class="albumBtn">앨범</button>
+                        <button type="button" class="albumBtn">통합검색</button>
                     </form>
                     <form action="#">
-                        <button type="button" class="trackBtn">곡</button>
+                        <button type="button" class="trackBtn">앨범</button>
                     </form>
                     <form action="#">
-                        <button type="button" class="artistBtn">아티스트</button>
+                        <button type="button" class="artistBtn">곡</button>
                     </form>
                     <form action="#">
-                        <button type="button" class="lyricBtn">가사</button>
+                        <button type="button" class="lyricBtn">아티스트</button>
                     </form>
                 </div>
+                <c:if test="${searchTxt == searchRst[0].nm }">
                 <div class="rstInfo">
-                    <div class="rstImg">가수 이미지</div>
+                    <div class="rstImg">
+                    	<img class="artistImg" src="/resources/image/artist/${searchRst[0].gropImg }" />
+                    </div>
                     <div class="rstText"><p><c:out value="${searchTxt}"/></p><br><p>데뷔일 0000년 00월 00일</p>
                     <br>솔로, 그룹</div>
                 </div>
-                <div class="trackHeader"><p class="textInfo">곡</p></div>
+                </c:if>
+                <div class="trackHeader"><p class="textInfo">곡</p><hr></div>
                 <div class="trackTable">
                     <div id="plylstTable">
                         <table>
@@ -83,7 +87,7 @@
                         	<td>${status.index+1}</td>
                         	<td><c:out value="${searchRst.trackTtl}" /></td>
                         	<td><c:out value="${searchRst.nm}" /></td>
-                        	<td>Peter</td>
+                        	<td><img class="playBtn" src="/resources/image/play-button.png"></td>
                         	<td><i class="far fa-heart"></i></td>
                         	</tr>
                         	</c:forEach>
@@ -91,13 +95,62 @@
                         </div>
                 </div>
                 <div class="albumTxt"><p class="textInfo">앨범</p></div>
-                <div class="albumImg"></div>
-                <div class="plylstTxt"><p class="textInfo">관련 플레이리스트</p></div>
-                <div class="plylstImg"></div>
-                <div class="similiarTxt"><p class="textInfo">비슷한 아티스트 추천</p></div>
-                <div class="similiarImg"></div>
+                <div class="albumImgContainer">
+                	<c:forEach items="${searchRst}" var="searchRst" varStatus="status" begin="0" end="3">
+                	<div class="eachAlbum">
+                	
+                	<div class="albumImg">         	
+                		<img src="/resources/image/album/<c:out value="${searchRst.albumImg}" />" 
+                		style="max-height:240px">          	
+                	</div><!-- albumImg --> 
+                	<div class="albumArtist">
+                		<p>
+                			<c:out value="${searchRst.nm}" />
+                		</p>
+                	</div><!-- albumArtist -->   
+                	<div class="albumTtl">
+                		<p>
+                			<c:out value="${searchRst.albumTtl}" />
+                		</p>
+                	</div><!-- albumTtl -->              	
+                	</div><!-- eachAlbum --> 
+                	</c:forEach>
+                </div><!-- alblumImgContainer --> 
+                <div class="artistAllTxt"><p class="textInfo">아티스트</p></div>
+                
+                <div class="artistAllImg">
+                	
+                </div>
+                
+                <div class="lyricsTxt"><p class="textInfo">가사</p></div>
+                <div class="lyricsImg"></div>
+                
+               
+             
                     
                 <script>
+                
+                   
+                	//체크박스 설정--------------------------------------------------------------------
+                	
+                	var result = $("input[name=searchTxt]");
+                		
+                	function checkTxt(){
+                		console.log(result[0].value);
+                		if(result[0].value.length != 0){
+                			console.log(result+"있어");
+                			console.log("모달창 필요 없어!");
+                			return true;
+                		}
+                		else{  
+                			console.log(result+"없어");
+                			console.log("모달창 나와라!");
+                			alert("검색어를 입력하세요");
+                			return false;
+                		}
+                	}
+                		
+                		
                 	function allCheckFunc(obj){
                 		//모든 checkRow의 속성이 checked가 되게 한다                		
                 		$("[name=checkRow]").prop("checked", $(obj).prop("checked"));

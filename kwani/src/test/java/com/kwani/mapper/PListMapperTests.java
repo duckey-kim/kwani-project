@@ -22,7 +22,7 @@ public class PListMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private ListMapper mapper;
 	
-	//ÇÃ·¹ÀÌ¸®½ºÆ® »ó¼¼ ÆäÀÌÁö---------------------------------------------------------
+	//ï¿½Ã·ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½---------------------------------------------------------
 	@Test
 	public void testGetListName() {
 		PListVO plist = mapper.getListName(1);
@@ -33,16 +33,16 @@ public class PListMapperTests {
 		List<PListVO> plist = mapper.getListDtl(2);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 	}
 
-	//ÀÏ¹Ý ÃßÃµ ÆäÀÌÁö °ü·Ã----------------------------------------------------
+	//ï¿½Ï¹ï¿½ ï¿½ï¿½Ãµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½----------------------------------------------------
 	@Test
 	public void testGetAllList() {
 		mapper.getAllList().forEach(plistO -> log.info(plistO));
 	}
 	
-	//³ë·¡ °Ë»ö ÆäÀÌÁö
+	//ï¿½ë·¡ ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@Test
 	public void testGetSearchRst() {
-		List<PListVO> pinfo = mapper.getSearchRst("ÅÂ¿¬");
+		List<PListVO> pinfo = mapper.getSearchRst("íƒœì—°");
 		
 		log.info(pinfo);
 	}

@@ -26,7 +26,16 @@
                 <video id="video"src="/resources/video/AudioWave.mp4" type="video/mp4" autoplay muted loop></video>
             </div>
             <div id="header_navbar">
-                <div id="musicPlayer">musicPlayer</div>
+                <div id="musicPlayer">
+                	<div class="albumImg">
+                		<img src = "/resources/image/dvd.png" class="cd">
+                	</div>
+                	<div class="playBtn">
+                		<img src = "/resources/image/rewind.png" class="musicBtn">
+                		<img src = "/resources/image/play-button4.png" class="musicBtn">
+                		<img src = "/resources/image/fast-forward.png" class="musicBtn"> 
+                	</div>
+                </div>
                 <div id="pageLogo">
                     <a href="/">Last.fm</a>
                 </div>
