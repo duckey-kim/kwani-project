@@ -103,34 +103,37 @@
 							<h3>
 								<a href="#">Playlist Create</a>
 							</h3>
-							<h2>playlistId : ${plylstId}</h2>
+							<h2>playlistId : ${plylst.plylstId}</h2>
 						</div>
 						<div class="item-body">
 							<div>
 								<form action="/mypage/playlist/modify" method="post">
-									<input type="hidden" value="${plylstId}" name="plylstId">
+									<input type="hidden" value="${plylst.plylstId}" name="plylstId">
 									<input type="hidden" value="${user.email}" name="email">
 									<input type="hidden" value="${user.nick}" name="nick">
 									<input type="hidden" value="${user.userImg}" name="userImg">
-									<button>CREATE</button>
+										<button>CREATE</button>
 									<br>
 									<br> <label for="title">Playlist Title :</label><br>
-									<input type="text" id="title" name="nm" value="제목을 입력하세요."><br>
+									<input type="text" id="title" name="nm" value="${plylst.nm}"><br>
 									<label for="desc">Playlist Description : </label><br>
-									<textarea class="form-control" row="3" name="desc">내용을 입력하세요.</textarea>
+									<textarea class="form-control" row="3" name="desc">${plylst.desc}</textarea>
 									<br>
 								</form>
 								<form action="/mypage/playlist/delete" method="post">
-									<input type="hidden" value="${plylstId}" name="plylstId">
+									<input type="hidden" value="${plylst.plylstId}" name="plylstId">
 									<input type="hidden" value="${user.email}" name="email">
 									<input type="hidden" value="${user.nick}" name="nick">
 									<input type="hidden" value="${user.userImg}" name="userImg">
-									<button>EXIT</button>
+										<button>EXIT</button>
 									<br>
 									<br>
 								</form>
-								<form action="/mypage/playlist/addTrack" method="post">
-									<button>Add Track</button>
+								<form action="/mypage/playlist/addtrack" method="post">
+									<input type="hidden" value="${user.email}" name="email">
+									<input type="hidden" value="${user.nick}" name="nick">
+									<input type="hidden" value="${user.userImg}" name="userImg">
+										<button>Add Track</button>
 								</form>
 
 								<div class="item-body">

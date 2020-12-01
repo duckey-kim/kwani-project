@@ -20,51 +20,48 @@ public interface TableService {
 	
 	
 	
-	public boolean userValid(UserVO user, RedirectAttributes rttr);
+	public boolean insertUser(UserVO user, RedirectAttributes rttr);
 	
 	public boolean albumInputValid(AlbumVO album, RedirectAttributes rttr);
 	
 	public boolean albumValid(AlbumVO album, RedirectAttributes rttr);
 
-	public int insertUser(UserVO user);
 
-	public int insertAlbum(AlbumVO album);
+	public boolean insertAlbum(AlbumVO album,RedirectAttributes rttr);
 
-	public AlbumVO getAlbum(String albumTtl);
 
 	public boolean trackInputValid(TracksVO track, RedirectAttributes rttr);
 
-	public void insertTrack(TracksVO track, RedirectAttributes rttr);
+	public boolean insertTrack(TracksVO track, RedirectAttributes rttr);
 
-	public boolean artistInputValid(ArtistVO artist);
+	public boolean artistInputValid(ArtistVO artist, RedirectAttributes rttr);
 
-	public int insertArtist(ArtistVO artist);
+	public void insertArtist(ArtistVO artist, RedirectAttributes rttr);
 	
 	public List<TracksVO> getTracksToInsert();
 
-	public ArtistVO getArtist(String nm);
+	public void getArtist(String nm,RedirectAttributes rttr);
 
 	public boolean checkGropId(Integer gropId);
 
 	public boolean checkTrackId(Integer trackId);
 	
-	public int insertArtistTrack(@Param("trackId")Integer trackId,@Param("gropId")Integer gropId);
+	public boolean insertArtistTrack(@Param("trackId")Integer trackId,@Param("gropId")Integer gropId, RedirectAttributes rttr);
 
 	public void setMngrSession(HttpServletRequest request, String mngrId);
 
-	public boolean checkAdmin(AdminVO admin);
 
 	
-	public boolean adminValid(AdminVO admin, RedirectAttributes rttr);
+	public boolean checkAdmin(AdminVO admin, RedirectAttributes rttr);
 
 	
-	public int insertArtistGroup(@Param("gropId")Integer gropId ,@Param("soloId")Integer soloId);
+	public boolean insertArtistGroup(@Param("gropId")Integer gropId ,@Param("soloId")Integer soloId, RedirectAttributes rttr);
 
-	public boolean checkInTableArtistGroup(Integer gropId, Integer soloId);
+	public boolean checkInTableArtistGroup(Integer gropId, Integer soloId, RedirectAttributes rttr);
 
-	public boolean checkInputValid(Integer gropId, Integer soloId);
+	public boolean checkInputValid(Integer gropId, Integer soloId, RedirectAttributes rttr);
 
-	public boolean checkInTable(Integer gropId, Integer soloId);
+	public boolean checkInTableArtist(Integer gropId, Integer soloId, RedirectAttributes rttr);
 
 
 	public boolean isEmptyArtist(ArtistVO getArtist);
@@ -78,8 +75,17 @@ public interface TableService {
 
 	public boolean userInputValid(UserVO user, RedirectAttributes rttr);
 
+	public boolean artistValid(ArtistVO artist, RedirectAttributes rttr);
 
+	public boolean userValid(UserVO user, RedirectAttributes rttr);
 
+	public boolean trackValid(TracksVO track, RedirectAttributes rttr);
+	
+	public List<AlbumVO> getAlbumList();
+	
+	public AlbumVO getAlbumById(Integer albumId);
+
+	public boolean updateAlbum(AlbumVO album, String upUser, RedirectAttributes rttr);
 	
 	
 	

@@ -1,7 +1,6 @@
 package com.kwani.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -32,6 +31,8 @@ public interface TableMapper {
 	
 	public TracksVO getTracks(String trackTtl);
 	
+	public TracksVO checkTracks(TracksVO tracks);
+	
 	public List<ArtistVO> getArtistList();
 	
 	public ArtistVO getArtist(String nm);
@@ -40,7 +41,7 @@ public interface TableMapper {
 	public ArtistVO getArtistById(Integer gropId);
 	
 	
-	public AdminVO getAdmin(String mngrId);
+	public AdminVO getAdmin(AdminVO admin);
 	
 	public UserVO getUser(String email);
 	
@@ -53,6 +54,12 @@ public interface TableMapper {
 	public Object getArtistGroup(@Param("gropId")Integer gropId ,@Param("soloId")Integer soloId);
 	
 	public AlbumVO getAlbumById(Integer albumId);
+	
+	public Integer getSeqGropCurrval();
+	
+	public int updateAlbum(@Param("upUser")String upUser,@Param("album")AlbumVO album);
+	
+	
 	
 
 
