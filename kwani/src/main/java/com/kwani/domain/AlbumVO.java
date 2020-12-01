@@ -9,26 +9,20 @@ public class AlbumVO {
 	private String albumImg;
 	private String albumTtl;
 	private String rlesDt;
-	private String trackTot;
-	private String aMoodCode;
-	private String aGenreCode;
-	private String aStusCode;
-	private String aSituCode;
-	public AlbumVO(Integer albumId, String albumImg, String albumTtl, String rlesDt, String trackTot, String aMoodCode,
-			String aGenreCode, String aStusCode, String aSituCode) {
-		super();
+	//0 사용중
+	//1 사용금지
+	private String stusCd;
+	
+	public AlbumVO(Integer albumId, String albumImg, String albumTtl, String rlesDt,String stusCd) {
 		this.albumId = albumId;
 		this.albumImg = albumImg;
 		this.albumTtl = albumTtl;
 		this.rlesDt = rlesDt;
-		this.trackTot = trackTot;
-		this.aMoodCode = aMoodCode;
-		this.aGenreCode = aGenreCode;
-		this.aStusCode = aStusCode;
-		this.aSituCode = aSituCode;
+		this.stusCd = stusCd;
+		
 	}
 	
 	public AlbumVO() {
-		this(null, "", "", "","", "", "", "", "");
+		this(null, "", "", "","0");
 	}
 }

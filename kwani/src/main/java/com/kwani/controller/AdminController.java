@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kwani.domain.AdminVO;
@@ -38,13 +39,14 @@ public class AdminController {
 	 */
 	@GetMapping({ "/inputartistandgroup", "/inputtracks", "/inputuser", "/inputartist", "/inputalbum", "/loginform" })
 	public void basic2() {
-
 	}
+	
 
-	@GetMapping({ "/", "/home" })
+	@GetMapping({ "/", "/home"})
 	public String basic() {
 		return "/admin/home";
 	}
+	
 
 	@GetMapping("/inputartistandtrack")
 	public void inputArtistTrack(Model model) {
@@ -61,36 +63,19 @@ public class AdminController {
 
 	@PostMapping("/getArtist")
 	public String getArtist(String nm, RedirectAttributes rttr) {
-		String msg = "input 유효성을 지켜주세요";
-		nm = nm.trim();
-		if (!tableService.inputStringValid(nm,rttr)) {
-			ArtistVO getArtist = tableService.getArtist(nm);
-			if (tableService.isEmptyArtist(getArtist)) {
-				msg = "일치하는 가수가 없습니다";
-			} else {
-				msg = "일치하는 가수를 찾았습니다";
-				rttr.addFlashAttribute("artist", getArtist);
-			}
+		if (!tableService.inputStringValid(nm, rttr)) {
+			tableService.getArtist(nm, rttr);
 		}
 		List<TracksVO> trackList = tableService.getTracksToInsert();
 		rttr.addFlashAttribute("trackList", trackList);
-		rttr.addFlashAttribute("msg", msg);
 		return "redirect:/admin/inputartistandtrack";
 	}
 
 	@PostMapping("/getArtistGroup")
 	public String getArtistGroup(String nm, RedirectAttributes rttr) {
-		String msg = "가수이름을 입력하세요";
-		if (!tableService.inputStringValid(nm,rttr)) {
-			ArtistVO getArtist = tableService.getArtist(nm.trim());
-			if (tableService.isEmptyArtist(getArtist)) {
-				msg = "일치하는 가수가 없습니다";
-			} else {
-				msg = "일치하는 가수를 찾았습니다";
-				rttr.addFlashAttribute("artist", getArtist);
-			}
+		if (!tableService.inputStringValid(nm, rttr)) {
+			tableService.getArtist(nm, rttr);
 		}
-		rttr.addFlashAttribute("msg", msg);
 		return "redirect:/admin/inputartistandgroup";
 	}
 
@@ -114,69 +99,78 @@ public class AdminController {
 	public String inputAlbum(AlbumVO album, RedirectAttributes rttr) {
 
 		String path = "/inputalbum";
-		System.out.println(album);
 		if (tableService.albumInputValid(album, rttr)) {
 		} else if (tableService.albumValid(album, rttr)) {
-			path = "/home";
+			if (tableService.insertAlbum(album, rttr))
+				path = "/home";
 
 		}
+		rttr.addFlashAttribute("album", album);
 		return "redirect:/admin" + path;
 
 	}
 
 	@PostMapping("/inputtracksAction")
-	public String uploadTracks(TracksVO track, RedirectAttributes rttr) {
-		System.out.println(track);
-		// trackvo 추가
-		// input check
-		// title이랑 albumId가 똑같다면 중복
-		// albumId가 없다면 등록실패
-		// input check
+	public String inputTracks(TracksVO track, RedirectAttributes rttr) {
+		// track데이터 추가
+		// input check albumId,trackTtl,trackUrl 이고 albumId가 album테이블에 존재하는지
+		// trackTtl과 albumId가 같은 데이터가 있으면 중복
+		//
+		String path = "/inputtracks";
 		if (tableService.trackInputValid(track, rttr)) {
-		} else {
-			tableService.insertTrack(track, rttr);
+		} else if (tableService.trackValid(track, rttr)) {
+			if (tableService.insertTrack(track, rttr)) {
+				path = "/home";
+			}
 		}
-		return "redirect:/admin/inputtracks";
+		rttr.addFlashAttribute("track", track);
+		return "redirect:/admin" + path;
 
 	}
 
 	@PostMapping("/inputuserAction")
-	public String uploadUser(UserVO user, RedirectAttributes rttr) {
+	public String inputUser(UserVO user, RedirectAttributes rttr) {
 		// input user
 		// 1.email,pwd,nick null check =>userInputValid
 		// 2.email 중복 체크 -> userValid
+		// 2-1 email 중복이 아니면 t_user에 user를 등록한다
 
 		String path = "/inputuser";
-		System.out.println(user);
 		if (tableService.userInputValid(user, rttr)) {
 		} else if (tableService.userValid(user, rttr)) {
-			path = "/home";
+			if (tableService.insertUser(user, rttr)) {
+				path = "/home";
+			}
 		}
+		rttr.addFlashAttribute("user", user);
 		return "redirect:/admin" + path;
 
 	}
 
 	@PostMapping("/inputartistAction")
-	public String uploadArtist(ArtistVO artist, RedirectAttributes rttr) {
-		// 가수등록
-		// 입력체크
-		// 가수name으로 중복확인
-		// 중복이 아닐경우 테이블에 등록 artist_group에도 자기자신 등록
+	public String inputArtist(ArtistVO artist, RedirectAttributes rttr) {
+		// 가수등록요청
+		// 1.입력체크 ->tableService.artistInputValid
+		// 2.가수name으로 중복확인 ->tableService.artistValid
+		// 2-1.중복이 아닐경우 테이블에 등록 artist_group에도 자기자신 등록
 		// 소녀시대 : 소녀시대
-		String msg = "정보 입력이 다되지 않았습니다";
-		String path = "/inputartist";
-		if (!tableService.artistInputValid(artist)) {
-			int result = tableService.insertArtist(artist);
-			if (result == 1) {
-				msg = "artist 등록 성공";
-				path = "/home";
-			} else if (result == -1) {
-				msg = "중복되는 artist 가 있습니다";
-			} else if (result == 0) {
-				msg = "artist 등록 실패";
+		String path = "/home";
+
+		if (!tableService.artistInputValid(artist, rttr)) {
+			if (tableService.artistValid(artist, rttr)) {
+
+				try {
+					tableService.insertArtist(artist, rttr);
+				} catch (Exception e) {
+					rttr.addFlashAttribute("artist", artist);
+					rttr.addFlashAttribute("msg", e.getMessage());
+					e.printStackTrace();
+					path = "/inputartist";
+				}
+
 			}
 		}
-		rttr.addFlashAttribute("msg", msg);
+
 		return "redirect:/admin" + path;
 
 	}
@@ -184,60 +178,42 @@ public class AdminController {
 	@PostMapping("/inputartisttracksAction")
 	public String uploadArtistTrack(Integer trackId, Integer gropId, RedirectAttributes rttr) {
 		System.out.println(trackId + "  :  " + gropId);
-		// trackid 가 t_tracks에 있는지 확인
-		// gropId가 t_artist에 있는지 확인
-		// trackid가 t_artist_tracks에 있으면 에러
-
-		// groupId가 있고
-		// table에 trackId가 있는데 artist_tracks에 없으면
-		// insert
-		// 그렇지 않다면 에러
-		String msg = "존재하지 않는 그룹입니다";
-		if (!tableService.checkGropId(gropId)) {
-			if (tableService.checkTrackId(trackId)) {
-				int result = tableService.insertArtistTrack(trackId, gropId);
-				if (result == 1) {
-					msg = "Artist Tracks Insert 성공";
-				} else {
-					msg = "Artist Tracks Insert 실패";
-				}
-			} else {
-				msg = "이미 테이블에 존재하는 track입니다";
-			}
-		}
-		rttr.addFlashAttribute("msg", msg);
-		return "redirect:/admin/inputartistandtrack";
+		// 1-1 input gropId가 t_artist에 있는지 확인
+		// 1-1 input trackid 가 t_tracks,t_artist_track 있는지 확인
+		// 1-1-2 trackid가 t_artist_tracks에 있으면 에러
+		
+		// 1-2 t_artist_track에 gropId,trackId 등록
+		String path="/inputartistandtrack";
+		if (tableService.checkGropId(gropId) && tableService.checkTrackId(trackId)) {
+			if(tableService.insertArtistTrack(trackId, gropId,rttr)) {
+				path="/home";
+			}	
+		} 
+		return "redirect:/admin"+path;
 
 	}
 
 	@PostMapping("/inputartistgroupAction")
-	public String uploadArtistGroup(Integer gropId, Integer soloId, RedirectAttributes rttr) {
+	public String inputArtistGroup(Integer gropId, Integer soloId, RedirectAttributes rttr) {
 		// grop,solo아이디가 null일지 체크
 		// grop,solo아이디가 grouptable에 존재하는지 체크
 		// 없으면 리턴
 		// table에 있고
 		// groupid,soloid가 artistgroup table에 있으면 에러
 		// 그렇지 않으면 insert
-		String msg = "";
 		String path = "/inputartistandgroup";
-		if (tableService.checkInputValid(gropId, soloId)) {
-			msg = "gropId,soloId를 입력해주세요";
-		} else if (tableService.checkInTable(gropId, soloId)) {
-			msg = "등록되지 않은 가수ID입니다";
-
-		} else if (!tableService.checkInTableArtistGroup(gropId, soloId)) {
-			msg = "이미 아티스트그룹 테이블에 저장된 그룹입니다";
-		} else {
-
-			int result = tableService.insertArtistGroup(gropId, soloId);
-			if (result == 1) {
-				msg = "ARTIST_GROUP 에 입력 성공";
-				path = "/home";
-			} else {
-				msg = "ARTIST_GROUP에 입력 실패";
+		if (tableService.checkInputValid(gropId, soloId, rttr)) {
+		} else if (tableService.checkInTableArtist(gropId, soloId, rttr)) {
+			// 테이블에 있는 그룹아이디들
+			if (tableService.checkInTableArtistGroup(gropId, soloId, rttr)) {
+				// ARTIST_GROUPTABLE에 저장되어있지 않음
+				// ARTIST_GROUPTABLE에 저장하자
+				if (tableService.insertArtistGroup(gropId, soloId, rttr)) {
+					path = "/home";
+				}
 			}
 		}
-		rttr.addFlashAttribute("msg", msg);
+
 		return "redirect:/admin" + path;
 
 	}
@@ -245,20 +221,55 @@ public class AdminController {
 	@PostMapping("/loginAction")
 	public String loginManager(AdminVO admin, RedirectAttributes rttr, HttpServletRequest request) {
 
-		// 입력단 check tableService.adminInputValid
-		// id값으로 admin을 가져온다. 없다면 아이디가 잘못된거다 tableService.adminValid
-		// 아이디가 같고 pwd같으면 로그인 성공 -> /admin/home으로
-		// 그렇지 않으면 로그인 실패 -> /admin/loginform으로
+		// 입력된 AdminVO check tableService.adminInputValid
+		// 입력된 AdminVO admin과 Id,PWD일치하는 데이터가 있는지 확인한다.
+		// 데이터가있다면 로그인 성공 /admin/home으로
+		// 그렇지 않으면 로그인 실패 - /admin/loginform으로
 
 		String path = "/loginform";
 		if (tableService.adminInputValid(admin, rttr)) {
-		} else if (tableService.adminValid(admin, rttr)) {
+		} else if (tableService.checkAdmin(admin, rttr)) {
 			path = "/home";
 			tableService.setMngrSession(request, admin.getMngrId());
 		}
-
-		return "redirect:/admin/" + path;
+		rttr.addFlashAttribute("admin", admin);
+		return "redirect:/admin" + path;
 
 	}
+	
+	//=============/admin/modify   ================//
+	@GetMapping("/album")
+	public String getAlbumlist(Model model) {
+		List<AlbumVO> albumList = tableService.getAlbumList();
+		model.addAttribute("albumList",albumList);
+		
+		return "/admin/album";
+		
+	}
+	
+	@GetMapping("/modify/album")
+	public void getAlbum(@RequestParam("albumId")Integer albumId,Model model,HttpSession session){
+		
+		AlbumVO getAlbum=tableService.getAlbumById(albumId);
+		String mngrId = (String)session.getAttribute("mngrId");
+		model.addAttribute("album",getAlbum);
+		model.addAttribute("mngrId",mngrId);
+	}
+	
+	@PostMapping("/modifyAlbumAction")
+	public String modifyAlbum(AlbumVO album,String upUser,RedirectAttributes rttr) {
+		String path="/modify/album?albumId="+album.getAlbumId();
+		if(!tableService.albumInputValid(album, rttr)
+				&&!tableService.inputStringValid(upUser, rttr)) {
+			if(tableService.updateAlbum(album,upUser,rttr)) {
+				path="/modify";
+			}
+		}
+		
+		
+		return "redirect:/admin"+path;
+	
+	}
+	
 
 }
