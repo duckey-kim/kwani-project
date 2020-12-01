@@ -55,7 +55,7 @@ public class MyPageMapperTests {
 		playlistVO.setNm("");
 
 		log.info("Before : " + playlistVO);
-		mapper.insertPlaylist(playlistVO);
+		mapper.insertSelectKeyPlaylist(playlistVO);
 		log.info("After : " + playlistVO);
 	}
 

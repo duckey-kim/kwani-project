@@ -6,7 +6,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kwani.domain.PlaylistVO;
 import com.kwani.domain.UserVO;
@@ -18,6 +20,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Service
 @AllArgsConstructor
+@Transactional
 public class MyPageServiceImpl implements MyPageService{
 	
 	private MyPageMapper myPageMapper;
@@ -38,7 +41,7 @@ public class MyPageServiceImpl implements MyPageService{
 		LocalDateTime timeNow = LocalDateTime.now();
 		
 		DateTimeFormatter myFormat1 = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-		DateTimeFormatter myFormat2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter myFormat2 = DateTimeFormatter.ofPattern("yyyy년MM월dd일");
 				
 		for (Map<String, String> map : libraryList) {
 			
@@ -67,31 +70,6 @@ public class MyPageServiceImpl implements MyPageService{
 				}
 			}
 		}
-		
-//		for(int i=0; i<libraryList.size(); i++) {
-//			
-//			String playlistDate = libraryList.get(i).get("PLAY_DT");
-//			LocalDateTime timePoint2 = LocalDateTime.parse(playlistDate, myFormat1);
-//			
-//			long timeDiff = timePoint2.until(timeNow, ChronoUnit.MINUTES);
-//
-//			libraryList.get(i).replace("PLAY_DT", myFormat3.format(timePoint2));
-//			
-//			if(timeDiff <= 1440) {
-//				libraryList.get(i).replace("PLAY_DT", myFormat2.format(timePoint2));
-//			}
-//			
-//			for(int j=0; j<isLikeTrack.size(); j++) {
-//				String likedTrack = String.valueOf(isLikeTrack.get(j).get("TRACK_ID"));
-//				String libraryTrack = String.valueOf(libraryList.get(i).get("TRACK_ID"));
-//				
-//				libraryList.get(i).put("heart", "heart2.png");
-//
-//				if(likedTrack.equals(libraryTrack)) {
-//					libraryList.get(i).put("heart", "heart.png");
-//				}
-//			}	
-//		}
 	
 		return libraryList;
 	}
@@ -115,18 +93,17 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 
 	@Override
-	public List<Map<String, String>> getListPlaylist(String email) {
+	public List<PlaylistVO> getListPlaylist(String email) throws MyBatisSystemException {
 		log.info("get Playlist...");
-		System.out.println("------------");
-		System.out.println(email);
-		System.out.println(myPageMapper.getListPlaylist(email));
 		
-		System.out.println("*************");
-		return myPageMapper.getListPlaylist(email);
+		List<PlaylistVO> result = null;
+		result = myPageMapper.getListPlaylist(email);
+		
+		return result;
 	}
 
 	@Override
-	public List<Map<String, String>> getPlaylistDetail(Integer plylstId) {
+	public List<Map<String, String>> getPlaylistDetail(Integer plylstId){
 		log.info("get PlaylistDetail..." + plylstId);
 		return myPageMapper.getPlaylistDetail(plylstId);
 	}
@@ -140,9 +117,9 @@ public class MyPageServiceImpl implements MyPageService{
 	// 2차 개발 미완성
 
 	@Override
-	public int setPlaylistId(PlaylistVO playlistVO) {
+	public int createPlaylist(PlaylistVO playlistVO) {
 		log.info("set PlaylistId..." + playlistVO);
-		return myPageMapper.insertPlaylist(playlistVO);
+		return myPageMapper.insertSelectKeyPlaylist(playlistVO);
 	}
 
 	@Override
@@ -162,6 +139,12 @@ public class MyPageServiceImpl implements MyPageService{
 	public int removePlaylist(Integer plylstId) {
 		log.info("remove Playlist" + plylstId);
 		return myPageMapper.deletePlaylist(plylstId);
+	}
+
+	@Override
+	public List<Map<String, String>> findTrack(String searchTxt) {
+		System.out.println(searchTxt);
+		return myPageMapper.findTrack(searchTxt);
 	}
 	
 }

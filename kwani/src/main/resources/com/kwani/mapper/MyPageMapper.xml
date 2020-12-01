@@ -14,37 +14,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="userImg" column="user_img"/>
 	</resultMap>
 
-<!-- 	<resultMap type="com.kwani.domain.PlaylistVO" id="PlayListResult">
+	<resultMap type="com.kwani.domain.PlaylistVO" id="PlayListResult">
 		<result property="email" column="email" />
 		<result property="plylstId" column="plylst_id" />
 		<result property="nm" column="nm" />
 		<result property="desc" column="descp" />
+		<result property="plylstImg" column="plylst_img" />
 	</resultMap>
 
-	<resultMap type="com.kwani.domain.PlaylistDetailVO" id="PlayListDetailResult">
+<!--	<resultMap type="com.kwani.domain.PlaylistDetailVO" id="PlayListDetailResult">
 		<result property="plylstId" column="plylst_id" />
 		<result property="trackId" column="track_id" />
 		<result property="plyNo" column="ply_no" />
 	</resultMap> -->
 	
-	<select id="getListPlaylist" resultMap="selectMap">
-		SELECT NM, PLYLST_ID, PLYLST_IMG FROM T_PLYLST WHERE EMAIL = #{email}
+	<select id="getListPlaylist" resultMap="PlayListResult">
+		SELECT NM, PLYLST_ID, PLYLST_IMG FROM T_PLYLST
+		WHERE EMAIL = #{email}
+		ORDER BY PLYLST_ID ASC
 	</select>
 	
 	<select id="getUser" resultMap="UserResult">
 		SELECT EMAIL, NICK, USER_IMG FROM T_USER
 		WHERE EMAIL = #{email}
 	</select>
-
-	<!-- <select id="getPlaylistImg" resultMap="selectMap">
-		SELECT P.NM, P.PLYLST_ID, AL.ALBUM_IMG FROM T_PLYLST P, T_PLYLST_DTL PD, T_TRACKS T, T_ALBUM AL
-        WHERE P.PLYLST_ID = PD.PLYLST_ID
-        AND PD.TRACK_ID = T.TRACK_ID
-        AND AL.ALBUM_ID = T.ALBUM_ID
-        AND PD.PLY_NO = 1
-        AND P.PLYLST_ID = #{plylstId}
-        AND P.EMAIL = #{email};
-	</select> -->
 
 	<select id="countPlaylistTrack" resultMap="Integer">
 		SELECT COUNT(*) FROM T_PLYLST_DTL
@@ -108,14 +101,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 <!-- ************ 2차 개발 ***********
- -->	
+ -->
+ 
+ 	<insert id="insertTrack">
+ 		INSERT INTO T_PLYLST_DTL(PLYLST_ID, TRACK_ID, PLY_NO)
+ 		VALUES(#{plylstId}, #{trackId}, #{plyNo})
+ 	</insert>
+ 
+ 	<!-- 검색 -->
 	<select id="findTrack" resultMap="selectMap">
-		SELECT * FROM T_TRACKS T
-		WHERE T.TRACK_TTL LIKE '%'||#{trackTitle}||'%'
+		SELECT A.NM, T.TRACK_TTL FROM T_ARTIST_TRACKS AT, T_ARTIST A, T_TRACKS T
+		WHERE AT.GROP_ID = A.GROP_ID
+        AND AT.TRACK_ID = T.TRACK_ID
+        AND (A.NM = #{searchTxt} OR T.TRACK_TTL LIKE '%'|| #{searchTxt} ||'%')
 	</select>
 	
 	<delete id="deletePlaylist">
-		DELETE FROM T_PLYLST 
+		DELETE FROM T_PLYLST
 		WHERE PLYLST_ID = #{plylstId}
 	</delete>
 	
@@ -126,7 +128,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 
-	<insert id="insertPlaylist">
+	<insert id="insertSelectKeyPlaylist">
 		<selectKey keyProperty="plylstId" order="BEFORE" resultType="integer">
 			SELECT SEQ_PLYLST.NEXTVAL FROM DUAL
 		</selectKey>

@@ -55,19 +55,15 @@ public class MyPageController {
 	public String trackList(@ModelAttribute("user") UserVO user, Model model) {
 		
 		model.addAttribute("libraryList", myPageService.getListLibrary(user.getEmail()));
-		model.addAttribute("user", myPageService.getUser(user.getEmail()));
 
 		return "/mypage/library";
 	}
 
 	// 플레이리스트 목록 보여주기
 	@RequestMapping(value = "/playlist", method= {RequestMethod.POST, RequestMethod.GET})
-	public String playlist(@ModelAttribute("user") UserVO user, Model model, RedirectAttributes rttr) {
+	public String playlist(@ModelAttribute("user") UserVO user, Model model) {
 		
-		System.out.println("어디가문젠데");
-		System.out.println( "*****" + myPageService.getListPlaylist(user.getEmail()));
 		model.addAttribute("playlist", myPageService.getListPlaylist(user.getEmail()));
-		System.out.println("?????????");
 		
 		return "/mypage/playlist";
 	}
@@ -89,20 +85,18 @@ public class MyPageController {
 	// 플레이리스트 생성 수정 삭제
 	// 새 플레이리스트 seq 만들고 넘겨주는 페이지
 	@PostMapping("/playlist/create")
-	public String playlistCreate(@ModelAttribute("user") UserVO user, Model model) {
+	public String createPlaylist(@ModelAttribute("user") UserVO user, Model model) {
 		
 		PlaylistVO playlistVO = new PlaylistVO();
 		playlistVO.setEmail(user.getEmail());
-		playlistVO.setNm("제목을 입력하세요.");
-		playlistVO.setDesc("내용을 입력하세요.");
+		playlistVO.setNm("제목을 입력하세요");
+		playlistVO.setDesc("내용을 입력하세요");
 		
-		myPageService.setPlaylistId(playlistVO);
+		myPageService.createPlaylist(playlistVO);
 		
-		model.addAttribute("plylstId", playlistVO.getPlylstId());
-		System.out.println(playlistVO.getPlylstId());
+		model.addAttribute("plylst", playlistVO);
 		model.addAttribute("user", user);
-		System.out.println("create" + user);
-		
+
 		return "/mypage/playlistView";
 	}
 	
@@ -111,6 +105,7 @@ public class MyPageController {
 		
 		myPageService.removePlaylist(plylstId);
 		rttr.addFlashAttribute("user", user);
+		
 
 		return "redirect:/mypage/playlist";
 	}
@@ -126,16 +121,22 @@ public class MyPageController {
 		return "redirect:/mypage/playlist";
 	}
 	
-//	@PostMapping("/playlist/addtrack")
-//	public String addTrack(Model model) {
-//		
-//		// search keyword 받으면 (일단 곡제목으로)
-//		// 검색한 곡들 보여주기
-//		// 버튼 누르면 보내기 playlist/123으로 보내기
-//		
-//		//model.addAttribute("findTrackList", myPageMapper.findTrack(trackTitle));
-//		
-//		return "/mypage/addTrack";
-//	}
+	@PostMapping("/playlist/addtrack")
+	public String addTrack(@ModelAttribute("searchTxt")String trackTitle, @ModelAttribute("user") UserVO user, Model model) {
+		
+		// search keyword 받으면 (일단 곡제목으로)
+		// 검색한 곡들 보여주기
+		// 버튼 누르면 보내기 playlist/123으로 보내기
+		
+		return "/mypage/addTrack";
+	}
+	
+	@PostMapping("/playlist/findtrack")
+	public String findTrack(@ModelAttribute("searchTxt")String searchTxt, @ModelAttribute("user") UserVO user, Model model) {
+		
+		model.addAttribute("findTrackList", myPageService.findTrack(searchTxt));
+		
+		return "/mypage/addTrack";
+	}
 
 }

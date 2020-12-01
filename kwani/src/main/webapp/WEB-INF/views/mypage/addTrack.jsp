@@ -55,7 +55,7 @@
 						<img class="userImg" src="/resources/image/${user.userImg}" />
 					</div>
 
-					<div class="header-item">
+					<div>
 						<div>
 							<c:out value="${user.nick}" />
 						</div>
@@ -66,34 +66,38 @@
 						<div class="nav-item">
 							<form action="/mypage/overview" method="post">
 								<input type="hidden" value="${email}" name="email">
-								<button>Overview</button>
+								<button class="button">Overview</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/playlist" method="post">
 								<input type="hidden" value="${email}" name="email">
-								<button>Playlist</button>
+								<button class="button">Playlist</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/like" method="post">
 								<input type="hidden" value="${email}" name="email">
-								<button>Like</button>
+								<button class="button">Like</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/library" method="post">
 								<input type="hidden" value="${email}" name="email">
-								<button>Library</button>
+								<button class="button">Library</button>
 							</form>
 						</div>
 					</div>
 				</div>
 				<div class="mypage-body">
-					<form class="example">
-						<input type="text" placeholder="Search.." name="search">
+					<form action="/mypage/playlist/findtrack" method="post"
+						onsubmit="return checkInput();">
+						<input type="text" placeholder="Search.." name="searchTxt">
+						<input type="hidden" value="${user.email}" name="email"> <input
+							type="hidden" value="${user.nick}" name="nick"> <input
+							type="hidden" value="${user.userImg}" name="userImg">
 						<button type="submit">
-							<i class="fa fa-search">Search</i>
+							<i>Search</i>
 						</button>
 					</form>
 
@@ -104,16 +108,24 @@
 							</h3>
 						</div>
 						<div class="item-body">
-							<c:forEach items="${findTrackList}" var="playlistDetail">
-								<table style="width: 100%">
+							<form action="/mypage/">
+								<table class="table" style="width: 100%">
 									<tr>
-										<td><c:out value="${playlistDetail.NICK}" /></td>
-										<td><c:out value="${playlistDetail.ANM}" /></td>
-										<td><c:out value="${playlistDetail.TRACK_TTL}" /></td>
-										<td><c:out value="${playlistDetail.ALBUM_TTL}" /></td>
+										<th class="th4"></th>
+										<th class="th4"></th>
+										<th class="th4"></th>
 									</tr>
+									<c:forEach items="${findTrackList}" var="playlistDetail">
+										<tr>
+											<td><c:out value="${playlistDetail.TRACK_TTL}" /></td>
+											<td><c:out value="${playlistDetail.NM}" /></td>
+											<td><button id="addBtn">+</button></td>
+											<%--
+										<td><c:out value="${playlistDetail.ALBUM_TTL}" /></td> --%>
+										</tr>
+									</c:forEach>
 								</table>
-							</c:forEach>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -126,4 +138,22 @@
 	</div>
 	<!--main-->
 </body>
+
+<script type="text/javascript">
+	function checkInput() {
+		console.log("여기왔냐?");
+		let search = document.getElementsByName("searchTxt");
+		console.log(search[0].value);
+
+		let searchValue = search[0].value.trim();
+
+		if (searchValue.length == 0) {
+			alert("Search is empty")
+			return false;
+		}
+		return true;
+	}
+</script>
+
+
 </html>
