@@ -113,6 +113,8 @@
 					<button type="button">현재 재생목록에 추가</button>
 					<button type="button">내 재생목록 추가</button>
 					<button type="button">좋아요</button>
+					<input type="button" value="공유" onclick="copyURL()">
+						<textarea id="address" style="display:none"></textarea>
 				</div>
 
 				<div class="hr">
@@ -170,5 +172,19 @@
 		<div id="footer"></div>
 	</div>
 	<!--main-->
+	
+	<script>
+		function copyURL(){
+			var address = document.getElementById("address");
+			address.innerHTML = location.href;	//textarea 안에 주소를 집어 넣는다.
+			address.style.display = 'block';	//textarea의 display를 block으로 변경
+			address.select(); 	//textarea의 내용 전체 선택
+            document.execCommand("copy"); //복사
+            address.style.display = 'none';		//textarea의 display를 none으로 변경
+            //obj.setSelectionRange(0, 0); //커서 위치 초기화
+            alert("주소가 복사되었습니다.")
+		}
+	</script>
+	
 </body>
 </html>
