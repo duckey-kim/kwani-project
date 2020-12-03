@@ -9,6 +9,7 @@
 <title>album</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="/resources/js/jquery-3.5.1.js"/></script>
 <script defer src="/resources/js/indexNoVideo.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/indexNoVideo.css">
@@ -88,7 +89,9 @@
 
 							<c:forEach items="${getAlbumArtistList }" var="ArtistList">
 								<div>
-									<a href="/detail/artist?gropId=<c:out value="${ArtistList.GROP_ID }" />"><c:out value="${ArtistList.NM }" /> </a>
+									<a
+										href="/detail/artist?gropId=<c:out value="${ArtistList.GROP_ID }" />"><c:out
+											value="${ArtistList.NM }" /> </a>
 								</div>
 								<pre> </pre>
 							</c:forEach>
@@ -100,8 +103,10 @@
 						<div>
 							<c:forEach items="${getAlbumInfoList }" var="AlbumInfo" begin="0"
 								end="0">
-								<pre>장르	: <c:out value="${AlbumInfo.GENRE_CD }" /></pre>
-								<pre>발매일	: <c:out value="${AlbumInfo.RLESDT }" /></pre>
+								<pre>장르	: <c:out value="${AlbumInfo.GENRE_CD }" />
+								</pre>
+								<pre>발매일	: <c:out value="${AlbumInfo.RLESDT }" />
+								</pre>
 							</c:forEach>
 						</div>
 
@@ -109,12 +114,12 @@
 				</div>
 
 				<div class="header-buttons">
-					<button type="button">전체듣기</button>
-					<button type="button">현재 재생목록에 추가</button>
-					<button type="button">내 재생목록 추가</button>
-					<button type="button">좋아요</button>
-					<input type="button" value="공유" onclick="copyURL()">
-						<textarea id="address" style="display:none"></textarea>
+					<button type="button" id="playNow">바로재생</button>
+					<button type="button" id="addPlayer">플레이어에 추가</button>
+					<button type="button" id="addMyPlaylist">내 재생목록 추가</button>
+					<button type="button" id="likeAlbum">좋아요</button>
+					<input type="button" value="공유하기" onclick="copyURL()">
+					<textarea id="address" style="display: none"></textarea>
 				</div>
 
 				<div class="hr">
@@ -136,7 +141,7 @@
 								<th>순서</th>
 								<th>곡</th>
 								<th>아티스트</th>
-								<th>현재 재생목록에 추가</th>
+								<th>플레이어에 추가</th>
 								<th>재생목록</th>
 								<th>좋아요</th>
 							</tr>
@@ -146,15 +151,17 @@
 									<td><a
 										href="/detail/track?trackId=<c:out value='${AlbumInfo.TRACK_ID }' />"><c:out
 												value="${AlbumInfo.TRACK_TTL }" /></a></td>
-									<td><a href="/detail/artist?gropId=<c:out value="${AlbumInfo.GROP_ID }" />"><c:out value="${AlbumInfo.NM }" /> </a></td>
+									<td><a
+										href="/detail/artist?gropId=<c:out value="${AlbumInfo.GROP_ID }" />"><c:out
+												value="${AlbumInfo.NM }" /> </a></td>
 									<td>
-										<button>현재 재생목록에 추가</button>
+										<button name="addPlayer">플레이어에 추가</button>
 									</td>
 									<td>
-										<button>내 재생목록에 추가</button>
+										<button name="addMyPlaylist">내 재생목록에 추가</button>
 									</td>
 									<td>
-										<button>좋아요</button>
+										<button name="likeTrack">좋아요</button>
 									</td>
 								</tr>
 							</c:forEach>
@@ -172,19 +179,52 @@
 		<div id="footer"></div>
 	</div>
 	<!--main-->
-	
+
 	<script>
-		function copyURL(){
+		if ('${sessionName}' == "") { // 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
+			// 내 재생목록에 추가 기능
+			document.getElementById("addMyPlaylist").addEventListener("click",	goLogin);
+		
+			// 앨범 좋아요 기능
+			document.getElementById("likeAlbum").addEventListener("click",	goLogin);
+
+			// 내 플레이리스트 추가 기능
+			var amp = document.getElementsByName("addMyPlaylist");
+			for (var i = 0; i < amp.length; i++) {
+				amp[i].addEventListener("click", goLogin);
+			}
+
+			// 개별 곡 좋아요 기능
+			var lt = document.getElementsByName("likeTrack");
+			for (var i = 0; i < lt.length; i++) {
+				lt[i].addEventListener("click", goLogin);
+			}
+
+		}
+
+		function addPlayer() {
+
+		}
+
+		function addMyPlaylist() {
+
+		}
+
+		function goLogin() { // 로그아웃 상태에서 로그인이 필요한 기능을 사용하려고 할때 로그인 페이지로 이동
+			location.href = "/user/login";
+		}
+
+		function copyURL() {
 			var address = document.getElementById("address");
-			address.innerHTML = location.href;	//textarea 안에 주소를 집어 넣는다.
-			address.style.display = 'block';	//textarea의 display를 block으로 변경
-			address.select(); 	//textarea의 내용 전체 선택
-            document.execCommand("copy"); //복사
-            address.style.display = 'none';		//textarea의 display를 none으로 변경
-            //obj.setSelectionRange(0, 0); //커서 위치 초기화
-            alert("주소가 복사되었습니다.")
+			address.innerHTML = location.href; //textarea 안에 주소를 집어 넣는다.
+			address.style.display = 'block'; //textarea의 display를 block으로 변경
+			address.select(); //textarea의 내용 전체 선택
+			document.execCommand("copy"); //복사
+			address.style.display = 'none'; //textarea의 display를 none으로 변경
+			//obj.setSelectionRange(0, 0); //커서 위치 초기화
+			alert("주소가 복사되었습니다.")
 		}
 	</script>
-	
+
 </body>
 </html>

@@ -3,6 +3,8 @@ package com.kwani.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.kwani.service.AlbumPageService;
 import com.kwani.service.ArtistPageService;
 import com.kwani.service.TrackPageService;
+import com.kwani.service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -25,9 +28,11 @@ public class DetailPageController {
 	private TrackPageService trackService;
 	private AlbumPageService albumService;
 	private ArtistPageService artistService;
+	
+	private UserService userService;
 
 	@GetMapping("/track")
-	public String trackPage(@ModelAttribute("trackId") Integer trackId, Model model) {
+	public String trackPage(@ModelAttribute("trackId") Integer trackId, Model model, HttpSession session) {
 
 		// getTrackList의 결과를 result에 담는다.
 		List<Map<String, String>> result = trackService.getTrackList(trackId);
@@ -36,6 +41,8 @@ public class DetailPageController {
 		if (isNotValidId(result)) {
 			return "/detail/NoInfo";
 		}
+		
+		getSession(model, session);
 
 		log.info("getTrackList");
 		model.addAttribute("getTrackList", result);
@@ -46,9 +53,8 @@ public class DetailPageController {
 		return "/detail/track";
 	}
 
-
 	@GetMapping("/album")
-	public String albumPage(@ModelAttribute("albumId") Integer albumId, Model model) {
+	public String albumPage(@ModelAttribute("albumId") Integer albumId, Model model, HttpSession session) {
 
 		// getAlbumInfoList의 결과를 result에 담는다.
 		List<Map<String, String>> result = albumService.getAlbumInfoList(albumId);
@@ -57,6 +63,8 @@ public class DetailPageController {
 		if (isNotValidId(result)) {
 			return "/detail/NoInfo";
 		}
+		
+		getSession(model, session);
 
 		log.info("getAlbumInfoList");
 		model.addAttribute("getAlbumInfoList", result);
@@ -68,7 +76,7 @@ public class DetailPageController {
 	}
 
 	@GetMapping("/artist")
-	public String artistPage(@ModelAttribute("gropId") Integer gropId, Model model) {
+	public String artistPage(@ModelAttribute("gropId") Integer gropId, Model model, HttpSession session) {
 
 		// getArtistInfo의 결과를 result에 담는다.
 		Map<String, String> result = artistService.getArtistInfo(gropId);
@@ -77,6 +85,8 @@ public class DetailPageController {
 		if (result == null) {
 			return "/detail/NoInfo";
 		}
+		
+		getSession(model, session);
 
 		log.info("getArtistInfo");
 		model.addAttribute("getArtistInfo", result);
@@ -97,5 +107,19 @@ public class DetailPageController {
 
 	private boolean isNotValidId(List<Map<String, String>> result) {
 		return result.isEmpty();
+	}
+	
+	private void getSession(Model model, HttpSession session) {
+		if (session.getAttribute("userEmail") != null) {
+			String userNick = userService.get((String) session.getAttribute("userEmail")).getNick();
+
+			System.out.println("userNick : " + userNick);
+
+			// 1-1. 세션값과 회원의 닉네임을 home으로 전달한다.
+
+			model.addAttribute("sessionName", session.getAttribute("userEmail"));
+			model.addAttribute("userNick", userNick);
+		}
+		System.out.println("sessionName : " + session.getAttribute("userEmail"));
 	}
 }

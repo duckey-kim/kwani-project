@@ -9,6 +9,7 @@
 <title>artist</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="/resources/js/jquery-3.5.1.js"/></script>
 <script defer src="/resources/js/indexNoVideo.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/indexNoVideo.css">
@@ -82,8 +83,8 @@
 				</div>
 
 				<div class="header-buttons">
-					<button type="button">좋아요</button>
-					<input type="button" value="공유" onclick="copyURL()">
+					<button type="button" id="likeArtist">좋아요</button>
+					<input type="button" value="공유하기" onclick="copyURL()">
 						<textarea id="address" style="display:none"></textarea>
 				</div>
 
@@ -101,7 +102,7 @@
 								<!-- <th></th> -->
 								<th>곡</th>
 								<th>앨범</th>
-								<th>현재 재생목록에 추가</th>
+								<th>플레이어에 추가</th>
 								<th>재생목록</th>
 								<th>좋아요</th>
 							</tr>
@@ -116,13 +117,13 @@
 									<a href="/detail/album?albumId=<c:out value='${ArtistTrack.ALBUM_ID }'/>"><c:out value="${ArtistTrack.ALBUM_TTL }" /></a>
 									</td>
 									<td>
-										<button>현재 플레이어에 추가</button>
+										<button name="addPlayer">플레이어에 추가</button>
 									</td>
 									<td>
-										<button>내 재생목록에 추가</button>
+										<button name="addMyPlaylist">내 재생목록에 추가</button>
 									</td>
 									<td>
-										<button>좋아요</button>
+										<button name="likeTrack">좋아요</button>
 									</td>
 								</tr>
 							</c:forEach>
@@ -162,6 +163,37 @@
 	<!--main-->
 	
 	<script>
+		if('${sessionName}' == ""){		// 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
+			// 앨범 좋아요 기능
+			document.getElementById("likeArtist").addEventListener("click", goLogin);
+			
+			// 내 플레이리스트 추가 기능
+			var amp = document.getElementsByName("addMyPlaylist");
+			for(var i = 0; i < amp.length; i++){
+				amp[i].addEventListener("click", goLogin);
+			}
+			
+			// 개별 곡 좋아요 기능
+			var lt = document.getElementsByName("likeTrack");
+			for(var i = 0; i < lt.length; i++){
+				lt[i].addEventListener("click", goLogin);
+			}
+			
+		}
+	
+		function addPlayer(){
+			
+			
+		}
+		
+		function addMyPlaylist(){
+			
+		}
+	
+		function goLogin(){		// 로그아웃 상태에서 로그인이 필요한 기능을 사용하려고 할때 로그인 페이지로 이동
+			location.href="/user/login";
+		}
+	
 		function copyURL(){
 			var address = document.getElementById("address");
 			address.innerHTML = location.href;	//textarea 안에 주소를 집어 넣는다.

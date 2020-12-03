@@ -9,10 +9,11 @@
 <title>track</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="/resources/js/jquery-3.5.1.js"/></script>
 <script defer src="/resources/js/indexNoVideo.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/indexNoVideo.css">
-<link rel="stylesheet" type = "text/css" href="/resources/css/track.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/track.css">
 </head>
 
 
@@ -79,8 +80,10 @@
 								</h2>
 							</div>
 							<div>
-								<h3> 
-									<a href="/detail/album?albumId=<c:out value="${TrackList.ALBUM_ID }"/>"><c:out value="${TrackList.ALBUM_TTL }" /></a>
+								<h3>
+									<a
+										href="/detail/album?albumId=<c:out value="${TrackList.ALBUM_ID }"/>"><c:out
+											value="${TrackList.ALBUM_TTL }" /></a>
 								</h3>
 							</div>
 						</c:forEach>
@@ -92,7 +95,9 @@
 
 							<c:forEach items="${getTrackList }" var="TrackList">
 								<div>
-									<a href="/detail/artist?gropId=<c:out value="${TrackList.GROP_ID }" />"><c:out value="${TrackList.NM }" /> </a>
+									<a
+										href="/detail/artist?gropId=<c:out value="${TrackList.GROP_ID }" />"><c:out
+											value="${TrackList.NM }" /> </a>
 								</div>
 								<pre> </pre>
 							</c:forEach>
@@ -101,11 +106,12 @@
 				</div>
 
 				<div class="header-buttons">
-					<button type="button">재생</button>
-					<button type="button">좋아요</button>
-					<button type="button">재생목록 추가</button>
-					<input type="button" value="공유" onclick="copyURL()">
-						<textarea id="address" style="display:none"></textarea>
+					<button type="button" id="playNow">바로재생</button>
+					<button type="button" id="addPlayer">플레이어에 추가</button>
+					<button type="button" id="addMyPlaylist">내 재생목록 추가</button>
+					<button type="button" id="likeTrack">좋아요</button>
+					<input type="button" value="공유하기" onclick="copyURL()">
+					<textarea id="address" style="display: none"></textarea>
 				</div>
 
 
@@ -115,16 +121,15 @@
 						<c:forEach items="${getTrackList }" var="TrackList" begin="0"
 							end="0">
 							<iframe width="100%" height="100%"
-								src="https://www.youtube.com/embed/<c:out value="${TrackList.TRACK_URL }" />" frameborder="0"
-								allowfullscreen></iframe>
+								src="https://www.youtube.com/embed/<c:out value="${TrackList.TRACK_URL }" />"
+								frameborder="0" allowfullscreen></iframe>
 						</c:forEach>
 					</div>
 					<div class="lyrics">
 						<c:forEach items="${getTrackList }" var="TrackList" begin="0"
 							end="0">
 							<div style="overflow-x: hidden; overflow-y: auto">
-								<pre><c:out value="${TrackList.TRACK_LYRICS }" />
-								</pre>
+								<pre><c:out value="${TrackList.TRACK_LYRICS }" /></pre>
 							</div>
 						</c:forEach>
 					</div>
@@ -135,15 +140,21 @@
 				</div>
 
 				<div class="related">
-					<div class="subtitle"><h4>관련 아티스트 앨범></h4></div>
+					<div class="subtitle">
+						<h4>관련 아티스트 앨범></h4>
+					</div>
 					<div class="items">
 
 						<c:forEach items="${getAlbumList }" var="AlbumList">
 							<div class="item">
-								<a href="/detail/album?albumId=<c:out value="${AlbumList.ALBUM_ID }"/>"> <img
+								<a
+									href="/detail/album?albumId=<c:out value="${AlbumList.ALBUM_ID }"/>">
+									<img
 									src="/resources/image/album/<c:out value="${AlbumList.ALBUM_IMG }" />"
 									style="max-height: 200px">
-								</a> <a href="/detail/album?albumId=<c:out value="${AlbumList.ALBUM_ID }"/>"><c:out value="${AlbumList.ALBUM_TTL }" /></a>
+								</a> <a
+									href="/detail/album?albumId=<c:out value="${AlbumList.ALBUM_ID }"/>"><c:out
+										value="${AlbumList.ALBUM_TTL }" /></a>
 							</div>
 						</c:forEach>
 					</div>
@@ -154,7 +165,9 @@
 				</div>
 
 				<div class="related">
-					<div class="subtitle"><h4>관련 플레이리스트></h4></div>
+					<div class="subtitle">
+						<h4>관련 플레이리스트></h4>
+					</div>
 					<div class="items">
 						<div class="item">
 							<a href="#"> <img src="/resources/image/1.jpg"
@@ -186,19 +199,42 @@
 		<div id="footer"></div>
 	</div>
 	<!--main-->
-	
+
 	<script>
-		function copyURL(){
+		if ('${sessionName}' == "") { // 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
+			// 내 재생목록에 추가 기능
+			document.getElementById("addMyPlaylist").addEventListener("click",
+					goLogin);
+
+			// 앨범 좋아요 기능
+			document.getElementById("likeTrack").addEventListener("click",
+					goLogin);
+
+		}
+
+		function addPlayer() {
+
+		}
+
+		function addMyPlaylist() {
+
+		}
+
+		function goLogin() { // 로그아웃 상태에서 로그인이 필요한 기능을 사용하려고 할때 로그인 페이지로 이동
+			location.href = "/user/login";
+		}
+
+		function copyURL() {
 			var address = document.getElementById("address");
-			address.innerHTML = location.href;	//textarea 안에 주소를 집어 넣는다.
-			address.style.display = 'block';	//textarea의 display를 block으로 변경
-			address.select(); 	//textarea의 내용 전체 선택
-            document.execCommand("copy"); //복사
-            address.style.display = 'none';		//textarea의 display를 none으로 변경
-            //obj.setSelectionRange(0, 0); //커서 위치 초기화
-            alert("주소가 복사되었습니다.")
+			address.innerHTML = location.href; //textarea 안에 주소를 집어 넣는다.
+			address.style.display = 'block'; //textarea의 display를 block으로 변경
+			address.select(); //textarea의 내용 전체 선택
+			document.execCommand("copy"); //복사
+			address.style.display = 'none'; //textarea의 display를 none으로 변경
+			//obj.setSelectionRange(0, 0); //커서 위치 초기화
+			alert("주소가 복사되었습니다.")
 		}
 	</script>
-	
+
 </body>
 </html>
