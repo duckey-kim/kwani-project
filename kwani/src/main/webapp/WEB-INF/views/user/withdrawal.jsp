@@ -60,8 +60,7 @@
 					</div>
 					<form action="/user/withdrawalAction" method="POST">
 						<div class="utilBtnContainer">
-							<input type="button" class="update" value="개인정보변경"> <input
-								type="button" class="delete" value="회원탈퇴">
+							<input type="button" class="delete" value="회원탈퇴">
 						</div>
 						<div class="fieldEmail">
 							<input class="inputEmail" id="email" placeholder="Email"
@@ -71,7 +70,8 @@
 							정말로 탈퇴하시겠습니까? <br>
 						</div>
 						<div class="btnContainer">
-							<button class="successBtn" type="submit" onclick="return checkInput()">SUCCESS</button>
+							<button class="successBtn" type="submit"
+								onclick="return checkInput()">SUCCESS</button>
 							<a href="/" class="cancelBtn">Cancel</a>
 						</div>
 					</form>
@@ -93,23 +93,17 @@
 <!-- ---------------------------------------------------------------------------------------- -->
 
 <script type="text/javascript">
+	function checkInput() {
 
-function checkInput() {
-	
-	let email = document.getElementById("email").value;
+		let email = document.getElementById("email").value;
 
+		if (email.length == 0) {
+			alert('이메일을 입력하세요');
+			return false;
+		}
 
-	if(email.length == 0) {
-		alert('이메일을 입력하세요');
-		return false;
+		return true;
 	}
-	
-	return true;
-}
-
-
-
-
 
 	window.onscroll = function() {
 		myFunction()

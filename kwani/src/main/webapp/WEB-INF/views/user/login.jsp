@@ -79,7 +79,7 @@
 									<span>Remember me</span>
 								</div>
 								<div class="span2">
-									<span>Forgot your <a href="#">id</a> or <a href="#">password</a></span>
+									<span>Forgot your <a href="/search/findUserPwd">password</a>?</span>
 								</div>
 							</div>
 							<p id="text" style="display: none">Checkbox is CHECKED!</p>

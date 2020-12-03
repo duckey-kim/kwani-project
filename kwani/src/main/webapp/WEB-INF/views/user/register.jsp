@@ -90,7 +90,7 @@
                                         <div class="infoUtil">
                                             <span>Already user our site? <a href="/user/login">Log
                                                     in</a> here
-                                            </span><br> <span>Forgot your Password? <a href="#">Reset</a>
+                                            </span><br> <span>Forgot your Password? <a href="/search/findUserPwd">Reset</a>
                                                 in here
                                             </span>
                                         </div>

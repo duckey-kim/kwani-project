@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -59,7 +60,8 @@
 					<form action="/user/checkUserInfoAction" method="POST">
 						<div class="utilBtnContainer">
 							<input type="button" class="update" value="개인정보변경"> <input
-								type="button" class="delete" value="회원탈퇴">
+								type="button" class="delete" value="회원탈퇴"> <input
+								type="hidden" class="hiddenValue" name="btnValue">
 						</div>
 						<div class="textContainer">
 							개인정보를 위해 <br> 이메일과 비밀번호를 입력해주세요.<br>
@@ -70,8 +72,8 @@
 						</div>
 						<div class="fieldPwd">
 							<input class="inputPwd" id="password" placeholder="Password"
-								type="password" name="pwd" /> <input class="input" type="hidden"
-								name="targetUrl" value="">
+								type="password" name="pwd" /> <input class="input"
+								type="hidden" name="targetUrl" value="">
 						</div>
 						<div class="successBtnContainer">
 							<button class="successBtn" type="submit" onclick="checkInput()">SUCCESS</button>
@@ -95,22 +97,14 @@
 <!-- ---------------------------------------------------------------------------------------- -->
 
 <script type="text/javascript">
-	// 정보를 비교하고 일치하지 않을 때, 다시 현재 페이지로 이동하면 여기서 모달을 띄워야 한다. 
-
-	// 만약 정보가 불일치 하면, 모달창을 띄운다.
 	// 서버에서 해당 정보를 가져온다.
 	let email = document.getElementById("email").value;
 	let pwd = document.getElementById("password").value;
 
 	/* 서버에 입력한 정보가 없을 때, null일 때 */
-
 	console.log('${pwdMsg}');
 	console.log('${sessionMsg}')
-	
-	/* if("${sessionMsg}" != "") {
-		alert("${sessionMsg}");
-	} */
-	
+
 	if ("${pwdMsg}" != "") {
 		alert("${pwdMsg}");
 	}
@@ -162,6 +156,36 @@
 			overlay.style.display = "none";
 		}
 	}
+
+	let checkUtilBtn = document.getElementById("update");
+
+	$(document).ready(function() {
+		$(".update").click(function() {
+			$(this).css("background-color", "rgb(211, 2, 2)");
+			$(this).css("color", "whitesmoke");
+			if ($(this).css("color", "whitesmoke")) {
+				checkUtilBtn = "updateBtn";
+				console.log("checkUtilBtn : " + checkUtilBtn);
+				$(".hiddenValue").val(checkUtilBtn);
+				console.log("hiddenValue : " + $(".hiddenValue").val());
+			}
+
+			$(".delete").css("background-color", "transparent");
+			$(".delete").css("color", "black");
+		});
+		$(".delete").click(function() {
+			$(this).css("background-color", "rgb(211, 2, 2)");
+			$(this).css("color", "whitesmoke");
+			if ($(this).css("color", "whitesmoke")) {
+				checkUtilBtn = "withdrawalBtn";
+				console.log("checkUtilBtn : " + checkUtilBtn);
+				$(".hiddenValue").val(checkUtilBtn);
+				console.log("hiddenValue : " + $(".hiddenValue").val());
+			}
+			$(".update").css("background-color", "transparent");
+			$(".update").css("color", "black");
+		});
+	});
 </script>
 
 
