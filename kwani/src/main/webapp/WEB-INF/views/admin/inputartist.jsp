@@ -4,7 +4,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-4 col-md-offset-4">
+		<div class="col-md-12">
 			<div class="login-panel panel paenl-default">
 				<div class="panel-body">
 				
@@ -33,6 +33,11 @@
 							value="${artist.debutDt }">
 
 					</div>
+					<div>
+						<input  class="form-control" placeholder="상태코드" type="text" name="statusCode"
+							value="${artist.statusCode }">
+					</div>
+						<input type="hidden" name="upUser" id="upUser" value="${mngrId }">
 					<button class="btn btn-sm btn-success">등록</button>
 				</form>
 				</div>

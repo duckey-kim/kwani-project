@@ -6,7 +6,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-4 col-md-offset-4">
+		<div class="col-md-4 ">
 			<div class="login-panel panel paenl-default">
 				<div class="panel-body">
 
@@ -46,16 +46,20 @@
 							<input class="form-control"placeholder="isTitle?" type="text" name="ttlTrack">
 						</div>
 						<div>
-							<input class="form-control" placeholder="Mood Code" type="text" name="tMoodCode">
+							<input class="form-control" placeholder="Mood Code" type="text" name="moodCd">
 						</div>
 						<div>
-							<input class="form-control"placeholder="Genre Code" type="text" name="tGenreCode">
+							<input class="form-control"placeholder="Genre Code" type="text" name="genreCd">
 						</div>
 						<div>
-							<input class="form-control"placeholder="Status Code" type="text" name="tStusCode">
+							<input class="form-control"placeholder="Status Code" type="text" name="stusCd">
 						</div>
-						<input class="form-control"placeholder="Situation Code" type="text" name="tSituCode">
-
+						<div>
+							<textarea rows="3" style="width:100%" wrap="soft" maxlength="1300" placeholder="가사를 입력해주세요" name="trackLyrics" ></textarea>
+						</div>
+						<input class="form-control"placeholder="Situation Code" type="text" name="situCD">
+						
+						<input type="hidden" name="upUser" id="upUser" value="${mngrId} ">
 						<button class="btn btn-sm btn-success">등록</button>
 
 					</form>

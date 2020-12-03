@@ -112,8 +112,6 @@
 							<ul class="nav nav-second-level">
 								<li><a href="/admin/album">ALBUM</a></li>
 								<li><a href="/admin/artist">ARTIST</a></li>
-								<li><a href="/admin/artistandgroup">ARTIST_GROUP</a></li>
-								<li><a href="/admin/artistandtracks">ARTIST_TRACKS</a></li>
 								<li><a href="/admin/tracks">TRACKS</a></li>
 								<li><a href="/admin/user">USER</a></li>
 							</ul> <!-- /.nav-second-level --></li>
@@ -126,4 +124,4 @@
 
 		<div id="page-wrapper">
 			<script
-				src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+				src="https://code.jquery.com/jquery-3.5.1.js"></script>

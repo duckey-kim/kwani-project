@@ -1,5 +1,9 @@
 package com.kwani.domain;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -8,12 +12,11 @@ public class AlbumVO {
 	private Integer albumId;
 	private String albumImg;
 	private String albumTtl;
-	private String rlesDt;
-	//0 사용중
-	//1 사용금지
-	private String stusCd;
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	private Date rlesDt;
+	private Integer stusCd;
 	
-	public AlbumVO(Integer albumId, String albumImg, String albumTtl, String rlesDt,String stusCd) {
+	public AlbumVO(Integer albumId, String albumImg, String albumTtl, Date rlesDt,Integer stusCd) {
 		this.albumId = albumId;
 		this.albumImg = albumImg;
 		this.albumTtl = albumTtl;
@@ -23,6 +26,6 @@ public class AlbumVO {
 	}
 	
 	public AlbumVO() {
-		this(null, "", "", "","0");
+		this(null, "", "", null,0);
 	}
 }

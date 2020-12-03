@@ -27,16 +27,16 @@ public interface TableService {
 	public boolean albumValid(AlbumVO album, RedirectAttributes rttr);
 
 
-	public boolean insertAlbum(AlbumVO album,RedirectAttributes rttr);
+	public boolean insertAlbum(AlbumVO album,String upUser, RedirectAttributes rttr);
 
 
 	public boolean trackInputValid(TracksVO track, RedirectAttributes rttr);
 
-	public boolean insertTrack(TracksVO track, RedirectAttributes rttr);
+	public boolean insertTrack(TracksVO track, String upUser, RedirectAttributes rttr);
 
 	public boolean artistInputValid(ArtistVO artist, RedirectAttributes rttr);
 
-	public void insertArtist(ArtistVO artist, RedirectAttributes rttr);
+	public void insertArtist(ArtistVO artist, String upUser, RedirectAttributes rttr);
 	
 	public List<TracksVO> getTracksToInsert();
 
@@ -55,7 +55,7 @@ public interface TableService {
 	public boolean checkAdmin(AdminVO admin, RedirectAttributes rttr);
 
 	
-	public boolean insertArtistGroup(@Param("gropId")Integer gropId ,@Param("soloId")Integer soloId, RedirectAttributes rttr);
+	public boolean insertArtistGroup(@Param("gropId")Integer gropId ,@Param("soloId")Integer soloId,@Param("upUser")String upUser, RedirectAttributes rttr);
 
 	public boolean checkInTableArtistGroup(Integer gropId, Integer soloId, RedirectAttributes rttr);
 
@@ -86,8 +86,24 @@ public interface TableService {
 	public AlbumVO getAlbumById(Integer albumId);
 
 	public boolean updateAlbum(AlbumVO album, String upUser, RedirectAttributes rttr);
+
+	public List<ArtistVO> getArtistList();
 	
+	public ArtistVO getArtistById(Integer gropId);
+
+	public boolean updateArtist(ArtistVO artist, String upUser, RedirectAttributes rttr);
 	
+	public List<TracksVO> getTrackList();
+	
+	public TracksVO getTracksById(Integer trackId);
+
+	public boolean updateTrack(TracksVO track, String upUser, RedirectAttributes rttr);
+	
+	public List<UserVO> getUserList();
+	
+	public UserVO getUserByEmail(String email);
+
+	public boolean updateUser(UserVO user, String upUser, RedirectAttributes rttr);
 	
 	
 	

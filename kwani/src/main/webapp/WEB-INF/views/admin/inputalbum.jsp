@@ -4,7 +4,7 @@
 	<h4>${msg }</h4>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
+			<div class="col-md-12 ">
 				<div class="login-panel panel paenl-default">
 					
 					
@@ -26,6 +26,9 @@
 							 <input  class="form-control"placeholder="releaseDate" type="text" name="rlesDt" id="rlesDt"
 								placeholder="2020-10-31" value="${album.rlesDt }">
 						</div>
+							
+						<input type="hidden" name="upUser" id="upUser" value="${mngrId} ">	
+						
 						<button class="btn btn-sm btn-success">등록</button>
 					</form>
 				</div>

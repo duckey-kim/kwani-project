@@ -101,8 +101,8 @@ public class TableServiceImpl implements TableService {
 
 	// 테이블에 앨범 입력
 	@Override
-	public boolean insertAlbum(AlbumVO album, RedirectAttributes rttr) {
-		int result = mapper.insertAlbum(album);
+	public boolean insertAlbum(AlbumVO album,String upUser, RedirectAttributes rttr) {
+		int result = mapper.insertAlbum(album,upUser);
 		if (result == 1) {
 			rttr.addFlashAttribute("msg","앨범등록");
 			return true;
@@ -142,12 +142,11 @@ public class TableServiceImpl implements TableService {
 	}
 
 	@Override
-	public boolean insertTrack(TracksVO track, RedirectAttributes rttr) {
+	public boolean insertTrack(TracksVO track,String upUser, RedirectAttributes rttr) {
 		// 테이블에 TracksVO 입력
 		// 테이블에 등록안되어 있다면 등록
 
-		String msg = "곡 등록 실패";
-		if (mapper.insertTrack(track) == 1) {
+		if (mapper.insertTrack(track,upUser) == 1) {
 			rttr.addFlashAttribute("msg","곡 등록");
 			return true;
 		}
@@ -180,14 +179,14 @@ public class TableServiceImpl implements TableService {
 	// 소녀시대 : 소녀시대
 	@Override
 	@Transactional
-	public void insertArtist(ArtistVO artist, RedirectAttributes rttr) {
+	public void insertArtist(ArtistVO artist,String upUser ,RedirectAttributes rttr) {
 		//exception은 내가 만들어서 보낼 것이냐
 		//그냥 runtime exception으로 보낼것이냐
 		rttr.addFlashAttribute("msg", "가수등록 실패");
-		mapper.insertArtist(artist);
+		mapper.insertArtist(artist,upUser);
 
 		int artistId = mapper.getSeqGropCurrval();
-		mapper.insertArtistGroup(artistId, artistId);
+		mapper.insertArtistGroup(artistId, artistId,upUser);
 		rttr.addFlashAttribute("msg", "가수 등록 성공");
 
 	}
@@ -303,9 +302,9 @@ public class TableServiceImpl implements TableService {
 	}
 
 	@Override
-	public boolean insertArtistGroup(Integer gropId, Integer soloId, RedirectAttributes rttr) {
+	public boolean insertArtistGroup(Integer gropId, Integer soloId,String upUser, RedirectAttributes rttr) {
 		// TODO Auto-generated method stub
-		int result = mapper.insertArtistGroup(gropId, soloId);
+		int result = mapper.insertArtistGroup(gropId, soloId,upUser);
 		if(result==1) {
 			rttr.addFlashAttribute("msg","데이터 입력 성공");
 			return true;
@@ -338,11 +337,77 @@ public class TableServiceImpl implements TableService {
 	public boolean updateAlbum(AlbumVO album, String upUser, RedirectAttributes rttr) {
 		int result =mapper.updateAlbum(upUser, album);
 		if(result==1) {
-			rttr.addFlashAttribute("msg","update성공");
+			rttr.addFlashAttribute("msg","update 앨범성공");
 			return true;
 		}
 		rttr.addFlashAttribute("msg","update 실패");
 		return false;
 	}
 	
+	@Override
+	public List<ArtistVO> getArtistList() {
+		List<ArtistVO> artistList=mapper.getArtistList();
+		return artistList==null?Collections.emptyList():artistList;
+	}
+	
+	@Override
+	public ArtistVO getArtistById(Integer gropId) {
+		ArtistVO artist = mapper.getArtistById(gropId);
+		return artist==null?new ArtistVO():artist;
+	}
+	@Override
+	public boolean updateArtist(ArtistVO artist, String upUser, RedirectAttributes rttr) {
+		System.out.println("updateArtist=====");
+		int result = mapper.updateArtist(upUser, artist);
+		if(result==1) {
+			System.out.println("업데이트 성공");
+			rttr.addFlashAttribute("msg","update 가수성공");
+			return true;
+		}
+		rttr.addFlashAttribute("msg","update 실패");
+		return false;
+	}
+	
+	@Override
+	public List<TracksVO> getTrackList() {
+		List<TracksVO> trackList=mapper.getTrackList();
+		
+		return trackList==null?Collections.emptyList():trackList;
+	}
+	
+	@Override
+	public TracksVO getTracksById(Integer trackId) {
+		TracksVO tracks = mapper.getTracksById(trackId);
+		return tracks==null?new TracksVO():tracks;
+	}
+	@Override
+	public boolean updateTrack(TracksVO track, String upUser, RedirectAttributes rttr) {
+		int result=mapper.updateTracks(upUser, track);
+		if(result==1) {
+			rttr.addFlashAttribute("msg","update 노래 성공");
+			return true;
+		}
+		rttr.addFlashAttribute("msg","update 노래 실패");
+		return false;
+	}
+	@Override
+	public List<UserVO> getUserList() {
+		List<UserVO> userList = mapper.getUserList();
+		return userList==null?Collections.emptyList():userList;
+	}
+	@Override
+	public UserVO getUserByEmail(String email) {
+		UserVO user = mapper.getUser(email);
+		return user==null?new UserVO():user;
+	}
+	@Override
+	public boolean updateUser(UserVO user, String upUser, RedirectAttributes rttr) {
+		int result = mapper.updateUser(upUser, user);
+		if(result==1) {
+			rttr.addFlashAttribute("msg","유저 업데이트 성공");
+			return true;
+		}
+		rttr.addFlashAttribute("msg","유저업데이트 실패");
+		return false;
+	}
 }

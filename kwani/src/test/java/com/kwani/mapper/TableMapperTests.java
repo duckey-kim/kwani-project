@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.kwani.domain.AdminVO;
 import com.kwani.domain.AlbumVO;
 import com.kwani.domain.TracksVO;
+import com.kwani.domain.UserVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -22,7 +23,6 @@ public class TableMapperTests {
 	private TableMapper mapper;
 	
 	
-	@Test
 	public void testgetAdmin() {
 		AdminVO admin = new AdminVO();
 		admin.setMngrId("duckhwan");
@@ -30,7 +30,6 @@ public class TableMapperTests {
 		log.info("      our  MANSER :"+mapper.getAdmin(admin));
 	}
 	
-	@Test
 	public void testgetTrack() {
 		TracksVO track = new TracksVO();
 		track.setTrackTtl("사계");
@@ -38,15 +37,58 @@ public class TableMapperTests {
 		log.info(mapper.checkTracks(track));
 	}
 	
-	@Test
 	public void testUpdateAlbum() {
 		AlbumVO album = new AlbumVO();
 		album.setAlbumImg("52.jpg");
 		album.setAlbumTtl("52..album");
-		album.setRlesDt("2020-01-01");
-		album.setStusCd("1");
 		album.setAlbumId(52);
 		System.out.println("update result is :"+mapper.updateAlbum("duckhwan", album));
+		
+	}
+	public void insertAlbum() {
+		AlbumVO album = new AlbumVO();
+		album.setAlbumImg("53.jpg");
+		album.setAlbumTtl("53..album");
+		album.setStusCd(1);
+		album.setAlbumId(53);
+		System.out.println("앨범 입력 결과 :"+mapper.insertAlbum(album, "duckhwan"));
+	}
+	public void insertTrack() {
+		TracksVO track=new TracksVO();
+		track.setTrackTtl("새로운곡");
+		track.setTtlTrack(1);
+		track.setTrackUrl("a.naver");
+		track.setAlbumId(1);
+		track.setMoodCd(1);
+		track.setGenreCd(1);
+		track.setSituCd(1);
+		track.setStusCd(1);
+		track.setTrackLyrics("새로운 가사");
+		track.setTrackOrder(1);
+		System.out.println(track);
+		System.out.println("곡 입력 결과 "+mapper.insertTrack(track, "duckhwan"));
+	}
+	public void updateTracks() {
+		TracksVO track=new TracksVO();
+		track.setTrackTtl("97번째 곡");
+		track.setTtlTrack(1);
+		track.setTrackUrl("a.!!naver");
+		track.setAlbumId(1);
+		track.setMoodCd(1);
+		track.setGenreCd(1);
+		track.setSituCd(1);
+		track.setStusCd(1);
+		track.setTrackLyrics("새로운 가사");
+		track.setTrackOrder(0);
+		track.setTrackId(97);
+		System.out.println("앨범 업데이트 결과 :"+mapper.updateTracks("duckhwan", track));
+	}
+	
+	@Test
+	public void updateUser() {
+		UserVO user = mapper.getUser("k@naver.com");
+		user.setNick("duckey");
+		System.out.println("update result 1?"+mapper.updateUser("duckhwan", user));
 		
 	}
 

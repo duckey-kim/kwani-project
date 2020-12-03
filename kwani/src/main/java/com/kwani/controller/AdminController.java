@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,15 +37,14 @@ public class AdminController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@GetMapping({ "/inputartistandgroup", "/inputtracks", "/inputuser", "/inputartist", "/inputalbum", "/loginform" })
-	public void basic2() {
+	public void basic2(HttpSession session, Model model) {
+		model.addAttribute("mngrId", (String) session.getAttribute("mngrId"));
 	}
-	
 
-	@GetMapping({ "/", "/home"})
+	@GetMapping({ "/", "/home" })
 	public String basic() {
 		return "/admin/home";
 	}
-	
 
 	@GetMapping("/inputartistandtrack")
 	public void inputArtistTrack(Model model) {
@@ -96,12 +94,12 @@ public class AdminController {
 	}
 
 	@PostMapping("/inputalbumAction")
-	public String inputAlbum(AlbumVO album, RedirectAttributes rttr) {
+	public String inputAlbum(AlbumVO album, String upUser, RedirectAttributes rttr) {
 
 		String path = "/inputalbum";
-		if (tableService.albumInputValid(album, rttr)) {
+		if (tableService.albumInputValid(album, rttr) && tableService.inputStringValid(upUser, rttr)) {
 		} else if (tableService.albumValid(album, rttr)) {
-			if (tableService.insertAlbum(album, rttr))
+			if (tableService.insertAlbum(album, upUser, rttr))
 				path = "/home";
 
 		}
@@ -111,15 +109,15 @@ public class AdminController {
 	}
 
 	@PostMapping("/inputtracksAction")
-	public String inputTracks(TracksVO track, RedirectAttributes rttr) {
+	public String inputTracks(TracksVO track, String upUser, RedirectAttributes rttr) {
 		// track데이터 추가
 		// input check albumId,trackTtl,trackUrl 이고 albumId가 album테이블에 존재하는지
 		// trackTtl과 albumId가 같은 데이터가 있으면 중복
 		//
 		String path = "/inputtracks";
-		if (tableService.trackInputValid(track, rttr)) {
+		if (tableService.trackInputValid(track, rttr) && tableService.inputStringValid(upUser, rttr)) {
 		} else if (tableService.trackValid(track, rttr)) {
-			if (tableService.insertTrack(track, rttr)) {
+			if (tableService.insertTrack(track, upUser, rttr)) {
 				path = "/home";
 			}
 		}
@@ -148,7 +146,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/inputartistAction")
-	public String inputArtist(ArtistVO artist, RedirectAttributes rttr) {
+	public String inputArtist(ArtistVO artist, String upUser, RedirectAttributes rttr) {
 		// 가수등록요청
 		// 1.입력체크 ->tableService.artistInputValid
 		// 2.가수name으로 중복확인 ->tableService.artistValid
@@ -156,11 +154,11 @@ public class AdminController {
 		// 소녀시대 : 소녀시대
 		String path = "/home";
 
-		if (!tableService.artistInputValid(artist, rttr)) {
+		if (!tableService.artistInputValid(artist, rttr) && !tableService.inputStringValid(upUser, rttr)) {
 			if (tableService.artistValid(artist, rttr)) {
 
 				try {
-					tableService.insertArtist(artist, rttr);
+					tableService.insertArtist(artist, upUser, rttr);
 				} catch (Exception e) {
 					rttr.addFlashAttribute("artist", artist);
 					rttr.addFlashAttribute("msg", e.getMessage());
@@ -181,20 +179,20 @@ public class AdminController {
 		// 1-1 input gropId가 t_artist에 있는지 확인
 		// 1-1 input trackid 가 t_tracks,t_artist_track 있는지 확인
 		// 1-1-2 trackid가 t_artist_tracks에 있으면 에러
-		
+
 		// 1-2 t_artist_track에 gropId,trackId 등록
-		String path="/inputartistandtrack";
+		String path = "/inputartistandtrack";
 		if (tableService.checkGropId(gropId) && tableService.checkTrackId(trackId)) {
-			if(tableService.insertArtistTrack(trackId, gropId,rttr)) {
-				path="/home";
-			}	
-		} 
-		return "redirect:/admin"+path;
+			if (tableService.insertArtistTrack(trackId, gropId, rttr)) {
+				path = "/home";
+			}
+		}
+		return "redirect:/admin" + path;
 
 	}
 
 	@PostMapping("/inputartistgroupAction")
-	public String inputArtistGroup(Integer gropId, Integer soloId, RedirectAttributes rttr) {
+	public String inputArtistGroup(Integer gropId, Integer soloId, String upUser, RedirectAttributes rttr) {
 		// grop,solo아이디가 null일지 체크
 		// grop,solo아이디가 grouptable에 존재하는지 체크
 		// 없으면 리턴
@@ -208,7 +206,7 @@ public class AdminController {
 			if (tableService.checkInTableArtistGroup(gropId, soloId, rttr)) {
 				// ARTIST_GROUPTABLE에 저장되어있지 않음
 				// ARTIST_GROUPTABLE에 저장하자
-				if (tableService.insertArtistGroup(gropId, soloId, rttr)) {
+				if (tableService.insertArtistGroup(gropId, soloId, upUser, rttr)) {
 					path = "/home";
 				}
 			}
@@ -236,40 +234,117 @@ public class AdminController {
 		return "redirect:/admin" + path;
 
 	}
-	
-	//=============/admin/modify   ================//
+
+// 앫범 수정하는 흐름
 	@GetMapping("/album")
-	public String getAlbumlist(Model model) {
+	public void getAlbumlist(Model model) {
 		List<AlbumVO> albumList = tableService.getAlbumList();
-		model.addAttribute("albumList",albumList);
-		
-		return "/admin/album";
-		
+		model.addAttribute("albumList", albumList);
+
+	}
+
+	@GetMapping("/modify/album")
+	public void getAlbum(@RequestParam("albumId") Integer albumId, Model model, HttpSession session) {
+
+		AlbumVO getAlbum = tableService.getAlbumById(albumId);
+		String mngrId = (String) session.getAttribute("mngrId");
+		model.addAttribute("album", getAlbum);
+		model.addAttribute("mngrId", mngrId);
+	}
+
+	@PostMapping("/modifyAlbumAction")
+	public String modifyAlbum(AlbumVO album, String upUser, RedirectAttributes rttr) {
+		String path = "/modify/album?albumId=" + album.getAlbumId();
+		if (!tableService.albumInputValid(album, rttr) && !tableService.inputStringValid(upUser, rttr)) {
+			if (tableService.updateAlbum(album, upUser, rttr)) {
+				path = "/modify";
+			}
+		}
+
+		return "redirect:/admin" + path;
+
+	}
+
+	// 가수 수정하는 부분 흐름
+	@GetMapping("/artist")
+	public void getArtistList(Model model) {
+		List<ArtistVO> artistList = tableService.getArtistList();
+		model.addAttribute("artistList", artistList);
+	}
+
+	@GetMapping("/modify/artist")
+	public void getArtist(@RequestParam("gropId") Integer gropId, Model model, HttpSession session) {
+		ArtistVO artist = tableService.getArtistById(gropId);
+		String mngrId = (String) session.getAttribute("mngrId");
+
+		model.addAttribute("artist", artist);
+		model.addAttribute("mngrId", mngrId);
+
+	}
+
+	@PostMapping("/modifyArtistAction")
+	public String modifyArtist(ArtistVO artist, String upUser, RedirectAttributes rttr) {
+		System.out.println("modifyArtist");
+		String path = "/modify/artist?gropId=" + artist.getGropId();
+		if (!tableService.artistInputValid(artist, rttr) && !tableService.inputStringValid(upUser, rttr)) {
+			if (tableService.updateArtist(artist, upUser, rttr)) {
+				path = "/modify";
+			}
+		}
+		return "redirect:/admin" + path;
+	}
+
+	// 노래 수정하는 흐름
+	@GetMapping("/tracks")
+	public void getTrackList(Model model) {
+		List<TracksVO> trackList = tableService.getTrackList();
+		model.addAttribute("trackList", trackList);
+	}
+
+	@GetMapping("/modify/tracks")
+	public void getTracks(@RequestParam("trackId") Integer trackId, Model model, HttpSession session) {
+		TracksVO track = tableService.getTracksById(trackId);
+		String mngrId = (String) session.getAttribute("mngrId");
+		model.addAttribute("track", track);
+		model.addAttribute("mngrId", mngrId);
+	}
+
+	@PostMapping("/modifyTracksAction")
+	public String modifyTracks(TracksVO track, String upUser, RedirectAttributes rttr) {
+		String path = "/modify/tracks?trackId=" + track.getTrackId();
+		if (!tableService.trackInputValid(track, rttr) && !tableService.inputStringValid(upUser, rttr)) {
+			if (tableService.updateTrack(track, upUser, rttr)) {
+				path = "/modify";
+			}
+		}
+		return "redirect:/admin" + path;
+	}
+
+//	유저 수정하는 흐름
+	@GetMapping("/user") public void getUserList(Model model) { 
+		List<UserVO> userList= tableService.getUserList();
+		model.addAttribute("userList",userList);
 	}
 	
-	@GetMapping("/modify/album")
-	public void getAlbum(@RequestParam("albumId")Integer albumId,Model model,HttpSession session){
-		
-		AlbumVO getAlbum=tableService.getAlbumById(albumId);
-		String mngrId = (String)session.getAttribute("mngrId");
-		model.addAttribute("album",getAlbum);
+	
+	@GetMapping("/modify/user")
+	public void getUser(@RequestParam("email")String email,Model model,HttpSession session) {
+		UserVO user = tableService.getUserByEmail(email);
+		String mngrId=(String)session.getAttribute("mngrId");
+		model.addAttribute("user",user);
 		model.addAttribute("mngrId",mngrId);
 	}
 	
-	@PostMapping("/modifyAlbumAction")
-	public String modifyAlbum(AlbumVO album,String upUser,RedirectAttributes rttr) {
-		String path="/modify/album?albumId="+album.getAlbumId();
-		if(!tableService.albumInputValid(album, rttr)
-				&&!tableService.inputStringValid(upUser, rttr)) {
-			if(tableService.updateAlbum(album,upUser,rttr)) {
-				path="/modify";
+	
+	@PostMapping("/modifyUserAction")
+	public String modifyUser(UserVO user,String upUser,RedirectAttributes rttr) {
+		String path = "/modify/user?email=" + user.getEmail();
+		if (!tableService.userInputValid(user, rttr) && !tableService.inputStringValid(upUser, rttr)) {
+			if (tableService.updateUser(user, upUser, rttr)) {
+				path = "/modify";
 			}
 		}
+		return "redirect:/admin" + path;
 		
-		
-		return "redirect:/admin"+path;
-	
 	}
-	
-
 }
