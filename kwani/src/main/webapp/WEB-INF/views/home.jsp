@@ -30,7 +30,7 @@
 				<video id="video" src="/resources/video/AudioWave.mp4"
 					type="video/mp4" autoplay muted loop></video>
 			</div>
-			<div id="header_navbar">
+		<div id="header_navbar">
 				<div id="musicPlayer">musicPlayer</div>
 				<div id="pageLogo">
 					<a href="/">Last.fm</a>
@@ -41,19 +41,21 @@
 					</button>
 					<a href="/">Home</a> <a href="/recommend/">Recommend</a> <a
 						href="#">Find music</a> <a href="/user/register" id="joinBtn">Join</a>
-					<!-- <a href="/mypage/playlist?email=a@naver.com" id="toMypageBtn" style="display:none">My page</a> -->
 					<div class="dropdown">
 						<div class="dropbtn" onclick="toMyPage()">
 							<i class="fas fa-user-circle"></i>
 						</div>
 						<div id="myDropdown" class="dropdown-content">
-							<a href="/mypage/playlist?email=a@naver.com" id="toMypageBtn">My
-								Page</a> <a href="/user/checkUserInfo">Settings</a> <a
-								href="/user/logoutAction" id="logoutBtn" style="display: none">Logout</a>
+							<a href="/mypage/playlist?email=a@naver.com" id="toMypageBtn"
+								style="display: none">My Page</a> <a href="/user/checkUserInfo">Settings</a>
+							<a href="/user/logoutAction" id="logoutBtn" style="display: none">Logout</a>
 						</div>
 					</div>
 				</div>
-			</div>
+				
+		</div>
+			
+			
 			<div id="myOverlay" class="overlay">
 				<div class="overlay-content">
 					<form action="#">
@@ -67,8 +69,6 @@
 			<!--myOverlay-->
 		</div>
 		<!--header-->
-
-
 
 		<div id="body">
 			<div id="leftSideBar"></div>

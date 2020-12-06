@@ -10,10 +10,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,9 +50,7 @@ public class UserController {
 
 	@GetMapping("/register")
 	public String register(HttpSession session, RedirectAttributes rttr) {
-//		if (service.checkSession(session, rttr)) {
-//			return "redirect:/home";
-//		}
+
 		return "/user/register";
 	}
 
@@ -58,17 +58,14 @@ public class UserController {
 	public String remove(HttpSession session, RedirectAttributes rttr) {
 		System.out.println("sessionName : " + session.getAttribute("userEmail"));
 
-//		if (service.checkSession(session, rttr)) {
-//			return "redirect:/user/checkUserInfo";
-//		}
-
 		return "user/withdrawal";
 	}
 
 	@GetMapping("/checkUserInfo")
-	public String checkUserInfo(HttpSession session, RedirectAttributes rttr) {
+	public String checkUserInfo(HttpSession session, RedirectAttributes rttr, Model model) {
 
-		if (service.checkSession(session, rttr)) {
+		if (!(service.checkSession(session, model))) {
+			rttr.addFlashAttribute("redirectMsg", "로그인 후 이용하실 수 있습니다.");
 			return "redirect:/home";
 		}
 
@@ -76,29 +73,35 @@ public class UserController {
 	}
 
 	@GetMapping("/modifyUserInfo")
-	public String modifyUserInfo(HttpSession session, RedirectAttributes rttr, Model model) {
-
-		model.addAttribute("sessionName", session.getAttribute("userEmail"));
-
+	public String modifyUserInfo(HttpSession session, Model model) {
+		
+		
+		if (!(service.checkUserImg((String)session.getAttribute("userEmail")))) {
+			String imgMsg = "이미지를 추가해주세요!";
+			model.addAttribute("imgMsg", imgMsg);
+			model.addAttribute("sessionName", session.getAttribute("userEmail"));
+			
+		} else {
+			
+			UserVO userVO = service.getUserImg((String)session.getAttribute("userEmail"));
+			
+			String userImg = userVO.getUserImg();
+			System.out.println("userImg : " + userImg);
+			
+			model.addAttribute("sessionName", session.getAttribute("userEmail"));
+			model.addAttribute("userImg", userImg);
+			
+		}
+		
+		System.out.println("sessionName : " + session.getAttribute("userEmail"));
+		
 		return "/user/modifyUserInfo";
 	}
-
 
 //	-----------------------------------------------------------------------------------------------------------------------------
 //	---------------------------------------------------회원의 이미지를 수정한다.-------------------------------------------------------
 
-	// 파일이 저장된 년/월/일을 명시한다.
-	private String getFolder() {
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-		Date date = new Date();
-
-		String str = sdf.format(date);
-
-		return str.replace("-", File.separator);
-	}
-
+	
 	// 저장되는 파일의 형식을 확인한다.
 	private boolean checkImageType(File file) {
 
@@ -115,21 +118,21 @@ public class UserController {
 	// 파일의 정보를 명시, 브라우저에서 출력하기 위한 작업.
 	@GetMapping("/display")
 	@ResponseBody
-	public ResponseEntity<byte[]> getFile(String fileName) {
+	public ResponseEntity<byte[]> getFile(String fileName, HttpSession session) {
 
-		System.out.println("fileName : " + fileName);
+		System.out.println("/display - fileName : " + fileName);
+		
+		File userUploadImg = new File("/Users/hoya/eclipse/Spring/kwani2/src/main/webapp/resources/image/userUpload/" + fileName);
 
-		File file = new File("/Users/hoya/eclipse/Spring/kwani2/src/main/webapp/resources/image/userUpload/" + fileName);
-
-		System.out.println("/display - file : " + file);
+		System.out.println("/display - file : " + userUploadImg);
 
 		ResponseEntity<byte[]> result = null;
 
 		try {
 			HttpHeaders header = new HttpHeaders();
 
-			header.add("Content-Type", Files.probeContentType(file.toPath()));
-			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+			header.add("Content-Type", Files.probeContentType(userUploadImg.toPath()));
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(userUploadImg), header, HttpStatus.OK);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -138,19 +141,20 @@ public class UserController {
 	}
 
 	// 업로드하는 파일을 ajax통신으로 처리,
+	@SuppressWarnings("rawtypes")
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity uploadAjaxPost(MultipartFile uploadFile) {
-
-		AttachFileDTO list = new AttachFileDTO();
+	public ResponseEntity uploadAjaxPost(MultipartFile uploadFile, HttpSession session) {
+		
+		System.out.println("uploadFile : "+uploadFile.toString());
+		
+		AttachFileDTO userImg = new AttachFileDTO();
 
 		// 이미지가 저장될 폴더.
 		String uploadFolder = "/Users/hoya/eclipse/Spring/kwani2/src/main/webapp/resources/image/userUpload/";
-		// 이미지가 저장될 폴더경로.
-		String uploadFolderPath = getFolder();
 
 		// 저장될 폴더와 폴더경로를 받아서 업로드될 경로를 생성?
-		File uploadPath = new File(uploadFolder, uploadFolderPath);
+		File uploadPath = new File(uploadFolder);
 
 		System.out.println("upload path : " + uploadPath);
 
@@ -160,24 +164,21 @@ public class UserController {
 		}
 
 		AttachFileDTO attachDTO = new AttachFileDTO();
-
+		
 		String uploadFileName = uploadFile.getOriginalFilename();
-
-		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-
-		System.out.println("only file name : " + uploadFileName);
+		
+		// 파일의 이름을 사용자의 이메일로 변경한다.
+		uploadFileName = session.getAttribute("userEmail") +"."+uploadFileName.substring(uploadFileName.lastIndexOf(".") + 1);
 
 		attachDTO.setFileName(uploadFileName);
 
-		UUID uuid = UUID.randomUUID();
-		uploadFileName = uuid.toString() + "_" + uploadFileName;
+		System.out.println("change ImgFileName to userEmail : " + uploadFileName);
 
 		try {
 			File saveFile = new File(uploadPath, uploadFileName);
 			uploadFile.transferTo(saveFile);
 
-			attachDTO.setUuid(uuid.toString());
-			attachDTO.setUploadPath(uploadFolderPath);
+			attachDTO.setUploadPath("");
 
 			// check image type file
 			if (checkImageType(saveFile)) {
@@ -191,12 +192,12 @@ public class UserController {
 				thumbnail.close();
 			}
 
-			list = attachDTO;
+			userImg = attachDTO;
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} // end catch
-		return new ResponseEntity<>(list, HttpStatus.OK);
+		return new ResponseEntity<>(userImg, HttpStatus.OK);
 	}
 
 //	------------------------------------------------------------------------------------------------------------------------------
@@ -262,11 +263,12 @@ public class UserController {
 			// 일치하지 않으면 userInfoModify로 이동한다.
 			return "redirect:/user/checkUserInfo";
 	}
-
+	
 	@PostMapping("/modifyUserInfoAction")
-	public String modifyUserInfoAction(HttpSession session, UserVO user, RedirectAttributes rttr, Model model) {
+	public String modifyUserInfoAction(HttpSession session, UserVO user, RedirectAttributes rttr, Model model, MultipartFile uploadFile) {
 
 		System.out.println("sessionName : " + session.getAttribute("userEmail"));
+		
 		// 회원의 정보를 수정한다.
 		if (service.modifyUserInfo(user)) {
 			rttr.addFlashAttribute("result", "success");

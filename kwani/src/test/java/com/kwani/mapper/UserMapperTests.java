@@ -26,7 +26,7 @@ public class UserMapperTests {
 		
 		UserVO user = new UserVO();
 		user.setEmail("aa@gmail.com");
-		user.setNick("덕환이형이다");
+		user.setNick("개구리는 개굴개굴");
 		user.setPwd("1234");
 		user.setUserImg("");
 		user.setMoodCd("");
@@ -47,7 +47,7 @@ public class UserMapperTests {
 	@Test
 	public void testget() {
 		
-		UserVO user = mapper.get("aaa@gmail.com");
+		UserVO user = mapper.get("c@gmail.com");
 		
 		log.info(user);
 	}
@@ -145,25 +145,21 @@ public class UserMapperTests {
 	}
 	
 	@Test
-	public void testUpdateUserImg() {
+	public void testCheckUserImg() {
 		
-		UserVO user = new UserVO();
-		user.setUserImg("c의 이미지");
-		user.setEmail("c@gmail.com");
-
-		int count = mapper.updateUserImg(user);
+		int checkUserImg = mapper.checkUserImg("c@gmail.com");
 		
-		log.info("회원의 이미지를 변경합니다." + count);
+		log.info("회원의 이미지파일 : " + checkUserImg);
 	}
 	
-	
-	
-	
-	
-//	@Test
-//	public void testDelete() {
-//		
-//		log.info("삭제합니다" + mapper.delete("ggg@gmail.com"));
-//	}
-	
+	@Test
+	public void testGetUserImg() {
+		
+		UserVO userImg = mapper.getUserImg("c@gmail.com");
+		
+		log.info("회원이미지 : " + userImg);
+		
+	}
 }
+	
+	

@@ -105,6 +105,7 @@
 	console.log('${pwdMsg}');
 	console.log('${sessionMsg}')
 
+		
 	if ("${pwdMsg}" != "") {
 		alert("${pwdMsg}");
 	}

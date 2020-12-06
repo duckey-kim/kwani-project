@@ -1,6 +1,5 @@
 package com.kwani.service;
 
-
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -24,8 +23,6 @@ import lombok.extern.log4j.Log4j;
 public class UserServiceImpl implements UserService {
 
 	private UserMapper mapper;
-	
-	
 
 	@Override
 	public void register(UserVO user) {
@@ -45,22 +42,13 @@ public class UserServiceImpl implements UserService {
 		log.info("회원의 정보를 수정한다.");
 		return mapper.modifyUserInfo(user) == 1;
 	}
-	
-	
-	@Override
-	public boolean updateUserImg(UserVO user) {
-		
-		log.info("회원의 이미지를 수정한다.");
-		return mapper.updateUserImg(user) == 1;
-	}
 
 	@Override
 	public UserVO get(String email) {
 		log.info("선택한 회원의 정보를 가져온다." + email);
 		return mapper.get(email);
 	}
-	
-	
+
 	@Override
 	public boolean checkWithdrawUser(String IdEmail) {
 		log.info("탈퇴한 회원인지 확인한다.");
@@ -71,26 +59,24 @@ public class UserServiceImpl implements UserService {
 		if (mapper.checkWithdrawUser(IdEmail) == 2) {
 			System.out.println(mapper.checkWithdrawUser(IdEmail));
 			return true;
-		// 2가 아니면 활동중인 회원.
-		} else 
+			// 2가 아니면 활동중인 회원.
+		} else
 			return false;
 	}
-	
-	
-	
+
 	@Override
 	public boolean checkUserIdPwd(String email, String pwd, RedirectAttributes rttr) {
 		log.info("회원이 입력한 정보와 서버에 저장된 정보를 비교한다.");
-		
+
 		if (mapper.checkUserIdPwd(email, pwd) == 1)
 			return true;
-		 else {
+		else {
 			String msg = "이메일 혹은 비밀번호가 일치하지 않습니다.";
 			rttr.addFlashAttribute("msg", msg);
 			return false;
-		 }
+		}
 	}
-	
+
 	@Override
 	public boolean isUserIdValid(String email, RedirectAttributes rttr) {
 		// 1. 사용자가 입력한 값으로 DB에 일치하는 정보가 있는지 확인한다.
@@ -103,23 +89,20 @@ public class UserServiceImpl implements UserService {
 		}
 		return true;
 	}
-	
-	
+
 	@Override
-	public boolean checkSession(HttpSession session, RedirectAttributes rttr) {
+	public boolean checkSession(HttpSession session, Model model) {
 		// 로그인하지 않은 사용자의 접근을 차단한다.
-		
-		if(session.getAttribute("userEmail") != null)
-			return false;
+
+		if (session.getAttribute("userEmail") != null)
+			return true;
 		else {
 			String msg = "로그인 후 이용하실 수 있습니다.";
-			rttr.addFlashAttribute("sessionMsg", msg);
-			return true;
+			model.addAttribute("sessionMsg", msg);
 		}
+		return false;
 	}
-	
-	
-	
+
 	@Override
 	public void checkCookie(String cookie, String checked, HttpServletRequest request, Model model) {
 		// 쿠키는 배열로 반환된다. 쿠키 값이 없으면 null을 반환한다.
@@ -149,9 +132,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean checkRegister(UserVO user, String email, RedirectAttributes rttr, Model model) {
 		// 입력받은 값들을 DB에 저장한다. (email로 DB에 있는지 없는지 판단한다.)
-		// 
+		//
 		if (mapper.isUserIdVaild(email) != 1) {
-			
+
 			mapper.insert(user);
 			return true;
 		} else {
@@ -194,13 +177,13 @@ public class UserServiceImpl implements UserService {
 
 	// 임시 비밀번호 생성해주는 작업.
 	@Override
-	public String newPwd() { 
+	public String newPwd() {
 
 		String uuid = UUID.randomUUID().toString().replaceAll("-", ""); // -를 제거해 주었다.
 
 		// 새로운 비밀번호를 생성한다.
 		for (int i = 0; i < 1; i++) {
-			uuid = uuid.substring(0, 8); // uuid를 앞에서부터 8자리 잘라줌.
+			uuid = uuid.substring(0, 10); // uuid를 앞에서부터 8자리 잘라줌.
 			System.out.println(i + ") " + uuid);
 		}
 		return uuid;
@@ -208,13 +191,34 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void modifyPwd(String IdEmail, String uuid) {
-		
+
 		System.out.println("IdEmail : " + IdEmail);
 		System.out.println("uuid : " + uuid);
 		// 여기서 기존의 비밀번호를 uuid로 바꿔줘야 한다.
 		mapper.modifyPwd(IdEmail, uuid);
 	}
 
-	
+	@Override
+	public boolean checkUserImg(String email) {
 
+		int checkUserImg = mapper.checkUserImg(email);
+
+		if (checkUserImg != 1) {
+			System.out.println("이미지를 추가해주세요");
+			return false;
+		}
+
+		System.out.println("회원이미지 : " + checkUserImg);
+
+		return true;
+
+	}
+
+	@Override
+	public UserVO getUserImg(String email) {
+
+		UserVO userImg = mapper.getUserImg(email);
+
+		return userImg;
+	}
 }

@@ -20,7 +20,7 @@
 		<result property="upUser" column="UP_USER" />
 		<result property="upDate" column="UP_DATE" />
 	</resultMap>
-	
+
 	<resultMap type="int" id="Integer"></resultMap>
 
 	<insert id="insert">
@@ -36,7 +36,7 @@
 		#{upDate})
 	</insert>
 
-	<select id="get" resultType="com.kwani.domain.UserVO">
+	<select id="get" resultMap="UserResult">
 		select * from t_user where email =
 		#{email}
 	</select>
@@ -44,7 +44,7 @@
 	<delete id="delete">
 		delete from t_user where email = #{email}
 	</delete>
-	
+
 	<update id="update">
 
 		update t_user
@@ -61,50 +61,59 @@
 
 	</update>
 
-	<select id="checkUserInfo" resultType="com.kwani.domain.UserVO">
+	<select id="checkUserInfo" resultMap="UserResult">
 		select email, pwd,
-		user_img from t_user where email = #{email}
+		from
+		t_user where email = #{email}
 	</select>
 
 	<update id="modifyUserInfo">
 		update t_user
-		set nick = #{nick}, pwd = #{pwd}
-		where email = #{email}
-		<!-- 이미지 추가해야함. -->
-	</update>
-	
-	<update id="updateUserImg">
-		update t_user
-		set user_img = #{userImg}
+		set nick = #{nick}, pwd = #{pwd},
+		user_img = #{userImg}
 		where email = #{email}
 	</update>
-		
-	
+
 	<update id="withdrawal">
 		update t_user
 		set stus_cd = 2
 		where email = #{email}
 	</update>
-	
+
 	<select id="isUserIdVaild" resultType="Integer">
-		select count(*) from t_user
+		select count(*) from
+		t_user
 		where email = #{email}
 	</select>
-	
+
 	<select id="checkUserIdPwd" resultType="Integer">
-		select count(*) from t_user
+		select count(*) from
+		t_user
 		where email = #{email} and pwd = #{pwd}
 	</select>
-	
+
 	<select id="checkWithdrawUser" resultType="Integer">
-		select stus_cd from t_user
+		select stus_cd from
+		t_user
 		where email = #{IdEmail}
 	</select>
-	
+
 	<update id="modifyPwd">
 		update t_user
 		set pwd = #{uuid}
-		where email = #{IdEmail}
+		where email
+		= #{IdEmail}
 	</update>
-	
+
+	<select id="checkUserImg" resultType="Integer">
+		select count(user_img) from
+		t_user
+		where email = #{email}
+	</select>
+
+	<select id="getUserImg" resultMap="UserResult">
+		select user_img from t_user
+		where email = #{email}
+	</select>
+
 </mapper>
