@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
     <script defer src="/resources/js/index.js"></script>
      <script src="/resources/js/jquery-3.5.1.js"/></script>
-    <link rel="stylesheet" type = "text/css" href="/resources/css/searchSinger.css">
+    <link rel="stylesheet" type = "text/css" href="/resources/css/search.css">
 </head>
 <body>
     <div id="main">
@@ -33,7 +33,7 @@
             </div>
             <div id="myOverlay" class="overlay">
                 <div class="overlay-content">
-                  <form action="/recommend/search" method="get" name="searchForm" onsubmit="return checkTxt();">
+                  <form action="/search" method="get" name="searchForm" onsubmit="return checkTxt();">
                     <input type="text" placeholder="Search.." name="searchTxt" value="">
                     <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
                   </form>
@@ -46,29 +46,58 @@
             <div id="leftSideBar"></div>
             <div id="bodyContent">
                 <div class="searchRst"><p><c:out value="${searchTxt}"/>에 대한 검색 결과</p></div>
-                <div class="rstTap">
+                <div class="rstTap"> 
                     <form action="#">
-                        <button type="button" class="albumBtn">통합검색</button>
+                        <button type="button" class="entireBtn">통합검색</button>
+                    </form>
+                    <form action="/search/artist" method="get">
+                    	<input type="hidden" value="${searchArtist[0].nm}" name="searchTxt">
+                        <button type="submit" class="artistBtn">아티스트</button>
                     </form>
                     <form action="#">
-                        <button type="button" class="trackBtn">앨범</button>
+                        <button type="button" class="songBtn">곡</button>
                     </form>
                     <form action="#">
-                        <button type="button" class="artistBtn">곡</button>
+                        <button type="button" class="albumBtn">앨범</button>
                     </form>
                     <form action="#">
-                        <button type="button" class="lyricBtn">아티스트</button>
+                        <button type="button" class="lyricsBtn">가사</button>
                     </form>
                 </div>
-                <c:if test="${searchTxt == searchRst[0].nm }">
-                <div class="rstInfo">
-                    <div class="rstImg">
-                    	<img class="artistImg" src="/resources/image/artist/${searchRst[0].gropImg }" />
-                    </div>
-                    <div class="rstText"><p><c:out value="${searchTxt}"/></p><br><p>데뷔일 0000년 00월 00일</p>
-                    <br>솔로, 그룹</div>
+                
+                <div class="artistRstTxt"><p class="textInfo">아티스트</p></div>
+                <div class="artistRstContainer">
+                	<div class="artistTable">
+                	  <table>
+                            <!-- <tr>
+                            <th class="th0"><input type="checkbox" name="checkAll" class="checkAll"></th>
+                            <th class="th1">번호</th>
+                        	<th class="th2">가수</th>
+                        	<th class="th3">제목</th>
+                        	<th class="th4">듣기</th>
+                        	<th class="th4">좋아요</th>
+                            </tr> -->
+                            <c:forEach items="${searchArtist}" var="searchArtist" varStatus="status" begin="0" end="4">
+                        	<tr>
+                        	<td class="td1">
+                        		<div class="artistSmallImg">
+                        		<img src="/resources/image/artist/<c:out value="${searchArtist.gropImg}" />" 
+                				style="max-height:50px"></div>         	
+                        	</td>
+                        	<td class="td2"><c:out value="${searchArtist.nm}" /></td>
+                        	<td class="td3"><c:out value="${searchArtist.type}" /></td>
+                        	<td class="td4">
+                        	<div class="heartParent">
+                        	<img class="defaultHeartImg"src="/resources/image/heart2.png">
+                        	<img class="redHeartImg" src="/resources/image/heart.png">
+                        	</div>
+                        	</td>
+                        	</tr>
+                        	</c:forEach>
+                         </table>
+                	</div>
                 </div>
-                </c:if>
+                
                 <div class="trackHeader"><p class="textInfo">곡</p><hr></div>
                 <div class="trackTable">
                     <div id="plylstTable">
@@ -76,10 +105,10 @@
                             <tr>
                             <th class="th0"><input type="checkbox" name="checkAll" class="checkAll"></th>
                             <th class="th1">번호</th>
-                            <th class="th2">제목</th>
-                            <th class="th3">가수</th>
-                            <th class="th1">듣기</th>
-                            <th class="th1">좋아요</th>
+                        	<th class="th3">제목</th>
+                        	<th class="th2">가수</th>
+                        	<th class="th4">듣기</th>
+                        	<th class="th4">좋아요</th>
                             </tr>
                             <c:forEach items="${searchRst}" var="searchRst" varStatus="status" begin="0" end="7">
                         	<tr>
@@ -87,13 +116,19 @@
                         	<td>${status.index+1}</td>
                         	<td><c:out value="${searchRst.trackTtl}" /></td>
                         	<td><c:out value="${searchRst.nm}" /></td>
-                        	<td><img class="playBtn" src="/resources/image/play-button.png"></td>
-                        	<td><i class="far fa-heart"></i></td>
+                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        	<td>
+                        	<div class="heartParent">
+                        	<img class="defaultHeartImg"src="/resources/image/heart2.png">
+                        	<img class="redHeartImg" src="/resources/image/heart.png">
+                        	</div>
+                        	</td>
                         	</tr>
                         	</c:forEach>
-                            </table>
-                        </div>
+                         </table>
+                    </div> 
                 </div>
+                
                 <div class="albumTxt"><p class="textInfo">앨범</p></div>
                 <div class="albumImgContainer">
                 	<c:forEach items="${searchRst}" var="searchRst" varStatus="status" begin="0" end="3">
@@ -116,22 +151,76 @@
                 	</div><!-- eachAlbum --> 
                 	</c:forEach>
                 </div><!-- alblumImgContainer --> 
-                <div class="artistAllTxt"><p class="textInfo">아티스트</p></div>
-                
-                <div class="artistAllImg">
-                	
-                </div>
+          
                 
                 <div class="lyricsTxt"><p class="textInfo">가사</p></div>
-                <div class="lyricsImg"></div>
+                <div class="lyricsContainer">
+                	<c:forEach items="${searchLyrics}" var="searchLyrics" varStatus="status" begin="0" end="2">
+                	<div class="eachLyrics">
+                	
+                	<div class="lyricsTtl">
+                		<p>
+                			<c:out value="${searchLyrics.trackTtl}" />
+                		</p>
+                	</div><!-- lyricsTtl -->   
+                	<div class="lyricsContent">         	
+                		<c:out value="${searchLyrics.trackLyrics}" />
+                	</div><!-- lyricsContent --> 
+                	<div class="lyricsInfoContainer">
+                	<div class="lyricsArtist">
+                		<h6>
+                			<c:out value="${searchLyrics.nm}" />
+                		</h6>
+                	</div><!-- lyricsArtist -->  
+                	<div class="lyricsAlbum">
+                		<h6>
+                			<c:out value="${searchLyrics.albumTtl}" />
+                		</h6>
+                	</div><!-- lyricsAlbum --> 
+                	</div><!-- lyricsInfoContainer -->      	
+                	</div><!-- eachLyrics --> 
+                	<hr class="one">
+                	</c:forEach>
+                </div><!-- lyricsContainer -->
                 
                
              
                     
                 <script>
+              //좋아요 클릭하면 하트 색깔 바뀌게 설정--------------------------------------------------------    
+                $(document).ready(function(){           		
+                		
+                		$(".defaultHeartImg").show();
+    					$(".redHeartImg").hide();
+    					
+    					//기본 하트를 누르면
+    					$(".defaultHeartImg").click(function(){
+    						
+    						//누른 하트의 인덱스를 가져와서
+    						let index = $(".defaultHeartImg").index(this);
+    						
+    						//기본 하트는 숨기고 빨간 하트를 보여준다
+    						$(".defaultHeartImg:eq(" + index + ")").hide();
+    						$(".redHeartImg:eq(" + index + ")").show();
+    						console.log("defaultHeartImg clicked!");  						    						
+    					});
+    					
+    					//빨간 하트를 누르면
+    					$(".redHeartImg").click(function(){
+    						
+    						//누른 하트의 인덱스를 가져와서
+    						let index = $(".redHeartImg").index(this);
+    						
+    						//빨간 하트는 숨기고 기본 하트를 보여준다
+    						$(".defaultHeartImg:eq(" + index + ")").show();
+    						$(".redHeartImg:eq(" + index + ")").hide();
+    						console.log("redHeartImg clicked!");
+    					});		
+               
+				})
                 
                    
-                	//체크박스 설정--------------------------------------------------------------------
+                	//서치바에 입력된 값 없을 때의 설정-------------------------------------------------------
                 	
                 	var result = $("input[name=searchTxt]");
                 		
@@ -140,7 +229,7 @@
                 		if(result[0].value.length != 0){
                 			console.log(result+"있어");
                 			console.log("모달창 필요 없어!");
-                			return true;
+                			return true; 
                 		}
                 		else{  
                 			console.log(result+"없어");
@@ -150,7 +239,7 @@
                 		}
                 	}
                 		
-                		
+                	//체크박스 설정--------------------------------------------------------------------	
                 	function allCheckFunc(obj){
                 		//모든 checkRow의 속성이 checked가 되게 한다                		
                 		$("[name=checkRow]").prop("checked", $(obj).prop("checked"));
@@ -203,7 +292,13 @@
                 	});
                 
                 </script>
-                
+                    </div><!--bodyContent-->
+            <div id="rightSideBar"></div>
+        </div><!--body-->
+        <div id="footer"></div>
+    </div><!--main-->
+</body>
+</html>
                 
                     
-            <%@include file="../includes/footer.jsp" %>
+           

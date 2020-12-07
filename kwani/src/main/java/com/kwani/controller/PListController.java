@@ -32,29 +32,21 @@ private PListService plservice;
 	}
 	
 	//플레이리스트 상세 페이지
-	@PostMapping("/plylst")
-	public void plylst(@ModelAttribute("plylstId")Integer plylstId, Model model) {
+	@GetMapping("/plylst")
+	public void plylst(Integer plylstId, Model model) {
 		
 		System.out.println(plylstId);
 		log.info("plist name....");
 		System.out.println(plservice.getListName(plylstId));
+		
 		//plylstId값과 같은 id값을 가진 plylstNm을 가져온다  
 		model.addAttribute("plistName", plservice.getListName(plylstId));
+		
 		//plylstId 값을 통해 같은 id 값을 가진 플레이리스트 목록을 가져온다
 		model.addAttribute("plistListDtl", plservice.getListDtl(plylstId));	
 	} 
 	
-	//노래 검색 페이지
-	@GetMapping("/search") 
-	public void search(@ModelAttribute("searchTxt")String searchTxt, Model model) {
-		//검색창에 입력한 가수 텍스트를 search 페이지에 보내준다
-		//search 페이지에서 그 값을 받아서 값과 일치하는 결과를 보여준다
-		System.out.println("@@@");
-		log.info("search result....");
-		model.addAttribute("searchRst", plservice.getSearchRst(searchTxt));
-		
 	
-	}
 	
 	
 	 

@@ -28,7 +28,7 @@ public class PListServiceTests {
 		assertNotNull(plservice);
 	}
 
-	//ÇÃ·¹ÀÌ¸®½ºÆ® »ó¼¼ ÆäÀÌÁö °ü·Ã----------------------------------------------
+	//ï¿½Ã·ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½----------------------------------------------
 	@Test
 	public void getGetListName() {
 		
@@ -42,21 +42,32 @@ public class PListServiceTests {
 	}
 	
 	
-	//ÀÏ¹İ ÃßÃµ ÆäÀÌÁö °ü·Ã-----------------------------------------
+	//ï¿½Ï¹ï¿½ ï¿½ï¿½Ãµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½-----------------------------------------
 	@Test
 	public void getGetAllList() {
 		
 		plservice.getAllList().forEach(plist -> log.info(plist));
 	}
 	
-    //³ë·¡ °Ë»ö ÆäÀÌÁö 
+    //ï¿½ë·¡ ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	@Test
 	public void testGetSearchRst() {
 		
-		log.info(plservice.getSearchRst("ÅÂ¿¬"));
+		log.info(plservice.getSearchRst("ï¿½Â¿ï¿½"));
 	}
 	
+	//ê²€ìƒ‰ ê²°ê³¼ì— ê°€ì‚¬ ë‚˜ì˜¤ê²Œ í•˜ê¸°
+	@Test
+	public void testGetSearchLyrics() {
+		
+		log.info(plservice.getSearchLyrics("ì´"));
+	}
 	
-	
+	//ê²€ìƒ‰ ê²°ê³¼ì— ì•„í‹°ìŠ¤íŠ¸ ê²°ê³¼ ì¤‘ë³µì—†ì´ ë‚˜ì˜¤ê²Œ í•˜ê¸°
+	@Test
+	public void testGetSearchArtist() {
+		
+		log.info(plservice.getSearchArtist("íƒœì—°"));
+	}
 	
 }

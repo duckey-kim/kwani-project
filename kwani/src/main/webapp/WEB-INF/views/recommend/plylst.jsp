@@ -35,7 +35,7 @@
             </div>
                <div id="myOverlay" class="overlay">
                 <div class="overlay-content">
-                  <form action="/recommend/search" method="get" name="searchForm" onsubmit="return checkTxt();">
+                  <form action="/search" method="get" name="searchForm" onsubmit="return checkTxt();">
                     <input type="text" placeholder="Search.." name="searchTxt" value="">
                     <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
                   </form>
@@ -64,19 +64,21 @@
                         <th class="th4">듣기</th>
                         <th class="th4">좋아요</th>
                         </tr>
-                        
+                          
                         <c:forEach items="${plistListDtl}" var="plstdtl" varStatus="status" begin="0" end="19">
                         <tr>
                         <th><input type="checkbox" name="checkRow"></th>
                         <td class="num">${status.index+1}</td>
                         <td><c:out value="${plstdtl.nm}" /></td>
                         <td><c:out value="${plstdtl.trackTtl}" /></td>
-                        <td><img class="playBtn" src="/resources/image/play-button.png"></td>
-                        <!-- <td class="faHeart"><i class="far fa-heart"></i></td> -->
-                        <td >
-                        <img class="defaultHeartImg"src="/resources/image/heart2.png">
+                        <td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        <td>
+                        <div class="heartParent">
+                        <img class="defaultHeartImg" src="/resources/image/heart2.png">
                         <img class="redHeartImg" src="/resources/image/heart.png">
+                        </div>
                         </td>
+         
                         </tr>
                         </c:forEach>
                         
@@ -85,44 +87,40 @@
                     
                 <script>
                 
-                //좋아요 클릭하면 하트 색깔 바뀌게 설정--------------------------------------------------------
-     
+                //좋아요 클릭하면 하트 색깔 바뀌게 설정--------------------------------------------------------    
+                $(document).ready(function(){           		
+                		
+                		$(".defaultHeartImg").show();
+    					$(".redHeartImg").hide();
+    					
+    					//기본 하트를 누르면
+    					$(".defaultHeartImg").click(function(){
+    						
+    						//누른 하트의 인덱스를 가져와서
+    						let index = $(".defaultHeartImg").index(this);
+    						
+    						//기본 하트는 숨기고 빨간 하트를 보여준다
+    						$(".defaultHeartImg:eq(" + index + ")").hide();
+    						$(".redHeartImg:eq(" + index + ")").show();
+    						console.log("defaultHeartImg clicked!");  						    						
+    					});
+    					
+    					//빨간 하트를 누르면
+    					$(".redHeartImg").click(function(){
+    						
+    						//누른 하트의 인덱스를 가져와서
+    						let index = $(".redHeartImg").index(this);
+    						
+    						//빨간 하트는 숨기고 기본 하트를 보여준다
+    						$(".defaultHeartImg:eq(" + index + ")").show();
+    						$(".redHeartImg:eq(" + index + ")").hide();
+    						console.log("redHeartImg clicked!");
+    					});		
+               
+				})
                 
-   				$(function(){
-                	$(".defaultHeartImg").each(function(){
-                		$(this).click(function(){
-                			this.src="/resources/image/heart.png";
-                			console.log("defaultHeartImg clicked!");
-                			return false;
-                		})
-                	})
-                	
-                })           
-                
-		/* 		$(document).ready(function(){
-					$(".defaultHeartImg").show();
-					$(".redHeartImg").hide();
-					
-					$(".defaultHeartImg").click(function(){
-						
-						$(".defaultHeartImg").hide();
-						$(".redHeartImg").show();
-					});
-					$(".redHeartImg").click(function(){
-						
-						$(".defaultHeartImg").show();
-						$(".redHeartImg").hide();
-					});
-				}) */
-				
-                
-                
-                
+ 
               
-                
-            
-                
-                
                 //서치바 설정-------------------------------------------------------------------------
                 var result = $("input[name=searchTxt]");
         		

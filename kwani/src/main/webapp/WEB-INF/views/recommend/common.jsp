@@ -32,7 +32,7 @@
             </div>
               <div id="myOverlay" class="overlay">
                 <div class="overlay-content">
-                  <form action="/recommend/search" method="get" name="searchForm" onsubmit="return checkTxt();">
+                  <form action="/search" method="get" name="searchForm" onsubmit="return checkTxt();">
                     <input type="text" placeholder="Search.." name="searchTxt" value="">
                     <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
                   </form>
@@ -56,7 +56,7 @@
                     </div>
                     <div id="rec_txt">
                     	<c:out value="${plist.rcmdPlylstId}" />  
-                    	<form action="/recommend/plylst" method="post">
+                    	<form action="/recommend/plylst" method="get">
                     		<input type="hidden" value="${plist.rcmdPlylstId}" name="plylstId">
                     		<button type="submit">         	
                     		<c:out value="${plist.rcmdPlylstNm}" />

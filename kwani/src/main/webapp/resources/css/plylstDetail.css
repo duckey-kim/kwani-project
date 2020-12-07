@@ -189,14 +189,17 @@ th, td{
 .faHeart{
 	text-align: center;
 }
+.heartParent{
+	width: 108px;
+	text-align: center;	
+}
+
 .defaultHeartImg{
-	display: block;
 	width: 20px;
 	height: 20px;
 	cursor: pointer;
 }
 .redHeartImg{
-	display: none;
 	width: 20px;
 	height: 20px;
 	cursor: pointer;
@@ -204,15 +207,16 @@ th, td{
 .playBtn{
 	width: 20px;
 	height: 20px;
-	cursor: pointer;
+	cursor: pointer;	
+}
+.btnParent{
+	text-align: center;
 }
 #leftSideBar {
     width: 10%;
     height: 1000px;
     background-color: white;
 }
-
-
 
 #rightSideBar {
     width: 10%;

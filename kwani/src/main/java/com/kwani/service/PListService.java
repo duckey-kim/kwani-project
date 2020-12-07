@@ -18,6 +18,11 @@ public interface PListService {
 	//노래 검색 페이지----------------------------------------------
 	//검색해서 나온 결과값 불러오기
 	public List<PListVO> getSearchRst(String searchTxt);
-
-
+	
+	//검색 결과에 가사 나오게 하기
+	public List<PListVO> getSearchLyrics(String searchTxt);
+	
+	//검색 결과에 아티스트 중복없이 나오게 하기
+	public List<PListVO> getSearchArtist(String searchTxt);
+ 
 }

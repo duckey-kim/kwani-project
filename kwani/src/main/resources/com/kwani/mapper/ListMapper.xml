@@ -21,10 +21,10 @@
  	<result property="gropId" column="grop_id" />
  	<result property="albumImg" column="album_img" />
  	<result property="gropImg" column="grop_img" />
+ 	<result property="trackLyrics" column="track_lyrics" />
  	<result property="rcmdPlylstId" column="rcmd_plylst_id" />
  	<result property="rcmdPlylstNm" column="rcmd_plylst_nm" />
  	<result property="rcmdPlylstImg" column="rcmd_plylst_img" />
- 	
  	
  </resultMap>
  
@@ -54,17 +54,34 @@
   
   <!-- 가수 검색 페이지 -->
   <select id="getSearchRst" resultMap="PListResult">
-  	select a.nm, a.sex, a.type, a.debut_dt, a.grop_img, al.album_img, al.album_ttl, t.track_ttl  
+  	select a.nm, a.sex, a.type, a.grop_img, al.album_img, al.album_ttl, t.track_ttl, to_char(a.debut_dt, 'yyyy-mm-dd') as debut_dt
   	from t_tracks t, t_artist_tracks at, t_artist a, t_album al
 	where t.track_id = at.track_id
 	and at.grop_id = a.grop_id
 	and t.album_id = al.album_id
 	and a.nm like '%'||#{searchTxt}||'%'
   </select>
+ 
+ <!-- 가사 검색 페이지 -->
+ <select id="getSearchLyrics" resultMap="PListResult">
+ 	select a.nm, t.track_ttl, al.album_ttl, t.track_lyrics
+	from t_tracks t, t_artist_tracks at, t_artist a, t_album al
+	where t.track_id = at.track_id
+	and at.grop_id = a.grop_id
+	and t.album_id = al.album_id
+	and track_lyrics like '%'||#{searchTxt}||'%'
+ </select>
   
-
-  
-  
+ <!-- 검색 페이지에서 아티스트 결과만 따로 보여주기 -->
+ <select id="getSearchArtist" resultMap="PListResult">
+ 	select grop_img, nm, type, to_char(debut_dt, 'yyyy-mm-dd') as debut_dt
+	from t_artist
+	where nm like '%'||#{searchTxt}||'%'
+ </select>
+ 
+ 
+ 
+ 
   
   
   </mapper>

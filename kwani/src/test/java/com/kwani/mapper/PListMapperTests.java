@@ -47,7 +47,21 @@ public class PListMapperTests {
 		log.info(pinfo);
 	}
 	
+	//검색 시 노래 가사 결과 
+	@Test
+	public void testGetSearchLyrics() {
+		List<PListVO> pinfo = mapper.getSearchLyrics("이");
+		
+		log.info(pinfo);
+	}
 	
+	//검색 시 아티스트 결과만 중복 없이 나오게 하기
+	@Test
+	public void testGetSearchArtist() {
+		List<PListVO> pinfo = mapper.getSearchArtist("태연");
+		
+		log.info(pinfo);
+	}
 	//------------------------------------------------------------------------
 	
 	

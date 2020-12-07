@@ -30,7 +30,6 @@ public class PListControllerTests {
 	
 	private MockMvc mockMvc;
 	
-	
 	@Before
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
@@ -55,20 +54,24 @@ public class PListControllerTests {
 		
 	}
 	
-	//plylst ÆäÀÌÁö¿¡¼­ Å×½ºÆ®ÇØºÁ¾ßÇÒ attribute °ªÀÌ µÎ °³ÀÎµ¥,
-	//À§ÀÇ °ÍÀº ¿ì¼± ÇÏ³ª¸¸ ÇØ³õÀº °Í
-	//´Ù¸¥ ÇÏ³ª¸¦ µû·Î Å×½ºÆ®ÇØº¸·Á¸é ¾î¶»°Ô ÇØ¾ßÇÏÁö?    -----> param() ³¡¿¡ param()À» ÀÌ¾î¼­ ³ÖÀ¸¸é µÇ´Â °Í
 
-	//³ë·¡ °Ë»ö ÆäÀÌÁö
 	@Test
 	public void testGetSearchPlist() throws Exception{
 		
-		//System.out.println("ÇÑ¹ø¸¸ ³ª¿À´ÂÁö Å×½ºÆ®ÇØº¼±î?");
 		
 		log.info(
 			mockMvc.perform(MockMvcRequestBuilders.get("/recommend/search")
-			.param("searchTxt", "ÅÂ¿¬"))
+			.param("searchTxt", "íƒœì—°"))
 			.andReturn().getModelAndView().getModelMap());
+	}
+	
+	@Test
+	public void testGetSearchLyrics() throws Exception{
+		
+		log.info(
+				mockMvc.perform(MockMvcRequestBuilders.get("/recommend/search")
+				.param("searchTxt", "ì´"))
+				.andReturn().getModelAndView().getModelMap());
 	}
 }
 

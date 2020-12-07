@@ -19,4 +19,10 @@ public interface ListMapper {
 		//노래 검색 페이지 	
 		public List<PListVO> getSearchRst(String searchTxt);
 		
+		//검색 시 가사 결과 나오게 하기
+		public List<PListVO> getSearchLyrics(String searchTxt);
+		
+		//검색 시 아티스트 결과만 중복없이 나오게 하기
+		public List<PListVO> getSearchArtist(String searchTxt);
+		
 }

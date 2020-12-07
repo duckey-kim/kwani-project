@@ -31,6 +31,8 @@ private ListMapper mapper;
 		
 		log.info("getListDtl......" + plylstId);
 		
+		
+		
 		return mapper.getListDtl(plylstId);
 	}
 	
@@ -52,8 +54,22 @@ private ListMapper mapper;
 		return mapper.getSearchRst(searchTxt);
 	}
 	
-	
+	//검색 결과에 가사 나오게 하기
+	@Override
+	public List<PListVO> getSearchLyrics(String searchTxt){
+		
+		log.info("search lyrics......" + searchTxt);
+		
+		return mapper.getSearchLyrics(searchTxt);
+	}
 
-
+	//검색 결과에 아티스트 결과 중복없이 나오게 하기
+	@Override
+	public List<PListVO> getSearchArtist(String searchTxt){
+		
+		log.info("search artist......" + searchTxt);
+		
+		return mapper.getSearchArtist(searchTxt);
+	}
 
 }
