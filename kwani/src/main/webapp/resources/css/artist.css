@@ -105,6 +105,11 @@
 	margin: 10px;
 }
 
+.emptyHeart, .redHeart {
+	width: 20px;
+	height: 20px;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;

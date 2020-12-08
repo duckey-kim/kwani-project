@@ -104,3 +104,8 @@
 	height: 50px;
 	margin: 10px;
 }
+
+.emptyHeart, .redHeart {
+	width: 20px;
+	height: 20px;
+}

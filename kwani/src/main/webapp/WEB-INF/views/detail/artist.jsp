@@ -83,9 +83,10 @@
 				</div>
 
 				<div class="header-buttons">
-					<button type="button" id="likeArtist">좋아요</button>
 					<input type="button" value="공유하기" onclick="copyURL()">
 						<textarea id="address" style="display:none"></textarea>
+					<img class="emptyHeart" id="likeArtist" src="/resources/image/heart2.png">
+					<img class="redHeart" id="likeArtist" src="/resources/image/heart.png">
 				</div>
 
 				<div class="hr">
@@ -123,7 +124,8 @@
 										<button name="addMyPlaylist">내 재생목록에 추가</button>
 									</td>
 									<td>
-										<button name="likeTrack">좋아요</button>
+										<img class="emptyHeart" name="likeTrack" src="/resources/image/heart2.png">
+										<img class="redHeart" name="likeTrack" src="/resources/image/heart.png">
 									</td>
 								</tr>
 							</c:forEach>
@@ -163,7 +165,11 @@
 	<!--main-->
 	
 	<script>
+	
 		if('${sessionName}' == ""){		// 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
+			// 빨간 하트를 숨긴다.
+			$(".redHeart").hide();
+			
 			// 앨범 좋아요 기능
 			document.getElementById("likeArtist").addEventListener("click", goLogin);
 			
@@ -179,6 +185,11 @@
 				lt[i].addEventListener("click", goLogin);
 			}
 			
+		}else{
+			// 유저가 좋아요한 곡은 빨간하트, 좋아요하지 않은건 빈하트로 보여줘야함
+			// 앨범좋아요 JQuery 부분을 공유하고 if문을 쓸건지 따로 메서드를 팔지
+			
+			likeTrack();
 		}
 	
 		function addPlayer(){
@@ -188,6 +199,29 @@
 		
 		function addMyPlaylist(){
 			
+		}
+		
+		function likeTrack(){
+			
+			//빈 하트 클릭할 때
+			$(".emptyHeart").on("click", function(){
+				
+				let index = $(".emptyHeart").index(this);	//누른 하트의 인덱스 저장
+				
+				$(".emptyHeart:eq(" + index + ")").hide();	//누른 하트를 숨기기
+				$(".redHeart:eq(" + index + ")").show();	//누른 곳에 빨간 하트를 표시
+				console.log("빈 사랑 클릭했어")
+			});
+			
+			//빨간 하트 클릭할때
+			$(".redHeart").on("click", function(){
+				
+				let index = $(".redHeart").index(this);		//누른 하트의 인덱스 저장
+				
+				$(".redHeart:eq(" + index + ")").hide();	//누른 하트를 숨기기
+				$(".emptyHeart:eq(" + index + ")").show();	//누른 곳에 빈 하트를 표시
+				console.log("꽉 찬 사랑 클릭했어")
+			});
 		}
 	
 		function goLogin(){		// 로그아웃 상태에서 로그인이 필요한 기능을 사용하려고 할때 로그인 페이지로 이동
