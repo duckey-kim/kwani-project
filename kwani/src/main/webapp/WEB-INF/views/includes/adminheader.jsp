@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,17 +92,17 @@
 								</span>
 							</div> <!-- /input-group -->
 						</li>
-						<li><a href="/admin/home"><i class="fa fa-dashboard fa-fw"></i>
-								Dashboard</a></li>
+						<li><a href="/admin/home"><i
+								class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
 						<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
-								INSERT DATA<span class="fa arrow"></span></a>
+						데이터 입력<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="/admin/inputuser">USER DATA</a></li>
-								<li><a href="/admin/inputtracks">TRACK DATA</a></li>
-								<li><a href="/admin/inputartist">ARTIST DATA</a></li>
-								<li><a href="/admin/inputalbum">ALBUM DATA</a></li>
-								<li><a href="/admin/inputartistandtrack">ARTIST_TRACK DATA</a></li>
-								<li><a href="/admin/inputartistandgroup">ARTIST_GROUP DATA</a></li>
+								<li><a href="/admin/inputuser">유저</a></li>
+								<li><a href="/admin/inputtracks">노래</a></li>
+								<li><a href="/admin/inputartist">가수</a></li>
+								<li><a href="/admin/inputalbum">앨범</a></li>
+								<li><a href="/admin/inputartistandtrack">가수,노래</a></li>
+								<li><a href="/admin/inputartistandgroup">가수,그룹</a></li>
 
 
 							</ul> <!-- /.nav-second-level --></li>
@@ -108,12 +110,12 @@
 
 
 						<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
-								MODIFY DATA<span class="fa arrow"></span></a>
+								데이터 수정<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">
-								<li><a href="/admin/album">ALBUM</a></li>
-								<li><a href="/admin/artist">ARTIST</a></li>
-								<li><a href="/admin/tracks">TRACKS</a></li>
-								<li><a href="/admin/user">USER</a></li>
+								<li><a href="/admin/album">앨범</a></li>
+								<li><a href="/admin/artist">가수</a></li>
+								<li><a href="/admin/tracks">노래</a></li>
+								<li><a href="/admin/user">유저</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 					</ul>
 				</div>
@@ -123,5 +125,4 @@
 		</nav>
 
 		<div id="page-wrapper">
-			<script
-				src="https://code.jquery.com/jquery-3.5.1.js"></script>
+			<script src="https://code.jquery.com/jquery-3.5.1.js"></script>

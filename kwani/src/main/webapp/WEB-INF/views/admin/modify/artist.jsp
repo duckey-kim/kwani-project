@@ -7,58 +7,54 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="login-panel panel paenl-default">
+			<div class="panel paenl-default">
 				<div class="panel-body">
-				
-				<h4>${msg }</h4>
-				<form action="/admin/modifyArtistAction" method="post"
-					onsubmit="return checkInput();">
-					<h5>T_ARTIST</h5>
-					<div class="form-group">
-					<label>ID</label>
-						<input  class="form-control"  placeholder="NAME" type="text" name="gropId"
-							value="${artist.gropId }" readonly="readonly">
-					</div>
-					
-					<div class="form-group">
-					<label>이름</label>
-						<input  class="form-control"  placeholder="NAME" type="text" name="nm"
-							value="${artist.nm }">
-					</div>
-					<div class="form-group">
-					<label>성별</label>
-						<input  class="form-control" placeholder="GENDER" type="text" name="sex"
-							value="${artist.sex }">
-					</div>
-					<div class="form-group">
-					<label>활동유형</label>
-						<select  class="form-control"name="type">
-							<option value="g">그룹</option>
-							<option value="s">솔로</option>
-							<option value="sg">그룹,솔로</option>
-						</select>
 
-					</div>
-					<div class="form-group">
-					<label>데뷔일</label>
-						<input  class="form-control" placeholder="DEBUT 2020-10-10" type="text" name="debutDt"
-							 >
+					<h4>${msg }</h4>
+					<form action="/admin/modifyArtistAction" method="post"
+						enctype="multipart/form-data" onsubmit="return checkInput();">
+						<h5>T_ARTIST</h5>
+						<div class="form-group">
+							<label>ID</label> <input class="form-control" type="text"
+								name="gropId" value="${artist.gropId }" readonly="readonly">
+						</div>
+						<div class="form-group">
+							<label>이미지</label> <input class="form-control" type="file"
+								name="imgFile" id="imgFile">
+						</div>
 
-					</div>
-					<div class="form-group">
-					<label>상태코드</label>
-						<input  class="form-control" placeholder="상태코드" type="text" name="statusCode"
-							value="${artist.stusCd }">
-					</div>
-					<div class="form-group">
-					<label>이미지</label>
-						<input  class="form-control" placeholder="이미지" type="text" name="statusCode"
-							value="${artist.gropImg}">
-					</div>
+						<div class="form-group">
+							<label>이름</label> <input class="form-control" type="text"
+								name="nm" id="nm" value="${artist.nm }">
+						</div>
+						<div class="form-group">
+							<label>성별</label> <input class="form-control" type="text"
+								name="sex" id="sex" value="${artist.sex }">
+						</div>
+						<div class="form-group">
+							<label>활동유형</label> <select class="form-control" name="type"
+								id="type">
+								<option value="g">그룹</option>
+								<option value="s">솔로</option>
+								<option value="sg">그룹,솔로</option>
+							</select>
+
+						</div>
+						<div class="form-group">
+							<label>데뷔일</label> <input class="form-control" type="date" name="debutDt"
+								id="debutDt">
+
+						</div>
+						<div class="form-group">
+							<label>상태코드</label> <input class="form-control"
+								 type="number" name="stusCd" id="stusCd"
+								value="${artist.stusCd }">
+						</div>
+
 						<input type="hidden" value="${mngrId }" name="upUser">
-					
-					<button class="btn btn-sm btn-success">수정</button>
-				</form>
+
+						<button class="btn btn-sm btn-success">수정</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -70,8 +66,22 @@
 
 
 <script type="text/javascript">
-	function check(pattern, input, message) {
-		if (pattern.test(input.value)) {
+	let checkExtension = function(fileName, fileSize) {
+		const imgRegex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+		const maxSize = 5242880;
+		if (fileSize >= maxSize) {
+			alert("파일사이즈 초과");
+			return false;
+		}
+		if (imgRegex.test(fileName)) {
+			alert("해당 종류의 파일은 업로드 할 수 없습니다.");
+			return false;
+		}
+		return true;
+	}
+
+	let check = function(pattern, input, message) {
+		if (!pattern.test(input.value)) {
 			return true;
 		}
 		alert(message);
@@ -79,60 +89,80 @@
 		input.focus();
 	}
 
-	function checkInput() {
-		let formControl = document.getElementsByClassName("form-control");
-		const datePattern = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
+	let checkInput = function() {
 
-		let nmFld = formControl[2];
-		let sexFld = formControl[3];
-		let typeFld = formControl[4];
-		let dateFld = formControl[5];
-		let stusFld = formControl[6];
-		let imgFld = formControl[7];
+		let nmFld =  document.getElementById("nm");
+		let sexFld =  document.getElementById("sex");
+		let typeFld =  document.getElementById("type");
+		let dateFld =  document.getElementById("debutDt");
+		let stusFld =  document.getElementById("stusCd");
+		let imgFld =  document.getElementById("imgFile");
+		
+		let gropImg = imgFld.files.item(0);
 
-		let typevalue = typeFld.value.trim();
+		
+		const specialPattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+		const numRegex = /[^0-9]/g;
+		
+		if (!check(specialPattern, nmFld, "활동명에 특수문자는 안됩니다")) {
+			return false;
+		}
+		
 		if (nmFld.value.trim() == "") {
-			alert("Artist name is empty")
+			alert("활동명을 적어주세요")
 			return false;
 		}
 		if (nmFld.value.trim().length > 30) {
-			alert("name lenght 30 over");
+			alert("활도명이 30자를 넘습니다");
 			nmFld.value = "";
 			return false;
 		}
+		
+		
+		
+		
 		if (sexFld.value.trim() == "") {
-			alert("가수 성별 is empty");
+			alert("성별을 입력해주세요 f,m");
 			return false;
 		}
 		if (sexFld.value.trim().length > 5) {
-			alert("sex  lenght 5 over");
+			alert("성별이 너무 깁니다");
 			sexFld.value = "";
 			return false;
 		}
 		if (typeFld.value == "") {
-			alert("아티스트의 유형을 입력해주세요");
+			alert("활동유형을 골라주세요");
 			return false;
 		}
 
-		if (!check(datePattern, dateFld, "날짜는 yyyy-MM-dd형식을 지켜주세요")) {
+		
+
+		if (stusCdFld.value == "") {
+			alert("상태코드를 입력해주세요");
+			return false;
+		} else if (stusCdFld.value.length > 2) {
+			alert("stusCd 의 길이가 2을 넘습니다");
+			stusCdFld.value = "";
+			return false
+		}
+		if (!check(numRegex, stusCdFld, "상태코드는  숫자만 입력해주세요")) {
 			return false;
 		}
 		
-		if (stusFld.value.trim() == "") {
-			alert("상태코드 가 비었습니다");
+		
+
+		if (imgFld.value == "") {
+			alert("파일을 선택해주세요");
 			return false;
 		}
-		if (stusFld.value.trim().length > 3) {
-			alert("상태코드의 길이가 3을 초과하였습니다.");
-			stusFld.value = "";
+		
+		if (!checkExtension(gropImg.name, gropImg.size)) {
 			return false;
 		}
 		
 		
-		if (imgFld.value.trim() == "") {
-			alert("이미지를 추가해주세요");
-			return false;
-		}
+		
+		
 		return true;
 
 	}

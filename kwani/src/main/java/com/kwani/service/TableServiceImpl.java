@@ -1,5 +1,7 @@
 package com.kwani.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kwani.domain.AdminVO;
@@ -23,7 +26,7 @@ import lombok.Setter;
 @Service
 public class TableServiceImpl implements TableService {
 
-	@Setter(onMethod_ =@Autowired )
+	@Setter(onMethod_ = @Autowired)
 	private TableMapper mapper;
 
 	// 입력한 유저정보 nullCheck
@@ -47,9 +50,9 @@ public class TableServiceImpl implements TableService {
 	}
 
 	@Override
-	public boolean insertUser(UserVO user, RedirectAttributes rttr) {
-		
-		int result = mapper.insertUser(user);
+	public boolean insertUser(UserVO user, RedirectAttributes rttr, String upUser) {
+
+		int result = mapper.insertUser(user, upUser);
 
 		if (result == 1) {
 			rttr.addFlashAttribute("msg", "유저등록성공");
@@ -64,7 +67,7 @@ public class TableServiceImpl implements TableService {
 	@Override
 	public void getAlbumForTrack(String albumTtl, RedirectAttributes rttr) {
 		AlbumVO getAlbum = mapper.getAlbum(albumTtl);
-		if (getAlbum==null) {
+		if (getAlbum == null) {
 			rttr.addFlashAttribute("msg", "입력하신 앨범은 없습니다");
 		} else {
 			rttr.addFlashAttribute("album", getAlbum);
@@ -101,18 +104,16 @@ public class TableServiceImpl implements TableService {
 
 	// 테이블에 앨범 입력
 	@Override
-	public boolean insertAlbum(AlbumVO album,String upUser, RedirectAttributes rttr) {
-		int result = mapper.insertAlbum(album,upUser);
+	public boolean insertAlbum(AlbumVO album, String upUser, RedirectAttributes rttr) {
+		int result = mapper.insertAlbum(album, upUser);
 		if (result == 1) {
-			rttr.addFlashAttribute("msg","앨범등록");
+			rttr.addFlashAttribute("msg", "앨범등록");
 			return true;
 		}
-		rttr.addFlashAttribute("msg","앨범등록실패");
+		rttr.addFlashAttribute("msg", "앨범등록실패");
 
 		return false;
 	}
-
-	
 
 	// 입력받은 TracksVO의 유효성 검사
 	// albumId,trackTtl,trackUrl
@@ -142,12 +143,12 @@ public class TableServiceImpl implements TableService {
 	}
 
 	@Override
-	public boolean insertTrack(TracksVO track,String upUser, RedirectAttributes rttr) {
+	public boolean insertTrack(TracksVO track, String upUser, RedirectAttributes rttr) {
 		// 테이블에 TracksVO 입력
 		// 테이블에 등록안되어 있다면 등록
 
-		if (mapper.insertTrack(track,upUser) == 1) {
-			rttr.addFlashAttribute("msg","곡 등록");
+		if (mapper.insertTrack(track, upUser) == 1) {
+			rttr.addFlashAttribute("msg", "곡 등록");
 			return true;
 		}
 		rttr.addFlashAttribute("msg", "곡 등록 실패");
@@ -179,14 +180,14 @@ public class TableServiceImpl implements TableService {
 	// 소녀시대 : 소녀시대
 	@Override
 	@Transactional
-	public void insertArtist(ArtistVO artist,String upUser ,RedirectAttributes rttr) {
-		//exception은 내가 만들어서 보낼 것이냐
-		//그냥 runtime exception으로 보낼것이냐
+	public void insertArtist(ArtistVO artist, String upUser, RedirectAttributes rttr) {
+		// exception은 내가 만들어서 보낼 것이냐
+		// 그냥 runtime exception으로 보낼것이냐
 		rttr.addFlashAttribute("msg", "가수등록 실패");
-		mapper.insertArtist(artist,upUser);
+		mapper.insertArtist(artist, upUser);
 
 		int artistId = mapper.getSeqGropCurrval();
-		mapper.insertArtistGroup(artistId, artistId,upUser);
+		mapper.insertArtistGroup(artistId, artistId, upUser);
 		rttr.addFlashAttribute("msg", "가수 등록 성공");
 
 	}
@@ -202,12 +203,12 @@ public class TableServiceImpl implements TableService {
 	// 입력받은 이름으로 가수 객체 가져오기
 	// 없으면 빈 객체
 	@Override
-	public void getArtist(String nm ,RedirectAttributes rttr) {
+	public void getArtist(String nm, RedirectAttributes rttr) {
 		ArtistVO getArtist = mapper.getArtist(nm);
-		if(getArtist==null) {
-			rttr.addFlashAttribute("msg","없는 아티스트입니다");
-		}else
-			rttr.addFlashAttribute("artist",getArtist);
+		if (getArtist == null) {
+			rttr.addFlashAttribute("msg", "없는 아티스트입니다");
+		} else
+			rttr.addFlashAttribute("artist", getArtist);
 	}
 
 	// 입력받은 그룹아이디로 테이블에 존재유무
@@ -225,12 +226,12 @@ public class TableServiceImpl implements TableService {
 
 	// 테이블 artist_track에 trackId,gropId 입력
 	@Override
-	public boolean insertArtistTrack(Integer trackId, Integer gropId,RedirectAttributes rttr) {
-		if(mapper.insertArtistTrack(trackId, gropId)==1) {
-			rttr.addFlashAttribute("msg","등록성공!!");
+	public boolean insertArtistTrack(Integer trackId, Integer gropId, String upUser, RedirectAttributes rttr) {
+		if (mapper.insertArtistTrack(trackId, gropId, upUser) == 1) {
+			rttr.addFlashAttribute("msg", "등록성공!!");
 			return true;
 		}
-		rttr.addFlashAttribute("msg","등록실패");
+		rttr.addFlashAttribute("msg", "등록실패");
 		return false;
 	}
 
@@ -266,13 +267,11 @@ public class TableServiceImpl implements TableService {
 		return false;
 	}
 
-	
-
 	// gropId,soloId가 artist테이블에 있는지 확인
 	@Override
-	public boolean checkInputValid(Integer gropId, Integer soloId,RedirectAttributes rttr) {
-		if( mapper.getArtistById(gropId) == null || mapper.getArtistById(soloId) == null) {
-			rttr.addFlashAttribute("msg","input을 넣어주세요");
+	public boolean checkInputValid(Integer gropId, Integer soloId, RedirectAttributes rttr) {
+		if (mapper.getArtistById(gropId) == null || mapper.getArtistById(soloId) == null) {
+			rttr.addFlashAttribute("msg", "그룹아이디 또는 솔로아이디를 확인하세요");
 			return true;
 		}
 		return false;
@@ -280,38 +279,38 @@ public class TableServiceImpl implements TableService {
 
 	// 입력한 artist_group테이블에 데이터 있는지 확인
 	@Override
-	public boolean checkInTableArtistGroup(Integer gropId, Integer soloId,RedirectAttributes rttr) {
+	public boolean checkInTableArtistGroup(Integer gropId, Integer soloId, RedirectAttributes rttr) {
 
-		if(mapper.getArtistGroup(gropId, soloId) == null) {
-			//ARTIST_GROUP테이블에 데이터가 없음!
+		if (mapper.getArtistGroup(gropId, soloId) == null) {
+			// ARTIST_GROUP테이블에 데이터가 없음!
 			return true;
 		}
-		rttr.addFlashAttribute("msg","ARTIST_GROUP에 있는 데이터 입니다");
+		rttr.addFlashAttribute("msg", "ARTIST_GROUP에 있는 데이터 입니다");
 		return false;
 	}
 
 	@Override
-	public boolean checkInTableArtist(Integer gropId, Integer soloId,RedirectAttributes rttr) {
-		//없고 없네
-		
-		if(!checkGropId(gropId) && !checkGropId(soloId)) {
+	public boolean checkInTableArtist(Integer gropId, Integer soloId, RedirectAttributes rttr) {
+		// 없고 없네
+
+		if (!checkGropId(gropId) && !checkGropId(soloId)) {
 			return true;
 		}
-		rttr.addFlashAttribute("msg","테이블에 없는 그룹 ID입니다");
+		rttr.addFlashAttribute("msg", "테이블에 없는 그룹 ID입니다");
 		return false;
 	}
 
 	@Override
-	public boolean insertArtistGroup(Integer gropId, Integer soloId,String upUser, RedirectAttributes rttr) {
-		// TODO Auto-generated method stub
-		int result = mapper.insertArtistGroup(gropId, soloId,upUser);
-		if(result==1) {
-			rttr.addFlashAttribute("msg","데이터 입력 성공");
+	public boolean insertArtistGroup(Integer gropId, Integer soloId, String upUser, RedirectAttributes rttr) {
+		int result = mapper.insertArtistGroup(gropId, soloId, upUser);
+		if (result == 1) {
+			rttr.addFlashAttribute("msg", "데이터 입력 성공");
 			return true;
 		}
-		rttr.addFlashAttribute("msg","입력실패");
+		rttr.addFlashAttribute("msg", "입력실패");
 		return false;
 	}
+
 	// 입력한 string 빈문자열인지 확인
 	@Override
 	public boolean inputStringValid(String string, RedirectAttributes rttr) {
@@ -321,93 +320,150 @@ public class TableServiceImpl implements TableService {
 		} else
 			return false;
 	}
+
 	@Override
 	public List<AlbumVO> getAlbumList() {
 		List<AlbumVO> albumList = mapper.getAlbumList();
-		return albumList==null?Collections.emptyList():albumList;
+		return albumList == null ? Collections.emptyList() : albumList;
 	}
-	
+
 	@Override
 	public AlbumVO getAlbumById(Integer albumId) {
-		
+
 		AlbumVO getAlbum = mapper.getAlbumById(albumId);
-		return getAlbum==null?new AlbumVO():getAlbum;
+		return getAlbum == null ? new AlbumVO() : getAlbum;
 	}
+
 	@Override
 	public boolean updateAlbum(AlbumVO album, String upUser, RedirectAttributes rttr) {
-		int result =mapper.updateAlbum(upUser, album);
-		if(result==1) {
-			rttr.addFlashAttribute("msg","update 앨범성공");
+		int result = mapper.updateAlbum(upUser, album);
+		if (result == 1) {
+			rttr.addFlashAttribute("msg", "update 앨범성공");
 			return true;
 		}
-		rttr.addFlashAttribute("msg","update 실패");
+		rttr.addFlashAttribute("msg", "update 실패");
 		return false;
 	}
-	
+
 	@Override
 	public List<ArtistVO> getArtistList() {
-		List<ArtistVO> artistList=mapper.getArtistList();
-		return artistList==null?Collections.emptyList():artistList;
+		List<ArtistVO> artistList = mapper.getArtistList();
+		return artistList == null ? Collections.emptyList() : artistList;
 	}
-	
+
 	@Override
 	public ArtistVO getArtistById(Integer gropId) {
 		ArtistVO artist = mapper.getArtistById(gropId);
-		return artist==null?new ArtistVO():artist;
+		return artist == null ? new ArtistVO() : artist;
 	}
+
 	@Override
 	public boolean updateArtist(ArtistVO artist, String upUser, RedirectAttributes rttr) {
 		System.out.println("updateArtist=====");
 		int result = mapper.updateArtist(upUser, artist);
-		if(result==1) {
+		if (result == 1) {
 			System.out.println("업데이트 성공");
-			rttr.addFlashAttribute("msg","update 가수성공");
+			rttr.addFlashAttribute("msg", "update 가수성공");
 			return true;
 		}
-		rttr.addFlashAttribute("msg","update 실패");
+		rttr.addFlashAttribute("msg", "update 실패");
 		return false;
 	}
-	
+
 	@Override
 	public List<TracksVO> getTrackList() {
-		List<TracksVO> trackList=mapper.getTrackList();
-		
-		return trackList==null?Collections.emptyList():trackList;
+		List<TracksVO> trackList = mapper.getTrackList();
+
+		return trackList == null ? Collections.emptyList() : trackList;
 	}
-	
+
 	@Override
 	public TracksVO getTracksById(Integer trackId) {
 		TracksVO tracks = mapper.getTracksById(trackId);
-		return tracks==null?new TracksVO():tracks;
+		return tracks == null ? new TracksVO() : tracks;
 	}
+
 	@Override
 	public boolean updateTrack(TracksVO track, String upUser, RedirectAttributes rttr) {
-		int result=mapper.updateTracks(upUser, track);
-		if(result==1) {
-			rttr.addFlashAttribute("msg","update 노래 성공");
+		int result = mapper.updateTracks(upUser, track);
+		if (result == 1) {
+			rttr.addFlashAttribute("msg", "update 노래 성공");
 			return true;
 		}
-		rttr.addFlashAttribute("msg","update 노래 실패");
+		rttr.addFlashAttribute("msg", "update 노래 실패");
 		return false;
 	}
+
 	@Override
 	public List<UserVO> getUserList() {
 		List<UserVO> userList = mapper.getUserList();
-		return userList==null?Collections.emptyList():userList;
+		return userList == null ? Collections.emptyList() : userList;
 	}
+
 	@Override
 	public UserVO getUserByEmail(String email) {
 		UserVO user = mapper.getUser(email);
-		return user==null?new UserVO():user;
+		return user == null ? new UserVO() : user;
 	}
+
 	@Override
 	public boolean updateUser(UserVO user, String upUser, RedirectAttributes rttr) {
 		int result = mapper.updateUser(upUser, user);
-		if(result==1) {
-			rttr.addFlashAttribute("msg","유저 업데이트 성공");
+		if (result == 1) {
+			rttr.addFlashAttribute("msg", "유저 업데이트 성공");
 			return true;
 		}
-		rttr.addFlashAttribute("msg","유저업데이트 실패");
+		rttr.addFlashAttribute("msg", "유저업데이트 실패");
 		return false;
+	}
+
+	@Override
+	public <T> String setImgName(T obj, MultipartFile imgFile) {
+
+		String fileName = imgFile.getOriginalFilename();
+		fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);
+		String extension = fileName.substring(fileName.lastIndexOf("."));
+		if (obj instanceof AlbumVO) {
+			fileName = ((AlbumVO) obj).getAlbumTtl();
+		}
+		if (obj instanceof ArtistVO) {
+			fileName = ((ArtistVO) obj).getNm();
+		}
+		if (obj instanceof UserVO) {
+			fileName = ((UserVO) obj).getEmail();
+		}
+
+		return fileName + extension;
+
+	}
+	/*
+	 * String fileName=imgFile.getOriginalFilename();
+	 * fileName=fileName.substring(fileName.lastIndexOf("\\")+1); String extension=
+	 * fileName.substring(fileName.lastIndexOf(".")); return
+	 * album.getAlbumTtl()+extension;
+	 */
+
+	// album.albumImg 을 albumTtl.확장자로 변경
+	@Override
+	public <T> void setImgColumn(T obj, String fileName) {
+		if (obj instanceof AlbumVO) {
+			((AlbumVO) obj).setAlbumImg(fileName);
+		} else if (obj instanceof ArtistVO) {
+			((ArtistVO) obj).setGropImg(fileName);
+		} else if (obj instanceof UserVO) {
+			((UserVO) obj).setUserImg(fileName);
+		}
+
+	}
+
+	// 주어진 uploadFoler에 fileName으로 imgFile저장
+	@Override
+	public void saveImgFile(String uploadFolder, String fileName, MultipartFile imgFile)
+			throws IllegalStateException, IOException {
+
+		File saveFile = new File(uploadFolder, fileName);
+
+		imgFile.transferTo(saveFile);
+
 	}
 }

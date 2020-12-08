@@ -1,9 +1,5 @@
 package com.kwani.domain;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.Data;
 
 @Data
@@ -13,11 +9,10 @@ public class ArtistVO {
 	private String nm;
 	private String sex;
 	private String type;
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private Date debutDt;
+	private String debutDt;
 	private Integer stusCd;
 	private String gropImg;
-	public ArtistVO(Integer gropId, String nm, String sex, String type, Date debutDt, Integer stusCd,String gropImg) {
+	public ArtistVO(Integer gropId, String nm, String sex, String type, String debutDt, Integer stusCd,String gropImg) {
 		super();
 		this.gropId = gropId;
 		this.nm = nm;
@@ -29,7 +24,7 @@ public class ArtistVO {
 	}
 	
 	public ArtistVO() {
-		this(null, "", "", "", null, null,"");
+		this(null, "", "", "", "", null,"");
 	}
 	
 }

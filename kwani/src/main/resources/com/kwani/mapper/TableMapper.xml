@@ -94,16 +94,16 @@
 
 	<!--입력 ARTIST -->
 	<insert id="insertArtist">
-		insert into t_artist (grop_id,nm,sex,type,debut_dt,stus_cd,up_user,up_date,in_user,in_date)
-		values(seq_grop.nextval,#{artist.nm},#{artist.sex},#{artist.type},#{artist.debutDt},#{artist.stusCd},#{upUser},sysdate,#{upUser},sysdate)
+		insert into t_artist (grop_id,nm,sex,type,debut_dt,stus_cd,up_user,up_date,in_user,in_date,grop_img)
+		values(seq_grop.nextval,#{artist.nm},#{artist.sex},#{artist.type},#{artist.debutDt},#{artist.stusCd},#{upUser},sysdate,#{upUser},sysdate,#{artist.gropImg})
 	</insert>
 
 
 	<!--입력 ALBUM -->
 	<insert id="insertAlbum">
 		insert into t_album
-		(album_id,album_ttl,rles_dt,album_img,up_user,up_date,stus_cd,in_user,in_date)
-		values(seq_album.nextval,#{album.albumTtl},#{album.rlesDt},#{album.albumImg},#{upUser},sysdate,#{album.stusCd},#{upUser},sysdate)
+		(album_id,album_ttl,rles_dt,album_img,up_user,up_date,stus_cd,in_user,in_date,up_user,up_date)
+		values(seq_album.nextval,#{album.albumTtl},#{album.rlesDt},#{album.albumImg},#{upUser},sysdate,#{album.stusCd},#{upUser},sysdate,#{upUser},sysdate)
 	</insert>
 
 
@@ -117,20 +117,20 @@
 
 	<!--입력 USER -->
 	<insert id="insertUser">
-		insert into t_user (email,nick,pwd)
-		values(#{email},#{nick},#{pwd})
+		insert into t_user (email,nick,pwd,in_date,in_user,up_date,up_user,user_img)
+		values(#{user.email},#{user.nick},#{user.pwd},sysdate,#{upUser},sysdate,#{upUser},#{user.userImg})
 	</insert>
 
 	<!--입력 ARTIST AND TRACK -->
 	<insert id="insertArtistTrack">
-		insert into t_artist_tracks (track_id,grop_id)
-		values(#{trackId},#{gropId})
+		insert into t_artist_tracks (track_id,grop_id,up_date,up_user,in_date,in_user)
+		values(#{trackId},#{gropId},sysdate,#{upUser},sysdate,#{upUser})
 	</insert>
 
 	<!--입력 ARTIST AND GROUP -->
 	<insert id="insertArtistGroup">
-		insert into t_artist_group(grop_id,solo_id,up_date,up_user)
-		values(#{gropId},#{soloId},sysdate,#{upUser})
+		insert into t_artist_group(grop_id,solo_id,up_date,up_user,in_date,in_user)
+		values(#{gropId},#{soloId},sysdate,#{upUser},sysdate,#{upUser})
 
 	</insert>
 
@@ -212,7 +212,7 @@
 	set grop_img=#{artist.gropImg},
 	up_date=sysdate,
 	up_user=#{upUser},
-	stus_cd=#{artist.statusCode},
+	stus_cd=#{artist.stusCd},
 	debut_dt=#{artist.debutDt},
 	type=#{artist.type},
 	sex=#{artist.sex},

@@ -41,11 +41,11 @@
 		const idFld = document.getElementById("mngrId");
 		const pwdFld = document.getElementById("pwd");
 		if (idFld.value == "") {
-			alert("ID is empty")
+			alert("아이디를 입력하세요");
 			return false;
 		}
 		if (pwdFld.value == "") {
-			alert("PWD is empty")
+			alert("비밀번호를 입력하세요");
 			return false;
 		}
 		return true;

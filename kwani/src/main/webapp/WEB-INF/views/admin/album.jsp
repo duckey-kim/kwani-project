@@ -9,7 +9,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-default">
-			<div class="panel-heading">DataTables Advanced Tables</div>
+			<div class="panel-heading">앨범 리스트</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 				<table width="100%"

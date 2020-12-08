@@ -17,9 +17,9 @@ public interface TableMapper {
 	
 	public int insertTrack(@Param("track")TracksVO track,@Param("upUser") String upUser);
 	
-	public int insertUser(UserVO user);
+	public int insertUser(@Param("user")UserVO user,@Param("upUser") String upUser);
 	
-	public int insertArtistTrack(@Param("trackId")Integer trackId,@Param("gropId")Integer gropId);
+	public int insertArtistTrack(@Param("trackId")Integer trackId,@Param("gropId")Integer gropId, @Param("upUser")String upUser);
 	
 	public int insertArtistGroup(@Param("gropId")Integer gropId ,@Param("soloId")Integer soloId,@Param("upUser")String upUser);
 	
@@ -66,9 +66,6 @@ public interface TableMapper {
 	public int updateTracks(@Param("upUser")String upUser,@Param("track")TracksVO track);
 	
 	public int updateUser(@Param("upUser")String upUser,@Param("user")UserVO user);
-	
-
-
 	
 
 }

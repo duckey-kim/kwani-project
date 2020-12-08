@@ -5,41 +5,54 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="login-panel panel paenl-default">
+			<div class="panel panel paenl-default">
 				<div class="panel-body">
-				
-				<h4>${msg }</h4>
-				<form action="/admin/inputartistAction" method="post"
-					onsubmit="return checkInput();">
-					<h5>T_ARTIST</h5>
-					<div>
-						<input  class="form-control"  placeholder="NAME" type="text" name="nm"
-							value="${artist.nm }">
-					</div>
-					<div>
-						<input  class="form-control" placeholder="GENDER" type="text" name="sex"
-							value="${artist.sex }">
-					</div>
-					<div>
-						<select  class="form-control"name="type">
-							<option value="g">그룹</option>
-							<option value="s">솔로</option>
-							<option value="sg">그룹,솔로</option>
-						</select>
 
-					</div>
-					<div>
-						<input  class="form-control" placeholder="DEBUT 2020-10-10" type="text" name="debutDt"
-							value="${artist.debutDt }">
+					<h4>${msg }</h4>
+					<form action="/admin/inputartistAction" method="post" enctype="multipart/form-data"
+						onsubmit="return checkInput();">
+						<h5>T_ARTIST</h5>
+						<div class="form-group">
+							<label>활동명</label> <input class="form-control" placeholder="NAME"
+								type="text" name="nm" value="${artist.nm }" id="nm">
+						</div>
+						<div class="form-group">
+							<label>이미지</label> <input class="form-control" type="file"
+								name=imgFile id="imgFile">
+						</div>
 
-					</div>
-					<div>
-						<input  class="form-control" placeholder="상태코드" type="text" name="statusCode"
-							value="${artist.statusCode }">
-					</div>
+
+						<div class="form-group">
+							<label>성별</label> <input class="form-control"
+								placeholder="GENDER" type="text" name="sex" id="sex"
+								value="${artist.sex }">
+						</div>
+						<div class="form-group">
+							<label>활동형태</label> <select class="form-control" name="type" id="type">
+								<option value="g">그룹</option>
+								<option value="s">솔로</option>
+								<option value="sg">그룹,솔로</option>
+							</select>
+
+						</div>
+						<div class="form-group">
+							<label>데뷔일</label> <input class="form-control"
+								placeholder="DEBUT 2020-10-10" type="date" name="debutDt" id="debutDt"
+								value="${artist.debutDt }">
+
+						</div>
+						<div class="form-group">
+							<label>상태</label> <input class="form-control" placeholder="상태코드"
+								type="text" name="stusCd" value="${artist.statusCode }" id="stusCd">
+						</div>
+
+
+
+
+
 						<input type="hidden" name="upUser" id="upUser" value="${mngrId }">
-					<button class="btn btn-sm btn-success">등록</button>
-				</form>
+						<button class="btn btn-sm btn-success">등록</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -51,8 +64,22 @@
 
 
 <script type="text/javascript">
-	function check(pattern, input, message) {
-		if (pattern.test(input.value)) {
+	let checkExtension = function(fileName, fileSize) {
+		const imgRegex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+		const maxSize = 5242880;
+		if (fileSize >= maxSize) {
+			alert("파일사이즈 초과");
+			return false;
+		}
+		if (imgRegex.test(fileName)) {
+			alert("해당 종류의 파일은 업로드 할 수 없습니다.");
+			return false;
+		}
+		return true;
+	}
+
+	let check = function(pattern, input, message) {
+		if (!pattern.test(input.value)) {
 			return true;
 		}
 		alert(message);
@@ -60,35 +87,40 @@
 		input.focus();
 	}
 
-	function checkInput() {
-		let inputArr = document.getElementsByTagName("input");
-		const datePattern = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
+	let checkInput = function() {
 
-		let nmFld = inputArr[0];
-		let sexFld = inputArr[1];
-		let typeFld = document.getElementsByTagName("select")[0];
-		let dateFld = inputArr[2];
+		let nmFld =document.getElementById("nm");
+		let sexFld = document.getElementById("sex");
+		let typeFld = document.getElementById("type");
+		let dateFld = document.getElementById("debutDt");
+		let stusCdFld = document.getElementById("stusCd");
+		let imgFld = document.getElementById("imgFile");
 
-		let typevalue = typeFld.value.trim();
-		console.log(nmFld);
-		console.log(sexFld);
-		console.log(typeFld);
-		console.log(dateFld);
+		let gropImg = imgFld.files.item(0);
+		
+		const specialPattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+		const numRegex = /[^0-9]/g;
+		
 		if (nmFld.value.trim() == "") {
-			alert("Artist name is empty")
+			alert("활동명을 입력해주세요")
 			return false;
 		}
 		if (nmFld.value.trim().length > 30) {
-			alert("name lenght 30 over");
+			alert("활동명의 길이가 30을 넘었습니다");
 			nmFld.value = "";
 			return false;
 		}
+		if (!check(specialPattern, nmFld, "활동명에 특수문자는 안됩니다")) {
+			return false;
+		}
+	
+		
 		if (sexFld.value.trim() == "") {
-			alert("가수 성별 is empty")
+			alert("가수 성별을 입력해주세요")
 			return false;
 		}
 		if (sexFld.value.trim().length > 5) {
-			alert("sex  lenght 5 over");
+			alert("성별이 5자를 넘습니다");
 			sexFld.value = "";
 			return false;
 		}
@@ -96,10 +128,30 @@
 			alert("아티스트의 유형을 입력해주세요");
 			return false;
 		}
-
-		if (!check(datePattern, dateFld, "날짜는 yyyy-MM-dd형식을 지켜주세요")) {
+		
+		if (imgFld.value == "") {
+			alert("파일을 선택해주세요");
 			return false;
 		}
+		
+		if (stusCdFld.value == "") {
+			alert("상태코드를 입력해주세요");
+			return false;
+		} else if (stusCdFld.value.length > 2) {
+			alert("stusCd 의 길이가 2을 넘습니다");
+			stusCdFld.value = "";
+			return false
+		}
+		if (!check(numRegex, stusCdFld, "상태코드는  숫자만 입력해주세요")) {
+			return false;
+		}
+		
+		
+
+		if (!checkExtension(gropImg.name, gropImg.size)) {
+			return false;
+		}
+
 
 		return true;
 

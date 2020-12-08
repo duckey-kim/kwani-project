@@ -2,11 +2,12 @@ package com.kwani.service;
 
 
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kwani.domain.AdminVO;
@@ -17,10 +18,7 @@ import com.kwani.domain.UserVO;
 
 public interface TableService {
 
-	
-	
-	
-	public boolean insertUser(UserVO user, RedirectAttributes rttr);
+	public boolean insertUser(UserVO user, RedirectAttributes rttr, String upUser);
 	
 	public boolean albumInputValid(AlbumVO album, RedirectAttributes rttr);
 	
@@ -46,16 +44,13 @@ public interface TableService {
 
 	public boolean checkTrackId(Integer trackId);
 	
-	public boolean insertArtistTrack(@Param("trackId")Integer trackId,@Param("gropId")Integer gropId, RedirectAttributes rttr);
+	public boolean insertArtistTrack(Integer trackId,Integer gropId,String upUser, RedirectAttributes rttr);
 
 	public void setMngrSession(HttpServletRequest request, String mngrId);
-
-
 	
 	public boolean checkAdmin(AdminVO admin, RedirectAttributes rttr);
-
 	
-	public boolean insertArtistGroup(@Param("gropId")Integer gropId ,@Param("soloId")Integer soloId,@Param("upUser")String upUser, RedirectAttributes rttr);
+	public boolean insertArtistGroup(Integer gropId ,Integer soloId,String upUser, RedirectAttributes rttr);
 
 	public boolean checkInTableArtistGroup(Integer gropId, Integer soloId, RedirectAttributes rttr);
 
@@ -63,11 +58,9 @@ public interface TableService {
 
 	public boolean checkInTableArtist(Integer gropId, Integer soloId, RedirectAttributes rttr);
 
-
 	public boolean isEmptyArtist(ArtistVO getArtist);
 
 	public void getAlbumForTrack(String albumTtl, RedirectAttributes rttr);
-
 	
 	public boolean inputStringValid(String string, RedirectAttributes rttr);
 
@@ -104,6 +97,12 @@ public interface TableService {
 	public UserVO getUserByEmail(String email);
 
 	public boolean updateUser(UserVO user, String upUser, RedirectAttributes rttr);
+
+	public <T> String setImgName(T obj, MultipartFile imgFile);
+
+	public <T> void setImgColumn(T obj, String fileName);
+
+	public void saveImgFile(String uploadFolder, String fileName, MultipartFile imgFile) throws IllegalStateException, IOException;
 	
 	
 	

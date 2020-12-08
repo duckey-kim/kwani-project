@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+]<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="/WEB-INF/views/includes/adminheader.jsp"%>
@@ -6,8 +6,8 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-4 col-md-offset-4">
-			<div class="login-panel panel paenl-default">
+		<div class="col-md-12">
+			<div class="panel paenl-default">
 				<div class="panel-body">
 					<h4>${msg }</h4>
 					<h4>Group and Artist</h4>
@@ -19,8 +19,9 @@
 					<h5>GROUP NAME : ${artist.nm }</h5>
 					<h5>GROUP ID :${artist.gropId }</h5>
 
-					<form action="/admin/inputartistgroupAction" method="post">
-						<div>
+					<form action="/admin/inputartistgroupAction" method="post"
+						onsubmit="return checkInput();">
+						<div class="form-group">
 							<h5>Input GROUP_ID</h5>
 							<input class="form-control" type="text" name="gropId" id="gropId">
 							<div>SOLO_ID</div>
@@ -28,7 +29,7 @@
 						</div>
 
 
-
+						<input type="hidden" name="upUser" id="upUser" value="${mngrId} ">
 						<button>등록</button>
 					</form>
 				</div>
@@ -53,7 +54,7 @@
 	});
 </script>
 <script type="text/javascript">
-	function check(pattern, input, message) {
+	let check = function(pattern, input, message) {
 		if (!pattern.test(input.value)) {
 			return true;
 		}
@@ -62,16 +63,16 @@
 		input.focus();
 	}
 
-	function checkInput() {
+	let checkInput = function() {
 		const soloIdFld = document.getElementById("soloId");
 		const gropIdFld = document.getElementById("gropId");
 
 		const numRegex = /[^0-9]/g;
 
-		if (!check(numRegex, soloIdFld, "soloId는 숫자만 입력해주세요")) {
+		if (!check(numRegex, gropIdFld, "gropId는 숫자만 입력해주세요")) {
 			return false;
 		}
-		if (!check(numRegex, gropIdFld, "gropId는 숫자만 입력해주세요")) {
+		if (!check(numRegex, soloIdFld, "soloId는 숫자만 입력해주세요")) {
 			return false;
 		}
 

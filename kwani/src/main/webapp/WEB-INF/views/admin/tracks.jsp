@@ -4,11 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@include file="/WEB-INF/views/includes/adminheader.jsp"%>
-<div>
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
-			<div class="panel-heading">DataTables Advanced Tables</div>
+			<div class="panel-heading">노래 리스트</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 				<table width="100%"

@@ -5,7 +5,7 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-5 col-md-offset-2 ">
+		<div class="col-md-5">
 			<h4>${msg }</h4>
 			<h4>INPUT ARTIST</h4>
 			<h4>Search Artist</h4>
@@ -18,16 +18,17 @@
 			<h5>GROUP ID :${artist.gropId }</h5>
 			<form action="/admin/inputartisttracksAction" method="post"
 				onsubmit="return checkInput();">
-				<h5>Input GROUP_ID</h5>
+				<label>그룹아이디</label>
 				<input class="form-control" type="text" name="gropId" id="gropId">
-				<div>TRACKID</div>
+				<label>노래아이디</label>
 				<input class="form-control" type="text" name="trackId" id="trackId">
+				<input type="hidden" name="upUser" id="upUser" value="${mngrId} ">
 				<button class="btn btn-sm btn-success">등록</button>
 			</form>
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-offset-1  col-md-5">
 			<h4>가수와 연결되지 않은 노래</h4>
-			<table>
+			<table style="border: 1px;">
 				<tr>
 					<td>트랙번호</td>
 					<td>트랙명</td>
