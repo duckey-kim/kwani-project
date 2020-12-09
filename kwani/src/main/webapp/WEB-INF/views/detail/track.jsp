@@ -200,7 +200,22 @@
 		<div id="footer"></div>
 	</div>
 	<!--main-->
-
+	
+	<!-- 모달창 -->
+	<div id="modal">
+		<div class="modal-content">
+			<h2>모달 창</h2>
+			
+			<p>모달 창 입니다.</p>
+			<div id="modal-buttons">
+				<button type="button" id="modalConfirmBtn">확인</button>
+				<button type="button" id="modalCloseBtn">취소</button>
+			</div>
+		</div>
+		<div class="modal-layer"></div>
+	</div>
+	<!-- 모달창 끝 -->
+	
 	<script>
 	
 		if ('${sessionName}' == "") { // 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
@@ -220,6 +235,7 @@
 			// 앨범좋아요 JQuery 부분을 공유하고 if문을 쓸건지 따로 메서드를 팔지
 			
 			likeTrack();
+			addMyPlaylist();
 		}
 
 		function addPlayer() {
@@ -227,7 +243,13 @@
 		}
 
 		function addMyPlaylist() {
-
+			$("#addMyPlaylist").click(function() {
+				$("#modal").attr("style", "display:block");
+			});
+			
+			$("#modalCloseBtn").click(function() {
+				$("#modal").attr("style", "display:none");
+			});
 		}
 		
 		function likeTrack(){

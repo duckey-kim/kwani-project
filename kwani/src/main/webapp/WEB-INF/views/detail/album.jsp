@@ -116,7 +116,7 @@
 				<div class="header-buttons">
 					<button type="button" id="playNow">바로재생</button>
 					<button type="button" id="addPlayer">플레이어에 추가</button>
-					<button type="button" id="addMyPlaylist">내 재생목록 추가</button>
+					<button type="button" id="addAlbumMyPlaylist">내 재생목록 추가</button>
 					<input type="button" value="공유하기" onclick="copyURL()">
 					<textarea id="address" style="display: none"></textarea>
 					<img class="emptyHeart" id="likeAlbum" src="/resources/image/heart2.png">
@@ -159,7 +159,7 @@
 										<button name="addPlayer">플레이어에 추가</button>
 									</td>
 									<td>
-										<button name="addMyPlaylist">내 재생목록에 추가</button>
+										<button name="addTrackMyPlaylist">내 재생목록에 추가</button>
 									</td>
 									<td>
 										<img class="emptyHeart" name="likeTrack" src="/resources/image/heart2.png">
@@ -181,6 +181,21 @@
 		<div id="footer"></div>
 	</div>
 	<!--main-->
+	
+	<!-- 모달창 -->
+	<div id="modal">
+		<div class="modal-content">
+			<h2>모달 창</h2>
+			
+			<p>모달 창 입니다.</p>
+			<div id="modal-buttons">
+				<button type="button" id="modalConfirmBtn">확인</button>
+				<button type="button" id="modalCloseBtn">취소</button>
+			</div>
+		</div>
+		<div class="modal-layer"></div>
+	</div>
+	<!-- 모달창 끝 -->
 
 	<script>
 	
@@ -188,14 +203,14 @@
 			// 빨간 하트를 숨긴다.
 			$(".redHeart").hide();
 			
-			// 내 재생목록에 추가 기능
-			document.getElementById("addMyPlaylist").addEventListener("click",	goLogin);
-		
+			// 앨범전체 내 재생목록에 추가 기능
+			document.getElementById("addAlbumMyPlaylist").addEventListener("click",	goLogin);
+			
 			// 앨범 좋아요 기능
 			document.getElementById("likeAlbum").addEventListener("click",	goLogin);
 
-			// 내 플레이리스트 추가 기능
-			var amp = document.getElementsByName("addMyPlaylist");
+			// 개별 곡 내 재생목록에 추가 기능
+			var amp = document.getElementsByName("addTrackMyPlaylist");
 			for (var i = 0; i < amp.length; i++) {
 				amp[i].addEventListener("click", goLogin);
 			}
@@ -210,6 +225,8 @@
 			// 유저가 좋아요한 곡은 빨간하트, 좋아요하지 않은건 빈하트로 보여줘야함
 			// 앨범좋아요 JQuery 부분을 공유하고 if문을 쓸건지 따로 메서드를 팔지
 			
+			addAlbumMyPlaylist();
+			addTrackMyPlaylist();
 			likeTrack();
 			
 		}
@@ -218,8 +235,24 @@
 
 		}
 
-		function addMyPlaylist() {
-
+		function addAlbumMyPlaylist() {
+			$("#addAlbumMyPlaylist").click(function() {
+				$("#modal").attr("style", "display:block");
+			});
+			
+			$("#modalCloseBtn").click(function() {
+				$("#modal").attr("style", "display:none");
+			});
+		}
+		
+		function addTrackMyPlaylist() {
+			$("button[name=addTrackMyPlaylist]").click(function() {
+				$("#modal").attr("style", "display:block");
+			});
+			
+			$("#modalCloseBtn").click(function() {
+				$("#modal").attr("style", "display:none");
+			});
 		}
 		
 		function likeTrack(){
