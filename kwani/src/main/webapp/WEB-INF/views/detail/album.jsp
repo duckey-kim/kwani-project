@@ -119,8 +119,8 @@
 					<button type="button" id="addAlbumMyPlaylist">내 재생목록 추가</button>
 					<input type="button" value="공유하기" onclick="copyURL()">
 					<textarea id="address" style="display: none"></textarea>
-					<img class="emptyHeart" id="likeAlbum" src="/resources/image/heart2.png">
-					<img class="redHeart" id="likeAlbum" src="/resources/image/heart.png">
+					<img class="emptyHeart1" id="likeAlbum" src="/resources/image/heart2.png">
+					<img class="redHeart1" id="likeAlbum" src="/resources/image/heart.png">
 				</div>
 
 				<div class="hr">
@@ -156,14 +156,14 @@
 										href="/detail/artist?gropId=<c:out value="${AlbumInfo.GROP_ID }" />"><c:out
 												value="${AlbumInfo.NM }" /> </a></td>
 									<td>
-										<button name="addPlayer">플레이어에 추가</button>
+										<button value='${AlbumInfo.TRACK_ID }' name="addPlayer">플레이어에 추가</button>
 									</td>
 									<td>
-										<button name="addTrackMyPlaylist">내 재생목록에 추가</button>
+										<button value='${AlbumInfo.TRACK_ID }' name="addTrackMyPlaylist">내 재생목록에 추가</button>
 									</td>
 									<td>
-										<img class="emptyHeart" name="likeTrack" src="/resources/image/heart2.png">
-										<img class="redHeart" name="likeTrack" src="/resources/image/heart.png">
+										<img title="${AlbumInfo.TRACK_ID }" class="emptyHeart2" name="likeTrack" src="/resources/image/heart2.png">
+										<img title="${AlbumInfo.TRACK_ID }" class="redHeart2" name="likeTrack" src="/resources/image/heart.png">
 									</td>
 								</tr>
 							</c:forEach>
@@ -182,26 +182,70 @@
 	</div>
 	<!--main-->
 	
-	<!-- 모달창 -->
+	<!-- 앨범전체를 위한 모달창 -->
 	<div id="modal">
 		<div class="modal-content">
-			<h2>모달 창</h2>
+			<h2>${userNick }님의 플레이리스트</h2>
 			
-			<p>모달 창 입니다.</p>
+			<div id="playlists">
+			<table>
+				<c:forEach items="${getPlaylists }" var="Playlists">
+					<tr>
+						<td>
+							<img style="width:50px" class="playlistImage" src="/resources/image/album/<c:out value="${Playlists.PLYLST_IMG }" />" />
+						</td>
+						<td><c:out value='${Playlists.NM }' /></td>
+						<td><c:out value='${Playlists.TRACK_CNT }' />곡</td>
+						<td>
+							<button value='${Playlists.PLYLST_ID }' class="selectPlaylist">선택</button>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+			</div>
 			<div id="modal-buttons">
-				<button type="button" id="modalConfirmBtn">확인</button>
 				<button type="button" id="modalCloseBtn">취소</button>
 			</div>
 		</div>
 		<div class="modal-layer"></div>
 	</div>
-	<!-- 모달창 끝 -->
+	<!-- 앨범전체를 위한 모달창 끝 -->
+	
+	<!-- 앨범 내 수록곡을 위한 모달창 -->
+	<div id="modal1">
+		<div class="modal-content">
+			<h2>${userNick }님의 플레이리스트</h2>
+			
+			<div id="playlists">
+			<table>
+				<c:forEach items="${getPlaylists }" var="Playlists">
+					<tr>
+						<td>
+							<img style="width:50px" class="playlistImage" src="/resources/image/album/<c:out value="${Playlists.PLYLST_IMG }" />" />
+						</td>
+						<td><c:out value='${Playlists.NM }' /></td>
+						<td><c:out value='${Playlists.TRACK_CNT }' />곡</td>
+						<td>
+							<button value='${Playlists.PLYLST_ID }' class="selectPlaylist1">선택</button>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+			</div>
+			<div id="modal-buttons">
+				<button type="button" id="modalCloseBtn1">취소</button>
+			</div>
+		</div>
+		<div class="modal-layer"></div>
+	</div>
+	<!-- 앨범 내 수록곡을 위한 모달창 끝 -->
 
 	<script>
+		let tmpTrackId;
 	
 		if ('${sessionName}' == "") { // 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
 			// 빨간 하트를 숨긴다.
-			$(".redHeart").hide();
+			$(".redHeart1, .redHeart2").hide();
 			
 			// 앨범전체 내 재생목록에 추가 기능
 			document.getElementById("addAlbumMyPlaylist").addEventListener("click",	goLogin);
@@ -222,12 +266,13 @@
 			}
 
 		}else{
-			// 유저가 좋아요한 곡은 빨간하트, 좋아요하지 않은건 빈하트로 보여줘야함
-			// 앨범좋아요 JQuery 부분을 공유하고 if문을 쓸건지 따로 메서드를 팔지
 			
 			addAlbumMyPlaylist();
 			addTrackMyPlaylist();
+			likeAlbum();
 			likeTrack();
+			selectPlaylist();
+			selectPlaylist1()
 			
 		}
 
@@ -235,46 +280,109 @@
 
 		}
 
-		function addAlbumMyPlaylist() {
-			$("#addAlbumMyPlaylist").click(function() {
-				$("#modal").attr("style", "display:block");
+		// 앨범 좋아요
+		function likeAlbum(){
+			
+			if('${checkLikeAlbum}' != "") {		// 해당 노래를 좋아요 여부에 따라 페이지 로딩에 보여주는 하트를 다르게한다.
+				$(".emptyHeart1").hide();		// 좋아요 했다면 빈 하트를 숨기고 빨간 하트를 보여준다.
+			}else{
+				$(".redHeart1").hide();			// 좋아요 하지 않았다면 빨간 하트를 숨기고 빈 하트를 보여준다. 
+			}
+			
+			//빈 하트 클릭할 때
+			$(".emptyHeart1").on("click", function(){
+				
+				$(".emptyHeart1").hide();	//누른 하트를 숨기기
+				$(".redHeart1").show();		//누른 곳에 빨간 하트를 표시
+				console.log("좋아요할 앨범아이디 : " + '${albumId}');
 			});
 			
-			$("#modalCloseBtn").click(function() {
-				$("#modal").attr("style", "display:none");
-			});
-		}
-		
-		function addTrackMyPlaylist() {
-			$("button[name=addTrackMyPlaylist]").click(function() {
-				$("#modal").attr("style", "display:block");
-			});
-			
-			$("#modalCloseBtn").click(function() {
-				$("#modal").attr("style", "display:none");
+			//빨간 하트 클릭할때
+			$(".redHeart1").on("click", function(){
+				
+				$(".redHeart1").hide();	//누른 하트를 숨기기
+				$(".emptyHeart1").show();	//누른 곳에 빈 하트를 표시
+				console.log("좋아요 취소할 앨범아이디 : " + '${albumId}');
 			});
 		}
 		
 		function likeTrack(){
+			// 처음엔 모든 빨간하트를 숨기고 빈하트만 보여준다.
+			$(".redHeart2").hide();
+			
+			// 좋아요한 노래에 해당하는 노래들은 빈하트를 숨기고 빨간 하트를 보여준다.
+			<c:forEach items="${getLikeTracksInAlbum}" var="getLikeTracksInAlbum">
+				$("img[title='${getLikeTracksInAlbum.TRACK_ID}'][class=emptyHeart2]").hide();
+				$("img[title='${getLikeTracksInAlbum.TRACK_ID}'][class=redHeart2]").show();
+			</c:forEach>
 			
 			//빈 하트 클릭할 때
-			$(".emptyHeart").on("click", function(){
+			$(".emptyHeart2").on("click", function(){
 				
-				let index = $(".emptyHeart").index(this);	//누른 하트의 인덱스 저장
+				let index = $(".emptyHeart2").index(this);	//누른 하트의 인덱스 저장
 				
-				$(".emptyHeart:eq(" + index + ")").hide();	//누른 하트를 숨기기
-				$(".redHeart:eq(" + index + ")").show();	//누른 곳에 빨간 하트를 표시
-				console.log("빈 사랑 클릭했어")
+				$(".emptyHeart2:eq(" + index + ")").hide();	//누른 하트를 숨기기
+				$(".redHeart2:eq(" + index + ")").show();	//누른 곳에 빨간 하트를 표시
+				console.log("좋아요할 노래아이디 : " + $(".emptyHeart2:eq(" + index + ")").attr("title"));
 			});
 			
 			//빨간 하트 클릭할때
-			$(".redHeart").on("click", function(){
+			$(".redHeart2").on("click", function(){
 				
-				let index = $(".redHeart").index(this);		//누른 하트의 인덱스 저장
+				let index = $(".redHeart2").index(this);		//누른 하트의 인덱스 저장
 				
-				$(".redHeart:eq(" + index + ")").hide();	//누른 하트를 숨기기
-				$(".emptyHeart:eq(" + index + ")").show();	//누른 곳에 빈 하트를 표시
-				console.log("꽉 찬 사랑 클릭했어")
+				$(".redHeart2:eq(" + index + ")").hide();	//누른 하트를 숨기기
+				$(".emptyHeart2:eq(" + index + ")").show();	//누른 곳에 빈 하트를 표시
+				console.log("좋아요 취소할 노래아이디 : " + $(".redHeart2:eq(" + index + ")").attr("title"));
+			});
+			
+		}
+		
+		// 앨범전체 내 재생목록에 추가 버튼 (모달창)
+		function addAlbumMyPlaylist() {
+			$("#addAlbumMyPlaylist").click(function() {
+				$("#modal").attr("style", "display:block");
+				console.log("앨범아이디 : " + '${albumId}');
+			});
+			
+			$("#modalCloseBtn").click(function() {
+				$("#modal").attr("style", "display:none");
+			});
+		}
+		
+		// 개별곡 내 재생목록에 추가 버튼 (모달창)
+		function addTrackMyPlaylist() {
+			$("button[name=addTrackMyPlaylist]").click(function() {
+				$("#modal1").attr("style", "display:block");
+				let index = $("button[name=addTrackMyPlaylist]").index(this);
+				console.log("노래아이디 : " + $("button[name=addTrackMyPlaylist]:eq(" + index + ")").val());
+				tmpTrackId = $("button[name=addTrackMyPlaylist]:eq(" + index + ")").val();
+			});
+			
+			$("#modalCloseBtn1").click(function() {
+				$("#modal1").attr("style", "display:none");
+			});
+		}
+		
+		// 앨범전체 모달창 내 플레이리스트 선택 버튼
+		function selectPlaylist(){
+			$(".selectPlaylist").on("click", function(){
+				let index = $(".selectPlaylist").index(this);
+				console.log("누른 버튼의 플레이리스트 아이디 : " + $(".selectPlaylist:eq(" + index + ")").val());
+				console.log("플레이리스트에 넣을 앨범아이디 : " + '${albumId}');
+				
+				$("#modal").attr("style", "display:none");
+			});
+		}
+		
+		// 개별곡 모달창 내 플레이리스트 선택 버튼
+		function selectPlaylist1(){
+			$(".selectPlaylist1").on("click", function(){
+				let index = $(".selectPlaylist1").index(this);
+				console.log("누른 버튼의 플레이리스트 아이디 : " + $(".selectPlaylist:eq(" + index + ")").val());
+				console.log("플레이리스트에 넣을 노래아이디 : " + tmpTrackId);
+				
+				$("#modal1").attr("style", "display:none");
 			});
 		}
 

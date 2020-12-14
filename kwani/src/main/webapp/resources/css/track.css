@@ -133,7 +133,7 @@
 }
 
 #modal .modal-content {
-	width: 300px;
+	width: 500px;
 	margin: 100px auto;
 	padding: 20px 10px;
 	background: #fff;
@@ -154,3 +154,19 @@
 	display: flex;
 }
 /* 모달끝 */
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

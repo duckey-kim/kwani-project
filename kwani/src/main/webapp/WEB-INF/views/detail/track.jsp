@@ -204,11 +204,25 @@
 	<!-- 모달창 -->
 	<div id="modal">
 		<div class="modal-content">
-			<h2>모달 창</h2>
+			<h2>${userNick }님의 플레이리스트</h2>
 			
-			<p>모달 창 입니다.</p>
+			<div id="playlists">
+			<table>
+				<c:forEach items="${getPlaylists }" var="Playlists">
+					<tr>
+						<td>
+							<img style="width:50px" class="playlistImage" src="/resources/image/album/<c:out value="${Playlists.PLYLST_IMG }" />" />
+						</td>
+						<td><c:out value='${Playlists.NM }' /></td>
+						<td><c:out value='${Playlists.TRACK_CNT }' />곡</td>
+						<td>
+							<button value='${Playlists.PLYLST_ID }' class="selectPlaylist">선택</button>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+			</div>
 			<div id="modal-buttons">
-				<button type="button" id="modalConfirmBtn">확인</button>
 				<button type="button" id="modalCloseBtn">취소</button>
 			</div>
 		</div>
@@ -230,18 +244,43 @@
 			document.getElementById("likeTrack").addEventListener("click",
 					goLogin);
 
-		}else{
-			// 유저가 좋아요한 곡은 빨간하트, 좋아요하지 않은건 빈하트로 보여줘야함
-			// 앨범좋아요 JQuery 부분을 공유하고 if문을 쓸건지 따로 메서드를 팔지
+		}else{	// 세션이 있을 경우 실행할 메서드들
 			
 			likeTrack();
 			addMyPlaylist();
+			selectPlaylist();
 		}
 
 		function addPlayer() {
 
 		}
-
+		
+		function likeTrack(){
+			
+			if('${checkLikeTrack}' != "") {		// 해당 노래를 좋아요 여부에 따라 페이지 로딩에 보여주는 하트를 다르게한다.
+				$(".emptyHeart").hide();		// 좋아요 했다면 빈 하트를 숨기고 빨간 하트를 보여준다.
+			}else{
+				$(".redHeart").hide();			// 좋아요 하지 않았다면 빨간 하트를 숨기고 빈 하트를 보여준다. 
+			}
+			
+			//빈 하트 클릭할 때
+			$(".emptyHeart").on("click", function(){
+				
+				$(".emptyHeart").hide();	//누른 하트를 숨기기
+				$(".redHeart").show();	//누른 곳에 빨간 하트를 표시
+				console.log("좋아요할 노래 아이디 : "+ '${trackId}');
+			});
+			
+			//빨간 하트 클릭할때
+			$(".redHeart").on("click", function(){
+				
+				$(".redHeart").hide();	//누른 하트를 숨기기
+				$(".emptyHeart").show();	//누른 곳에 빈 하트를 표시
+				console.log("좋아요 취소할 노래 아이디 : "+ '${trackId}');
+			});
+		}
+		
+		// 내 재생목록에 추가 버튼 (모달창)
 		function addMyPlaylist() {
 			$("#addMyPlaylist").click(function() {
 				$("#modal").attr("style", "display:block");
@@ -252,26 +291,14 @@
 			});
 		}
 		
-		function likeTrack(){
-			
-			//빈 하트 클릭할 때
-			$(".emptyHeart").on("click", function(){
+		// 모달창 내 플레이리스트 선택 버튼
+		function selectPlaylist(){
+			$(".selectPlaylist").on("click", function(){
+				let index = $(".selectPlaylist").index(this);
+				console.log("누른 버튼의 플레이리스트 아이디 : " + $(".selectPlaylist:eq(" + index + ")").val());
+				console.log("넣을 노래아이디 : " + '${trackId}');
 				
-				let index = $(".emptyHeart").index(this);	//누른 하트의 인덱스 저장
-				
-				$(".emptyHeart:eq(" + index + ")").hide();	//누른 하트를 숨기기
-				$(".redHeart:eq(" + index + ")").show();	//누른 곳에 빨간 하트를 표시
-				console.log("빈 사랑 클릭했어")
-			});
-			
-			//빨간 하트 클릭할때
-			$(".redHeart").on("click", function(){
-				
-				let index = $(".redHeart").index(this);		//누른 하트의 인덱스 저장
-				
-				$(".redHeart:eq(" + index + ")").hide();	//누른 하트를 숨기기
-				$(".emptyHeart:eq(" + index + ")").show();	//누른 곳에 빈 하트를 표시
-				console.log("꽉 찬 사랑 클릭했어")
+				$("#modal").attr("style", "display:none");
 			});
 		}
 

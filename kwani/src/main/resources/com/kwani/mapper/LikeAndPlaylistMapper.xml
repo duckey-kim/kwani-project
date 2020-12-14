@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kwani.mapper.LikeAndPlaylistMapper">
+
+<resultMap type="hashMap" id="result"></resultMap>
+
+<select id="checkLikeTrack" resultMap="result">
+<![CDATA[
+select track_id from t_like_tracks
+where email = #{sessionName}
+and track_id = #{trackId}
+]]>
+</select>
+
+<select id="checkLikeAlbum" resultMap="result">
+<![CDATA[
+select album_id from t_like_albums
+where email = #{sessionName}
+and album_id = #{albumId}
+]]>
+</select>
+
+<select id="checkLikeArtist" resultMap="result">
+<![CDATA[
+select grop_id from t_like_artists
+where email = #{sessionName}
+and grop_id = #{gropId}
+]]>
+</select>
+
+<select id="getPlaylists" resultMap="result">
+<![CDATA[
+select plylst_id, nm, plylst_img, track_cnt 
+from t_plylst
+where email = #{sessionName}
+and plylst_type = 1
+order by plylst_no desc
+]]>
+</select>
+
+<select id="getLikeTracksInAlbum" resultMap="result">
+<![CDATA[
+select lt.track_id 
+from t_like_tracks lt, t_tracks t, t_album a
+where lt.email = #{sessionName}
+and lt.track_id = t.track_id
+and a.album_id = t.album_id
+and a.album_id = #{albumId}
+]]>
+</select>
+
+<select id="getLikeTracksInArtist" resultMap="result">
+<![CDATA[
+select lt.track_id
+from t_like_tracks lt, t_artist_tracks at
+where lt.email = #{sessionName}
+and lt.track_id = at.track_id
+and at.grop_id = #{gropId}
+]]>
+</select>
+
+</mapper>
