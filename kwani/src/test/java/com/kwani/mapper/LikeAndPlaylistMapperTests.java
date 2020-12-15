@@ -49,5 +49,76 @@ public class LikeAndPlaylistMapperTests {
 	public void testGetLikeTracksInArtist() {
 		mapper.getLikeTracksInArtist("a@naver.com", 11).forEach(a -> log.info(a));
 	}
+	
+	@Test
+	public void testInsertLikeTrack() {
+		
+		int a;
+		
+		try {
+			a = mapper.insertLikeTrack("a@naver.com", 17);
+		}catch (Exception e) {
+			System.out.println("삽입오류~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			a = 0;
+		}
+		
+		log.info("-------------------------------------------------------------------------------------"+ a);
+	}
+	
+	@Test
+	public void testDeleteLikeTrack() {
+		
+		int a =	mapper.deleteLikeTrack("a@naver.com", 17);
+			
+		log.info("-------------------------------------------------------------------------------------"+ a);
+	}
+	
+	@Test
+	public void testInsertLikeAlbum() {
+		
+		int a;
+		
+		try{
+			a = mapper.insertLikeAlbum("a@naver.com", 7);
+		}catch (Exception e) {
+			System.out.println("삽입오류~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			a = 0;
+		}
+		
+		log.info("-------------------------------------------------------------------------------------"+ a);
+	}
+	
+	@Test
+	public void testDeleteLikeAlbum() {
+		
+		int a = mapper.deleteLikeAlbum("a@naver.com", 7);
+		
+		log.info("-------------------------------------------------------------------------------------"+ a);
+	}
+	
+	@Test
+	public void testInsertLikeArtist() {
+		
+		int a;
+		try{
+			a = mapper.insertLikeArtist("a@naver.com", 12);
+			
+		}catch(Exception e) {
+			System.out.println("삽입오류~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			a = 0;
+		}
+		
+		log.info("-------------------------------------------------------------------------------------"+ a);
+		System.out.println("reaction " + a);
+	}
+	
+	@Test
+	public void testDeleteLikeArtist() {
+		
+		int a = mapper.deleteLikeArtist("a@naver.com", 12);
+		
+		log.info("-------------------------------------------------------------------------------------"+ a);
+		
+	}
 
 }

@@ -256,6 +256,7 @@
 		}
 		
 		function likeTrack(){
+			let trackId = ${trackId};
 			
 			if('${checkLikeTrack}' != "") {		// 해당 노래를 좋아요 여부에 따라 페이지 로딩에 보여주는 하트를 다르게한다.
 				$(".emptyHeart").hide();		// 좋아요 했다면 빈 하트를 숨기고 빨간 하트를 보여준다.
@@ -269,6 +270,8 @@
 				$(".emptyHeart").hide();	//누른 하트를 숨기기
 				$(".redHeart").show();	//누른 곳에 빨간 하트를 표시
 				console.log("좋아요할 노래 아이디 : "+ '${trackId}');
+				
+				addLikeTrack(trackId);
 			});
 			
 			//빨간 하트 클릭할때
@@ -277,6 +280,8 @@
 				$(".redHeart").hide();	//누른 하트를 숨기기
 				$(".emptyHeart").show();	//누른 곳에 빈 하트를 표시
 				console.log("좋아요 취소할 노래 아이디 : "+ '${trackId}');
+				
+				removeLikeTrack(trackId);
 			});
 		}
 		
@@ -315,6 +320,48 @@
 			address.style.display = 'none'; //textarea의 display를 none으로 변경
 			//obj.setSelectionRange(0, 0); //커서 위치 초기화
 			alert("주소가 복사되었습니다.")
+		}
+		
+		function addLikeTrack(trackId){
+			$.ajax({
+				type : 'post',
+				url : '/detail/addLikeTrack',
+				data : JSON.stringify(trackId),
+				contentType : 'text/plain; charset=utf-8;',		// 서버로 보내는 데이터 타입
+				
+				success : function(data){
+					console.log("data : " + data);
+					if(data == 1){
+						alert("이 노래를 좋아합니다.");
+					}else{
+						alert("좋아요 리스트 추가에 실패했습니다.")
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		}
+		
+		function removeLikeTrack(trackId){
+			$.ajax({
+				type : 'post',
+				url : '/detail/removeLikeTrack',
+				data : JSON.stringify(trackId),
+				contentType : 'text/plain; charset=utf-8;',		// 서버로 보내는 데이터 타입
+				
+				success : function(data){
+					console.log("data : " + data);
+					if(data == 1){
+						alert("좋아요를 취소하셨습니다.");
+					}else{
+						alert("좋아요 취소를 실패했습니다.")
+					}
+				},
+				error: function(){
+					
+				}
+			});
 		}
 	</script>
 

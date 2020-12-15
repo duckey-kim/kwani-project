@@ -282,6 +282,7 @@
 
 		// 앨범 좋아요
 		function likeAlbum(){
+			let albumId = ${albumId};
 			
 			if('${checkLikeAlbum}' != "") {		// 해당 노래를 좋아요 여부에 따라 페이지 로딩에 보여주는 하트를 다르게한다.
 				$(".emptyHeart1").hide();		// 좋아요 했다면 빈 하트를 숨기고 빨간 하트를 보여준다.
@@ -295,6 +296,8 @@
 				$(".emptyHeart1").hide();	//누른 하트를 숨기기
 				$(".redHeart1").show();		//누른 곳에 빨간 하트를 표시
 				console.log("좋아요할 앨범아이디 : " + '${albumId}');
+				
+				addLikeAlbum(albumId);
 			});
 			
 			//빨간 하트 클릭할때
@@ -303,11 +306,13 @@
 				$(".redHeart1").hide();	//누른 하트를 숨기기
 				$(".emptyHeart1").show();	//누른 곳에 빈 하트를 표시
 				console.log("좋아요 취소할 앨범아이디 : " + '${albumId}');
+				
+				removeLikeAlbum(albumId);
 			});
 		}
 		
 		function likeTrack(){
-			// 처음엔 모든 빨간하트를 숨기고 빈하트만 보여준다.
+			// 처음엔 모든 수록곡의 빨간하트를 숨기고 빈하트만 보여준다.
 			$(".redHeart2").hide();
 			
 			// 좋아요한 노래에 해당하는 노래들은 빈하트를 숨기고 빨간 하트를 보여준다.
@@ -324,6 +329,9 @@
 				$(".emptyHeart2:eq(" + index + ")").hide();	//누른 하트를 숨기기
 				$(".redHeart2:eq(" + index + ")").show();	//누른 곳에 빨간 하트를 표시
 				console.log("좋아요할 노래아이디 : " + $(".emptyHeart2:eq(" + index + ")").attr("title"));
+				
+				let trackId = $(".emptyHeart2:eq(" + index + ")").attr("title");
+				addLikeTrack(trackId);
 			});
 			
 			//빨간 하트 클릭할때
@@ -334,6 +342,9 @@
 				$(".redHeart2:eq(" + index + ")").hide();	//누른 하트를 숨기기
 				$(".emptyHeart2:eq(" + index + ")").show();	//누른 곳에 빈 하트를 표시
 				console.log("좋아요 취소할 노래아이디 : " + $(".redHeart2:eq(" + index + ")").attr("title"));
+				
+				let trackId = $(".redHeart2:eq(" + index + ")").attr("title");
+				removeLikeTrack(trackId);
 			});
 			
 		}
@@ -400,6 +411,91 @@
 			//obj.setSelectionRange(0, 0); //커서 위치 초기화
 			alert("주소가 복사되었습니다.")
 		}
+		
+		function addLikeAlbum(albumId){
+			$.ajax({
+				type : 'post',
+				url : '/detail/addLikeAlbum',
+				data : JSON.stringify(albumId),
+				contentType : 'text/plain; charset=utf-8;',		// 서버로 보내는 데이터 타입
+				
+				success : function(data){
+					console.log("data : " + data);
+					if(data == 1){
+						alert("이 앨범을 좋아합니다.");
+					}else{
+						alert("좋아요 리스트 추가에 실패했습니다.")
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		}
+		
+		function removeLikeAlbum(albumId){
+			$.ajax({
+				type : 'post',
+				url : '/detail/removeLikeAlbum',
+				data : JSON.stringify(albumId),
+				contentType : 'text/plain; charset=utf-8;',		// 서버로 보내는 데이터 타입
+				
+				success : function(data){
+					console.log("data : " + data);
+					if(data == 1){
+						alert("좋아요를 취소하셨습니다.");
+					}else{
+						alert("좋아요 취소를 실패했습니다.")
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		}
+		
+		function addLikeTrack(trackId){
+			$.ajax({
+				type : 'post',
+				url : '/detail/addLikeTrack',
+				data : trackId,
+				contentType : 'text/plain; charset=utf-8;',		// 서버로 보내는 데이터 타입
+				
+				success : function(data){
+					console.log("data : " + data);
+					if(data == 1){
+						alert("이 노래를 좋아합니다.");
+					}else{
+						alert("좋아요 리스트 추가에 실패했습니다.")
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		}
+		
+		function removeLikeTrack(trackId){
+			$.ajax({
+				type : 'post',
+				url : '/detail/removeLikeTrack',
+				data : trackId,
+				contentType : 'text/plain; charset=utf-8;',		// 서버로 보내는 데이터 타입
+				
+				success : function(data){
+					console.log("data : " + data);
+					if(data == 1){
+						alert("좋아요를 취소하셨습니다.");
+					}else{
+						alert("좋아요 취소를 실패했습니다.")
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		}
+		
 	</script>
 
 </body>

@@ -9,7 +9,7 @@
 <title>artist</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="/resources/js/jquery-3.5.1.js"/></script>
+<script src="/resources/js/jquery-3.5.1.js" /></script>
 <script defer src="/resources/js/indexNoVideo.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/indexNoVideo.css">
@@ -63,30 +63,34 @@
 				<div class="music-header">
 
 					<div class="album-jacket">
-							<img
-								src="/resources/image/artist/<c:out value="${getArtistInfo.GROP_IMG }" />"
-								style="max-height: 196px">
+						<img
+							src="/resources/image/artist/<c:out value="${getArtistInfo.GROP_IMG }" />"
+							style="max-height: 196px">
 					</div>
 
 					<div class="header-item">
 
-							<div>
-								<h2>
-									<c:out value="${getArtistInfo.NM }" />
-								</h2>
-								<pre>
+						<div>
+							<h2>
+								<c:out value="${getArtistInfo.NM }" />
+							</h2>
+							<pre>
 								</pre>
-								<p>데뷔 : <c:out value="${getArtistInfo.DEBUT_DT }"/></p>
-							</div>
+							<p>
+								데뷔 :
+								<c:out value="${getArtistInfo.DEBUT_DT }" />
+							</p>
+						</div>
 
 					</div>
 				</div>
 
 				<div class="header-buttons">
 					<input type="button" value="공유하기" onclick="copyURL()">
-						<textarea id="address" style="display:none"></textarea>
-					<img class="emptyHeart1" id="likeArtist" src="/resources/image/heart2.png">
-					<img class="redHeart1" id="likeArtist" src="/resources/image/heart.png">
+					<textarea id="address" style="display: none"></textarea>
+					<img class="emptyHeart1" id="likeArtist"
+						src="/resources/image/heart2.png"> <img class="redHeart1"
+						id="likeArtist" src="/resources/image/heart.png">
 				</div>
 
 				<div class="hr">
@@ -114,40 +118,49 @@
 									<td><a
 										href="/detail/track?trackId=<c:out value='${ArtistTrack.TRACK_ID }' />"><c:out
 												value="${ArtistTrack.TRACK_TTL }" /></a></td>
+									<td><a
+										href="/detail/album?albumId=<c:out value='${ArtistTrack.ALBUM_ID }'/>"><c:out
+												value="${ArtistTrack.ALBUM_TTL }" /></a></td>
 									<td>
-									<a href="/detail/album?albumId=<c:out value='${ArtistTrack.ALBUM_ID }'/>"><c:out value="${ArtistTrack.ALBUM_TTL }" /></a>
+										<button value="<c:out value='${ArtistTrack.TRACK_ID }' />"
+											name="addPlayer">플레이어에 추가</button>
 									</td>
 									<td>
-										<button value="<c:out value='${ArtistTrack.TRACK_ID }' />" name="addPlayer">플레이어에 추가</button>
+										<button value="<c:out value='${ArtistTrack.TRACK_ID }' />"
+											name="addTrackMyPlaylist">내 재생목록에 추가</button>
 									</td>
-									<td>
-										<button value="<c:out value='${ArtistTrack.TRACK_ID }' />" name="addTrackMyPlaylist">내 재생목록에 추가</button>
-									</td>
-									<td>
-										<img title="${ArtistTrack.TRACK_ID }" class="emptyHeart2" name="likeTrack" src="/resources/image/heart2.png">
-										<img title="${ArtistTrack.TRACK_ID }" class="redHeart2" name="likeTrack" src="/resources/image/heart.png">
-									</td>
+									<td><img title="${ArtistTrack.TRACK_ID }"
+										class="emptyHeart2" name="likeTrack"
+										src="/resources/image/heart2.png"> <img
+										title="${ArtistTrack.TRACK_ID }" class="redHeart2"
+										name="likeTrack" src="/resources/image/heart.png"></td>
 								</tr>
 							</c:forEach>
 						</table>
 					</div>
 				</div>
-				
-				
+
+
 				<div class="hr">
 					<hr>
 				</div>
-				
+
 				<div class="related">
-					<div class="subtitle"><h2>앨범></h2></div>
+					<div class="subtitle">
+						<h2>앨범></h2>
+					</div>
 					<div class="items">
 
 						<c:forEach items="${getArtistAlbumList }" var="AlbumList">
 							<div class="item">
-								<a href="/detail/album?albumId=<c:out value="${AlbumList.ALBUM_ID }"/>"> <img
+								<a
+									href="/detail/album?albumId=<c:out value="${AlbumList.ALBUM_ID }"/>">
+									<img
 									src="/resources/image/album/<c:out value="${AlbumList.ALBUM_IMG }" />"
 									style="max-height: 200px">
-								</a> <a href="/detail/album?albumId=<c:out value="${AlbumList.ALBUM_ID }"/>"><c:out value="${AlbumList.ALBUM_TTL }" /></a>
+								</a> <a
+									href="/detail/album?albumId=<c:out value="${AlbumList.ALBUM_ID }"/>"><c:out
+										value="${AlbumList.ALBUM_TTL }" /></a>
 							</div>
 						</c:forEach>
 					</div>
@@ -163,27 +176,27 @@
 		<div id="footer"></div>
 	</div>
 	<!--main-->
-	
+
 	<!-- 모달창 -->
 	<div id="modal">
 		<div class="modal-content">
-			<h2>${userNick }님의 플레이리스트</h2>
-			
+			<h2>${userNick }님의플레이리스트</h2>
+
 			<div id="playlists">
-			<table>
-				<c:forEach items="${getPlaylists }" var="Playlists">
-					<tr>
-						<td>
-							<img style="width:50px" class="playlistImage" src="/resources/image/album/<c:out value="${Playlists.PLYLST_IMG }" />" />
-						</td>
-						<td><c:out value='${Playlists.NM }' /></td>
-						<td><c:out value='${Playlists.TRACK_CNT }' />곡</td>
-						<td>
-							<button value='${Playlists.PLYLST_ID }' class="selectPlaylist">선택</button>
-						</td>
-					</tr>
-				</c:forEach>
-			</table>
+				<table>
+					<c:forEach items="${getPlaylists }" var="Playlists">
+						<tr>
+							<td><img style="width: 50px" class="playlistImage"
+								src="/resources/image/album/<c:out value="${Playlists.PLYLST_IMG }" />" />
+							</td>
+							<td><c:out value='${Playlists.NM }' /></td>
+							<td><c:out value='${Playlists.TRACK_CNT }' />곡</td>
+							<td>
+								<button value='${Playlists.PLYLST_ID }' class="selectPlaylist">선택</button>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
 			</div>
 			<div id="modal-buttons">
 				<button type="button" id="modalCloseBtn">취소</button>
@@ -192,7 +205,7 @@
 		<div class="modal-layer"></div>
 	</div>
 	<!-- 모달창 끝 -->
-	
+
 	<script>
 		let tmpTrackId;
 	
@@ -232,6 +245,7 @@
 		
 		// 가수 좋아요 버튼
 		function likeArtist(){
+			let gropId = ${gropId};
 			
 			if('${checkLikeArtist}' != "") {	// 해당 노래를 좋아요 여부에 따라 페이지 로딩에 보여주는 하트를 다르게한다.
 				$(".emptyHeart1").hide();		// 좋아요 했다면 빈 하트를 숨기고 빨간 하트를 보여준다.
@@ -247,6 +261,8 @@
 				$(".emptyHeart1").hide();	//누른 하트를 숨기기
 				$(".redHeart1").show();	//누른 곳에 빨간 하트를 표시
 				console.log("좋아요할 가수 아이디 : " + '${gropId}');
+				
+				addLikeArtist(gropId);
 			});
 			
 			//빨간 하트 클릭할때
@@ -257,13 +273,15 @@
 				$(".redHeart1").hide();	//누른 하트를 숨기기
 				$(".emptyHeart1").show();	//누른 곳에 빈 하트를 표시
 				console.log("좋아요 취소할 가수 아이디 : " + '${gropId}');
+				
+				removeLikeArtist(gropId);
 			});
 		}
 		
 		// 노래 좋아요 버튼
 		function likeTrack(){
 			
-			// 처음엔 모든 빨간하트를 숨기고 빈하트만 보여준다.
+			// 처음엔 모든 곡의 빨간하트를 숨기고 빈하트만 보여준다.
 			$(".redHeart2").hide();
 			
 			// 좋아요한 노래에 해당하는 노래들은 빈하트를 숨기고 빨간 하트를 보여준다.
@@ -280,6 +298,9 @@
 				$(".emptyHeart2:eq(" + index + ")").hide();	//누른 하트를 숨기기
 				$(".redHeart2:eq(" + index + ")").show();	//누른 곳에 빨간 하트를 표시
 				console.log("좋아요할 노래 아이디 : " + $(".emptyHeart2:eq(" + index + ")").attr("title"));
+				
+				let trackId = $(".emptyHeart2:eq(" + index + ")").attr("title");
+				addLikeTrack(trackId);
 			});
 			
 			//빨간 하트 클릭할때
@@ -290,6 +311,9 @@
 				$(".redHeart2:eq(" + index + ")").hide();	//누른 하트를 숨기기
 				$(".emptyHeart2:eq(" + index + ")").show();	//누른 곳에 빈 하트를 표시
 				console.log("좋아요 취소할 노래 아이디 : " + $(".redHeart2:eq(" + index + ")").attr("title"));
+				
+				let trackId = $(".redHeart2:eq(" + index + ")").attr("title");
+				removeLikeTrack(trackId);
 			});
 			
 		}
@@ -336,7 +360,91 @@
             //obj.setSelectionRange(0, 0); //커서 위치 초기화
             alert("주소가 복사되었습니다.");
 		}
+		
+		function addLikeArtist(gropId){
+			$.ajax({
+				type : 'post',
+				url : '/detail/addLikeArtist',
+				data : JSON.stringify(gropId),
+				contentType : 'text/plain; charset=utf-8;',		// 서버로 보내는 데이터 타입
+				
+				success : function(data){
+					console.log("data : " + data);
+					if(data == 1){
+						alert("이 가수를 좋아합니다.");
+					}else{
+						alert("좋아요 리스트 추가에 실패했습니다.")
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		}
+		
+		function removeLikeArtist(gropId){
+			$.ajax({
+				type : 'post',
+				url : '/detail/removeLikeArtist',
+				data : JSON.stringify(gropId),
+				contentType : 'text/plain; charset=utf-8;',		// 서버로 보내는 데이터 타입
+				
+				success : function(data){
+					console.log("data : " + data);
+					if(data == 1){
+						alert("좋아요를 취소하셨습니다.");
+					}else{
+						alert("좋아요 취소를 실패했습니다.")
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		}
+		
+		function addLikeTrack(trackId){
+			$.ajax({
+				type : 'post',
+				url : '/detail/addLikeTrack',
+				data : trackId,
+				contentType : 'text/plain; charset=utf-8;',		// 서버로 보내는 데이터 타입
+				
+				success : function(data){
+					console.log("data : " + data);
+					if(data == 1){
+						alert("이 노래를 좋아합니다.");
+					}else{
+						alert("좋아요 리스트 추가에 실패했습니다.")
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		}
+		
+		function removeLikeTrack(trackId){
+			$.ajax({
+				type : 'post',
+				url : '/detail/removeLikeTrack',
+				data : trackId,
+				contentType : 'text/plain; charset=utf-8;',		// 서버로 보내는 데이터 타입
+				
+				success : function(data){
+					console.log("data : " + data);
+					if(data == 1){
+						alert("좋아요를 취소하셨습니다.");
+					}else{
+						alert("좋아요 취소를 실패했습니다.")
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		}
 	</script>
-	
+
 </body>
 </html>

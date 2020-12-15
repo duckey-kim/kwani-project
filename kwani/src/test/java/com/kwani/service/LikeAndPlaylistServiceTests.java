@@ -63,4 +63,39 @@ public class LikeAndPlaylistServiceTests {
 		service.getLikeTracksInArtist("a@naver.com", 11);
 	}
 
+	@Test
+	public void testInsertLikeTrack() {
+
+		service.insertLikeTrack("a@naver.com", 17);
+	}
+
+	@Test
+	public void testDeleteLikeTrack() {
+
+		service.deleteLikeTrack("a@naver.com", 17);
+	}
+
+	@Test
+	public void testInsertLikeAlbum() {
+
+		service.insertLikeAlbum("a@naver.com", 7);
+	}
+
+	@Test
+	public void testDeleteLikeAlbum() {
+
+		service.deleteLikeAlbum("a@naver.com", 7);
+	}
+
+	@Test
+	public void testInsertLikeArtist() {
+
+		service.insertLikeArtist("a@naver.com", 12);
+	}
+
+	@Test
+	public void testDeleteLikeArtist() {
+
+		service.deleteLikeArtist("a@naver.com", 12);
+	}
 }

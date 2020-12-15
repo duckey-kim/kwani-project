@@ -70,4 +70,76 @@ public class LikeAndPlaylistServiceImpl implements LikeAndPlaylistService {
 		return mapper.getLikeTracksInArtist(sessionName, gropId);
 	}
 
+	@Override
+	public int insertLikeTrack(String sessionName, Integer trackId) {
+		
+		log.info("insertLikeTrack");
+		
+		int result;
+		
+		try {
+			result = mapper.insertLikeTrack(sessionName, trackId);
+		}catch (Exception e) {
+			result = 0;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int deleteLikeTrack(String sessionName, Integer trackId) {
+		
+		log.info("deleteLikeTrack");
+		
+		return mapper.deleteLikeTrack(sessionName, trackId);
+	}
+
+	@Override
+	public int insertLikeAlbum(String sessionName, Integer albumId) {
+		
+		log.info("insertLikeAlbum");
+
+		int result;
+		
+		try {
+			result = mapper.insertLikeAlbum(sessionName, albumId);
+		}catch (Exception e) {
+			result = 0;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int deleteLikeAlbum(String sessionName, Integer albumId) {
+		
+		log.info("deleteLikeAlbum");
+
+		return mapper.deleteLikeAlbum(sessionName, albumId);
+	}
+
+	@Override
+	public int insertLikeArtist(String sessionName, Integer gropId) {
+		
+		log.info("insertLikeArtist");
+		
+		int result;
+		
+		try {
+			result = mapper.insertLikeArtist(sessionName, gropId);
+		}catch (Exception e) {
+			result = 0;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int deleteLikeArtist(String sesionName, Integer gropId) {
+		
+		log.info("deleteLikeArtist");
+		
+		return mapper.deleteLikeArtist(sesionName, gropId);
+	}
+
 }

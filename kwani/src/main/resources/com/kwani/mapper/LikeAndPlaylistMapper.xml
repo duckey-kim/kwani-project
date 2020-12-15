@@ -61,4 +61,49 @@ and at.grop_id = #{gropId}
 ]]>
 </select>
 
+<insert id="insertLikeTrack">
+<![CDATA[
+insert into t_like_tracks (track_id, email)
+values (#{trackId}, #{sessionName})
+]]>
+</insert>
+
+<delete id="deleteLikeTrack">
+<![CDATA[
+delete from t_like_tracks
+where email = #{sessionName}
+and track_id = #{trackId}
+]]>
+</delete>
+
+<insert id="insertLikeAlbum">
+<![CDATA[
+insert into t_like_albums (album_id, email)
+values (#{albumId}, #{sessionName})
+]]>
+</insert>
+
+<delete id="deleteLikeAlbum">
+<![CDATA[
+delete from t_like_albums
+where email = #{sessionName}
+and album_id = #{albumId}
+]]>
+</delete>
+
+<insert id="insertLikeArtist">
+<![CDATA[
+insert into t_like_artists (grop_id, email)
+values (#{gropId}, #{sessionName})
+]]>
+</insert>
+
+<delete id="deleteLikeArtist">
+<![CDATA[
+delete from t_like_artists
+where email = #{sessionName}
+and grop_id = #{gropId}
+]]>
+</delete>
+
 </mapper>
