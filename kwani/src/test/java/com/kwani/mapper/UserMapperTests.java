@@ -45,6 +45,31 @@ public class UserMapperTests {
 	}
 	
 	@Test
+	public void testSocialRegister() {
+		
+		UserVO user = new UserVO();
+		user.setEmail("kkl@gmail.com");
+		user.setNick("개구리는 개굴개굴");
+		user.setPwd("1234");
+		user.setUserImg("");
+		user.setMoodCd("");
+		user.setGenreCd("");
+		user.setSituCd("");
+		user.setStusCd("");
+		user.setLastDt("");
+		user.setInUser("");
+		user.setInDate("");
+		user.setUpUser("");
+		user.setUpDate("");
+		
+		mapper.socialRegister(user);
+		
+		log.info(user);
+		
+	}
+	
+	
+	@Test
 	public void testget() {
 		
 		UserVO user = mapper.get("c@gmail.com");
@@ -133,6 +158,17 @@ public class UserMapperTests {
 		
 		log.info("회원이 입력한 ID(email)가 서버에 있는지 확인한다." + user);
 	}
+	
+	
+	@Test
+	public void testIsSocialIdValid() {
+		
+		int user = mapper.isSocialIdValid("bgbgbgbg@gmail.com");
+		
+		log.info("회원이 입력한 ID(email)가 서버에 있는지 확인한다." + user);
+	}
+	
+	
 	
 	
 	@Test

@@ -17,6 +17,10 @@ a {
 	vertical-align: middle;
 }
 
+#main {
+	background-color: black;
+}
+
 #header {
 	width: 100%;
 	height: 280px;
@@ -202,7 +206,7 @@ a {
 #body {
 	display: flex;
 	width: 100%;
-	height: 1000px;
+	height: 1100px;
 }
 
 .sysdate {
@@ -250,22 +254,81 @@ a {
 	height: 200px;
 }
 
-.recmd_1 {
-	width: 32%;
-	height: 195px;
+.recmdFlip-box {
+	background-color: transparent;
+  	width: 32%;
+  	height: 195px;
+  	perspective: 1000px;
+}
+
+.recmdFlip-box-inner {
+	transform-style: preserve-3d;
+	transform: rotateY(0deg);
+	position: relative;
+  	width: 100%;
+  	height: 100%;
+  	text-align: center;
+  	transition: transform 0.5s;
+}
+
+.recmdFlip-box:hover .recmdFlip-box-inner {
+	transform: rotateY(-180deg);
+}
+
+.recmdFront, .recmdBack {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	-webkit-backface-visibility: hidden;
+  	backface-visibility: hidden;
+}
+
+.recmdFront {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	z-index: 1;
 	background-color: violet;
+	color: black;
 }
 
-.recmd_2 {
-	width: 32%;
-	height: 195px;
-	background-color: blue;
+.recmdImage {
+	width:100%;
+	height:100%;
 }
 
-.recmd_3 {
-	width: 32%;
-	height: 195px;
-	background-color: pink;
+.recmdArtistName {
+	width: 100%;
+	position: absolute;
+	background-color: black;
+	color: whitesmoke;
+	opacity: 0.8;
+	font-size: 0.6rem;
+}
+
+.recmdBack {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	background-color: black;
+	color: whitesmoke;
+	transform: rotateY(-180deg);
+}
+
+.backBlank {
+	width:100%;
+	height:100%;
+	background-color: crimson;
+	opacity: 0.5;
+}
+
+.backText {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	width:100%;
+	height:100%;
+	position: absolute;
 }
 
 .recmdContainer_2 {
@@ -273,24 +336,6 @@ a {
 	justify-content: space-between;
 	width: 100%;
 	height: 200px;
-}
-
-.recmd_4 {
-	width: 32%;
-	height: 195px;
-	background-color: tomato;
-}
-
-.recmd_5 {
-	width: 32%;
-	height: 195px;
-	background-color: green;
-}
-
-.recmd_6 {
-	width: 32%;
-	height: 195px;
-	background-color: red;
 }
 
 .slideBox {
@@ -351,22 +396,19 @@ a {
 	animation-duration: 1.5s;
 }
 
-@
--webkit-keyframes fade {
-	from {opacity: .4
-}
-
-to {
+@-webkit-keyframes fade {
+	from {
+	opacity: 0.4
+} to {
 	opacity: 1
 }
 
 }
-@
-keyframes fade {
-	from {opacity: .4
-}
 
-to {
+@keyframes fade {
+	from {
+	opacity: 0.4
+} to {
 	opacity: 1
 }
 
@@ -415,21 +457,112 @@ to {
 
 .bottomContentBox {
 	display: flex;
-	width: 100%;
-	height: 600px;
-	background-color: black;
+    width: 100%;
+    height: 600px;
+    background-color: black;
+} 
+  
+.bottomLeftBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 70%;
+	height: 100%;
+
+}
+  .genreYearContainer {
+	  display: flex;
+	  justify-content: center;
+	  align-content: center;
+	  flex-direction: row;
+        width: 40vw;
+		height: 50vh;
+		margin-left: 3vw;
+  }
+  
+  .genreYearImg {
+	  max-width: 62.5%;
+	  height: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+	  background-repeat: no-repeat;
+	  background-size: cover;
+	  background-position: center center;
+  }
+
+  .yearCntBox {
+	  display: flex;
+	  justify-content: flex-start;
+	  width: 12vw;
+	  height: 2.5vh;
+	  margin-top: 21vh;
+	  font-size: 1.3rem;
+	  border-bottom: 2px solid red;
+	  color: red;
+	  padding-bottom: 1.75rem;
+  }
+
+  .genreCntBox {
+	  display: flex;
+	  justify-content: flex-end;
+	  width: 12vw;
+	  height: 2.5vh;
+	  margin-top: 21vh;
+	  font-size: 1.3rem;
+	  border-bottom: 2px solid blue;
+	  color: blue;
+	  padding-bottom: 1.75rem;
+  }
+  
+  .circle {
+      width: 40vw;
+      height: auto;
+  }
+  
+  .red {
+      border: 4px solid red;
+	  border-right: none;
+	  border-top: none;
+	  border-bottom: none;
+      border-radius: 3%;
+  }
+  
+  .year {
+      border: 5px solid red;
+      background-color: black;
+      border-radius: 50%;
+      width: 2rem;
+      height: 3vh;
+      top: 22.5vh;
+      right: 0.9vw;
+  }
+  
+  .blue {
+      border: 4px solid blue;
+	  border-left: none;
+	  border-top: none;
+	  border-bottom: none;
+      border-radius: 3%;
+  }
+  
+  .genre {
+      border: 5px solid blue;
+      background-color: black;
+      border-radius: 50%;
+      width: 2rem;
+      height: 3vh;
+      top: 22.5vh;
+      left: 11.65vw;
+  }
+
+.bottomRightBox {
+	width: 50%;
+	height: 100%;
 }
 
-.genreYear {
-	width: 45%;
-	height: 600px;
-	background-color: crimson;
-}
-
-.akinator {
-	width: 55%;
-	height: 600px;
-	background-color: turquoise;
+.sth {
+	color: whitesmoke;
 }
 
 #leftSideBar {
@@ -451,6 +584,94 @@ to {
 
 #footer {
 	width: 100%;
-	height: 400px;
-	background-color: teal;
+	height: 300px;
+}
+
+.footerContainer {
+	width: 100%;
+	height: 300px;
+}
+
+
+.information {
+	display: flex;
+	justify-content: center;
+	font-size: 1rem;
+	width: 100%;
+	height: 30%;
+}
+
+.information a {
+	color: whitesmoke;
+	font-weight: bolder;
+}
+
+.intro {
+	display: flex;
+	justify-content: center;
+	border-bottom: 2px solid crimson;
+	border-right: 2px solid crimson;
+	padding-top: 1.5vh;
+	height: 50%;
+	width: 12%;
+}
+
+.noticeBoard {
+	display: flex;
+	justify-content: center;
+	border-bottom: 2px solid crimson;
+	border-right: 2px solid crimson;
+	padding-top: 1.5vh;
+	height: 50%;
+	width: 12%;
+}
+
+.custInfo {
+	display: flex;
+	justify-content: center;
+	border-bottom: 2px solid crimson;
+	padding-top: 1.5vh;
+	height: 50%;
+	width: 12%;
+}
+
+.none {
+	border-bottom: 2px solid crimson;
+	padding-top: 1.5vh;
+	height: 50%;
+	width: 12%;
+}
+
+.webInfoContainer {
+	display: flex;
+	justify-content: center;
+	color: whitesmoke;
+	font-weight: bolder;
+	font-size: 1rem;
+	width: 100%;
+	height: 60%;
+}
+
+.leftWebInfo {
+	display: flex;
+	justify-content: flex-end;
+	width: 60%;
+	height: 100%;
+}
+
+.aboutUs {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-content: center;
+	width: 60%;
+	height: 80%;
+}
+
+.rightWebInfo {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	width:  60%;
+	height: 80%;
 }

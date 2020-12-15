@@ -6,8 +6,10 @@ import lombok.Data;
 public class UserVO {
 
 	private String email;
+	private String kakaoEmail;
 	private String nick;
 	private String pwd;
+	private String uuid;
 	private String userImg;
 	private String moodCd;
 	private String genreCd;

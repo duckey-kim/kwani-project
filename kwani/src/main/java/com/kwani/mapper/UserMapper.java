@@ -8,6 +8,9 @@ public interface UserMapper {
 
 	// 회원정보를 등록한다.
 	public void insert(UserVO user);
+	
+	// 소셜 API로 로그인 시, 회원정보를 등록한다.
+	public void socialRegister(UserVO user);
 
 	// 회원정보는 선택해서 가져온다.
 	public UserVO get(String email);
@@ -32,6 +35,9 @@ public interface UserMapper {
 
 	// 회원이 입력한 ID(email)가 서버에 있는지 확인한다.
 	public int isUserIdVaild(String email);
+	
+	// 회원의 ID(카카오계정)가 서버에 있는지 확인한다.
+	public int isSocialIdValid(String kakaoEmail);
 
 	// 회원이 입력한 정보와 서버에 저장된 정보가 일치하는지 확인한다.
 	public int checkUserIdPwd(@Param("email") String email, @Param("pwd") String pwd);

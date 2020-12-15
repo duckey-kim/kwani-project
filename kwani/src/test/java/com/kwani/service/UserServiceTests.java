@@ -54,7 +54,7 @@ public class UserServiceTests {
 		log.info("새로가입했어요" + user.getEmail());
 
 	}
-
+	
 	@Test
 	public void testGet() {
 

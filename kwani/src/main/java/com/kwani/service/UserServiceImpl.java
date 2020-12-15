@@ -29,6 +29,12 @@ public class UserServiceImpl implements UserService {
 		log.info("회원의 정보를 등록한다." + user);
 		mapper.insert(user);
 	}
+	
+	@Override
+	public void socialRegister(UserVO user) {
+		log.info("social API로 회원의 정보를 등록한다." + user);
+		mapper.socialRegister(user);
+	}
 
 	@Override
 	public boolean withdrawal(UserVO user) {
@@ -81,12 +87,28 @@ public class UserServiceImpl implements UserService {
 	public boolean isUserIdValid(String email, RedirectAttributes rttr) {
 		// 1. 사용자가 입력한 값으로 DB에 일치하는 정보가 있는지 확인한다.
 		// 이메일 일치여부 확인.
+		// 이메일이 존재하지 않으면, 0을 반환한다.(false를 반환)
 		if (mapper.isUserIdVaild(email) != 1) {
 			String msg = "유효하지 않은 이메일입니다";
 			rttr.addFlashAttribute("msg", msg);
-
 			return false;
 		}
+		return true;
+	}
+	
+	@Override
+	public boolean isSocialIdValid(String kakaoEmail, RedirectAttributes rttr) {
+		
+		System.out.println("@@@@@@@ : " + kakaoEmail);
+		// 만약 저장된 정보가 있으면,
+		if (mapper.isSocialIdValid(kakaoEmail) == 1) {
+			
+			String msg = "유효하지 않은 이메일입니다";
+			rttr.addFlashAttribute("msg", msg);
+			// false를 반환한다.
+			return false;
+		}
+		// 정보가 없으면 true를 반환한다.
 		return true;
 	}
 
@@ -134,7 +156,6 @@ public class UserServiceImpl implements UserService {
 		// 입력받은 값들을 DB에 저장한다. (email로 DB에 있는지 없는지 판단한다.)
 		//
 		if (mapper.isUserIdVaild(email) != 1) {
-
 			mapper.insert(user);
 			return true;
 		} else {
@@ -145,8 +166,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean cookieSession(String email, String checked, HttpServletRequest request,
-			HttpServletResponse response) {
+	public boolean cookieSession(String email, String checked, HttpServletRequest request, HttpServletResponse response) {
 
 		Cookie ck = null;
 		String userEmail = mapper.get(email).getEmail();
@@ -184,7 +204,6 @@ public class UserServiceImpl implements UserService {
 		// 새로운 비밀번호를 생성한다.
 		for (int i = 0; i < 1; i++) {
 			uuid = uuid.substring(0, 10); // uuid를 앞에서부터 8자리 잘라줌.
-			System.out.println(i + ") " + uuid);
 		}
 		return uuid;
 	}
@@ -209,7 +228,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		System.out.println("회원이미지 : " + checkUserImg);
-
+		
 		return true;
 
 	}

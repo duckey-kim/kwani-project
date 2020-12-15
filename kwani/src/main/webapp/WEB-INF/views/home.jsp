@@ -3,9 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-
-<%-- <%@include file="../includes/header.jsp"%> --%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +11,16 @@
 <title>home</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Open Sans'
+	rel='stylesheet'>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"
+	integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY="
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
 	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
@@ -21,19 +28,18 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/home.css">
 </head>
 
-
-
 <body>
+
 	<div id="main">
 		<div id="header">
 			<div id="header_cover">
 				<video id="video" src="/resources/video/AudioWave.mp4"
 					type="video/mp4" autoplay muted loop></video>
 			</div>
-		<div id="header_navbar">
+			<div id="header_navbar">
 				<div id="musicPlayer">musicPlayer</div>
 				<div id="pageLogo">
-					<a href="/">Last.fm</a>
+					<a href="/">Baam.fm</a>
 				</div>
 				<div id="navbarUtil">
 					<button class="subnavbtn" onclick="openSearch()">
@@ -52,10 +58,10 @@
 						</div>
 					</div>
 				</div>
-				
-		</div>
-			
-			
+
+			</div>
+
+
 			<div id="myOverlay" class="overlay">
 				<div class="overlay-content">
 					<form action="#">
@@ -90,14 +96,48 @@
 				<div class="topContentBox">
 					<div class="todayRecmd">
 						<div class="recmdContainer_1">
-							<div class="recmd_1"></div>
-							<div class="recmd_2"></div>
-							<div class="recmd_3"></div>
+							<c:forEach items="${List}" var="getList" begin="0" end="2">
+								<div class="recmdFlip-box">
+									<div class="recmdFlip-box-inner">
+										<div class="recmdFront">
+											<img src="/resources/image/album/${getList.albumImg}"
+												class="recmdImage" alt="">
+											<div class="recmdArtistName">
+												<h2>${getList.name}</h2>
+											</div>
+										</div>
+										<div class="recmdBack">
+											<div class="backBlank"></div>
+											<div class="backText">
+												<h2>${getList.albumTtl}</h2>
+												<h3>${getList.name}</h3>
+											</div>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
 						</div>
 						<div class="recmdContainer_2">
-							<div class="recmd_4"></div>
-							<div class="recmd_5"></div>
-							<div class="recmd_6"></div>
+							<c:forEach items="${List}" var="getList" begin="3" end="5">
+								<div class="recmdFlip-box">
+									<div class="recmdFlip-box-inner">
+										<div class="recmdFront">
+											<img src="/resources/image/album/${getList.albumImg}"
+												class="recmdImage" alt="">
+											<div class="recmdArtistName">
+												<h2>${getList.name}</h2>
+											</div>
+										</div>
+										<div class="recmdBack">
+											<div class="backBlank"></div>
+											<div class="backText">
+												<h2>${getList.albumTtl}</h2>
+												<h3>${getList.name}</h3>
+											</div>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
 						</div>
 					</div>
 					<div class="slideBox">
@@ -148,29 +188,97 @@
 				<!-- topContentBox -->
 
 				<div class="bottomContentBox">
-					<div class="genreYear">장르 & 연도</div>
-					<div class="akinator">아키네이터</div>
+
+					<div class="bottomLeftBox">
+						<div class="genreYearContainer">
+							<div class="yearCntBox">
+								<p id="yearCnt"></p>
+								<form action="/" method="get" name="yearDate">
+								<input type="hidden" id="startDate" name="startDate">
+								<input type="hidden" id="finishDate" name="finishDate">
+								</form>
+							</div>
+							<div class="genreYearImg"
+								style="background-image: url(/resources/image/artist/아이유.jpg);">
+								<div class="circle red">
+									<div class="year">
+										<div class="yearWrap"></div>
+										<div class="content"></div>
+									</div>
+								</div>
+								<div class="circle blue">
+									<div class="genre">
+										<div class="genreWrap"></div>
+										<div class="content"></div>
+									</div>
+								</div>
+							</div>
+							<div class="genreCntBox">
+								<p id="genreName"></p>
+								<input type="hidden" id="inputGenre" name="genreName">
+							</div>
+						</div>
+					</div>
+
+					<div class="bottomRightBox">
+						<div class="sth">something</div>
+					</div>
 				</div>
+				<!-- bottomContentBox-->
 			</div>
 			<!--bodyContent-->
 			<div id="rightSideBar"></div>
 		</div>
 		<!--body-->
-		<div id="footer"></div>
+
+		<div id="footer">
+			<div class="footerContainer">
+				<div class="information">
+					<div class="intro">
+						<a href="#">BAAM 소개</a>
+					</div>
+					<div class="noticeBoard">
+						<a href="#">공지사항</a>
+					</div>
+					<div class="custInfo">
+						<a href="#">고객센터</a>
+					</div>
+					<div class="none"></div>
+					<div class="none"></div>
+					<div class="none"></div>
+				</div>
+				<div class="webInfoContainer">
+					<div class="leftWebInfo">
+						<div class="aboutUs">
+							<p>주소 : 서울특별시 종로구 종로 69</p>
+							<p>공동대표 : 김덕환, 김수연, 유원호, 노명희, 김예찬</p>
+							<p>이메일 : theBAAM@aiaiai.com</p>
+							<p>대표 번호 : 02-000-0101</p>
+						</div>
+					</div>
+					<div class="rightWebInfo">본 사이트는 Chrome 및 IE Edge 브라우저에서 사용이
+						가능합니다.</div>
+				</div>
+			</div>
+			<!-- footerContainer -->
+		</div>
+		<!-- footer -->
 	</div>
 	<!--main-->
 </body>
 
-<%-- <%@include file="../includes/footer.jsp"%> --%>
 
 
 <!-- ----------------------------- JavaScript------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------- -->
 
 <script type="text/javascript">
+
 	//세션값 잘 넘어왔는지 확인한다.
 	console.log('${sessionName}');
-	console.log('${userNick}')
+	console.log('${userNick}');
+	console.log('${List}');
+
 
 	let logoutBtn = document.getElementById("logoutBtn");
 	let loginBtn = document.getElementById("loginBtn");
@@ -221,10 +329,10 @@
 			overlay.style.display = "none";
 		}
 		if (!event.target.matches('.dropbtn')) {
-			var dropdowns = document.getElementsByClassName("dropdown-content");
-			var i;
+			let dropdowns = document.getElementsByClassName("dropdown-content");
+			let i;
 			for (i = 0; i < dropdowns.length; i++) {
-				var openDropdown = dropdowns[i];
+				let openDropdown = dropdowns[i];
 				if (openDropdown.classList.contains('show')) {
 					openDropdown.classList.remove('show');
 				}
@@ -235,7 +343,7 @@
 	/*---------------------------------------------------------------------------------------------------------------- */
 	/*-------------------------------------------- slideshow ----------------------------------------------------- */
 
-	var slideCount = 1;
+	let slideCount = 1;
 	countSlides(slideCount);
 
 	function plusSlides(n) {
@@ -285,9 +393,167 @@
 		}
 		slides[slideIndex - 1].style.display = "block";
 		dots[slideIndex - 1].className += " active";
-		setTimeout(showSlides, 5000); // Change image every 2 seconds
+		setTimeout(showSlides, 4000);
 	}
+
+	/*---------------------------------------------------------------------------------------------------------------- */
+	/*---------------------------------------------------------------------------------------------------------------- */
+	$("#yearCnt").text("1970s");
+	console.log($("#yearCnt").text());
+	
+	$(".year").on('click', function() {
+		$(".year").mousemove(function(event) {
+			$(".year").text("");
+
+			/* let startDate;
+			let finishDate; */
+			let yearCnt = $(".year").css('top');
+			let yearCntPx = parseInt(yearCnt, 10);
+
+			if (yearCntPx >= 0 && yearCntPx <= 40) {
+				$("#yearCnt").text("2010s");
+				$("#yearCnt").css("display", "show");
+			} else if (yearCntPx > 40 && yearCntPx <= 80) {
+				$("#yearCnt").text("2000s");
+				$("#yearCnt").css("display", "show");
+			} else if (yearCntPx > 80 && yearCntPx <= 120) {
+				$("#yearCnt").text("1990s");
+				$("#yearCnt").css("display", "show");
+			} else if (yearCntPx > 120 && yearCntPx <= 160) {
+				$("#yearCnt").text("1980s");
+				$("#yearCnt").css("display", "show");
+			} else if (yearCntPx > 160 && yearCntPx <= 200) {
+				$("#yearCnt").text("1970s");
+				$("#yearCnt").css("display", "show");
+			} else if (yearCntPx > 200 && yearCntPx <= 240) {
+				$("#yearCnt").text("1960s");
+				$("#yearCnt").css("display", "show");
+			} else if (yearCntPx > 240 && yearCntPx <= 280) {
+				$("#yearCnt").text("1950s");
+				$("#yearCnt").css("display", "show");
+			} else if (yearCntPx > 280 && yearCntPx <= 320) {
+				$("#yearCnt").text("1940s");
+				$("#yearCnt").css("display", "show");
+			} else if (yearCntPx > 320 && yearCntPx <= 360) {
+				$("#yearCnt").text("1930s");
+				$("#yearCnt").css("display", "show");
+			} else if (yearCntPx > 360 && yearCntPx <= 400) {
+				$("#yearCnt").text("1920s");
+				$("#yearCnt").css("display", "show");
+			}
+
+		});
+		/* console.log($('#yearCnt').text().split("s")[0]); */
+		
+		/* split한 연도를 startDate에 저장. */
+		startDate = $('#yearCnt').text().split("s")[0];
+		finishDate = $('#yearCnt').text().substring(0, 3) + 9;
+		
+		/* startDate랑 finishDate로 넘겨도 될듯. */
+		console.log(startDate);
+		console.log(finishDate);
+		
+		
+		$("#startDate").val(startDate);
+		$("#finishDate").val(finishDate);
+
+		console.log("startDate : " + $("#startDate").val());
+		console.log("finishDate : " + $("#finishDate").val());
+		
+	/* ------------------------------------------------------------ */
+	
+	
+	});
+
+	
+	
+		
+	$("#genreName").text("힙합");
+	console.log($('#genreName').text());
+		
+	$(".genre").on('click', function() {
+		$(".genre").mousemove(function(event) {
+
+			$(".genre").text("");
+
+			/* let genreName;
+			let inputGenreName; */
+			let genreCnt = $(".genre").css('top');
+			let genreCntPx = parseInt(genreCnt, 10);
+			let genreName = $("#genreName").text();
+
+			if (genreCntPx >= 0 && genreCntPx <= 40) {
+				$("#genreName").text("락");
+				$("#genreName").css("display", "show");
+			} else if (genreCntPx > 40 && genreCntPx <= 80) {
+				$("#genreName").text("메탈");
+				$("#genreName").css("display", "show");
+			} else if (genreCntPx > 80 && genreCntPx <= 120) {
+				$("#genreName").text("발라드");
+				$("#genreName").css("display", "show");
+			} else if (genreCntPx > 120 && genreCntPx <= 160) {
+				$("#genreName").text("랩");
+				$("#genreName").css("display", "show");
+			} else if (genreCntPx > 160 && genreCntPx <= 200) {
+				$("#genreName").text("힙합");
+				$("#genreName").css("display", "show");
+			} else if (genreCntPx > 200 && genreCntPx <= 240) {
+				$("#genreName").text("댄스");
+				$("#genreName").css("display", "show");
+			} else if (genreCntPx > 240 && genreCntPx <= 280) {
+				$("#genreName").text("인디");
+				$("#genreName").css("display", "show");
+			} else if (genreCntPx > 280 && genreCntPx <= 320) {
+				$("#genreName").text("트로트");
+				$("#genreName").css("display", "show");
+			} else if (genreCntPx > 320 && genreCntPx <= 360) {
+				$("#genreName").text("R&B");
+				$("#genreName").css("display", "show");
+			} else if (genreCntPx > 360 && genreCntPx <= 400) {
+				$("#genreName").text("포크");
+				$("#genreName").css("display", "show");
+				// OST, classic, jazz, blues, soul
+			}
+		});
+		let genreName = $('#genreName').text();
+		
+		$("#inputGenre").val(genreName);
+		console.log("genreName : " + $("#inputGenre").val());
+	});
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	$(function() {
+		$(".year").draggable({
+			yearWrap : ".yearWrap",
+			cursor : "grab",
+			containment : ".red",
+			axis : "y",
+			revert : false,
+		});
+	});
+
+	$(function() {
+		$(".genre").draggable({
+			genreWrap : ".genreWrap",
+			cursor : "grab",
+			containment : ".blue",
+			axis : "y",
+			revert : false,
+		});
+	});
 </script>
+
 </html>
 
 

@@ -8,13 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kwani.domain.EmailVO;
 import com.kwani.domain.UserVO;
 
 public interface UserService {
 
 	// 회원정보등록.
 	public void register(UserVO user);
+	
+	// 소셜 API로 회원정보등록.
+	public void socialRegister(UserVO user);
 
 	// 회원정보 가져오기.
 	public UserVO get(String email);
@@ -39,7 +41,10 @@ public interface UserService {
 
 	// 회원이 입력한 ID(email)가 서버에 있는지 확인한다.
 	public boolean isUserIdValid(String email, RedirectAttributes rttr);
-
+	
+	// 회원의 카카오 email이 서버에 있는지 확인한다.
+	public boolean isSocialIdValid(String kakaoEmail, RedirectAttributes rttr);
+	
 	// 탈퇴한 회원인지 확인한다.
 	public boolean checkWithdrawUser(String IdEmail);
 

@@ -29,7 +29,7 @@
 			<div id="header_navbar">
 				<div id="musicPlayer">musicPlayer</div>
 				<div id="pageLogo">
-					<a href="#">Last.fm</a>
+					<a href="/">Last.fm</a>
 				</div>
 				<div id="navbarUtil">
 					<button class="subnavbtn" onclick="openSearch()">
@@ -66,35 +66,35 @@
 									type="email" name="email" />
 							</div>
 							<div class="nickField">
-								<input class="inputNick" id="nick" placeholder="Nickname (한글만 2~6글자)"
-									name="nick"/>
+								<input class="inputNick" id="nick"
+									placeholder="Nickname (한글만 2~6글자)" name="nick" />
 							</div>
 							<div class="pwdField">
-                                <input class="inputPwd" id="password" placeholder="Password (영어+특수문자+숫자를 섞어서 (8~16)자리)" type="password" name="pwd" /> 
+								<input class="inputPwd" id="password"
+									placeholder="Password (영어+특수문자+숫자를 섞어서 (8~16)자리)"
+									type="password" name="pwd" />
 							</div>
-                            <div class="pwdReField">
-                                <input class="inputPwdRe" id="passwordRe" placeholder="Confirm Password" type="password" name="pwdRe" /> 
-								<input class="input" type="hidden" name="targetUrl" value=""> 
-								<input type="hidden" name="userImg"> <input type="hidden"
-									name="moodCd"> <input type="hidden" name="genreCd">
-								<input type="hidden" name="situCd"> <input type="hidden"
-									name="stusCd" value="1"/> <input type="hidden" name="lastDt">
-								<input type="hidden" name="inUser"> <input type="hidden"
-									name="inDate"> <input type="hidden" name="upUser">
-								<input type="hidden" name="upDate">
-                                <button class="loginBtn" type="submit"
-                                    onclick="return checkInput()">Sign Up</button>
-                                    <div class="socialLoginBtn">
-                                        <a href="#" class="googleBtn">Google</a> <a href="#"
-                                            class="kakaoBtn">KaKao</a> <a href="#" class="naverBtn">Naver</a>
-                                        <div class="infoUtil">
-                                            <span>Already user our site? <a href="/user/login">Log
-                                                    in</a> here
-                                            </span><br> <span>Forgot your Password? <a href="/search/findUserPwd">Reset</a>
-                                                in here
-                                            </span>
-                                        </div>
-                                    </div>
+							<div class="pwdReField">
+								<input class="inputPwdRe" id="passwordRe"
+									placeholder="Confirm Password" type="password" name="pwdRe" />
+								<input class="input" type="hidden" name="targetUrl" value="">
+								<input type="hidden" name="userImg"> <input
+									type="hidden" name="moodCd"> <input type="hidden"
+									name="genreCd"> <input type="hidden" name="situCd">
+								<input type="hidden" name="stusCd" value="1" /> <input
+									type="hidden" name="lastDt"> <input type="hidden"
+									name="inUser"> <input type="hidden" name="inDate">
+								<input type="hidden" name="upUser"> <input type="hidden"
+									name="upDate">
+								<button class="loginBtn" type="submit"
+									onclick="return checkInput()">Sign Up</button>
+									<div class="infoUtil">
+										<span>Already user our site? <a href="/user/login">Log
+												in</a> here
+										</span><br> <span>Forgot your Password? <a
+											href="/search/findUserPwd">Reset</a> in here
+										</span>
+									</div>
 							</div>
 						</div>
 					</form>
@@ -175,7 +175,7 @@ function checkInput(){
         return false;
     }
     
-    alert("회원가입이 완료되었습니다. 로그인 후 이용이 가능합니다.");
+    alert("회원가입이 완료되었습니다. 로그인 후 이용해주세요.");
 	return true;
 }
 

@@ -4,18 +4,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kwani.domain.AttachFileDTO;
@@ -54,6 +47,16 @@ public class UserController {
 		return "/user/register";
 	}
 
+	@GetMapping("/socialRegister")
+	public String socialRegister(HttpSession session, Model model) {
+
+		String uuid = service.newPwd();
+
+		model.addAttribute("uuid", uuid);
+
+		return "/user/socialRegister";
+	}
+
 	@GetMapping("/withdrawal")
 	public String remove(HttpSession session, RedirectAttributes rttr) {
 		System.out.println("sessionName : " + session.getAttribute("userEmail"));
@@ -74,34 +77,32 @@ public class UserController {
 
 	@GetMapping("/modifyUserInfo")
 	public String modifyUserInfo(HttpSession session, Model model) {
-		
-		
-		if (!(service.checkUserImg((String)session.getAttribute("userEmail")))) {
+
+		if (!(service.checkUserImg((String) session.getAttribute("userEmail")))) {
 			String imgMsg = "이미지를 추가해주세요!";
 			model.addAttribute("imgMsg", imgMsg);
 			model.addAttribute("sessionName", session.getAttribute("userEmail"));
-			
+
 		} else {
-			
-			UserVO userVO = service.getUserImg((String)session.getAttribute("userEmail"));
-			
+
+			UserVO userVO = service.getUserImg((String) session.getAttribute("userEmail"));
+
 			String userImg = userVO.getUserImg();
 			System.out.println("userImg : " + userImg);
-			
+
 			model.addAttribute("sessionName", session.getAttribute("userEmail"));
 			model.addAttribute("userImg", userImg);
-			
+
 		}
-		
+
 		System.out.println("sessionName : " + session.getAttribute("userEmail"));
-		
+
 		return "/user/modifyUserInfo";
 	}
 
 //	-----------------------------------------------------------------------------------------------------------------------------
 //	---------------------------------------------------회원의 이미지를 수정한다.-------------------------------------------------------
 
-	
 	// 저장되는 파일의 형식을 확인한다.
 	private boolean checkImageType(File file) {
 
@@ -121,8 +122,9 @@ public class UserController {
 	public ResponseEntity<byte[]> getFile(String fileName, HttpSession session) {
 
 		System.out.println("/display - fileName : " + fileName);
-		
-		File userUploadImg = new File("/Users/hoya/eclipse/Spring/kwani2/src/main/webapp/resources/image/userUpload/" + fileName);
+
+		File userUploadImg = new File(
+				"/Users/hoya/eclipse/Spring/kwani2/src/main/webapp/resources/image/userUpload/" + fileName);
 
 		System.out.println("/display - file : " + userUploadImg);
 
@@ -145,9 +147,9 @@ public class UserController {
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity uploadAjaxPost(MultipartFile uploadFile, HttpSession session) {
-		
-		System.out.println("uploadFile : "+uploadFile.toString());
-		
+
+		System.out.println("uploadFile : " + uploadFile.toString());
+
 		AttachFileDTO userImg = new AttachFileDTO();
 
 		// 이미지가 저장될 폴더.
@@ -164,11 +166,12 @@ public class UserController {
 		}
 
 		AttachFileDTO attachDTO = new AttachFileDTO();
-		
+
 		String uploadFileName = uploadFile.getOriginalFilename();
-		
+
 		// 파일의 이름을 사용자의 이메일로 변경한다.
-		uploadFileName = session.getAttribute("userEmail") +"."+uploadFileName.substring(uploadFileName.lastIndexOf(".") + 1);
+		uploadFileName = session.getAttribute("userEmail") + "."
+				+ uploadFileName.substring(uploadFileName.lastIndexOf(".") + 1);
 
 		attachDTO.setFileName(uploadFileName);
 
@@ -205,10 +208,22 @@ public class UserController {
 	@PostMapping("/registerAction")
 	public String register(UserVO user, String email, RedirectAttributes rttr, Model model) {
 
-		if (service.checkRegister(user, email, rttr, model) == false)
+		if (!(service.checkRegister(user, email, rttr, model)))
 			return "/user/register";
 		else
 			return "redirect:/home";
+	}
+
+	@PostMapping("/socialRegisterAction")
+	public String socialRegisterAction(UserVO user, String email, String checked, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		// 회원가입 후,
+		service.socialRegister(user);
+		// 쿠키와 세션을 발급하고
+		service.cookieSession(email, checked, request, response);
+		// home으로 이동한다.
+		return "redirect:/home";
 	}
 
 	@RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
@@ -221,8 +236,8 @@ public class UserController {
 	}
 
 	@PostMapping("/loginAction")
-	public String get(Model model, String email, String pwd, String checked, HttpServletRequest request,
-			HttpServletResponse response, RedirectAttributes rttr) {
+	public String get(Model model, String email, String kakaoEmail, String pwd, String checked,
+			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr, ModelAndView mav) {
 		// 회원 로그인.
 		// checkUserIdPwd가 true면(즉, 사용자가 입력한 정보가 서버에 없으면)
 		if (!(service.isUserIdValid(email, rttr))) {
@@ -232,6 +247,7 @@ public class UserController {
 			if (service.cookieSession(email, checked, request, response))
 				return "redirect:/home";
 		}
+
 		return "redirect:/user/login";
 	}
 
@@ -247,13 +263,13 @@ public class UserController {
 	@RequestMapping(value = "/checkUserInfoAction", method = { RequestMethod.GET, RequestMethod.POST })
 	public String userInfoCheckAction(String email, String pwd, String btnValue, HttpSession session, Model model,
 			RedirectAttributes rttr) {
-		
+
 		System.out.println(btnValue);
-		
+
 		System.out.println("sessionName : " + session.getAttribute("userEmail"));
 		// 정보가 일치하면 userInfoModify로 이동하고,
 		if (service.checkUserIdPwd(email, pwd, rttr)) {
-			
+
 			if (btnValue.equals("updateBtn")) {
 				return "redirect:/user/modifyUserInfo";
 			} else {
@@ -263,12 +279,13 @@ public class UserController {
 			// 일치하지 않으면 userInfoModify로 이동한다.
 			return "redirect:/user/checkUserInfo";
 	}
-	
+
 	@PostMapping("/modifyUserInfoAction")
-	public String modifyUserInfoAction(HttpSession session, UserVO user, RedirectAttributes rttr, Model model, MultipartFile uploadFile) {
+	public String modifyUserInfoAction(HttpSession session, UserVO user, RedirectAttributes rttr, Model model,
+			MultipartFile uploadFile) {
 
 		System.out.println("sessionName : " + session.getAttribute("userEmail"));
-		
+
 		// 회원의 정보를 수정한다.
 		if (service.modifyUserInfo(user)) {
 			rttr.addFlashAttribute("result", "success");

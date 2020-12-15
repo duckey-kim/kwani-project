@@ -1,21 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
 <%-- <%@include file="../includes/header.jsp"%> --%>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login</title>
+<title>register</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/socialRegister.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/resources/css/login.css">
+
 </head>
 <body>
 	<div id="main">
@@ -55,40 +59,40 @@
 			<div id="bodyContent">
 				<div class="loginBox">
 					<div class="h1">
-						<h1>Login</h1>
+						<h1>Sign Up</h1>
 					</div>
-					<form action="/user/loginAction" method="POST">
+					<form action="/user/socialRegisterAction" method="post">
 						<div class="loginForm">
-							<div class="fieldEmail">
+							<div class="emailField">
 								<input class="inputEmail" id="email" placeholder="Email"
-									type="email" name="email" value="${cookieValue}" />
+									type="email" name="email" value="${kakaoEmail}" readonly />
 							</div>
-							<div class="fieldPwd">
-								<input class="inputPwd" id="password" placeholder="Password"
-									type="password" name="pwd" /> <input class="input"
-									type="hidden" name="targetUrl" value="">
+							<div class="nickField">
+								<input class="inputNick" id="nick"
+									placeholder="Nickname (한글만 2~6글자)" name="nick" />
 							</div>
-							<button class="loginBtn" type="submit"
-								onclick="return checkInput()">LOGIN</button>
-							<div class="remember">
-								<label for="rememberCheck"> <input type="checkbox"
-									class="rememberCheckBox" id="myCheck" name="checked"
-									onclick="remember()">
-								</label>
-								<div class="span1">
-									<span>Remember me</span>
+							<div class="hiddenField">
+								<input class="inputPwd" type="hidden" name="pwd" value="${uuid}">
+								<input type="hidden" name="userImg"> <input
+									type="hidden" name="moodCd"> <input type="hidden"
+									name="genreCd"> <input type="hidden" name="situCd">
+								<input type="hidden" name="stusCd" value="1" /> <input
+									type="hidden" name="lastDt"> <input type="hidden"
+									name="inUser"> <input type="hidden" name="inDate">
+								<input type="hidden" name="upUser"> <input type="hidden"
+									name="upDate">
+								<button class="loginBtn" type="submit"
+									onclick="return checkInput()">Sign Up</button>
+								<div class="infoUtil">
+									<span>Already user our site? <a href="/user/login">Log
+											in</a> here
+									</span><br> <span>Forgot your Password? <a
+										href="/search/findUserPwd">Reset</a> in here
+									</span>
 								</div>
-								<div class="span2">
-									<span>Forgot your <a href="/search/findUserPwd">password</a>?</span>
-								</div>
 							</div>
-							<p id="text" style="display: none">Checkbox is CHECKED!</p>
 						</div>
 					</form>
-					<div class="socialLoginBtn">
-						<a href="#" class="googleBtn">Instagram</a> <a href="/user/kakao"
-							class="kakaoBtn">KaKao</a> <a href="#" class="naverBtn">Facebook</a>
-					</div>
 					<!-- socialLoginBtn -->
 				</div>
 				<!-- loginBox -->
@@ -100,45 +104,54 @@
 		<div id="footer"></div>
 	</div>
 </body>
+
 <%-- <%@include file="../includes/header.jsp"%> --%>
 
 
 <!-- ----------------------------- JavaScript------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------- -->
 
-<script type="text/javascript">
 
-	let email = document.getElementById("email").value;
-	let pwd = document.getElementById("password").value;
-	
-	/* 서버에 입력한 정보가 없을 때, null일 때 */
-	
-	if('${pwdMsg}' != "") {
-		if('${userInputPwd}' != '%{pwd}') {
-			alert('${pwdMsg}');
-		}
-	} 
-	
-	if("${msg}" != ""){
-		alert("${msg}");
+<script type="text/javascript">
+	console.log('${uuid}');
+	console.log('${email}');
+
+	let b = $(".inputPwd").val();
+	let a = $(".inputEmail").val();
+
+	console.log(a);
+	console.log(b);
+
+	if ('${msg}' != "") {
+		alert('${msg}');
 	}
-	 
+
 	function checkInput() {
-		
+
 		let email = document.getElementById("email").value;
-		let pwd = document.getElementById("password").value;
-	
-	
-		if(email.length == 0) {
-			alert('이메일을 입력하세요');
+		let nick = document.getElementById("nick").value;
+
+		// 정규식
+		// 비밀번호 : 영어+특수문자+숫자를 섞어서 (8~16)자리 
+		let pwdPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+		// 이름 : 한글만 2~4글자
+		let nickPattern = /^[가-힣]{2,6}$/;
+
+		if (email.length == 0) {
+			alert("아이디(이메일)를(을) 입력하세요.");
 			return false;
 		}
-		
-		if(pwd.length == 0) {
-			alert('비밀번호를 입력하세요');
+
+		if (nick.length == 0) {
+			alert("닉네임을 입력하세요.");
 			return false;
 		}
-		
+		if (nickPattern.test(nick) == false) {
+			alert("닉네임은 한글 2~6글자로만 가능합니다.");
+			return false;
+		}
+
+		alert("회원가입이 완료되었습니다. 로그인 후 이용이 가능합니다.");
 		return true;
 	}
 
@@ -167,19 +180,7 @@
 			overlay.style.display = "none";
 		}
 	}
-
-	function remember() {
-		var checkBox = document.getElementById("myCheck");
-		var text = document.getElementById("text");
-		if (checkBox.checked == true) {
-			text.style.display = "block";
-		} else {
-			text.style.display = "none";
-		}
-	}
 </script>
 
 
 </html>
-
-

@@ -30,8 +30,23 @@
 		up_user, up_date)
 		values(#{email}, #{nick}, #{pwd}, #{userImg},
 		#{moodCd}, #{genreCd},
-		#{situCd}, #{stusCd},
+		#{situCd},
+		#{stusCd},
 		#{lastDt}, #{inUser},
+		#{inDate}, #{upUser},
+		#{upDate})
+	</insert>
+
+	<insert id="socialRegister">
+		insert into t_user (email, nick, pwd, user_img,
+		mood_cd, genre_cd, situ_cd,
+		stus_cd, last_dt, in_user, in_date,
+		up_user, up_date)
+		values(#{email}, #{nick}, #{pwd}, #{userImg},
+		#{moodCd}, #{genreCd},
+		#{situCd}, #{stusCd},
+		#{lastDt},
+		#{inUser},
 		#{inDate}, #{upUser},
 		#{upDate})
 	</insert>
@@ -84,6 +99,12 @@
 		select count(*) from
 		t_user
 		where email = #{email}
+	</select>
+
+	<select id="isSocialIdValid" resultType="Integer">
+		select count(*) from
+		t_user
+		where email = #{kakaoEmail}
 	</select>
 
 	<select id="checkUserIdPwd" resultType="Integer">

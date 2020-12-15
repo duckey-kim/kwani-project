@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kwani.mapper.HomeMapper">
+
+	<resultMap type="com.kwani.domain.HomeVO" id="HomeResult">
+		<result property="gropId" column="grop_id" />
+		<result property="albumId" column="album_id" />
+		<result property="albumTtl" column="album_ttl" />
+		<result property="albumImg" column="album_img" />
+		<result property="name" column="nm" />
+
+		<result property="debutDt" column="debut_dt" />
+		<result property="gropImg" column="grop_img" />
+		<result property="cdNm" column="cd_nm" />
+		<result property="cdNo" column="cd_no" />
+		<result property="genreCd" column="genre_cd" />
+
+	</resultMap>
+
+	<select id="getList" resultMap="HomeResult">
+		<![CDATA[
+		select distinct t_artist.nm, t_album.album_img,
+		t_album.album_ttl, t_artist.grop_id, t_album.album_id
+		from t_artist_tracks, t_artist, t_tracks, t_album
+		where t_artist.grop_id = t_artist_tracks.grop_id
+		and t_artist_tracks.track_id = t_tracks.track_id
+		and t_album.album_id = t_tracks.album_id
+		and rownum <= 6
+		order by DBMS_RANDOM.VALUE
+		]]>
+	</select>
+
+	<!-- <select id="getGenreCdFromYear" resultMap="HomeResult"> <![CDATA[ select 
+		a.debut_dt, t.genre_cd, a.nm from t_artist a, t_artist_tracks at, t_tracks 
+		t where at.grop_id = a.grop_id and at.track_id = t.track_id and a.debut_dt 
+		>= to_date(#{startDate}, 'yyyy') and a.debut_dt < to_date(#{finishDate}, 
+		'yyyy') ]]> </select> <select id="getGenreCdFromGenreName" resultMap="HomeResult"> 
+		select c.cd_no from t_code c where c.cd_nm = #{inputGenreName} </select> -->
+
+	<select id="getImg" resultMap="HomeResult">
+		<![CDATA[	
+		select a.debut_dt, a.grop_img, c.cd_nm
+		from t_artist a, t_artist_tracks at, t_tracks t, t_code c
+		where a.debut_dt >= to_date(#{startDate}, 'yyyy') and a.debut_dt <
+		to_date(#{finishDate}, 'yyyy')
+		and c.cd_nm = #{genreName}
+		and at.grop_id = a.grop_id
+		and at.track_id = t.track_id
+		and c.cd_no = t.genre_cd
+		order by DBMS_RANDOM.VALUE
+		]]>
+	</select>
+
+
+
+
+
+
+</mapper>
