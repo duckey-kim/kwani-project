@@ -10,10 +10,7 @@ public interface HomeMapper {
 
 	public List<HomeVO> getList();
 	
-//	public List<HomeVO> getGenreCdFromYear(@Param("startDate") String startDate, 
-//				@Param("finishDate") String finishDate);
-//	
-//	public List<HomeVO> getGenreCdFromGenreName(String inputGenreName);
+	public List<HomeVO> getSlideImg();
 	
 	public List<HomeVO> getImg(@Param("startDate") String startDate, 
 			@Param("finishDate") String finishDate, @Param("genreName") String genreName);

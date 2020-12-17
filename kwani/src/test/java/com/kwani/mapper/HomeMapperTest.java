@@ -23,19 +23,15 @@ public class HomeMapperTest {
 		log.info(mapper.getList());
 	}
 	
-//	@Test
-//	public void testgetGenreCdFromYear() {
-//		log.info(mapper.getGenreCdFromYear("2000", "2009"));
-//	}
-//	
-//	@Test
-//	public void testGetGenreCdFromGenreName() {
-//		log.info(mapper.getGenreCdFromGenreName("발라드"));
-//	}
+	@Test
+	public void testGetSlideImg() {
+		
+		log.info(mapper.getSlideImg());
+	}
 	
 	@Test
 	public void testGetImg() {
-		log.info(mapper.getImg("2000", "2009", "락"));
+		log.info(mapper.getImg("1980", "2013", "인디음악"));
 	}
 	
 }

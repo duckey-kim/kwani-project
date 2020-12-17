@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.kwani.domain.HomeVO;
 import com.kwani.domain.UserVO;
 import com.kwani.service.UserService;
 
@@ -23,6 +24,10 @@ public class UserServiceTests {
 
 	@Setter(onMethod_ = { @Autowired })
 	private UserService service;
+	
+	@Setter(onMethod_ = { @Autowired })
+	private HomeService HomeService;
+		
 
 	@Test
 	public void testExist() {
@@ -95,5 +100,4 @@ public class UserServiceTests {
 
 		log.info("회원이미지 : " + userImg);
 	}
-
 }

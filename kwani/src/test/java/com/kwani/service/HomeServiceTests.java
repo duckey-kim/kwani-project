@@ -32,6 +32,17 @@ public class HomeServiceTests {
 		log.info(service);
 		assertNotNull(service);
 	}
+	
+	@Test
+	public void testGetImg() {
+		
+		List<HomeVO> getImg = service.getImg("1980", "2013", "락");
+		
+		log.info("getImg : " + getImg);
+	}
+	
+	
+	
 
 //	@Test
 //	public void testGetGenreCdFromYear() {

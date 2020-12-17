@@ -237,13 +237,14 @@ public class UserController {
 
 	@PostMapping("/loginAction")
 	public String get(Model model, String email, String kakaoEmail, String pwd, String checked,
-			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr, ModelAndView mav) {
+			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr, ModelAndView mav
+			, String prevPath) {
 		// 회원 로그인.
 		// checkUserIdPwd가 true면(즉, 사용자가 입력한 정보가 서버에 없으면)
 		if (!(service.isUserIdValid(email, rttr))) {
 			// login.jsp로 이동한다.
 		} else if (service.checkUserIdPwd(email, pwd, rttr)) {
-
+			
 			if (service.cookieSession(email, checked, request, response))
 				return "redirect:/home";
 		}
@@ -303,7 +304,6 @@ public class UserController {
 			rttr.addFlashAttribute("result", "success");
 		}
 		session.invalidate();
-		System.out.println("회원탈퇴이후 세션 : " + session.getAttribute("userEmail"));
 
 		return "redirect:/home";
 	}

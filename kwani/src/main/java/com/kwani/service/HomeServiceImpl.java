@@ -24,28 +24,20 @@ public class HomeServiceImpl implements HomeService {
 		
 		return mapper.getList();
 	}
+	
+	@Override
+	public List<HomeVO> getSlideImg() {
+		
+		log.info(mapper.getSlideImg());
+		
+		return mapper.getSlideImg();
+	}
 
-//	@Override
-//	public List<HomeVO> getImg(String startDate, String finishDate, String genreName) {
-//		log.info(mapper.getImg(startDate, finishDate, genreName));
-//		
-//		return mapper.getImg(startDate, finishDate, genreName);
-//	}
-
-//	@Override
-//	public List<HomeVO> getGenreCdFromYear(String startDate, String finishDate) {
-//		
-//		log.info(mapper.getGenreCdFromYear(startDate, finishDate));
-//		
-//		return mapper.getGenreCdFromYear(startDate, finishDate);
-//	}
-//
-//	@Override
-//	public List<HomeVO> getGenreCdFromGenreName(String inputGenreName) {
-//		
-//		log.info(mapper.getGenreCdFromGenreName(inputGenreName));
-//		
-//		return mapper.getGenreCdFromGenreName(inputGenreName);
-//	}
+	@Override
+	public List<HomeVO> getImg(String startDate, String finishDate, String genreName) {
+		log.info(mapper.getImg(startDate, finishDate, genreName));
+		
+		return mapper.getImg(startDate, finishDate, genreName);
+	}
 
 }

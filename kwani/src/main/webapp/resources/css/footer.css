@@ -1,0 +1,93 @@
+
+
+#footer {
+	width: 100%;
+	height: 300px;
+}
+
+.footerContainer {
+	width: 100%;
+	height: 300px;
+}
+
+
+.information {
+	display: flex;
+	justify-content: center;
+	font-size: 1rem;
+	width: 100%;
+	height: 30%;
+}
+
+.information a {
+	color: whitesmoke;
+	font-weight: bolder;
+}
+
+.intro {
+	display: flex;
+	justify-content: center;
+	border-bottom: 2px solid crimson;
+	padding-top: 1.5vh;
+	height: 50%;
+	width: 12%;
+}
+
+.noticeBoard {
+	display: flex;
+	justify-content: center;
+	border-bottom: 2px solid crimson;
+	padding-top: 1.5vh;
+	height: 50%;
+	width: 12%;
+}
+
+.custInfo {
+	display: flex;
+	justify-content: center;
+	border-bottom: 2px solid crimson;
+	padding-top: 1.5vh;
+	height: 50%;
+	width: 12%;
+}
+
+.none {
+	border-bottom: 2px solid crimson;
+	padding-top: 1.5vh;
+	height: 50%;
+	width: 12%;
+}
+
+.webInfoContainer {
+	display: flex;
+	justify-content: center;
+	color: whitesmoke;
+	font-weight: bolder;
+	font-size: 1rem;
+	width: 100%;
+	height: 60%;
+}
+
+.leftWebInfo {
+	display: flex;
+	justify-content: flex-end;
+	width: 60%;
+	height: 100%;
+}
+
+.aboutUs {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-content: center;
+	width: 60%;
+	height: 80%;
+}
+
+.rightWebInfo {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	width:  60%;
+	height: 80%;
+}

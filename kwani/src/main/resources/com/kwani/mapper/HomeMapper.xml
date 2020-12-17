@@ -32,31 +32,29 @@
 		order by DBMS_RANDOM.VALUE
 		]]>
 	</select>
-
-	<!-- <select id="getGenreCdFromYear" resultMap="HomeResult"> <![CDATA[ select 
-		a.debut_dt, t.genre_cd, a.nm from t_artist a, t_artist_tracks at, t_tracks 
-		t where at.grop_id = a.grop_id and at.track_id = t.track_id and a.debut_dt 
-		>= to_date(#{startDate}, 'yyyy') and a.debut_dt < to_date(#{finishDate}, 
-		'yyyy') ]]> </select> <select id="getGenreCdFromGenreName" resultMap="HomeResult"> 
-		select c.cd_no from t_code c where c.cd_nm = #{inputGenreName} </select> -->
-
-	<select id="getImg" resultMap="HomeResult">
-		<![CDATA[	
-		select a.debut_dt, a.grop_img, c.cd_nm
-		from t_artist a, t_artist_tracks at, t_tracks t, t_code c
-		where a.debut_dt >= to_date(#{startDate}, 'yyyy') and a.debut_dt <
-		to_date(#{finishDate}, 'yyyy')
-		and c.cd_nm = #{genreName}
-		and at.grop_id = a.grop_id
-		and at.track_id = t.track_id
-		and c.cd_no = t.genre_cd
-		order by DBMS_RANDOM.VALUE
+	
+	
+	<select id="getSlideImg" resultMap="HomeResult">
+		<![CDATA[
+		select distinct al.album_img, al.album_id, a.debut_dt
+ 		from t_album al, t_artist a
+ 		where a.debut_dt >= to_date('2000-01-01', 'yyyy-mm-dd') and a.debut_dt < to_date('2010-12-31', 'yyyy-mm-dd')
 		]]>
 	</select>
 
 
-
-
-
+	<select id="getImg" resultMap="HomeResult">
+		<![CDATA[	
+		select a.debut_dt, a.grop_img, c.cd_nm, a.grop_id
+		from t_artist a, t_artist_tracks at, t_tracks t, t_code c
+		where a.debut_dt >= to_date(#{startDate}, 'yyyy') and a.debut_dt <
+		to_date(#{finishDate}, 'yyyy')
+		and at.grop_id = a.grop_id
+		and at.track_id = t.track_id
+		and c.cd_no = t.genre_cd
+		and c.cd_nm = #{genreName}
+		order by DBMS_RANDOM.VALUE
+		]]>
+	</select>
 
 </mapper>

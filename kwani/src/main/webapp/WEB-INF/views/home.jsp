@@ -9,72 +9,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>home</title>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href='https://fonts.googleapis.com/css?family=Open Sans'
-	rel='stylesheet'>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"
 	integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY="
 	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Open Sans'
+	rel='stylesheet'>
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
 	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
 	crossorigin="anonymous">
+
 <link rel="stylesheet" type="text/css" href="/resources/css/home.css">
+
 </head>
 
-<body>
-
-	<div id="main">
-		<div id="header">
-			<div id="header_cover">
-				<video id="video" src="/resources/video/AudioWave.mp4"
-					type="video/mp4" autoplay muted loop></video>
-			</div>
-			<div id="header_navbar">
-				<div id="musicPlayer">musicPlayer</div>
-				<div id="pageLogo">
-					<a href="/">Baam.fm</a>
-				</div>
-				<div id="navbarUtil">
-					<button class="subnavbtn" onclick="openSearch()">
-						<i class="fa fa-search"></i>
-					</button>
-					<a href="/">Home</a> <a href="/recommend/">Recommend</a> <a
-						href="#">Find music</a> <a href="/user/register" id="joinBtn">Join</a>
-					<div class="dropdown">
-						<div class="dropbtn" onclick="toMyPage()">
-							<i class="fas fa-user-circle"></i>
-						</div>
-						<div id="myDropdown" class="dropdown-content">
-							<a href="/mypage/playlist?email=a@naver.com" id="toMypageBtn"
-								style="display: none">My Page</a> <a href="/user/checkUserInfo">Settings</a>
-							<a href="/user/logoutAction" id="logoutBtn" style="display: none">Logout</a>
-						</div>
-					</div>
-				</div>
-
-			</div>
 
 
-			<div id="myOverlay" class="overlay">
-				<div class="overlay-content">
-					<form action="#">
-						<input type="text" placeholder="Search.." name="search">
-						<button type="submit">
-							<i class="fa fa-search"></i>
-						</button>
-					</form>
-				</div>
-			</div>
-			<!--myOverlay-->
-		</div>
-		<!--header-->
+<%@include file="includes/header.jsp"%>
+
 
 		<div id="body">
 			<div id="leftSideBar"></div>
@@ -96,7 +55,7 @@
 				<div class="topContentBox">
 					<div class="todayRecmd">
 						<div class="recmdContainer_1">
-							<c:forEach items="${List}" var="getList" begin="0" end="2">
+							<c:forEach items="${list}" var="getList" begin="0" end="2">
 								<div class="recmdFlip-box">
 									<div class="recmdFlip-box-inner">
 										<div class="recmdFront">
@@ -109,8 +68,8 @@
 										<div class="recmdBack">
 											<div class="backBlank"></div>
 											<div class="backText">
-												<h2>${getList.albumTtl}</h2>
-												<h3>${getList.name}</h3>
+												<h2 onclick="return toAlbumDetail()">${getList.albumTtl}</h2>
+												<h3 onclick="return toArtistDetail()">${getList.name}</h3>
 											</div>
 										</div>
 									</div>
@@ -118,7 +77,7 @@
 							</c:forEach>
 						</div>
 						<div class="recmdContainer_2">
-							<c:forEach items="${List}" var="getList" begin="3" end="5">
+							<c:forEach items="${list}" var="getList" begin="3" end="5">
 								<div class="recmdFlip-box">
 									<div class="recmdFlip-box-inner">
 										<div class="recmdFront">
@@ -131,8 +90,8 @@
 										<div class="recmdBack">
 											<div class="backBlank"></div>
 											<div class="backText">
-												<h2>${getList.albumTtl}</h2>
-												<h3>${getList.name}</h3>
+												<h2 onclick="return toAlbumDetail()">${getList.albumTtl}</h2>
+												<h3 onclick="return toArtistDetail()">${getList.name}</h3>
 											</div>
 										</div>
 									</div>
@@ -141,40 +100,12 @@
 						</div>
 					</div>
 					<div class="slideBox">
-
-						<div class="slides fade">
-							<img src="/resources/image/slideSample1.png" class="slideBoxImg"
-								alt="">
-						</div>
-						<div class="slides fade">
-							<img src="/resources/image/slideSample2.png" class="slideBoxImg"
-								alt="">
-						</div>
-						<div class="slides fade">
-							<img src="/resources/image/slideSample3.png" class="slideBoxImg"
-								alt="">
-						</div>
-						<div class="slides fade">
-							<img src="/resources/image/slideSample4.png" class="slideBoxImg"
-								alt="">
-						</div>
-						<div class="slides fade">
-							<img src="/resources/image/slideSample5.png" class="slideBoxImg"
-								alt="">
-						</div>
-						<div class="slides fade">
-							<img src="/resources/image/slideSample6.png" class="slideBoxImg"
-								alt="">
-						</div>
-						<div class="slides fade">
-							<img src="/resources/image/slideSample7.png" class="slideBoxImg"
-								alt="">
-						</div>
-						<div class="slides fade">
-							<img src="/resources/image/slideSample8.png" class="slideBoxImg"
-								alt="">
-						</div>
-
+						<c:forEach items="${slideImg}" var="getSlideImg">
+							<div class="slides fade">
+								<img src="/resources/image/album/${getSlideImg.albumImg}"
+									class="slideBoxImg" onclick="return toAlbumDetail()" alt="">
+							</div>
+						</c:forEach>
 						<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a
 							class="next" onclick="plusSlides(1)">&#10095;</a>
 					</div>
@@ -194,11 +125,11 @@
 							<div class="yearCntBox">
 								<p id="yearCnt"></p>
 								<form action="/" method="get" name="yearDate">
-								<input type="hidden" id="startDate" name="startDate">
-								<input type="hidden" id="finishDate" name="finishDate">
+									<input type="hidden" id="startDate" name="startDate"> <input
+										type="hidden" id="finishDate" name="finishDate">
 								</form>
 							</div>
-							<div class="genreYearImg"
+							<div class="genreYearImg" onclick="return toArtistDetail()"
 								style="background-image: url(/resources/image/artist/아이유.jpg);">
 								<div class="circle red">
 									<div class="year">
@@ -220,9 +151,6 @@
 						</div>
 					</div>
 
-					<div class="bottomRightBox">
-						<div class="sth">something</div>
-					</div>
 				</div>
 				<!-- bottomContentBox-->
 			</div>
@@ -231,54 +159,16 @@
 		</div>
 		<!--body-->
 
-		<div id="footer">
-			<div class="footerContainer">
-				<div class="information">
-					<div class="intro">
-						<a href="#">BAAM 소개</a>
-					</div>
-					<div class="noticeBoard">
-						<a href="#">공지사항</a>
-					</div>
-					<div class="custInfo">
-						<a href="#">고객센터</a>
-					</div>
-					<div class="none"></div>
-					<div class="none"></div>
-					<div class="none"></div>
-				</div>
-				<div class="webInfoContainer">
-					<div class="leftWebInfo">
-						<div class="aboutUs">
-							<p>주소 : 서울특별시 종로구 종로 69</p>
-							<p>공동대표 : 김덕환, 김수연, 유원호, 노명희, 김예찬</p>
-							<p>이메일 : theBAAM@aiaiai.com</p>
-							<p>대표 번호 : 02-000-0101</p>
-						</div>
-					</div>
-					<div class="rightWebInfo">본 사이트는 Chrome 및 IE Edge 브라우저에서 사용이
-						가능합니다.</div>
-				</div>
-			</div>
-			<!-- footerContainer -->
-		</div>
-		<!-- footer -->
-	</div>
-	<!--main-->
-</body>
-
-
-
 <!-- ----------------------------- JavaScript------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------- -->
 
 <script type="text/javascript">
-
-	//세션값 잘 넘어왔는지 확인한다.
+	//세션값이 잘 넘어왔는지 확인한다.
 	console.log('${sessionName}');
 	console.log('${userNick}');
-	console.log('${List}');
-
+	console.log('${list}');
+	console.log('${imgVO}');
+	console.log('${slideImg}');
 
 	let logoutBtn = document.getElementById("logoutBtn");
 	let loginBtn = document.getElementById("loginBtn");
@@ -295,29 +185,21 @@
 		welcomeBtn.style.display = "block";
 		toMypageBtn.style.display = "block";
 	}
+</script>
 
-	/*-------------------------------------------- dropdown ----------------------------------------------------- */
-
-	function toMyPage() {
-		document.getElementById("myDropdown").classList.toggle("show");
+<script type="text/javascript">
+	function toArtistDetail() {
+		alert("toArtistDetail");
 	}
 
-	window.onscroll = function() {
-		myFunction()
-	};
-	let navbar = document.getElementById("header_navbar");
-	let sticky = navbar.offsetTop;
-
-	function myFunction() {
-		if (window.pageYOffset >= sticky) {
-			navbar.classList.add("sticky")
-		} else {
-			navbar.classList.remove("sticky");
-		}
+	function toAlbumDetail() {
+		alert("toAlbumDetail");
 	}
+</script>
 
+
+<script type="text/javascript">
 	/*-------------------------------------------- searchBox ----------------------------------------------------- */
-
 	function openSearch() {
 		document.getElementById("myOverlay").style.display = "block";
 	}
@@ -339,10 +221,12 @@
 			}
 		}
 	}
+</script>
 
+
+<script type="text/javascript">
 	/*---------------------------------------------------------------------------------------------------------------- */
 	/*-------------------------------------------- slideshow ----------------------------------------------------- */
-
 	let slideCount = 1;
 	countSlides(slideCount);
 
@@ -395,144 +279,199 @@
 		dots[slideIndex - 1].className += " active";
 		setTimeout(showSlides, 4000);
 	}
+</script>
 
+
+<script type="text/javascript">
 	/*---------------------------------------------------------------------------------------------------------------- */
-	/*---------------------------------------------------------------------------------------------------------------- */
+
 	$("#yearCnt").text("1970s");
-	console.log($("#yearCnt").text());
-	
-	$(".year").on('click', function() {
-		$(".year").mousemove(function(event) {
-			$(".year").text("");
 
-			/* let startDate;
-			let finishDate; */
-			let yearCnt = $(".year").css('top');
-			let yearCntPx = parseInt(yearCnt, 10);
+	let startDate = "1970"
+	let finishDate = "1979";
+	let genreName = "힙합";
 
-			if (yearCntPx >= 0 && yearCntPx <= 40) {
-				$("#yearCnt").text("2010s");
-				$("#yearCnt").css("display", "show");
-			} else if (yearCntPx > 40 && yearCntPx <= 80) {
-				$("#yearCnt").text("2000s");
-				$("#yearCnt").css("display", "show");
-			} else if (yearCntPx > 80 && yearCntPx <= 120) {
-				$("#yearCnt").text("1990s");
-				$("#yearCnt").css("display", "show");
-			} else if (yearCntPx > 120 && yearCntPx <= 160) {
-				$("#yearCnt").text("1980s");
-				$("#yearCnt").css("display", "show");
-			} else if (yearCntPx > 160 && yearCntPx <= 200) {
-				$("#yearCnt").text("1970s");
-				$("#yearCnt").css("display", "show");
-			} else if (yearCntPx > 200 && yearCntPx <= 240) {
-				$("#yearCnt").text("1960s");
-				$("#yearCnt").css("display", "show");
-			} else if (yearCntPx > 240 && yearCntPx <= 280) {
-				$("#yearCnt").text("1950s");
-				$("#yearCnt").css("display", "show");
-			} else if (yearCntPx > 280 && yearCntPx <= 320) {
-				$("#yearCnt").text("1940s");
-				$("#yearCnt").css("display", "show");
-			} else if (yearCntPx > 320 && yearCntPx <= 360) {
-				$("#yearCnt").text("1930s");
-				$("#yearCnt").css("display", "show");
-			} else if (yearCntPx > 360 && yearCntPx <= 400) {
-				$("#yearCnt").text("1920s");
-				$("#yearCnt").css("display", "show");
-			}
+	$(".year").on(
+			'click',
+			function() {
+				$(".year").mousemove(function(event) {
 
-		});
-		/* console.log($('#yearCnt').text().split("s")[0]); */
-		
-		/* split한 연도를 startDate에 저장. */
-		startDate = $('#yearCnt').text().split("s")[0];
-		finishDate = $('#yearCnt').text().substring(0, 3) + 9;
-		
-		/* startDate랑 finishDate로 넘겨도 될듯. */
-		console.log(startDate);
-		console.log(finishDate);
-		
-		
-		$("#startDate").val(startDate);
-		$("#finishDate").val(finishDate);
+					$(".year").text("");
 
-		console.log("startDate : " + $("#startDate").val());
-		console.log("finishDate : " + $("#finishDate").val());
-		
+					let yearCnt = $(".year").css('top');
+					let yearCntPx = parseInt(yearCnt, 10);
+
+					if (yearCntPx >= 0 && yearCntPx <= 40) {
+						$("#yearCnt").text("2020s");
+						$("#yearCnt").css("display", "show");
+					} else if (yearCntPx > 40 && yearCntPx <= 80) {
+						$("#yearCnt").text("2010s");
+						$("#yearCnt").css("display", "show");
+					} else if (yearCntPx > 80 && yearCntPx <= 120) {
+						$("#yearCnt").text("2000s");
+						$("#yearCnt").css("display", "show");
+					} else if (yearCntPx > 120 && yearCntPx <= 160) {
+						$("#yearCnt").text("1990s");
+						$("#yearCnt").css("display", "show");
+					} else if (yearCntPx > 160 && yearCntPx <= 200) {
+						$("#yearCnt").text("1980s");
+						$("#yearCnt").css("display", "show");
+					} else if (yearCntPx > 200 && yearCntPx <= 240) {
+						$("#yearCnt").text("1970s");
+						$("#yearCnt").css("display", "show");
+					} else if (yearCntPx > 240 && yearCntPx <= 280) {
+						$("#yearCnt").text("1960s");
+						$("#yearCnt").css("display", "show");
+					} else if (yearCntPx > 280 && yearCntPx <= 320) {
+						$("#yearCnt").text("1950s");
+						$("#yearCnt").css("display", "show");
+					} else if (yearCntPx > 320 && yearCntPx <= 360) {
+						$("#yearCnt").text("1940s");
+						$("#yearCnt").css("display", "show");
+					} else if (yearCntPx > 360 && yearCntPx <= 390) {
+						$("#yearCnt").text("1930s");
+						$("#yearCnt").css("display", "show");
+					} else if (yearCntPx > 390 && yearCntPx <= 440) {
+						$("#yearCnt").text("1920s");
+						$("#yearCnt").css("display", "show");
+					}
+
+				});
+				console.log(startDate + "-" + finishDate + "-" + genreName)
+
+				$.ajax({
+					type : "GET",
+					url : "/homeAjax/" + startDate + "/" + finishDate + "/"
+							+ genreName + ".json",
+					data : {
+						startDate : startDate,
+						finishDate : finishDate,
+						genreName : genreName
+					},
+					dataType : "json",
+					contentType : "application/json; charset=UTF-8",
+					success : function(data) {
+						console.log(data);
+
+						/* 아이유 사진을 내가 가져온 사진으로 변경할거다 */
+						$(".genreYearImg").css(
+								"background-image",
+								"url(/resources/image/artist/"
+										+ data[0].gropImg + ")");
+
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown) {
+						$(".genreYearImg").css("background-image",
+								"url(/resources/image/nodata.jpg)");
+					}
+				});
+
+				/* split한 연도를 startDate에 저장. */
+				startDate = $('#yearCnt').text().split("s")[0];
+				finishDate = $('#yearCnt').text().substring(0, 3) + 9;
+				startDate = $("#startDate").val(startDate);
+				finishDate = $("#finishDate").val(finishDate);
+				year();
+			});
+
+	function year() {
+		startDate = startDate.val();
+		finishDate = finishDate.val();
+	}
+
 	/* ------------------------------------------------------------ */
-	
-	
-	});
 
-	
-	
-		
 	$("#genreName").text("힙합");
-	console.log($('#genreName').text());
-		
-	$(".genre").on('click', function() {
-		$(".genre").mousemove(function(event) {
 
-			$(".genre").text("");
+	$(".genre").on(
+			'click',
+			function() {
+				$(".genre").mousemove(function(event) {
 
-			/* let genreName;
-			let inputGenreName; */
-			let genreCnt = $(".genre").css('top');
-			let genreCntPx = parseInt(genreCnt, 10);
-			let genreName = $("#genreName").text();
+					$(".genre").text("");
 
-			if (genreCntPx >= 0 && genreCntPx <= 40) {
-				$("#genreName").text("락");
-				$("#genreName").css("display", "show");
-			} else if (genreCntPx > 40 && genreCntPx <= 80) {
-				$("#genreName").text("메탈");
-				$("#genreName").css("display", "show");
-			} else if (genreCntPx > 80 && genreCntPx <= 120) {
-				$("#genreName").text("발라드");
-				$("#genreName").css("display", "show");
-			} else if (genreCntPx > 120 && genreCntPx <= 160) {
-				$("#genreName").text("랩");
-				$("#genreName").css("display", "show");
-			} else if (genreCntPx > 160 && genreCntPx <= 200) {
-				$("#genreName").text("힙합");
-				$("#genreName").css("display", "show");
-			} else if (genreCntPx > 200 && genreCntPx <= 240) {
-				$("#genreName").text("댄스");
-				$("#genreName").css("display", "show");
-			} else if (genreCntPx > 240 && genreCntPx <= 280) {
-				$("#genreName").text("인디");
-				$("#genreName").css("display", "show");
-			} else if (genreCntPx > 280 && genreCntPx <= 320) {
-				$("#genreName").text("트로트");
-				$("#genreName").css("display", "show");
-			} else if (genreCntPx > 320 && genreCntPx <= 360) {
-				$("#genreName").text("R&B");
-				$("#genreName").css("display", "show");
-			} else if (genreCntPx > 360 && genreCntPx <= 400) {
-				$("#genreName").text("포크");
-				$("#genreName").css("display", "show");
-				// OST, classic, jazz, blues, soul
-			}
-		});
-		let genreName = $('#genreName').text();
-		
-		$("#inputGenre").val(genreName);
-		console.log("genreName : " + $("#inputGenre").val());
-	});
+					let genreCnt = $(".genre").css('top');
+					let genreCntPx = parseInt(genreCnt, 10);
+					genreName = $("#genreName").text();
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+					if (genreCntPx >= 0 && genreCntPx <= 40) {
+						$("#genreName").text("락");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 40 && genreCntPx <= 80) {
+						$("#genreName").text("메탈");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 80 && genreCntPx <= 120) {
+						$("#genreName").text("발라드");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 120 && genreCntPx <= 160) {
+						$("#genreName").text("랩");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 160 && genreCntPx <= 200) {
+						$("#genreName").text("힙합");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 200 && genreCntPx <= 240) {
+						$("#genreName").text("댄스");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 240 && genreCntPx <= 280) {
+						$("#genreName").text("인디");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 280 && genreCntPx <= 320) {
+						$("#genreName").text("트로트");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 320 && genreCntPx <= 360) {
+						$("#genreName").text("R&B");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 360 && genreCntPx <= 400) {
+						$("#genreName").text("포크");
+						$("#genreName").css("display", "show");
+						// OST, classic, jazz, blues, soul
+					}
+				});
+				console.log(startDate + "-" + finishDate + "-" + genreName)
+
+				$.ajax({
+					type : "GET",
+					url : "/homeAjax/" + startDate + "/" + finishDate + "/"
+							+ genreName + ".json",
+					data : {
+						startDate : startDate,
+						finishDate : finishDate,
+						genreName : genreName
+					},
+					dataType : "json",
+					contentType : "application/json; charset=UTF-8",
+					success : function(data) {
+						console.log(data);
+
+						if (data[0].gropImg != undefined) {
+							/* 아이유 사진을 내가 가져온 사진으로 변경할거다 */
+							$(".genreYearImg").css(
+									"background-image",
+									"url(/resources/image/artist/"
+											+ data[0].gropImg + ")");
+						} else {
+							$(".genreYearImg").css("background-image",
+									"url(/resources/image/nodata.jpg)");
+
+						}
+
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown) {
+					}
+				});
+
+				genreName = $('#genreName').text();
+				genreName = $("#inputGenre").val(genreName);
+				/* console.log("genreName : " + $("#inputGenre").val()); */
+				genre();
+			});
+
+	function genre() {
+		genreName = genreName.val();
+	}
+</script>
+
+<script type="text/javascript">
 	$(function() {
 		$(".year").draggable({
 			yearWrap : ".yearWrap",
@@ -554,6 +493,4 @@
 	});
 </script>
 
-</html>
-
-
+<%@include file="includes/footer.jsp"%>
