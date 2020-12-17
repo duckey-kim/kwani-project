@@ -69,33 +69,21 @@
 					<div class='nav-left'>
 						<div class="nav-item">
 							<form action="/mypage/overview" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Overview</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/playlist" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Playlist</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/like" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Like</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/library" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Library</button>
 							</form>
 						</div>

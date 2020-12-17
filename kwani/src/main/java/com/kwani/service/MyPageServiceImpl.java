@@ -21,56 +21,56 @@ import lombok.extern.log4j.Log4j;
 @Service
 @AllArgsConstructor
 @Transactional
-public class MyPageServiceImpl implements MyPageService{
-	
+public class MyPageServiceImpl implements MyPageService {
+
 	private MyPageMapper myPageMapper;
-	
+
 	@Override
 	public List<Map<String, String>> getListLibrary(String email) {
-		
+
 		log.info("getList Library...");
-		
+
 		List<Map<String, String>> libraryList = myPageMapper.getListLibrary(email);
-		List<Map<String,String>> LikedTrackList = myPageMapper.getLikedTrackList(email);
-		
+		List<Map<String, String>> LikedTrackList = myPageMapper.getLikedTrackList(email);
+
 		// 최근 들은 곡
 		// 1일 이내 들은 경우 : 시간(몇시간 전에 들었는지)
 		// 1일 이후 들은 경우 : 날짜
 
 		// 현재 시간
 		LocalDateTime timeNow = LocalDateTime.now();
-		
+
 		DateTimeFormatter myFormat1 = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 		DateTimeFormatter myFormat2 = DateTimeFormatter.ofPattern("yyyy년MM월dd일");
-				
+
 		for (Map<String, String> map : libraryList) {
-			
+
 			String playlistDate = map.get("PLAY_DT");
-			
-			// 곡 들은 시각 
+
+			// 곡 들은 시각
 			LocalDateTime timePoint = LocalDateTime.parse(playlistDate, myFormat1);
-			
+
 			// 현재시간 - 곡 들은 시각
 			long timeDiff = timePoint.until(timeNow, ChronoUnit.HOURS);
-			
+
 			map.replace("PLAY_DT", myFormat2.format(timePoint));
-			
+
 			// 1일 이내인 경우
-			if(timeDiff < 24) {
+			if (timeDiff < 24) {
 				map.replace("PLAY_DT", timeDiff + " 시간 전");
 			}
-			
+
 			map.put("heart", "heart2.png");
-			
+
 			// 좋아요 곡 확인
-			for(Map<String, String> map2 : LikedTrackList) {
-				//좋아요에 해당하는 경우				
-				if(map.containsValue(map2.get("TRACK_ID"))){
+			for (Map<String, String> map2 : LikedTrackList) {
+				// 좋아요에 해당하는 경우
+				if (map.containsValue(map2.get("TRACK_ID"))) {
 					map.put("heart", "heart.png");
 				}
 			}
 		}
-	
+
 		return libraryList;
 	}
 
@@ -95,25 +95,32 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public List<PlaylistVO> getListPlaylist(String email) throws MyBatisSystemException {
 		log.info("get Playlist...");
-		
+
 		List<PlaylistVO> result = null;
 		result = myPageMapper.getListPlaylist(email);
-		
+
 		return result;
 	}
 
 	@Override
-	public List<Map<String, String>> getPlaylistDetail(Integer plylstId){
+	public List<Map<String, String>> getListPlaylistDetail(Integer plylstId, String email) {
 		log.info("get PlaylistDetail..." + plylstId);
-		return myPageMapper.getPlaylistDetail(plylstId);
+		return myPageMapper.getListPlaylistDetail(plylstId, email);
 	}
 
 	@Override
-	public UserVO getUser(String email) {
+	public UserVO getOneUser(String email) {
 		log.info("get User...");
 		return myPageMapper.getUser(email);
 	}
-	
+
+	// 플레이리스트 개수
+	@Override
+	public int countPlaylist(String email) {
+		log.info("count Playlist" + email);
+		return myPageMapper.countPlaylist(email);
+	}
+
 	// 2차 개발 미완성
 
 	@Override
@@ -127,7 +134,6 @@ public class MyPageServiceImpl implements MyPageService{
 		log.info("modify Playlist..." + playlistVO);
 		return myPageMapper.updatePlaylist(playlistVO);
 	}
-
 
 	@Override
 	public int countPlaylistTrack(Integer plylstId) {
@@ -146,5 +152,5 @@ public class MyPageServiceImpl implements MyPageService{
 		System.out.println(searchTxt);
 		return myPageMapper.findTrack(searchTxt);
 	}
-	
+
 }

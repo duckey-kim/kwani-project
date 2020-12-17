@@ -67,33 +67,21 @@
 					<div class='nav-left'>
 						<div class="nav-item">
 							<form action="/mypage/overview" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Overview</button>
 							</form>
 						</div>
 						<div class="nav-item">
-							<form action="/mypage/playlist" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">								
+							<form action="/mypage/playlist" method="post">						
 								<button class="button">Playlist</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/like" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Like</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/library" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Library</button>
 							</form>
 						</div>
@@ -103,9 +91,6 @@
 					<div class="body-item bg-bl">
 						<div class="item-header">
 							<form action="/mypage/library" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<h3>
 									<button class="button">Recent Tracks</button>
 								</h3>
@@ -139,9 +124,6 @@
 					<div class="body-item bg-bl">
 						<div class="item-header">
 							<form action="/mypage/like" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<h3>
 									<button class="button">Liked Artists</button>
 								</h3>
@@ -170,9 +152,6 @@
 					<div class="body-item bg-bl">
 						<div class="item-header">
 							<form action="/mypage/like" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<h3>
 									<button class="button">Like Albums</button>
 								</h3>
@@ -212,9 +191,6 @@
 					<div class="body-item bg-bl">
 						<div class="item-header">
 							<form action="/mypage/like" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<h3>
 									<button class="button">Like Tracks</button>
 								</h3>

@@ -12,6 +12,7 @@ public interface MyPageMapper {
 	public int insertSelectKeyPlaylist(PlaylistVO playlistVO);
 	public int updatePlaylist(PlaylistVO playlistVO);
 	public int deletePlaylist(Integer plylstId);	
+	public int countPlaylist(String email);
 	public int countPlaylistTrack(Integer plylstId);
 	
 	public int insertTrack(Integer plylstId, Integer trackId, Integer plyNo);
@@ -24,7 +25,7 @@ public interface MyPageMapper {
 	public List<Map<String,String>> getListLikedArtist(String email);
 	public List<Map<String,String>> getListLikedTrack(String email);
 	public List<Map<String,String>> getListLikedAlbum(String email);
-	public List<Map<String,String>> getPlaylistDetail(Integer plylstId);
+	public List<Map<String,String>> getListPlaylistDetail(Integer plylstId, String email);
 	
 	public List<Map<String,String>> findTrack(String searchTxt);
 	

@@ -13,13 +13,15 @@ public interface MyPageService {
 	public int countPlaylistTrack(Integer plylstId);
 	public int removePlaylist(Integer plylstId);
 
-	public UserVO getUser(String email);
+	public int countPlaylist(String email);
+
+	public UserVO getOneUser(String email);
 	public List<PlaylistVO> getListPlaylist(String email);
 	public List<Map<String,String>> getListLibrary(String object);
 	public List<Map<String,String>> getListLikedArtist(String email);
 	public List<Map<String,String>> getListLikedTrack(String email);
 	public List<Map<String,String>> getListLikedAlbum(String email);
-	public List<Map<String,String>> getPlaylistDetail(Integer plylstId);
+	public List<Map<String,String>> getListPlaylistDetail(Integer plylstId, String email);
 	public List<Map<String,String>> findTrack(String searchTxt);
 
 

@@ -10,7 +10,9 @@
 <title>Library</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script defer src="/resources/js/indexNoVideo.js"></script>
+
+<script src="/resources/js/jquery-3.5.1.js"/></script>
+
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/indexNoVideomh.css">
 <link rel="stylesheet" href="/resources/css/mainmh.css" />
@@ -65,33 +67,21 @@
 					<div class='nav-left'>
 						<div class="nav-item">
 							<form action="/mypage/overview" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">	
 								<button class="button">Overview</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/playlist" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">	
 								<button class="button">Playlist</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/like" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">	
 								<button class="button">Like</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/library" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Library</button>
 							</form>
 						</div>
@@ -101,11 +91,12 @@
 				<div class="mypage-body">
 					<div class="body-item bg-bl">
 						<div class="item-body">
-							<form action="/mypage/playlist/create" method="post">
+							<form id="create-playlist" action="/mypage/playlist/create" method="post">
+								<input type="hidden" value="제목을 입력하세요" name="nm">
+								<input type="hidden" value="내용을 입력하세요" name="desc">
+								<input type="hidden" value="noplaylist.png" name="plylstImg">
 								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
-								<button class="button2">새로운플레이리스트 만들기</button>
+								<button id="createBtn" class="button2">새로운플레이리스트 만들기</button>
 							</form>
 						</div>
 					</div>
@@ -120,33 +111,38 @@
 						</div>
 						<div class="item-body">
 							<div class="item-div">
-								<c:forEach items="${playlist}" var="plylst">
+								<c:forEach items="${playlistVO}" var="plylst">
 									<table class="table">
 										<tr>
-											<th class="th"></th>
-											<th class="th"></th>
+											<th class="th" colspan="2"></th>
 										</tr>
 										<tr>
-											<td class="td8" colspan="2"><img class="myArtistImg" src="/resources/image/album/${plylst.plylstImg}"></td>
+											<td class="td8 img-td" colspan="2">
+												<div class="img-container">
+													<div class="img-div">
+														<a class="dropBtn"><img class="moreImg" src="/resources/image/more.png"></a>
+															<img class="myArtistImg" src="/resources/image/album/${plylst.plylstImg}">
+														<div class="dropdown">
+															<ul class="dropdown-content">
+																<li><button class="mod">수정</button></li>
+																<li><button class="del">삭제</button></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</td>
 										</tr>
 
 										<tr>
-											<td><form action="/mypage/playlistDetail" method="post">
-													<input type="hidden" value="${plylst.plylstId}" name="plylstId">
-													<input type="hidden" value="${user.email}" name="email">
-													<input type="hidden" value="${user.nick}" name="nick">
-													<input type="hidden" value="${user.userImg}" name="userImg">
-													<button class="button2" style="text-align: left">
+											<td>
+												<form action="/mypage/playlistDetail" method="post">
+													<input class="plylstValue" type="hidden"
+														value="${plylst.plylstId}" name="plylstId">
+													<button class="button2">
 														<c:out value="${plylst.nm}" />
 													</button>
-												</form></td>
-											<td><form action="/mypage/playlist/delete" method="post">
-													<input type="hidden" value="${plylst.plylstId}" name="plylstId">
-													<input type="hidden" value="${user.email}" name="email">
-													<input type="hidden" value="${user.nick}" name="nick">
-													<input type="hidden" value="${user.userImg}" name="userImg">
-													<button class="button2">삭제</button>
-												</form></td>
+												</form>
+											</td>
 										</tr>
 									</table>
 								</c:forEach>
@@ -155,12 +151,14 @@
 					</div>
 				</div>
 			</div>
-			</div>
-			<!--bodyContent-->
-			<div id="rightSideBar"></div>
 		</div>
-		<!--body-->
-		<div id="footer"></div>
-		<!--main-->
+
+		<!--bodyContent-->
+		<div id="rightSideBar"></div>
+	</div>
+
+	<!--body-->
+	<div id="footer"></div>
+	<!--main-->
 </body>
 </html>
