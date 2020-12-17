@@ -98,4 +98,29 @@ public class LikeAndPlaylistServiceTests {
 
 		service.deleteLikeArtist("a@naver.com", 12);
 	}
+	
+	@Test
+	public void testCountPlaylistTracks() {
+		
+		service.countPlaylistTracks(2);
+	}
+	
+	@Test
+	public void testGetTracksInPlaylist() {
+		
+		service.getTracksInPlaylist(2).forEach(a -> log.info(a));
+	}
+	
+	@Test
+	public void testInsertTrackIntoPlaylist() {
+		
+		service.insertTrackIntoPlaylist(1, 6);
+		
+	}
+	
+	@Test
+	public void testIsPlaylistExist() {
+		
+		service.isPlaylistExist(10);
+	}
 }

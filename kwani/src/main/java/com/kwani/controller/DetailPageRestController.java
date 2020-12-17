@@ -1,13 +1,13 @@
 package com.kwani.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -111,4 +111,49 @@ public class DetailPageRestController {
 		return result == 1 ? "1" : "0";
 
 	}
+	
+	@RequestMapping(method = { RequestMethod.POST }, value = "/addTracksInPlaylist", produces = "text/plane")
+	public String addTracksInPlaylist(@RequestParam Integer plylstId, @RequestParam(value = "trackIdArr[]") Set<Integer> trackIdArr) {
+
+		String result = "1";
+		
+		log.info("addTracksInPlaylist");
+		
+		System.out.println("넣을 플레이리스트ID : " + plylstId);
+		System.out.println("넣을 트랙ID : " + trackIdArr);
+		
+		Map<String, String> checkPlaylist = likeAndPlaylistService.isPlaylistExist(plylstId);
+		if(checkPlaylist == null) {
+			System.out.println("존재하지 않는 플레이리스트야~");
+			result = "0";
+			return result;
+		}
+		
+		List<Map<String, String>> tracksInPlaylist = likeAndPlaylistService.getTracksInPlaylist(plylstId);
+		
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		for(int i = 0 ; i < tracksInPlaylist.size(); i++) {
+
+			String tmpString = String.valueOf(tracksInPlaylist.get(i).get("TRACK_ID"));
+			Integer tmpInteger = Integer.parseInt(tmpString);
+			
+			arr.add(tmpInteger);
+		}
+		System.out.println("넣으려는 플레이리스트에 있는 트랙ID : " + arr);
+		
+		for(Integer value : trackIdArr) {
+			System.out.println("트랙ID 하나씩 뽑기 : " + value);
+			System.out.println("이 노래 이미 있어? " + arr.contains(value));
+			if(!(arr.contains(value))) {
+				System.out.println("없으니까 트랙ID : "+ value +"넣어줘");
+				likeAndPlaylistService.insertTrackIntoPlaylist(plylstId, value);
+			}
+		}
+		
+		return result;
+
+	}
+	
+	
+	
 }

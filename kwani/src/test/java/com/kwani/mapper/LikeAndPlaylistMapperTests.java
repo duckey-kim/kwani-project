@@ -120,5 +120,28 @@ public class LikeAndPlaylistMapperTests {
 		log.info("-------------------------------------------------------------------------------------"+ a);
 		
 	}
+	
+	@Test
+	public void testCountPlaylistTracks() {
+		mapper.countPlaylistTracks(2);
+	}
+	
+	@Test
+	public void testGetTracksInPlaylist() {
+		mapper.getTracksInPlaylist(2).forEach(a -> log.info(a));
+	}
+	
+	@Test
+	public void testInsertTrackIntoPlaylist() {
+		int a = mapper.insertTrackIntoPlaylist(1, 6);
+		
+		log.info("-------------------------------------------------------------------------------------"+ a);
+
+	}
+	
+	@Test
+	public void testIsPlaylistExist() {
+		mapper.isPlaylistExist(10);
+	}
 
 }

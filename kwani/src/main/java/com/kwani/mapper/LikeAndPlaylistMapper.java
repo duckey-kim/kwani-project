@@ -18,12 +18,24 @@ public interface LikeAndPlaylistMapper {
 		
 		// 유저의 저장된 플레이리스트들을 가져오는 메서드
 		public List<Map<String, String>> getPlaylists(String sessionName);
+		
+		// 플레이리스트에 있는 트랙의 개수 가져오는 메서드
+		public Map<String, String> countPlaylistTracks(Integer plylstId);
 
 		// 사용자가 해당 앨범 수록곡 중 좋아요한 곡 ID 가져오는 메서드
 		public List<Map<String, String>> getLikeTracksInAlbum(@Param("sessionName") String sessionName, @Param("albumId") Integer albumId);
 				
 		// 사용자가 해당 가수의 곡 중 좋아요한 곡 ID 가져오는 메서드
 		public List<Map<String, String>> getLikeTracksInArtist(@Param("sessionName") String sessionName, @Param("gropId") Integer gropId);
+		
+		// 플레이리스트의 존재여부를 확인하는 메서드
+		public Map<String, String> isPlaylistExist(Integer plylstId);
+		
+		// 플레이리스트의 있는 트랙 아이디 가져오는 메서드
+		public List<Map<String, String>> getTracksInPlaylist(Integer plylstId);
+		
+		// 플레이리스트에 트랙 추가하는 메서드
+		public int insertTrackIntoPlaylist(@Param("plylstId") Integer plylstId, @Param("trackId") Integer trackId);
 		
 		// 노래 좋아요 추가 메서드
 		public int insertLikeTrack(@Param("sessionName") String sessionName, @Param("trackId") Integer trackId);

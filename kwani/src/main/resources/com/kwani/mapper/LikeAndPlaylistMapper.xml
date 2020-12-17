@@ -40,6 +40,14 @@ order by plylst_no desc
 ]]>
 </select>
 
+<select id="countPlaylistTracks" resultMap="result">
+<![CDATA[
+select count(track_id) count
+from t_plylst_dtl
+where plylst_id = #{plylstId}
+]]>
+</select>
+
 <select id="getLikeTracksInAlbum" resultMap="result">
 <![CDATA[
 select lt.track_id 
@@ -60,6 +68,30 @@ and lt.track_id = at.track_id
 and at.grop_id = #{gropId}
 ]]>
 </select>
+
+<select id="isPlaylistExist" resultMap="result">
+<![CDATA[
+select plylst_id
+from t_plylst
+where plylst_id = #{plylstId}
+]]>
+</select>
+
+
+<select id="getTracksInPlaylist" resultMap="result">
+<![CDATA[
+select track_id
+from t_plylst_dtl
+where plylst_id = #{plylstId}
+]]>
+</select>
+
+<insert id="insertTrackIntoPlaylist">
+<![CDATA[
+insert into t_plylst_dtl (plylst_id, track_id)
+values (#{plylstId}, #{trackId})
+]]>
+</insert>
 
 <insert id="insertLikeTrack">
 <![CDATA[

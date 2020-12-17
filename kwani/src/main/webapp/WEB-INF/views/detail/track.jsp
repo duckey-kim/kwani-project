@@ -304,11 +304,23 @@
 				console.log("넣을 노래아이디 : " + '${trackId}');
 				
 				$("#modal").attr("style", "display:none");
+				
+				// 넣을 플레이리스트ID
+				let plylstId = $(".selectPlaylist:eq(" + index + ")").val();
+				
+				// 재생목록에 추가할 트랙ID들을 담는 배열
+				let trackIdArr = new Array();
+				let tmpTrackId = '${trackId}';
+				trackIdArr.push(tmpTrackId);
+				
+				addToPlaylist(trackIdArr, plylstId);
 			});
 		}
 
 		function goLogin() { // 로그아웃 상태에서 로그인이 필요한 기능을 사용하려고 할때 로그인 페이지로 이동
+			
 			location.href = "/user/login";
+			
 		}
 
 		function copyURL() {
@@ -356,6 +368,35 @@
 						alert("좋아요를 취소하셨습니다.");
 					}else{
 						alert("좋아요 취소를 실패했습니다.")
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		}
+
+		function addToPlaylist(trackIdArr, plylstId){
+			console.log("플레이리스트ID : " + plylstId);
+			
+			var objParams = {
+					"plylstId" : plylstId,
+					"trackIdArr" : trackIdArr
+			};
+			
+			$.ajax({
+				type : 'post',
+				url : '/detail/addTracksInPlaylist',
+				data : objParams,
+				contentType : 'application/x-www-form-urlencoded; charset=utf-8;',		// 서버로 보내는 데이터 타입
+				dataType : 'json',								// 서버로부터 받는 데이터 타입
+				
+				success : function(data){
+					console.log("data : " + data);
+					if(data == 1){
+						alert("중복곡을 제외하고 플레이리스트에 추가했습니다.");
+					}else{
+						alert("존재하지 않는 플레이리스트 입니다. 새로고침 후 다시 시도해주세요.")
 					}
 				},
 				error: function(){

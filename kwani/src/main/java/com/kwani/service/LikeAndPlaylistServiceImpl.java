@@ -55,6 +55,14 @@ public class LikeAndPlaylistServiceImpl implements LikeAndPlaylistService {
 	}
 
 	@Override
+	public Map<String, String> countPlaylistTracks(Integer plylstId) {
+
+		log.info("countPlaylistTracks");
+
+		return mapper.countPlaylistTracks(plylstId);
+	}
+
+	@Override
 	public List<Map<String, String>> getLikeTracksInAlbum(String sessionName, Integer albumId) {
 
 		log.info("getLikeTracksInAlbum");
@@ -71,48 +79,80 @@ public class LikeAndPlaylistServiceImpl implements LikeAndPlaylistService {
 	}
 
 	@Override
-	public int insertLikeTrack(String sessionName, Integer trackId) {
+	public Map<String, String> isPlaylistExist(Integer plylstId) {
+
+		log.info("getLikeTracksInArtist");
 		
-		log.info("insertLikeTrack");
-		
+		return mapper.isPlaylistExist(plylstId);
+	}
+
+	@Override
+	public List<Map<String, String>> getTracksInPlaylist(Integer plylstId) {
+
+		log.info("getTracksInPlaylist");
+
+		return mapper.getTracksInPlaylist(plylstId);
+	}
+
+	@Override
+	public int insertTrackIntoPlaylist(Integer plylstId, Integer trackId) {
+
+		log.info("insertTrackIntoPlaylist");
+
 		int result;
-		
+
 		try {
-			result = mapper.insertLikeTrack(sessionName, trackId);
-		}catch (Exception e) {
+			result = mapper.insertTrackIntoPlaylist(plylstId, trackId);
+		} catch (Exception e) {
 			result = 0;
 		}
-		
+
+		return result;
+	}
+
+	@Override
+	public int insertLikeTrack(String sessionName, Integer trackId) {
+
+		log.info("insertLikeTrack");
+
+		int result;
+
+		try {
+			result = mapper.insertLikeTrack(sessionName, trackId);
+		} catch (Exception e) {
+			result = 0;
+		}
+
 		return result;
 	}
 
 	@Override
 	public int deleteLikeTrack(String sessionName, Integer trackId) {
-		
+
 		log.info("deleteLikeTrack");
-		
+
 		return mapper.deleteLikeTrack(sessionName, trackId);
 	}
 
 	@Override
 	public int insertLikeAlbum(String sessionName, Integer albumId) {
-		
+
 		log.info("insertLikeAlbum");
 
 		int result;
-		
+
 		try {
 			result = mapper.insertLikeAlbum(sessionName, albumId);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result = 0;
 		}
-		
+
 		return result;
 	}
 
 	@Override
 	public int deleteLikeAlbum(String sessionName, Integer albumId) {
-		
+
 		log.info("deleteLikeAlbum");
 
 		return mapper.deleteLikeAlbum(sessionName, albumId);
@@ -120,25 +160,25 @@ public class LikeAndPlaylistServiceImpl implements LikeAndPlaylistService {
 
 	@Override
 	public int insertLikeArtist(String sessionName, Integer gropId) {
-		
+
 		log.info("insertLikeArtist");
-		
+
 		int result;
-		
+
 		try {
 			result = mapper.insertLikeArtist(sessionName, gropId);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			result = 0;
 		}
-		
+
 		return result;
 	}
 
 	@Override
 	public int deleteLikeArtist(String sesionName, Integer gropId) {
-		
+
 		log.info("deleteLikeArtist");
-		
+
 		return mapper.deleteLikeArtist(sesionName, gropId);
 	}
 

@@ -241,6 +241,7 @@
 	<!-- 앨범 내 수록곡을 위한 모달창 끝 -->
 
 	<script>
+		
 		let tmpTrackId;
 	
 		if ('${sessionName}' == "") { // 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
@@ -353,7 +354,6 @@
 		function addAlbumMyPlaylist() {
 			$("#addAlbumMyPlaylist").click(function() {
 				$("#modal").attr("style", "display:block");
-				console.log("앨범아이디 : " + '${albumId}');
 			});
 			
 			$("#modalCloseBtn").click(function() {
@@ -366,7 +366,6 @@
 			$("button[name=addTrackMyPlaylist]").click(function() {
 				$("#modal1").attr("style", "display:block");
 				let index = $("button[name=addTrackMyPlaylist]").index(this);
-				console.log("노래아이디 : " + $("button[name=addTrackMyPlaylist]:eq(" + index + ")").val());
 				tmpTrackId = $("button[name=addTrackMyPlaylist]:eq(" + index + ")").val();
 			});
 			
@@ -383,6 +382,17 @@
 				console.log("플레이리스트에 넣을 앨범아이디 : " + '${albumId}');
 				
 				$("#modal").attr("style", "display:none");
+				
+				// 넣을 플레이리스트ID
+				let plylstId = $(".selectPlaylist:eq(" + index + ")").val();
+				
+				// 재생목록에 추가할 트랙ID들을 담는 배열
+				let trackIdArr = new Array();
+				<c:forEach items="${getAlbumInfoList }" var="AlbumInfo">
+					trackIdArr.push('${AlbumInfo.TRACK_ID }');
+				</c:forEach>
+				
+				addToPlaylist(trackIdArr, plylstId);
 			});
 		}
 		
@@ -394,6 +404,15 @@
 				console.log("플레이리스트에 넣을 노래아이디 : " + tmpTrackId);
 				
 				$("#modal1").attr("style", "display:none");
+				
+				// 넣을 플레이리스트ID
+				let plylstId = $(".selectPlaylist:eq(" + index + ")").val();
+				
+				// 재생목록에 추가할 트랙ID들을 담는 배열
+				let trackIdArr = new Array();
+				trackIdArr.push(tmpTrackId);
+				
+				addToPlaylist(trackIdArr, plylstId);
 			});
 		}
 
@@ -488,6 +507,35 @@
 						alert("좋아요를 취소하셨습니다.");
 					}else{
 						alert("좋아요 취소를 실패했습니다.")
+					}
+				},
+				error: function(){
+					
+				}
+			});
+		}
+		
+		function addToPlaylist(trackIdArr, plylstId){
+			console.log("플레이리스트ID : " + plylstId);
+			
+			var objParams = {
+					"plylstId" : plylstId,
+					"trackIdArr" : trackIdArr
+			};
+			
+			$.ajax({
+				type : 'post',
+				url : '/detail/addTracksInPlaylist',
+				data : objParams,
+				contentType : 'application/x-www-form-urlencoded; charset=utf-8;',		// 서버로 보내는 데이터 타입
+				dataType : 'json',								// 서버로부터 받는 데이터 타입
+				
+				success : function(data){
+					console.log("data : " + data);
+					if(data == 1){
+						alert("중복곡을 제외하고 플레이리스트에 추가했습니다.");
+					}else{
+						alert("존재하지 않는 플레이리스트 입니다. 새로고침 후 다시 시도해주세요.")
 					}
 				},
 				error: function(){
