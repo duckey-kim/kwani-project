@@ -44,15 +44,6 @@ public class UserServiceTests {
 		user.setNick("투");
 		user.setPwd("123123");
 		user.setUserImg("");
-		user.setMoodCd("");
-		user.setGenreCd("");
-		user.setSituCd("");
-		user.setStusCd("");
-		user.setLastDt("");
-		user.setInUser("");
-		user.setInDate("");
-		user.setUpUser("");
-		user.setUpDate("");
 
 		service.register(user);
 
@@ -79,18 +70,6 @@ public class UserServiceTests {
 		user.setPwd("123123");
 		user.setUserImg("잼민잼민잼민의 이미지");
 		log.info("업데이트 성공!" + service.modifyUserInfo(user));
-	}
-
-	@Test
-	public void testWithdrawal() {
-
-		UserVO user = service.get("c@gmail.com");
-
-		if (user == null) {
-			return;
-		}
-		user.setStusCd("2");
-		log.info("회원권한변경완료!" + service.withdrawal(user));
 	}
 
 	@Test
