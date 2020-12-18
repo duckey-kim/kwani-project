@@ -72,7 +72,6 @@ public class UserServiceTests {
 		log.info("업데이트 성공!" + service.modifyUserInfo(user));
 	}
 
-
 	@Test
 	public void testGetUserImg() {
 

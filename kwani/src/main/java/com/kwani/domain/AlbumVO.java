@@ -9,11 +9,9 @@ public class AlbumVO {
 	private String albumImg;
 	private String albumTtl;
 	private String rlesDt;
-	//0 사용중
-	//1 사용금지
-	private String stusCd;
+	private Integer stusCd;
 	
-	public AlbumVO(Integer albumId, String albumImg, String albumTtl, String rlesDt,String stusCd) {
+	public AlbumVO(Integer albumId, String albumImg, String albumTtl, String rlesDt,Integer stusCd) {
 		this.albumId = albumId;
 		this.albumImg = albumImg;
 		this.albumTtl = albumTtl;
@@ -23,6 +21,6 @@ public class AlbumVO {
 	}
 	
 	public AlbumVO() {
-		this(null, "", "", "","0");
+		this(null, "", "", "",0);
 	}
 }

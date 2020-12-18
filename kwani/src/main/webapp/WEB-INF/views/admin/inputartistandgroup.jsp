@@ -6,30 +6,41 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-4 col-md-offset-4">
-			<div class="login-panel panel paenl-default">
+		<div class="col-md-12">
+			<div class="panel paenl-default">
 				<div class="panel-body">
 					<h4>${msg }</h4>
 					<h4>Group and Artist</h4>
 					<form id='searchForm' action="/admin/getArtistGroup" method="post">
+						
+						<div class="form-group">
+						<label>가수</label>						
 						<input class="form-control" type="text" name="nm" id="nm"
 							placeholder="가수이름입력">
-						<button>가수찾기</button>
+						</div>
+						
+						<button class="btn btn-sm btn-success">가수찾기</button>
 					</form>
 					<h5>GROUP NAME : ${artist.nm }</h5>
 					<h5>GROUP ID :${artist.gropId }</h5>
 
-					<form action="/admin/inputartistgroupAction" method="post">
-						<div>
-							<h5>Input GROUP_ID</h5>
+					<form action="/admin/inputartistgroupAction" method="post"
+						onsubmit="return checkInput();">
+						<div class="form-group">
+							<div class="form-group">
+							<label>그룹아이디</label>							
 							<input class="form-control" type="text" name="gropId" id="gropId">
-							<div>SOLO_ID</div>
+							</div>
+							
+							<div class="form-group">
+							<label>솔로아이디</label>							
 							<input class="form-control" type="text" name="soloId" id="soloId">
+							</div>
 						</div>
 
 
-
-						<button>등록</button>
+						<input type="hidden" name="upUser" id="upUser" value="${mngrId} ">
+						<button class="btn btn-sm btn-success">등록</button>
 					</form>
 				</div>
 			</div>
@@ -53,7 +64,7 @@
 	});
 </script>
 <script type="text/javascript">
-	function check(pattern, input, message) {
+	let check = function(pattern, input, message) {
 		if (!pattern.test(input.value)) {
 			return true;
 		}
@@ -62,16 +73,16 @@
 		input.focus();
 	}
 
-	function checkInput() {
+	let checkInput = function() {
 		const soloIdFld = document.getElementById("soloId");
 		const gropIdFld = document.getElementById("gropId");
 
 		const numRegex = /[^0-9]/g;
 
-		if (!check(numRegex, soloIdFld, "soloId는 숫자만 입력해주세요")) {
+		if (!check(numRegex, gropIdFld, "gropId는 숫자만 입력해주세요")) {
 			return false;
 		}
-		if (!check(numRegex, gropIdFld, "gropId는 숫자만 입력해주세요")) {
+		if (!check(numRegex, soloIdFld, "soloId는 숫자만 입력해주세요")) {
 			return false;
 		}
 

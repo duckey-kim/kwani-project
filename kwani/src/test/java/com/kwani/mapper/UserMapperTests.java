@@ -29,7 +29,7 @@ public class UserMapperTests {
 		user.setNick("개구리는 개굴개굴");
 		user.setPwd("1234");
 		user.setUserImg("");
-		
+
 		mapper.insert(user);
 		
 		log.info(user);
@@ -101,7 +101,6 @@ public class UserMapperTests {
 		
 	}
 	
-	@Test
 	public void testCheckUserIdPwd() {
 		
 		int user = mapper.checkUserIdPwd("c@gmail.com", "1234");

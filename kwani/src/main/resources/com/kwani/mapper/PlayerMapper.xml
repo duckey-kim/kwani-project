@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0 //EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kwani.mapper.PlayerMapper">
+
+	<resultMap type="hashMap" id="selectMap"></resultMap>
+
+	<resultMap type="com.kwani.domain.TracksVO" id="TrackResult">
+		<result property="trackId" column="TRACK_ID" />
+		<result property="trackTtl" column="TRACK_TTL" />
+		<result property="trackUrl" column="TRACK_URL" />
+		<result property="albumId" column="ALBUM_ID" />
+		<result property="moodCd" column="MOOD_CD" />
+		<result property="genreCd" column="GENRE_CD" />
+		<result property="situCd" column="SITU_CD" />
+		<result property="stusCd" column="STUS_CD" />
+		<result property="ttlTrack" column="TTL_TRACK" />
+		<result property="trackLyrics" column="TRACK_LYRICS" />
+		<result property="trackOrder" column="TRACK_ORDER" />
+	</resultMap>
+
+	
+	
+	<select id="getListLikedTrack" resultMap="selectMap">
+		SELECT T.TRACK_TTL, A.NM, AL.ALBUM_TTL, AL.ALBUM_IMG,T.TRACK_ID,T.TRACK_URL
+		FROM T_LIKE_TRACKS LT, T_TRACKS T, T_ALBUM AL, T_ARTIST_TRACKS AT, T_ARTIST A
+		WHERE LT.EMAIL = #{email}
+		AND LT.TRACK_ID = T.TRACK_ID
+        AND T.ALBUM_ID = AL.ALBUM_ID
+        AND T.TRACK_ID = AT.TRACK_ID
+        AND AT.GROP_ID = A.GROP_ID
+	</select>
+	
+	
+	<select id="getListLibrary" resultMap="selectMap">
+		SELECT T.TRACK_ID AS TRACK_ID, T.TRACK_TTL, A.NM , TO_CHAR(H.PLAY_DT, 'YYYYMMDDHH24MISS') AS PLAY_DT, AL.ALBUM_IMG ,T.TRACK_URL
+		FROM T_HISTORY H, T_TRACKS T, T_ALBUM AL, T_ARTIST_TRACKS AT, T_ARTIST A
+		WHERE H.EMAIL = #{email}
+		AND H.TRACK_ID = T.TRACK_ID
+		AND T.ALBUM_ID = AL.ALBUM_ID
+        AND T.TRACK_ID = AT.TRACK_ID
+        AND AT.GROP_ID = A.GROP_ID
+        ORDER BY H.PLAY_DT DESC
+	</select>
+	
+	
+	
+	
+	
+	<select id="getAlbumList" resultMap="selectMap">
+		select
+		t.track_id,t.track_ttl,t.track_url,a.nm
+		from t_tracks t ,
+		t_artist_tracks at,t_artist a
+		where at.track_id=t.track_id
+		and
+		at.grop_id=a.grop_id
+		and t.album_Id=#{albumId}
+	</select>
+	<select id="getTrackUrl" resultMap="selectMap">
+		select
+		t.track_id,t.track_ttl,t.track_url,a.nm
+		from t_tracks t ,
+		t_artist_tracks at,t_artist a
+		where at.track_id=t.track_id
+		and
+		at.grop_id=a.grop_id
+		and t.track_id=#{track_id}
+	</select>
+	<select id="getTracksUrl" resultMap="selectMap">
+		select t.track_id,t.track_ttl,t.track_url,a.nm
+		from t_tracks t ,
+		t_artist_tracks at,t_artist a
+		where at.track_id=t.track_id
+		and
+		at.grop_id=a.grop_id
+		and t.track_id in(
+		<foreach collection="array" item="trackId" separator=",">
+			#{trackId}
+		</foreach>
+		)
+	</select>
+
+	<select id="getUserPlayList" resultMap="selectMap">
+		select a.nm,p.nm as
+		listNm,t.track_ttl,al.album_img,pd.ply_no,t.track_id,t.track_url
+		from
+		t_plylst p, t_plylst_dtl pd,t_tracks t,t_artist a , t_artist_tracks
+		at,t_album al
+		where pd.plylst_id = #{plylstId}
+		and
+		p.plylst_id=pd.plylst_id
+		and al.album_id = t.album_id
+		and at.track_id =
+		t.track_id
+		and at.grop_id=a.grop_id
+		and pd.track_id = at.track_id
+		order
+		by ply_no asc
+	</select>
+
+	<update id="mergeHistory">
+		merge into t_history
+		using dual
+		on(email =#{email} and track_id=#{trackId})
+		when matched then
+		update set play_dt=sysdate,
+		up_user=#{email},
+		up_date=sysdate
+		when not matched then
+		insert(email,track_id,play_dt,in_user,in_date,up_user,up_date)
+		values(#{email},#{trackId},sysdate,#{email},sysdate,#{email},sysdate)
+
+	</update>
+
+
+
+</mapper> 

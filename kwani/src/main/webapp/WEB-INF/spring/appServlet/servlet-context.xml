@@ -37,10 +37,8 @@
 
 	<context:component-scan
 		base-package="com.kwani.controller" />
-	<context:component-scan
-		base-package="com.kwani.HomeController" />
-	<context:component-scan
-		base-package="com.kwani.kakaoController" />
+	<context:component-scan base-package="com.kwani.exception"></context:component-scan>
+
 	<context:component-scan
 		base-package="com.kwani.kakaoapi" />
 
@@ -50,3 +48,4 @@
 	</beans:bean>
 
 </beans:beans>
+
