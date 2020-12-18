@@ -1,297 +1,140 @@
-* {
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
 
-body {
-	font-family: Arial, Helvetica, sans-serif;
-}
 
-a {
-    text-decoration: none;
-}
-
-#header {
-    width: 100%;
-    height: 280px;
-    box-sizing: border-box;
-}
-
-#header_navbar {
-    display: flex;
-    width: 100%;
-    height: 60px;
-    background-color: black;
-    transition: top 0.3s;
-    top: 0;
-    position: fixed;
-}
-
-#navbarUtil button {
-    float: right;
-    padding: 10px;
-    text-align: center;
-    line-height: 20px;
-    margin-right: 16px; 
-    background: rgb(70, 69, 69);
-    font-size: 17px;
-    border: none;
-    cursor: pointer;
-}
-
-#navbarUtil button:hover {
-    background: rgb(104, 102, 102);
-}
-
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-}
-
-.overlay {
-    margin-top: 60px;
-    height: 100%;
-    width: 100%;
-    display: none;
-    position: fixed;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    background-color: rgba(0,0,0, 0);
-  }
-  
-.overlay-content {
-    position: relative;
-    top: 0;
-    width: 100%;
-    text-align: center;
-    margin-top: 30px;
-    margin: auto;
-  }
-  
-.overlay input[type=text] {
-    padding: 15px 0;
-    font-size: 17px;
-    border: none;
-    float: left;
-    width: 90%;
-    background: rgb(199, 198, 198);
-  }
-  
-.overlay input[type=text]:hover {
-    background: #f1f1f1;
-  }
-  
-.overlay button {
-    float: right;
-    width: 10%;
-    padding: 15px;
-    background: rgb(165, 163, 163);
-    font-size: 17px;
-    border: none;
-    cursor: pointer;
-  }
-  
-.overlay button:hover {
-    background: rgb(116, 115, 115);
-  }
-
-#musicPlayer {
-    width: 40%;
-    height: 60px;
-    color: red;
-    text-align: center;
-    line-height: 60px;
-}
-
-#pageLogo {
-    width: 20%;
-    height: 60px;
-    text-align: center;
-    line-height: 60px;
-    font-size: 35px;
-}
-
-#pageLogo a {
-    color: red;
-}
-
-#navbarUtil {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 40%;
-    height: 60px;
-}
-
-#navbarUtil a {
-    font-size: 15px;
-    color: whitesmoke;
-}
-
-#header_cover {
-    width: 100%;
-    height: 280px;
-    margin-top: 60px;
-    overflow: hidden;
-}
-
-#video {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
+#main {
+	background-color: black;
 }
 
 #body {
-    display: flex;
-    width: 100%;
-    height: 1000px;
-}
-
-#leftSideBar {
-    width: 10%;
-    height: 1400px;
-    background-color: black;
+	display: flex;
+	width: 100%;
+	height: 1100px;
 }
 
 #bodyContent {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding-top: 200px;
-    width: 80%;
-    height: 1200px;
-    background-color: black;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	padding-top: 200px;
+	width: 80%;
+	height: 1200px;
+	background-color: black;
 }
-  
+
 .loginBox {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    border-radius: 10%;
-    width: 600px;
-    height: 600px;
-    border: 1px solid black;
-    background-color: whitesmoke;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	border-radius: 10%;
+	width: 600px;
+	height: 600px;
+	border: 1px solid black;
+	background-color: whitesmoke;
 }
 
 .h1 {
-    text-align: center;
-    font-size: 30px;
+	text-align: center;
+	font-size: 30px;
 }
 
 .utilBtnContainer {
-    padding-top: 50px;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 100px;
-    opacity: 0.8;
+	padding-top: 50px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 100px;
+	opacity: 0.8;
 }
 
 .update {
-    cursor: pointer;
-    border: 1px solid black;
-    width: 40%;
-    height: 50px;
-    background-color: whitesmoke;
-    color: black;
-    transition-duration: 0.4s;
+	cursor: pointer;
+	border: 1px solid black;
+	width: 40%;
+	height: 50px;
+	background-color: whitesmoke;
+	color: black;
+	transition-duration: 0.4s;
 }
 
 .update:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-  }
-
-.update:focus {
-    background-color: rgb(211, 2, 2);
-    color: whitesmoke;
+	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
+		rgba(0, 0, 0, 0.19);
 }
 
 .delete {
-    cursor: pointer;
-    border: 1px solid black;
-    width: 40%;
-    height: 50px;
-    background-color: whitesmoke;
-    color: black;
-    transition-duration: 0.4s;
+	cursor: pointer;
+	border: 1px solid black;
+	width: 40%;
+	height: 50px;
+	background-color: whitesmoke;
+	color: black;
+	transition-duration: 0.4s;
 }
 
 .delete:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-}
-
-.delete:focus {
-    background-color: rgb(211, 2, 2);
-    color: whitesmoke;
+	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
+		rgba(0, 0, 0, 0.19);
 }
 
 .textContainer {
-    text-align: center;
-    padding-bottom: 30px;
+	text-align: center;
+	padding-bottom: 30px;
+	padding-top: 30px;
 }
 
 .fieldEmail {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 40px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 40px;
 }
 
 .fieldPwd {
-    display: flex;
-    justify-content: center;
-    padding-top: 10px;
-    width: 100%;
-    height: 40px;
+	display: flex;
+	justify-content: center;
+	padding-top: 10px;
+	width: 100%;
+	height: 40px;
 }
 
 .inputEmail {
-    width: 80%;
-    height: 40px;
+	width: 80%;
+	height: 40px;
 }
 
 .inputPwd {
-    width: 80%;
-    height: 40px;
+	width: 80%;
+	height: 40px;
 }
 
 .successBtnContainer {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 90px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 90px;
 }
 
 .successBtn {
-    margin-top: 30px;
-    margin-bottom: 10px;
-    background-color: red; 
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    width: 80%;
-    transition-duration: 0.4s;
+	margin-top: 30px;
+	margin-bottom: 10px;
+	background-color: rgb(211, 2, 2);
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 16px;
+	width: 80%;
+	transition-duration: 0.4s;
 }
 
 .successBtn:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+	box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0
+		rgba(0, 0, 0, 0.19);
 }
 
-#rightSideBar {
-    width: 10%;
-    height: 1400px;
-    background-color: black;
-}
 
 #footer {
-    width: 100%;
-    height: 400px;
-    background-color: teal;
+	width: 100%;
+	height: 400px;
+	background-color: black;
 }

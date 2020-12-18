@@ -4,12 +4,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Settings</title>
+<title>register</title>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"
 	integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY="
@@ -28,7 +29,8 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
 <link rel="stylesheet" type="text/css"
-	href="/resources/css/checkUserInfo.css">
+	href="/resources/css/socialRegister.css">
+
 </head>
 
 <%@include file="../includes/header.jsp"%>
@@ -38,30 +40,40 @@
 	<div id="bodyContent">
 		<div class="loginBox">
 			<div class="h1">
-				<h1>Settings</h1>
+				<h1>Sign Up</h1>
 			</div>
-			<form action="/user/checkUserInfoAction" method="POST">
-				<div class="utilBtnContainer">
-					<input type="button" class="update" value="개인정보변경"> <input
-						type="button" class="delete" value="회원탈퇴"> <input
-						type="hidden" class="hiddenValue" name="btnValue">
-				</div>
-				<div class="textContainer">
-					개인정보를 위해 <br> 이메일과 비밀번호를 입력해주세요.<br>
-				</div>
-				<div class="fieldEmail">
-					<input class="inputEmail" id="email" placeholder="Email"
-						type="email" name="email" />
-				</div>
-				<div class="fieldPwd">
-					<input class="inputPwd" id="password" placeholder="Password"
-						type="password" name="pwd" /> <input class="input" type="hidden"
-						name="targetUrl" value="">
-				</div>
-				<div class="successBtnContainer">
-					<button class="successBtn" type="submit" onclick="checkInput()">SUCCESS</button>
+			<form action="/user/socialRegisterAction" method="post">
+				<div class="loginForm">
+					<div class="emailField">
+						<input class="inputEmail" id="email" placeholder="Email"
+							type="email" name="email" value="${kakaoEmail}" readonly />
+					</div>
+					<div class="nickField">
+						<input class="inputNick" id="nick"
+							placeholder="Nickname (한글만 2~6글자)" name="nick" />
+					</div>
+					<div class="hiddenField">
+						<input class="inputPwd" type="hidden" name="pwd" value="${uuid}">
+						<input type="hidden" name="userImg"> <input type="hidden"
+							name="moodCd"> <input type="hidden" name="genreCd">
+						<input type="hidden" name="situCd"> <input type="hidden"
+							name="stusCd" value="1" /> <input type="hidden" name="lastDt">
+						<input type="hidden" name="inUser"> <input type="hidden"
+							name="inDate"> <input type="hidden" name="upUser">
+						<input type="hidden" name="upDate">
+						<button class="loginBtn" type="submit"
+							onclick="return checkInput()">Sign Up</button>
+						<div class="infoUtil">
+							<span>Already user our site? <a href="/user/login">Log
+									in</a> here
+							</span><br> <span>Forgot your Password? <a
+								href="/search/findUserPwd">Reset</a> in here
+							</span>
+						</div>
+					</div>
 				</div>
 			</form>
+			<!-- socialLoginBtn -->
 		</div>
 		<!-- loginBox -->
 	</div>
@@ -73,44 +85,50 @@
 </div>
 </body>
 
-
 <!-- ----------------------------- JavaScript------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------- -->
 
+
 <script type="text/javascript">
-	// 서버에서 해당 정보를 가져온다.
-	let email = document.getElementById("email").value;
-	let pwd = document.getElementById("password").value;
+	console.log('${uuid}');
+	console.log('${email}');
 
-	/* 서버에 입력한 정보가 없을 때, null일 때 */
-	console.log('${pwdMsg}');
-	console.log('${sessionMsg}')
-	console.log('${redirectMsg}')
-	
-	if ("${pwdMsg}" != "") {
-		alert("${pwdMsg}");
-	}
+	let b = $(".inputPwd").val();
+	let a = $(".inputEmail").val();
 
+	console.log(a);
+	console.log(b);
 
-	if ("${msg}" != "") {
-		alert("${msg}");
+	if ('${msg}' != "") {
+		alert('${msg}');
 	}
 
 	function checkInput() {
 
 		let email = document.getElementById("email").value;
-		let pwd = document.getElementById("password").value;
+		let nick = document.getElementById("nick").value;
+
+		// 정규식
+		// 비밀번호 : 영어+특수문자+숫자를 섞어서 (8~16)자리 
+		let pwdPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+		// 이름 : 한글만 2~4글자
+		let nickPattern = /^[가-힣]{2,6}$/;
 
 		if (email.length == 0) {
-			alert('이메일을 입력하세요');
+			alert("아이디(이메일)를(을) 입력하세요.");
 			return false;
 		}
 
-		if (pwd.length == 0) {
-			alert('비밀번호를 입력하세요');
+		if (nick.length == 0) {
+			alert("닉네임을 입력하세요.");
+			return false;
+		}
+		if (nickPattern.test(nick) == false) {
+			alert("닉네임은 한글 2~6글자로만 가능합니다.");
 			return false;
 		}
 
+		alert("회원가입이 완료되었습니다.");
 		return true;
 	}
 
@@ -139,36 +157,6 @@
 			overlay.style.display = "none";
 		}
 	}
-
-	let checkUtilBtn = document.getElementById("update");
-
-	$(document).ready(function() {
-		$(".update").click(function() {
-			$(this).css("background-color", "rgb(211, 2, 2)");
-			$(this).css("color", "whitesmoke");
-			if ($(this).css("color", "whitesmoke")) {
-				checkUtilBtn = "updateBtn";
-				console.log("checkUtilBtn : " + checkUtilBtn);
-				$(".hiddenValue").val(checkUtilBtn);
-				console.log("hiddenValue : " + $(".hiddenValue").val());
-			}
-
-			$(".delete").css("background-color", "transparent");
-			$(".delete").css("color", "black");
-		});
-		$(".delete").click(function() {
-			$(this).css("background-color", "rgb(211, 2, 2)");
-			$(this).css("color", "whitesmoke");
-			if ($(this).css("color", "whitesmoke")) {
-				checkUtilBtn = "withdrawalBtn";
-				console.log("checkUtilBtn : " + checkUtilBtn);
-				$(".hiddenValue").val(checkUtilBtn);
-				console.log("hiddenValue : " + $(".hiddenValue").val());
-			}
-			$(".update").css("background-color", "transparent");
-			$(".update").css("color", "black");
-		});
-	});
 </script>
 
 
