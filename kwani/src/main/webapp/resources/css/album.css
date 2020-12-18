@@ -1,7 +1,11 @@
+a:hover{
+	text-decoration:underline;
+}
+
 .music-header {
 	width: 100%;
 	height: 200px;
-	background-color: lightskyblue;
+	/* background-color: lightskyblue; */
 	display: flex;
 	align-items: center;
 }
@@ -22,7 +26,7 @@
 }
 
 .header-buttons {
-	background-color: lightskyblue;
+	/* background-color: lightskyblue; */
 	flex-direction: row;
 	justify-content: flex-start;
 }
@@ -54,15 +58,16 @@
 }
 
 .related {
-	background-color: plum;
+	/* background-color: plum; */
 	display: flex;
 	width: 100%;
-	height: 350px;
+	height: 270px;
 	flex-direction: column;
+	overflow-x:auto
 }
 
 .subtitle {
-	color: white;
+	color: black;
 }
 
 .items {
@@ -155,6 +160,14 @@
 }
 /* 모달끝 */
 
+.playbuttonImg {
+	max-height: 20px;
+}
+
+.playbutton {
+	background-color:white
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -162,11 +175,10 @@ table {
 }
 
 td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+	padding: 3px;
 }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
+tr:hover {background-color:#f5f5f5;}

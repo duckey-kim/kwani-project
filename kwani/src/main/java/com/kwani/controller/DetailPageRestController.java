@@ -154,6 +154,17 @@ public class DetailPageRestController {
 
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(method = { RequestMethod.POST }, value = "/countPlaylistTracks", produces = "text/plane")
+	public String countPlaylistTracks(@RequestBody String plylstId) {
+
+		log.info("countPlaylistTracks");
+		
+		Map<String, String> cnt = likeAndPlaylistService.countPlaylistTracks(Integer.parseInt(plylstId));
+		String result = cnt.get("count");
+
+		return result;
+
+	}
 	
 }
