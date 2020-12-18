@@ -33,14 +33,19 @@
 			expression="org.springframework.stereotype.Controller" />
 
 	</context:component-scan>
-	
-	
+
+
 	<context:component-scan
 		base-package="com.kwani.controller" />
 	<context:component-scan base-package="com.kwani.exception"></context:component-scan>
-		
-		
-		<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+
+	<context:component-scan
+		base-package="com.kwani.kakaoapi" />
+
+
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
 	</beans:bean>
 
 </beans:beans>
+

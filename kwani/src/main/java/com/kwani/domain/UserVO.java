@@ -4,22 +4,27 @@ import lombok.Data;
 
 @Data
 public class UserVO {
-	
+
 	private String email;
+	private String kakaoEmail;
 	private String nick;
 	private String pwd;
+	private String uuid;
 	private String userImg;
-	private String moodCd;
-	private String genreCd;
-	private String situCd;
-	private String stusCd;
+	private Integer stusCd;
 	private String lastDt;
-	private String inUser;
-	private String inDate;
-	private String upUser;
-	private String upDate;
-	private String uMoodCode;
-	private String uGenreCode;
-	private String uSituCode;
-	private String uStusCode;
+	public UserVO(String email, String nick, String pwd, String userImg, Integer stusCd, String lastDt) {
+		this.email = email;
+		this.nick = nick;
+		this.pwd = pwd;
+		this.userImg = userImg;
+		this.stusCd = stusCd;
+		this.lastDt = lastDt;
+	}
+	
+	public UserVO() {
+		this("", "", "", "", 0, "");
+	}
 }
+
+

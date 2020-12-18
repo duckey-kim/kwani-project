@@ -10,17 +10,9 @@
 		<result property="nick" column="NICK" />
 		<result property="pwd" column="PWD" />
 		<result property="userImg" column="USER_IMG" />
-		<result property="moodCd" column="MOOD_CD" />
-		<result property="genreCd" column="GENRE_CD" />
-		<result property="situCd" column="SITU_CD" />
-		<result property="stusCd" column="STUS_CD" />
-		<result property="lastCd" column="LAST_CD" />
-		<result property="inUser" column="IN_USER" />
-		<result property="inDate" column="IN_DATE" />
-		<result property="upUser" column="UP_USER" />
-		<result property="upDate" column="UP_DATE" />
-	</resultMap>
 	
+	</resultMap>
+
 	<resultMap type="int" id="Integer"></resultMap>
 
 	<insert id="insert">
@@ -30,13 +22,28 @@
 		up_user, up_date)
 		values(#{email}, #{nick}, #{pwd}, #{userImg},
 		#{moodCd}, #{genreCd},
-		#{situCd}, #{stusCd},
+		#{situCd},
+		#{stusCd},
 		#{lastDt}, #{inUser},
 		#{inDate}, #{upUser},
 		#{upDate})
 	</insert>
 
-	<select id="get" resultType="com.kwani.domain.UserVO">
+	<insert id="socialRegister">
+		insert into t_user (email, nick, pwd, user_img,
+		mood_cd, genre_cd, situ_cd,
+		stus_cd, last_dt, in_user, in_date,
+		up_user, up_date)
+		values(#{email}, #{nick}, #{pwd}, #{userImg},
+		#{moodCd}, #{genreCd},
+		#{situCd}, #{stusCd},
+		#{lastDt},
+		#{inUser},
+		#{inDate}, #{upUser},
+		#{upDate})
+	</insert>
+
+	<select id="get" resultMap="UserResult">
 		select * from t_user where email =
 		#{email}
 	</select>
@@ -44,7 +51,7 @@
 	<delete id="delete">
 		delete from t_user where email = #{email}
 	</delete>
-	
+
 	<update id="update">
 
 		update t_user
@@ -61,50 +68,80 @@
 
 	</update>
 
-	<select id="checkUserInfo" resultType="com.kwani.domain.UserVO">
+	<update id="setSysdate">
+		update t_user
+		set last_dt = sysdate
+		where email =
+		#{email}
+	</update>
+	
+	<update id="setSysdateForSocial">
+		update t_user
+		set last_dt = sysdate
+		where email =
+		#{kakaoEmail}
+	</update>
+
+
+	<select id="checkUserInfo" resultMap="UserResult">
 		select email, pwd,
-		user_img from t_user where email = #{email}
+		from
+		t_user where email = #{email}
 	</select>
 
 	<update id="modifyUserInfo">
 		update t_user
-		set nick = #{nick}, pwd = #{pwd}
-		where email = #{email}
-		<!-- 이미지 추가해야함. -->
-	</update>
-	
-	<update id="updateUserImg">
-		update t_user
-		set user_img = #{userImg}
+		set nick = #{nick}, pwd = #{pwd},
+		user_img = #{userImg}
 		where email = #{email}
 	</update>
-		
-	
+
 	<update id="withdrawal">
 		update t_user
 		set stus_cd = 2
 		where email = #{email}
 	</update>
-	
+
 	<select id="isUserIdVaild" resultType="Integer">
-		select count(*) from t_user
+		select count(*) from
+		t_user
 		where email = #{email}
 	</select>
-	
+
+	<select id="isSocialIdValid" resultType="Integer">
+		select count(*) from
+		t_user
+		where email = #{kakaoEmail}
+	</select>
+
 	<select id="checkUserIdPwd" resultType="Integer">
-		select count(*) from t_user
+		select count(*) from
+		t_user
 		where email = #{email} and pwd = #{pwd}
 	</select>
-	
+
 	<select id="checkWithdrawUser" resultType="Integer">
-		select stus_cd from t_user
+		select stus_cd from
+		t_user
 		where email = #{IdEmail}
 	</select>
-	
+
 	<update id="modifyPwd">
 		update t_user
 		set pwd = #{uuid}
-		where email = #{IdEmail}
+		where email
+		= #{IdEmail}
 	</update>
-	
+
+	<select id="checkUserImg" resultType="Integer">
+		select count(user_img) from
+		t_user
+		where email = #{email}
+	</select>
+
+	<select id="getUserImg" resultMap="UserResult">
+		select user_img from t_user
+		where email = #{email}
+	</select>
+
 </mapper>

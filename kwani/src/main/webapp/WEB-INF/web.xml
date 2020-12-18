@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app 
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_5.xsd"
 	id="WebApp_ID" version="3.1">
 
 	<filter>
@@ -19,7 +18,7 @@
 		<filter-name>encoding</filter-name>
 		<servlet-name>appServlet</servlet-name>
 	</filter-mapping>
-	
+
 	<!-- The definition of the Root Spring Container shared by all Servlets 
 		and Filters -->
 	<context-param>
@@ -47,19 +46,48 @@
 			<param-value>true</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
-		
+
 		<multipart-config>
-		<location>/Users/hoya/Desktop/upload/temp</location>
-			<max-file-size>20971520</max-file-size>  <!-- 1MB * 20 -->
-			<max-request-size>41943040</max-request-size>	<!-- 40MB -->
-			<file-size-threshold>20971520</file-size-threshold>	<!-- 20MB -->	
+			<location>C:\\upload\\temp</location>
+			<max-file-size>20971520</max-file-size>
+			<max-request-size>41943040</max-request-size>
+			<file-size-threshold>20971520</file-size-threshold>
 		</multipart-config>
-		
+
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
+
+
+
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>com.kwani.filter.LoginFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/mypage/*</url-pattern>
+		<url-pattern>/player/like</url-pattern>
+		<url-pattern>/player/list</url-pattern>
+		<url-pattern>/player/library</url-pattern>
+	</filter-mapping>
+
+
+
+	<filter>
+		<filter-name>AdminLoginFilter</filter-name>
+		<filter-class>com.kwani.filter.AdminLoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AdminLoginFilter</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+
+	</filter-mapping>
+
+
+
 </web-app>
