@@ -60,5 +60,19 @@ function checkTxt(){
 		return false;
 	}
 }
+
+function openSearch() {
+	document.getElementById("myOverlay").style.display = "block";
+}
+
+let overlay = document.getElementById('myOverlay');
+
+window.onclick = function(event) {
+	if (event.target == overlay) {
+		overlay.style.display = "none";
+	}
+}
+
+
 </script>
 </html>

@@ -10,7 +10,6 @@
 		<result property="nick" column="NICK" />
 		<result property="pwd" column="PWD" />
 		<result property="userImg" column="USER_IMG" />
-	
 	</resultMap>
 
 	<resultMap type="int" id="Integer"></resultMap>
