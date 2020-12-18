@@ -120,8 +120,14 @@
 											<td class="td8 img-td" colspan="2">
 												<div class="img-container">
 													<div class="img-div">
-														<a class="dropBtn"></a>
+														<a class="dropBtn"><img class="moreImg" src="/resources/image/more.png"></a>
 															<img class="myArtistImg myPlaylist" src="/resources/image/album/${plylst.plylstImg}">
+															<div class="dropdown">
+																<ul class="dropdown-content">
+																	<li><button class="mod">수정</button></li>
+																	<li><button class="del">삭제</button></li>
+																</ul>
+															</div>
 													</div>
 												</div>
 											</td>
@@ -151,7 +157,74 @@
 		<div id="rightSideBar"></div>
 	</div>
 
+	<!-- 모달창 -->
+	<div id="myModal" class="modal">
+		<div class="modal-overlay"></div>
+		<!-- content -->
+		<div class="modal-content">
+			<div class="modal-close">&times;</div>
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel"></h4>
+			</div>
+			<div class="modal-body">기본</div>
+			<div class="modal-footer">
+			<div>
+				<form action="/mypage/playlist/delete" method="post">
+					<input class="plylstDel" type="hidden" value="" name="plylstId">
+					<input class="email" type="hidden" value="${user.email}" name="email">
+					<button class="modalBtn">삭제하기</button>
+				</form>
+			</div>
+			</div>
+		</div>
+	</div>
+
 	<!--body-->
 	<div id="footer"></div>
 	<!--main-->
 </body>
+
+<script>
+	//드롭박스 : 수정,삭제
+	$(".dropBtn").click(function() {
+		let idx = $(".dropBtn").index(this);
+		$(".dropdown-content:eq(" + idx + ")").toggle();
+	});
+	
+	// 삭제모달 : 플레이리스트 번호 넘김
+	$(".del").click(function() {
+		let idx = $(".del").index(this);
+		let idxValue = $(".plylstValue:eq(" + idx + ")").val();
+		$(".plylstDel").val(idxValue);
+
+		closeModalContent("삭제하시겠습니까?");
+	});
+	
+	// 모달 x 누르면 닫힘
+	$(".modal-close").click(function(){
+		$(".modal").attr("style", "display:none");
+	});
+	
+	// 모달 바깥 누르면 닫힘
+	$(".modal-overlay").click(function(){
+		$(".modal").attr("style", "display:none");
+	});
+	
+	// 기본 모달 내용 변경 함수
+	function basicModalContent(content){
+		$(".modal-body").text(content);
+		$(".modalBtn").hide();
+		$(".modal-close").hide();
+		$("#myModal").attr("style", "display:block");
+	}
+	
+	// 닫기 모달 내용 변경 함수
+	function closeModalContent(content){
+		$(".modal-body").text(content);
+		$(".modalBtn").show();
+		$(".modal-close").show();
+		$("#myModal").attr("style", "display:block");
+	}
+</script>
+
+</html>

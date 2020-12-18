@@ -8,11 +8,11 @@ import com.kwani.domain.UserVO;
 
 public interface MyPageService {
 
+	public boolean removePlaylist(Integer plylstId, String email);
 	public int createPlaylist(PlaylistVO playlistVO);
 	public int modifyPlaylist(PlaylistVO playlistVO);
 	public int countPlaylistTrack(Integer plylstId);
 	public int removePlaylist(Integer plylstId);
-
 	public int countPlaylist(String email);
 
 	public UserVO getOneUser(String email);

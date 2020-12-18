@@ -116,6 +116,34 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageMapper.getUser(email);
 	}
 
+	// TODO : check controller?
+	// 플레이리스트 삭제
+	@Override
+	public boolean removePlaylist(Integer plylstId, String email) {
+		log.info("remove Playlist" + plylstId);
+		
+		// delete
+		// 없는 플레이리스트 삭제했을때 0
+		// 삭제 성공 1
+		
+		// playlistId가 존재하는지 아닌지
+		if(!checkValidPlaylistId(plylstId, email)) {
+			return false;
+		}
+		
+		myPageMapper.deletePlaylist(plylstId, email);
+		myPageMapper.deletePlaylistDetail(plylstId);
+		
+		return true;
+	}
+	
+	private boolean checkValidPlaylistId(Integer plylstId, String email) {
+		if(myPageMapper.getOnePlaylist(plylstId) == null) {
+			return false;
+		}
+		return true;
+	}
+	
 	// 플레이리스트 개수
 	@Override
 	public int countPlaylist(String email) {

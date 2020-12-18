@@ -143,7 +143,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deletePlaylist">
 		DELETE FROM T_PLYLST
 		WHERE PLYLST_ID = #{plylstId}
+		AND EMAIL = #{email}
 	</delete>
+
+	<delete id="deletePlaylistDetail">
+		DELETE FROM T_PLYLST_DTL
+		WHERE PLYLST_ID = #{plylstId}
+	</delete>
+	
+	<select id="getOnePlaylist" resultMap="Integer">
+		SELECT PLYLST_ID FROM
+		T_PLYLST
+		WHERE PLYLST_ID = #{plylstId}
+	</select>
 
 	<update id="updatePlaylist">
 		UPDATE T_PLYLST

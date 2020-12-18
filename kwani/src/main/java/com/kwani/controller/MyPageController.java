@@ -105,12 +105,18 @@ public class MyPageController {
 		return "/mypage/playlistView";
 	}
 
+	// TODO : AJAX로 변경
+	// 플레이리스트 삭제
 	@PostMapping("/playlist/delete")
-	public String deletePlaylist(@ModelAttribute("plylstId") Integer plylstId, @ModelAttribute("user") UserVO user, RedirectAttributes rttr) {
+	public String deletePlaylist(Integer plylstId, String email, RedirectAttributes rttr) {
 
-		myPageService.removePlaylist(plylstId);
-		rttr.addFlashAttribute("user", user);
-
+		Boolean result = myPageService.removePlaylist(plylstId, email);
+		
+		if(!result) {
+			return "error_page";
+		}
+		rttr.addFlashAttribute("successDel", result);
+		
 		return "redirect:/mypage/playlist";
 	}
 
