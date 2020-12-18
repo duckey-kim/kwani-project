@@ -43,20 +43,23 @@
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+
 		<multipart-config>
 			<location>C:\\upload\\temp</location>
 			<max-file-size>20971520</max-file-size>
 			<max-request-size>41943040</max-request-size>
 			<file-size-threshold>20971520</file-size-threshold>
 		</multipart-config>
+
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
-	
+
+
+
 	<filter>
 		<filter-name>LoginFilter</filter-name>
 		<filter-class>com.kwani.filter.LoginFilter</filter-class>
@@ -81,5 +84,7 @@
 		<url-pattern>/admin/*</url-pattern>
 
 	</filter-mapping>
+
+
 
 </web-app>

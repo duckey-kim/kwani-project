@@ -177,11 +177,15 @@ a {
     height: 400px;
     background-color: pink;
 }
-
+.plylstImg{
+	width: 100%;
+	height: 350px;
+}
 .toLogin{
     width: 100%;
     height: 200px;
     background-color: black;
+    display: flex;
 }
 .goLogin{
 	width: 90%;
@@ -202,7 +206,7 @@ a {
 	background-color: #f44336;
 	border: none;
   	color: white;
-  	padding: 15px 32px;
+  	padding: 10px 16px;
   	text-align: center;
   	text-decoration: none;
   	display: inline-block;

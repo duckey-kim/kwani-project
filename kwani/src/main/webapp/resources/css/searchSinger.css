@@ -148,7 +148,7 @@ a {
 .searchRst{
     width: 100%;
     height: 100px;
-    background-color: bisque;
+    background-color: white;
     line-height: 100px;
 }
 .rstTap{
@@ -157,68 +157,97 @@ a {
     justify-content: space-evenly;
     width: 100%;
     height: 50px;
-    background-color: thistle;
+    background-color: white;
 }
 .rstInfo{
     display: flex;
     width: 100%;
     height: 250px;
-    background-color: powderblue;
+    background-color: white;
     padding-top: 25px;
     box-sizing: border-box;
 }
 .rstImg{
-    width: 25%;
+    width: 20%;
     height: 200px;
-    background-color: salmon;
+    background-color: white;
+}
+.artistImg{
+	height: 200px;
+	width: 200px;
 }
 .rstText{
     width: 30%;
     height: 200px;
-    background-color: yellowgreen;
+    background-color: white;
+    padding-left: 20px;
 }
 .trackHeader{
     width: 100%;
     height: 50px;
-    background-color: peru;
+    background-color: white;
 }
 .trackTable{
     width: 100%;
     height: 300px;
-    background-color: whitesmoke;
+    background-color: white;
 }
 .albumTxt{
     width: 100%;
     height: 50px;
-    background-color: plum;
+    background-color: white;
 }
-.albumImg{
+.albumImgContainer{
+	display: flex;
     width: 100%;
     height: 300px;
-    background-color: silver;
+    background-color: white;    
+	justify-content: space-between;
 }
-.plylstTxt{
+.eachAlbum{
+	width: 20%;
+	height: 300px;
+}
+.albumImg{
+	width: 100%;
+	height: 250px;
+}
+.albumArtist{
+	width: 100%;
+	height: 20px;
+}
+.albumTtl{
+	width: 100%;
+	height: 30px;
+}
+
+.artistAllTxt{
     width: 100%;
     height: 50px;
     background-color: wheat;
 }
-.plylstImg{
+.artistAllImg{
     width: 100%;
     height: 300px;
     background-color: seagreen;
 }
-.similiarTxt{
+.lyricsTxt{
     width: 100%;
     height: 50px;
     background-color: skyblue;
 }
-.similiarImg{
+.lyricsImg{
     width: 100%;
     height: 300px;
     background-color: rosybrown;
 }
 .textInfo{
     line-height: 50px;
+}
+.playBtn{
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
 }
 table{
     border-collapse: collapse;
@@ -241,6 +270,9 @@ th, td{
 .th3{
     width: 20%;
 }
+
+
+
 #rightSideBar {
     width: 10%;
     height: 1800px;

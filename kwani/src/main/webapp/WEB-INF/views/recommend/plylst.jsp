@@ -33,11 +33,11 @@
                     <a href="#">Join</a>
                 </div>
             </div>
-            <div id="myOverlay" class="overlay">
+               <div id="myOverlay" class="overlay">
                 <div class="overlay-content">
-                  <form action="/recommend/search" method="get" name="searchForm">
+                  <form action="/recommend/search" method="get" name="searchForm" onsubmit="return checkTxt();">
                     <input type="text" placeholder="Search.." name="searchTxt" value="">
-                    <button type="submit"><i class="fa fa-search"></i></button>
+                    <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
                   </form>
                 </div>
             </div><!--myOverlay-->
@@ -71,8 +71,12 @@
                         <td class="num">${status.index+1}</td>
                         <td><c:out value="${plstdtl.nm}" /></td>
                         <td><c:out value="${plstdtl.trackTtl}" /></td>
-                        <td>Peter</td>
-                        <td class="faHeart"><i class="far fa-heart"></i></td>
+                        <td><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        <!-- <td class="faHeart"><i class="far fa-heart"></i></td> -->
+                        <td >
+                        <img class="defaultHeartImg"src="/resources/image/heart2.png">
+                        <img class="redHeartImg" src="/resources/image/heart.png">
+                        </td>
                         </tr>
                         </c:forEach>
                         
@@ -80,6 +84,49 @@
                     </div>
                     
                 <script>
+                
+                //좋아요 클릭하면 하트 색깔 바뀌게 설정--------------------------------------------------------
+     
+                
+   				$(function(){
+                	$(".defaultHeartImg").each(function(){
+                		$(this).click(function(){
+                			this.src="/resources/image/heart.png";
+                			console.log("defaultHeartImg clicked!");
+                			return false;
+                		})
+                	})
+                	
+                })           
+                
+		/* 		$(document).ready(function(){
+					$(".defaultHeartImg").show();
+					$(".redHeartImg").hide();
+					
+					$(".defaultHeartImg").click(function(){
+						
+						$(".defaultHeartImg").hide();
+						$(".redHeartImg").show();
+					});
+					$(".redHeartImg").click(function(){
+						
+						$(".defaultHeartImg").show();
+						$(".redHeartImg").hide();
+					});
+				}) */
+				
+                
+                
+                
+              
+                
+            
+                
+                
+                
+            	
+            	
+                //체크박스 설정-------------------------------------------------------------------------
                 	function allCheckFunc(obj){
                 		//모든 checkRow의 속성이 checked가 되게 한다                		
                 		$("[name=checkRow]").prop("checked", $(obj).prop("checked"));

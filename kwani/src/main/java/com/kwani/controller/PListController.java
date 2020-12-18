@@ -19,47 +19,45 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class PListController {
 
-	private PListService plservice;
+private PListService plservice;
 	
-	//ÀÏ¹İ »ç¿ëÀÚ ÃßÃµ ÆäÀÌÁö
+	//ì¼ë°˜ ì‚¬ìš©ì ì¶”ì²œ í˜ì´ì§€
 	@GetMapping("/common")
 	public void list(Model model) {
 		
-		//Àå¸£º° ÇÃ·¹ÀÌ¸®½ºÆ® id¿Í ÀÌ¸§À» º¸¿©ÁØ´Ù 
-		//ÇÃ·¹ÀÌ¸®½ºÆ® ¹øÈ£¿Í ÀÌ¸§¸¸ º¸¿©ÁÖ±â
+		//ì¥ë¥´ë³„ í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ idì™€ ì´ë¦„ì„ ë³´ì—¬ì¤€ë‹¤ 
+		//í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ ë²ˆí˜¸ì™€ ì´ë¦„ë§Œ ë³´ì—¬ì£¼ê¸°
 		log.info("allplist...");
 		model.addAttribute("allplist", plservice.getAllList());	
 	}
 	
-	//ÇÃ·¹ÀÌ¸®½ºÆ® »ó¼¼ ÆäÀÌÁö
+	//í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ ìƒì„¸ í˜ì´ì§€
 	@PostMapping("/plylst")
-	public void plylst(@ModelAttribute("plylstId")int plylstId, Model model) {
+	public void plylst(@ModelAttribute("plylstId")Integer plylstId, Model model) {
 		
 		System.out.println(plylstId);
 		log.info("plist name....");
 		System.out.println(plservice.getListName(plylstId));
-		//plylstId°ª°ú °°Àº id°ªÀ» °¡Áø plylstNmÀ» °¡Á®¿Â´Ù  
+		//plylstIdê°’ê³¼ ê°™ì€ idê°’ì„ ê°€ì§„ plylstNmì„ ê°€ì ¸ì˜¨ë‹¤  
 		model.addAttribute("plistName", plservice.getListName(plylstId));
-		//plylstId °ªÀ» ÅëÇØ °°Àº id °ªÀ» °¡Áø ÇÃ·¹ÀÌ¸®½ºÆ® ¸ñ·ÏÀ» °¡Á®¿Â´Ù
+		//plylstId ê°’ì„ í†µí•´ ê°™ì€ id ê°’ì„ ê°€ì§„ í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ ëª©ë¡ì„ ê°€ì ¸ì˜¨ë‹¤
 		model.addAttribute("plistListDtl", plservice.getListDtl(plylstId));	
-	}
+	} 
 	
-	//³ë·¡ °Ë»ö ÆäÀÌÁö
-	@GetMapping("/search")
+	//ë…¸ë˜ ê²€ìƒ‰ í˜ì´ì§€
+	@GetMapping("/search") 
 	public void search(@ModelAttribute("searchTxt")String searchTxt, Model model) {
-		//°Ë»öÃ¢¿¡ ÀÔ·ÂÇÑ °¡¼ö ÅØ½ºÆ®¸¦ search ÆäÀÌÁö¿¡ º¸³»ÁØ´Ù
-		//search ÆäÀÌÁö¿¡¼­ ±× °ªÀ» ¹Ş¾Æ¼­ °ª°ú ÀÏÄ¡ÇÏ´Â °á°ú¸¦ º¸¿©ÁØ´Ù
+		//ê²€ìƒ‰ì°½ì— ì…ë ¥í•œ ê°€ìˆ˜ í…ìŠ¤íŠ¸ë¥¼ search í˜ì´ì§€ì— ë³´ë‚´ì¤€ë‹¤
+		//search í˜ì´ì§€ì—ì„œ ê·¸ ê°’ì„ ë°›ì•„ì„œ ê°’ê³¼ ì¼ì¹˜í•˜ëŠ” ê²°ê³¼ë¥¼ ë³´ì—¬ì¤€ë‹¤
 		System.out.println("@@@");
 		log.info("search result....");
 		model.addAttribute("searchRst", plservice.getSearchRst(searchTxt));
+		
+	
 	}
 	
 	
-	
-	
-	
-	
-	
+	 
 	
 	
 	

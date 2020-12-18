@@ -15,11 +15,11 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class PListServiceImpl implements PListService{
 	
-	private ListMapper mapper;
+private ListMapper mapper;
 	
-	//ÇÃ·¹ÀÌ¸®½ºÆ® »ó¼¼ ÆäÀÌÁö °ü·Ã-----------------------------------------------
+	//í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ ìƒì„¸ í˜ì´ì§€ ê´€ë ¨-----------------------------------------------
 	@Override
-	public PListVO getListName(int plylstId){
+	public PListVO getListName(Integer plylstId){
 		
 		log.info("getListName......" + plylstId);
 		
@@ -27,23 +27,23 @@ public class PListServiceImpl implements PListService{
 	}
 	
 	@Override
-	public List<PListVO> getListDtl(int plylstId){
+	public List<PListVO> getListDtl(Integer plylstId){
 		
 		log.info("getListDtl......" + plylstId);
 		
 		return mapper.getListDtl(plylstId);
 	}
 	
-	//ÀÏ¹İ ÃßÃµ ÆäÀÌÁö °ü·Ã----------------------------------------------------
+	//ì¼ë°˜ ì¶”ì²œ í˜ì´ì§€ ê´€ë ¨----------------------------------------------------
 	@Override
 	public List<PListVO> getAllList(){
 		
-		log.info("getAllList........¸®½ºÆ®Á¤º¸¸¸!");
+		log.info("getAllList........ë¦¬ìŠ¤íŠ¸ì •ë³´ë§Œ!");
 		
 		return mapper.getAllList();
 	}
 
-	//³ë·¡ °Ë»ö ÆäÀÌÁö
+	//ë…¸ë˜ ê²€ìƒ‰ í˜ì´ì§€
 	@Override
 	public List<PListVO> getSearchRst(String searchTxt) {
 		
@@ -53,6 +53,7 @@ public class PListServiceImpl implements PListService{
 	}
 	
 	
+
 
 
 }
