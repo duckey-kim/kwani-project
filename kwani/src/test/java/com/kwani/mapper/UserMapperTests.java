@@ -29,16 +29,6 @@ public class UserMapperTests {
 		user.setNick("개구리는 개굴개굴");
 		user.setPwd("1234");
 		user.setUserImg("");
-		user.setMoodCd("");
-		user.setGenreCd("");
-		user.setSituCd("");
-		user.setStusCd("");
-		user.setLastDt("");
-		user.setInUser("");
-		user.setInDate("");
-		user.setUpUser("");
-		user.setUpDate("");
-		
 		mapper.insert(user);
 		
 		log.info(user);
@@ -52,15 +42,6 @@ public class UserMapperTests {
 		user.setNick("개구리는 개굴개굴");
 		user.setPwd("1234");
 		user.setUserImg("");
-		user.setMoodCd("");
-		user.setGenreCd("");
-		user.setSituCd("");
-		user.setStusCd("");
-		user.setLastDt("");
-		user.setInUser("");
-		user.setInDate("");
-		user.setUpUser("");
-		user.setUpDate("");
 		
 		mapper.socialRegister(user);
 		
@@ -112,15 +93,6 @@ public class UserMapperTests {
 		user.setNick("잼민이가조용하다");
 		user.setPwd("123123123");
 		user.setUserImg("");
-		user.setMoodCd("");
-		user.setGenreCd("");
-		user.setSituCd("");
-		user.setStusCd("");
-		user.setLastDt("");
-		user.setInUser("");
-		user.setInDate("");
-		user.setUpUser("");
-		user.setUpDate("");
 		
 		
 		int count = mapper.update(user);
@@ -145,7 +117,6 @@ public class UserMapperTests {
 		
 		UserVO user = new UserVO();
 		user.setEmail("c@gmail.com");
-		user.setStusCd("2");
 		
 		int count = mapper.withdrawal(user);
 		

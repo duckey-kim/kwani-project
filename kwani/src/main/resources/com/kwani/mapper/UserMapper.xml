@@ -10,15 +10,7 @@
 		<result property="nick" column="NICK" />
 		<result property="pwd" column="PWD" />
 		<result property="userImg" column="USER_IMG" />
-		<result property="moodCd" column="MOOD_CD" />
-		<result property="genreCd" column="GENRE_CD" />
-		<result property="situCd" column="SITU_CD" />
-		<result property="stusCd" column="STUS_CD" />
-		<result property="lastCd" column="LAST_CD" />
-		<result property="inUser" column="IN_USER" />
-		<result property="inDate" column="IN_DATE" />
-		<result property="upUser" column="UP_USER" />
-		<result property="upDate" column="UP_DATE" />
+	
 	</resultMap>
 
 	<resultMap type="int" id="Integer"></resultMap>
