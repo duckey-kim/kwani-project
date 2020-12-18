@@ -1,0 +1,48 @@
+console.log("module");
+
+let mypageService = (function(){
+	
+	function getLikedList(callback, error) {
+
+		$.ajax({
+			type : 'get', // HTTP 요청 방식
+			url : '/mypage/likeList.json', // 요청을 보낼 서버의 URL 주소
+			// data: HTTP 요청과 함께 보낼 데이터
+			dataType : 'text', // 서버에서 보내줄 데이터 타입
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, err) {
+				// TODO: 에러처리
+				console.log("에러");
+			}
+		});
+	}
+	
+	function getLibraryList(callback, error) {
+
+		$.ajax({
+			type : 'get', // HTTP 요청 방식
+			url : '/mypage/libraryList.json', // 요청을 보낼 서버의 URL 주소
+			// data: HTTP 요청과 함께 보낼 데이터
+			dataType : 'text', // 서버에서 보내줄 데이터 타입
+			success : function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error : function(xhr, status, err) {
+				// TODO: 에러처리
+				console.log("에러");
+			}
+		});
+	}
+	
+	return{
+		getLikedList : getLikedList,
+		getLibraryList : getLibraryList
+	};
+	
+})();

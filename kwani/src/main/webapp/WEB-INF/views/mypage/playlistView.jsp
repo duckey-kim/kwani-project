@@ -159,7 +159,49 @@
 						</div>
 					</div>
 				</div>
-
+				
+				<!-- 곡 추가 모달창 -->
+				<div class="modal" id="addModal">
+					<div class="modal-overlay"></div>
+					<!-- content -->
+					<div class="modal-content">
+						<div class="modal-close">&times;</div>
+						<div class="modal-header">
+							<button class="likeBtn">좋아요한곡</button>
+							<button class="libraryBtn">최근들은곡</button>
+						</div>
+							<!-- 모달 -->
+							<div class="modal-bbody">
+								<table class="changetr" style="width: 100%">
+									<tr>
+										<th><input type="checkbox" id="checkAll"></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+									</tr>
+									<c:forEach items="${likedTrackList}" var="track">
+										<tr class="tr-check">
+											<td><input class="checkbox" type="checkbox" id="checkbox" name="trackId" value="${track.TRACK_ID}">
+											</td>
+											<td><a href="#"><img src="/resources/image/album/${track.ALBUM_IMG}" class="myImg"></a></td>
+											<td><c:out value="${track.TRACK_TTL}" /></td>
+											<td><c:out value="${track.NM}" /></td>
+											<td><c:out value="${track.ALBUM_TTL}" /></td>
+											<td>
+												<button class="addSelectedTrack"> + </button>
+											</td>
+										</tr>
+									</c:forEach>
+								</table>
+							</div>
+							<div class="modal-footer">
+									<button class="addSelectedTrack">담기</button>
+							</div>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 		<!--bodyContent-->
@@ -168,4 +210,74 @@
 	<div id="footer"></div>
 	<!--main-->
 </body>
+
+<script>	
+
+	// 곡 추가 모달
+	$("#addBtn").click(function() {
+		$("#addModal").attr("style", "display:block");
+	});
+	
+	// 모달 x 누르면 닫힘
+	$(".modal-close").click(function(){
+		$(".modal").attr("style", "display:none");
+	});
+	
+	// 모달 바깥 누르면 닫힘
+	$(".modal-overlay").click(function(){
+		$(".modal").attr("style", "display:none");
+	});
+	
+	// 최근들은곡 ajax
+	$(".libraryBtn").click(function() {
+			addService.getLibraryList(function(data) {
+			
+					let obj = JSON.parse(data);
+	
+					$(".changetr").empty();
+					let str = "<tr><th class='th1'><input type='checkbox' id='checkAll'></th><th></th><th></th><th></th><th></th><th></th></tr>";
+					$(".changetr").append(str);
+					str = "";
+					
+					$.each(obj,function(i) {
+							str += "<tr>";
+							str += "<td><input class='checkbox' type='checkbox' id='checkbox' value='" + obj[i].TRACK_ID + "'></td>";
+							str += "<td><a href='#'><img src='/resources/image/album/" + obj[i].ALBUM_IMG + "' class=myImg></a></td>";
+							str += '<td>'+ obj[i].TRACK_TTL+ '</td>';
+							str += '<td>'+ obj[i].NM+ '</td>';
+							str += '<td>'+ obj[i].ALBUM_TTL+ '</td>';
+							str += "<td><button class='addSelectedTrack'>+</button></td>";
+							str += "</tr>";
+						})
+						$(".changetr").append(str);
+					})
+	 		});
+	
+	// 좋아요곡 ajax	
+	$(".likeBtn").click(function() {
+				addService.getLikeList(function(data) {
+	
+					let obj = JSON.parse(data);
+	
+					$(".changetr").empty();
+					let str = "<tr><th class='th1'><input type='checkbox' id='checkAll'></th><th></th><th></th><th></th><th></th><th></th></tr>";
+					$(".changetr").append(str);
+					str = "";
+									
+					$.each(obj,function(i) {
+						str += "<tr>";
+						str += "<td><input class='checkbox' type='checkbox' id='checkbox' value='" + obj[i].TRACK_ID + "'></span></td>";
+						str += "<td><a href='#'><img src='/resources/image/album/" + obj[i].ALBUM_IMG + "' class=myImg></a></td>";
+						str += '<td>'+ obj[i].TRACK_TTL+ '</td>';
+						str += '<td>'+ obj[i].NM+ '</td>';
+						str += '<td>'+ obj[i].ALBUM_TTL+ '</td>';
+						str += "<td><button class='addSelectedTrack'>+</button></td>";
+						str += "</tr>";
+					})
+					$(".changetr").append(str);
+				})		
+	});
+
+</script>
+
 </html>
