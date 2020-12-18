@@ -12,6 +12,7 @@ public class PListVO {
 	private String trackTtl;
 	private Integer plylstId;
 	private String plylstNm;
+	private String plylstImg;
 	private Integer rcmdPlylstId;
 	private String rcmdPlylstNm;
 	private String rcmdPlylstImg;
@@ -26,4 +27,7 @@ public class PListVO {
 	private Integer gropId;
 	private String albumImg;
 	private String gropImg;
+	private String trackLyrics;
+	private Integer rn;
+	private Integer trackCnt;
 }

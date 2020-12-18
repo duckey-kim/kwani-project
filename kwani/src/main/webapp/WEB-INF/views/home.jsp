@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>home</title>
@@ -33,6 +34,7 @@
 
 
 <%@include file="includes/header.jsp"%>
+
 
 
 <div id="body">
@@ -169,11 +171,13 @@
 <!-- ---------------------------------------------------------------------------------------- -->
 
 <script type="text/javascript">
+
 	//세션값이 잘 넘어왔는지 확인한다.
 	console.log('${sessionName}');
 	console.log('${userNick}');
 	console.log('${list}');
 	console.log('${slideImg}');
+
 
 	let logoutBtn = document.getElementById("logoutBtn");
 	let loginBtn = document.getElementById("loginBtn");
