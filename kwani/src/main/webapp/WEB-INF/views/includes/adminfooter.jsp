@@ -27,11 +27,7 @@
 	$(document).ready(
 			function() {
 				$('#dataTables-example').DataTable({
-					responsive : true,
-					"columnDefs" : [ {
-						"type" : "numeric-comma",
-						targets : 0
-					} ]
+					responsive : true
 				});
 				$(".sidebar-nav").attr("class",
 						"sidebar-nav navbar-collapse collapse").attr(

@@ -355,6 +355,7 @@
             			return false;
             		}
             	}
+
             	
             	
                 //체크박스 설정-------------------------------------------------------------------------
@@ -412,4 +413,11 @@
                 </script>
                 
                     
-            <%@include file="../includes/footer.jsp" %>
+ </div><!--bodyContent-->
+            <div id="rightSideBar"></div>
+        </div><!--body-->
+        <div id="footer"></div>
+    </div><!--main-->
+</body>
+</html>
+                
