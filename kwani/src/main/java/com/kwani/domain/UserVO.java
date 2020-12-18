@@ -13,6 +13,8 @@ public class UserVO {
 	private String userImg;
 	private Integer stusCd;
 	private String lastDt;
+	
+	
 	public UserVO(String email, String nick, String pwd, String userImg, Integer stusCd, String lastDt) {
 		this.email = email;
 		this.nick = nick;
