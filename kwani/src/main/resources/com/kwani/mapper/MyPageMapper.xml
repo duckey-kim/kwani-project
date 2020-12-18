@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND LT.TRACK_ID = H.TRACK_ID
 	</select>
 
-	<select id="getListPlaylistDetail" resultMap="selectMap">
+	<select id="getPlaylistDetail" resultMap="selectMap">
 		SELECT PD.PLYLST_ID,
 		T.TRACK_TTL, A.NM AS ANM, AL.ALBUM_TTL, AL.ALBUM_IMG AS ALBUM_IMG,
 		PD.PLY_NO, PD.TRACK_ID AS TRACK_ID

@@ -91,24 +91,17 @@ public class MyPageController {
 		return "/mypage/playlistDetail";
 	}
 
-	// *****************************************
-	// ************* 2차 개발 미완성 **************
-	// *****************************************
-	// 플레이리스트 생성 수정 삭제
-	// 새 플레이리스트 seq 만들고 넘겨주는 페이지
+	// TODO : Null check
+	// 새 플레이리스트 생성
 	@PostMapping("/playlist/create")
-	public String createPlaylist(@ModelAttribute("user") UserVO user, Model model) {
-
-		PlaylistVO playlistVO = new PlaylistVO();
-		playlistVO.setEmail(user.getEmail());
-		playlistVO.setNm("제목을 입력하세요");
-		playlistVO.setDesc("내용을 입력하세요");
-
+	public String createPlaylist(@ModelAttribute("playlistVO") PlaylistVO playlistVO, HttpSession session , Model model) {
+		
+		UserVO user = (UserVO) session.getAttribute("user");
+		
 		myPageService.createPlaylist(playlistVO);
-
-		model.addAttribute("plylst", playlistVO);
-		model.addAttribute("user", user);
-
+		model.addAttribute("playlistVO", playlistVO);
+		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(user.getEmail()));
+				
 		return "/mypage/playlistView";
 	}
 
@@ -129,16 +122,6 @@ public class MyPageController {
 		rttr.addFlashAttribute("user", user);
 
 		return "redirect:/mypage/playlist";
-	}
-
-	@PostMapping("/playlist/addtrack")
-	public String addTrack(@ModelAttribute("searchTxt") String trackTitle, @ModelAttribute("user") UserVO user, Model model) {
-
-		// search keyword 받으면 (일단 곡제목으로)
-		// 검색한 곡들 보여주기
-		// 버튼 누르면 보내기 playlist/123으로 보내기
-
-		return "/mypage/addTrack";
 	}
 
 }

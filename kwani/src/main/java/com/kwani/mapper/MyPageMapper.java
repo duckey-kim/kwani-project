@@ -3,6 +3,8 @@ package com.kwani.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.kwani.domain.PlaylistVO;
 import com.kwani.domain.TrackVO;
 import com.kwani.domain.UserVO;
@@ -25,7 +27,7 @@ public interface MyPageMapper {
 	public List<Map<String,String>> getListLikedArtist(String email);
 	public List<Map<String,String>> getListLikedTrack(String email);
 	public List<Map<String,String>> getListLikedAlbum(String email);
-	public List<Map<String,String>> getListPlaylistDetail(Integer plylstId, String email);
+	public List<Map<String,String>> getPlaylistDetail(@Param("plylstId")Integer plylstId, @Param("email")String email);
 	
 	public List<Map<String,String>> findTrack(String searchTxt);
 	

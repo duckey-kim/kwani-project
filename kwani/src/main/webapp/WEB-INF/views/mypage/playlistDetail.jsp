@@ -10,9 +10,9 @@
 <title>Library</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="/resources/js/jquery-3.5.1.js" /></script>
 <script defer src="/resources/js/indexNoVideo.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/indexNoVideomh.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/indexNoVideomh.css">
 <link rel="stylesheet" href="/resources/css/mainmh.css" />
 </head>
 
@@ -65,33 +65,21 @@
 					<div class='nav-left'>
 						<div class="nav-item">
 							<form action="/mypage/overview" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Overview</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/playlist" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Playlist</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/like" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Like</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/library" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Library</button>
 							</form>
 						</div>
@@ -101,8 +89,11 @@
 				<div class="mypage-body">
 					<div class="body-item bg-bl">
 						<div class="item-header">
-							<h3>
+							<h2>
 								<a href="#"><c:out value="${playlistDetail[0].NM}" /></a>
+							</h2>
+							<h3>
+								<c:out value="${playlistDetail[0].DESCP}" />
 							</h3>
 						</div>
 						<div class="item-body">
@@ -112,16 +103,18 @@
 									<table style="width: 100%">
 										<tr>
 											<th class="th1"></th>
+											<th class="th1"></th>
 											<th class="th2"></th>
 											<th class="th3"></th>
-											<th class="th4">곡명</th>
-											<th class="th5">가수</th>
-											<th class="th6">앨범명</th>
+											<th class="th4"></th>
+											<th class="th5"></th>
+											<th class="th6"></th>
 										</tr>
-									<c:forEach items="${playlistDetail}" var="playlistDetail">
+									<c:forEach items="${playlistDetail}" var="playlistDetail" varStatus="status">
 										<tr>
+											<td>${status.count}</td>											
 											<td><c:out value="${playlistDetail.PLY_NO}" /></td>
-											<td><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
+											<td onclick='popupPlayer("/player/track?trackId=${playlistDetail.TRACK_ID}")'><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
 											<td><a href="#"><img src="/resources/image/album/${playlistDetail.ALBUM_IMG}" class="myImg"></a></td>
 											<td><c:out value="${playlistDetail.TRACK_TTL}" /></td>
 											<td><c:out value="${playlistDetail.ANM}" /></td>
@@ -142,4 +135,13 @@
 	<div id="footer"></div>
 	<!--main-->
 </body>
+
+<script>
+      let popupPlayer = function(url){
+          let moveTop=screen.height-440;
+           let moveLeft=screen.width-537;
+         window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+      }
+</script>
+
 </html>

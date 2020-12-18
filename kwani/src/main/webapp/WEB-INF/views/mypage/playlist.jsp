@@ -120,14 +120,8 @@
 											<td class="td8 img-td" colspan="2">
 												<div class="img-container">
 													<div class="img-div">
-														<a class="dropBtn"><img class="moreImg" src="/resources/image/more.png"></a>
-															<img class="myArtistImg" src="/resources/image/album/${plylst.plylstImg}">
-														<div class="dropdown">
-															<ul class="dropdown-content">
-																<li><button class="mod">수정</button></li>
-																<li><button class="del">삭제</button></li>
-															</ul>
-														</div>
+														<a class="dropBtn"></a>
+															<img class="myArtistImg myPlaylist" src="/resources/image/album/${plylst.plylstImg}">
 													</div>
 												</div>
 											</td>
@@ -136,16 +130,16 @@
 										<tr>
 											<td>
 												<form action="/mypage/playlistDetail" method="post">
-													<input class="plylstValue" type="hidden"
-														value="${plylst.plylstId}" name="plylstId">
+													<input class="plylstValue" type="hidden" value="${plylst.plylstId}" name="plylstId">
 													<button class="button2">
-														<c:out value="${plylst.nm}" />
+														<c:out value="${plylst.nm}"/>
 													</button>
 												</form>
 											</td>
 										</tr>
 									</table>
 								</c:forEach>
+								
 							</div>
 						</div>
 					</div>
@@ -161,4 +155,3 @@
 	<div id="footer"></div>
 	<!--main-->
 </body>
-</html>

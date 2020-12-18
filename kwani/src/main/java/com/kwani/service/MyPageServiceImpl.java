@@ -80,11 +80,13 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageMapper.getListLikedArtist(email);
 	}
 
-	@Override
-	public List<Map<String, String>> getListLikedTrack(String email) {
-		log.info("getList LikedTrack...");
-		return myPageMapper.getListLikedTrack(email);
-	}
+	// 좋아요 곡 목록 가져오기
+		@Override
+		public List<Map<String, String>> getListLikedTrack(String email) {
+			log.info("getList LikedTrack...");
+			
+			return myPageMapper.getListLikedTrack(email);
+		}
 
 	@Override
 	public List<Map<String, String>> getListLikedAlbum(String email) {
@@ -105,7 +107,7 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public List<Map<String, String>> getListPlaylistDetail(Integer plylstId, String email) {
 		log.info("get PlaylistDetail..." + plylstId);
-		return myPageMapper.getListPlaylistDetail(plylstId, email);
+		return myPageMapper.getPlaylistDetail(plylstId, email);
 	}
 
 	@Override
