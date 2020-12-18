@@ -166,13 +166,13 @@
 								<th class="th1"></th>
 								<th class="th2"></th>
 								<th class="th3"></th>
-								<th class="th4">곡명</th>
-								<th class="th5">가수</th>
-								<th class="th6">앨범명</th>
+								<th class="th4"></th>
+								<th class="th5"></th>
+								<th class="th6"></th>
 							</tr>
 							<c:forEach items="${likedTrackList}" var="track">
 								<tr>
-									<td><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
+									<td onclick='popupPlayer("/player/track?trackId=${track.TRACK_ID}")'><img src="/resources/image/play-button.png" class="play"></td>
 									<td><a href="#"><img src="/resources/image/heart.png" class="play"></a></td>
 									<td><a href="#"><img src="/resources/image/album/${track.ALBUM_IMG}" class="myImg"></a></td>
 									<td><c:out value="${track.TRACK_TTL}" /></td>
@@ -181,6 +181,31 @@
 								</tr>
 							</c:forEach>
 						</table>
+						
+						<!-- 페이징처리 -->
+<%-- 						<div class='pull-right'>
+							<ul class="pagination">
+								<c:if test="${pageMaker.prev}">
+									<li class="paginate_button">
+										<a href="#">이전</a>
+									</li>
+								</c:if>
+										
+								<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+											<li class="paginate_button">
+												<a href="#">${num}</a>
+											</li>
+										</c:forEach>
+										
+										<c:if test="${pageMaker.next}">
+											<li class="paginate_button next">
+												<a href="#">이전</a>
+											</li>
+										</c:if>
+									</ul>
+								</div> --%>
+								<!-- 페이징 처리 끝 -->
+						
 					</div>
 
 				</div>
@@ -194,4 +219,13 @@
 		<div id="footer"></div>
 	<!--main-->
 </body>
+
+<script>
+      let popupPlayer = function(url){
+          let moveTop=screen.height-440;
+           let moveLeft=screen.width-537;
+         window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+      }
+</script>
+
 </html>

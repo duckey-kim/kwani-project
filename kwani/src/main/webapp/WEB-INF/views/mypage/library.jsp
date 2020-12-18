@@ -97,13 +97,13 @@
 									<th class="th1"></th>
 									<th class="th2"></th>
 									<th class="th3"></th>
-									<th class="th4">곡명</th>
-									<th class="th5">가수</th>
-									<th class="th6">마지막재생일</th>
+									<th class="th4"></th>
+									<th class="th5"></th>
+									<th class="th6"></th>
 								</tr>
 								<c:forEach items="${libraryList}" var="library">
 									<tr>
-										<td><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
+										<td onclick='popupPlayer("/player/track?trackId=${library.TRACK_ID}")'><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
 										<td><a href="#"><img src="/resources/image/${library.heart}" class="play"></a></td>
 										<td><a href="#"><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"></a></td>
 										<td><c:out value="${library.TRACK_TTL}" /></td>
@@ -124,4 +124,12 @@
 		<div id="footer"></div>
 	<!--main-->
 </body>
+
+<script>
+      let popupPlayer = function(url){
+          let moveTop=screen.height-440;
+           let moveLeft=screen.width-537;
+         window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+      }
+</script>
 </html>

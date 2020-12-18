@@ -97,20 +97,20 @@
 							</form>
 						</div>
 						<div class="item-body">
-							<table style="width: 100%">
+							<table>
 								<tr>
 									<th class="th1"></th>
 									<th class="th2"></th>
 									<th class="th3"></th>
-									<th class="th4">곡명</th>
-									<th class="th5">가수</th>
-									<th class="th6">마지막재생일</th>
+									<th class="th4"></th>
+									<th class="th5"></th>
+									<th class="th6"></th>
 								</tr>
 								<c:forEach items="${libraryList}" var="library" begin="0"
 									end="4">
 									<tr>
-										<td><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
-										<td><button class="heartbutton" onclick="flip()"><img src="/resources/image/${library.heart}" class="play"></button></td>
+										<td onclick='popupPlayer("/player/track?trackId=${library.TRACK_ID}")'><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
+										<td><img src="/resources/image/${library.heart}" class="play"></td>
 										<td><a href="#"><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"></a></td>
 										<td><c:out value="${library.TRACK_TTL}" /></td>
 										<td><c:out value="${library.NM}" /></td>
@@ -131,7 +131,7 @@
 						</div>
 							<div class="item-div">
 								<c:forEach items="${likedArtistList}" var="artist" begin="0" end="2">
-									<table class="table">
+									<table class="artistTable">
 										<tr>
 											<th class="th"></th>
 											<th class="th"></th>
@@ -201,14 +201,13 @@
 								<th class="th1"></th>
 								<th class="th2"></th>
 								<th class="th3"></th>
-								<th class="th4">곡명</th>
-								<th class="th5">가수</th>
-								<th class="th6">앨범명</th>
+								<th class="th4"></th>
+								<th class="th5"></th>
+								<th class="th6"></th>
 							</tr>
 							<c:forEach items="${likedTrackList}" var="track" begin="0" end="4">
 								<tr>
-									<td><a href="#"><img
-											src="/resources/image/play-button.png" class="play"></a></td>
+									<td onclick='popupPlayer("/player/track?trackId=${track.TRACK_ID}")'><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
 									<td><a href="#"><img src="/resources/image/heart.png" class="play"></a></td>
 									<td><a href="#"><img src="/resources/image/album/${track.ALBUM_IMG}" class="myImg"></a></td>
 									<td><c:out value="${track.TRACK_TTL}" /></td>
@@ -231,7 +230,11 @@
 	<!--main-->
 	
 	<script>
-		
+		let popupPlayer = function(url){
+	        let moveTop=screen.height-440;
+	         let moveLeft=screen.width-537;
+	       window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+	    }
 	</script>
 </body>
 </html>

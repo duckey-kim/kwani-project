@@ -120,12 +120,18 @@ public class MyPageController {
 		return "redirect:/mypage/playlist";
 	}
 
-	// 플레이리스트 생성 및 수정 페이지
+	// TODO : AJAX로 변경
+	// 플레이리스트 수정
 	@PostMapping("/playlist/modify")
-	public String getPlaylistEdit(@ModelAttribute("playlistVO") PlaylistVO playlistVO, @ModelAttribute("user") UserVO user, RedirectAttributes rttr) {
+	public String getPlaylistEdit(@ModelAttribute("playlistVO") PlaylistVO playlistVO, RedirectAttributes rttr) {
 
+		// 제목, 내용 변경..Ø
+		// 여기서 곡을 한번에 저장하는게 날지..
+		// 클릭마다 그냥 저장해버리는게 날지..
+		
+		//TODO : VO로 묶지말고 변경?
 		myPageService.modifyPlaylist(playlistVO);
-		rttr.addFlashAttribute("user", user);
+		rttr.addFlashAttribute("result", playlistVO.getNm());
 
 		return "redirect:/mypage/playlist";
 	}
