@@ -85,10 +85,12 @@
 	/* 서버에 입력한 정보가 없을 때, null일 때 */
 	console.log('${pwdMsg}');
 	console.log('${sessionMsg}')
-
+	console.log('${redirectMsg}')
+	
 	if ("${pwdMsg}" != "") {
 		alert("${pwdMsg}");
 	}
+
 
 	if ("${msg}" != "") {
 		alert("${msg}");

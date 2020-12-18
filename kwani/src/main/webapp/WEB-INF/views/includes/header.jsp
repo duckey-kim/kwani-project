@@ -20,14 +20,14 @@
 					<button class="subnavbtn" onclick="openSearch()">
 						<i class="fa fa-search"></i>
 					</button>
-					<a href="/">Home</a> <a href="/recommend/">Recommend</a> <a
+					<a href="/">Home</a> <a href="/recommend/common">Recommend</a> <a
 						href="/user/register" id="joinBtn">Join</a>
 					<div class="dropdown">
-						<div class="dropbtn" onclick="toMyPage()">
+						<div class="dropbtn">
 							<i class="fas fa-user-circle"></i>
 						</div>
 						<div id="myDropdown" class="dropdown-content">
-							<a href="/mypage/playlist?email=a@naver.com" id="toMypageBtn"
+							<a href="/mypage/overview" id="toMypageBtn"
 								style="display: none">My Page</a> <a href="/user/checkUserInfo">Settings</a>
 							<a href="/user/logoutAction" id="logoutBtn" style="display: none">Logout</a>
 						</div>

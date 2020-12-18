@@ -90,6 +90,7 @@ public class kakaoController {
 		
 		// 서버에 정보가 있으면 쿠키와 세션을 발급한다.
 		service.cookieSession(kakaoEmail, checked, request, response);
+		service.setSysdateForSocial(kakaoEmail);
 		
 		return "redirect:/home";
 	}

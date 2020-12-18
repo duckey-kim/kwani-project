@@ -9,6 +9,10 @@ public interface UserMapper {
 	// 회원정보를 등록한다.
 	public void insert(UserVO user);
 	
+	public int setSysdate(String email);
+	
+	public int setSysdateForSocial(String email);
+	
 	// 소셜 API로 로그인 시, 회원정보를 등록한다.
 	public void socialRegister(UserVO user);
 

@@ -68,8 +68,7 @@ public class UserController {
 	public String checkUserInfo(HttpSession session, RedirectAttributes rttr, Model model) {
 
 		if (!(service.checkSession(session, model))) {
-			rttr.addFlashAttribute("redirectMsg", "로그인 후 이용하실 수 있습니다.");
-			return "redirect:/home";
+			return "redirect:/user/login";
 		}
 
 		return "/user/checkUserInfo";
@@ -222,6 +221,7 @@ public class UserController {
 		service.socialRegister(user);
 		// 쿠키와 세션을 발급하고
 		service.cookieSession(email, checked, request, response);
+		service.setSysdateForSocial(email);
 		// home으로 이동한다.
 		return "redirect:/home";
 	}
@@ -235,21 +235,33 @@ public class UserController {
 		return "/user/login";
 	}
 
-	@PostMapping("/loginAction")
+	@RequestMapping(value = "/loginAction", method = { RequestMethod.GET, RequestMethod.POST })
 	public String get(Model model, String email, String kakaoEmail, String pwd, String checked,
-			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr, ModelAndView mav
-			, String prevPath) {
+			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr, String prevPath) {
 		// 회원 로그인.
 		// checkUserIdPwd가 true면(즉, 사용자가 입력한 정보가 서버에 없으면)
+		String path = "";
+		if ("".equals(prevPath)) {
+			path = "/home";
+		} else {
+			path = prevPath;
+		}
 		if (!(service.isUserIdValid(email, rttr))) {
 			// login.jsp로 이동한다.
 		} else if (service.checkUserIdPwd(email, pwd, rttr)) {
-			
-			if (service.cookieSession(email, checked, request, response))
-				return "redirect:/home";
+
+			service.cookieSession(email, checked, request, response);
+			service.setSysdate(email);
+
+		} else {
+			// login실패
+			// prevpath를 loginform으로 보낸다
+			// rttr에 담으면 될듯? 그리고 loginform으로 가
+			path = "/user/login";
+			rttr.addFlashAttribute("prevPath", path);
 		}
 
-		return "redirect:/user/login";
+		return "redirect:" + path;
 	}
 
 	@RequestMapping(value = "/logoutAction", method = { RequestMethod.GET, RequestMethod.POST })

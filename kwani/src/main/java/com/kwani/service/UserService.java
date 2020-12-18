@@ -15,6 +15,10 @@ public interface UserService {
 	// 회원정보등록.
 	public void register(UserVO user);
 	
+	public boolean setSysdate(String email);
+	
+	public boolean setSysdateForSocial(String email);
+	
 	// 소셜 API로 회원정보등록.
 	public void socialRegister(UserVO user);
 
@@ -62,7 +66,7 @@ public interface UserService {
 	public boolean checkSession(HttpSession session, Model model);
 
 	// 로그인 성공시, 쿠키와 세션을 생성.
-	public boolean cookieSession(String email, String checked, HttpServletRequest request,
+	public void cookieSession(String email, String checked, HttpServletRequest request,
 			HttpServletResponse response);
 
 	// 회원가입시, 사용자의 가입여부를 확인.

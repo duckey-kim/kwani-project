@@ -31,6 +31,20 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public boolean setSysdate(String email) {
+		log.info("회원의 최종접속일 : " + email);
+		
+		return mapper.setSysdate(email) == 1;
+	}
+	
+	@Override
+	public boolean setSysdateForSocial(String email) {
+		log.info("회원의 최종접속일 : " + email);
+		
+		return mapper.setSysdate(email) == 1;
+	}
+	
+	@Override
 	public void socialRegister(UserVO user) {
 		log.info("social API로 회원의 정보를 등록한다." + user);
 		mapper.socialRegister(user);
@@ -166,7 +180,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean cookieSession(String email, String checked, HttpServletRequest request, HttpServletResponse response) {
+	public void cookieSession(String email, String checked, HttpServletRequest request, HttpServletResponse response) {
 
 		Cookie ck = null;
 		String userEmail = mapper.get(email).getEmail();
@@ -186,7 +200,6 @@ public class UserServiceImpl implements UserService {
 		System.out.println("세션을 생성합니다 : " + session.getAttribute("userEmail"));
 		System.out.println("로그인 성공!!");
 
-		return true;
 	}
 
 	@Override

@@ -129,6 +129,16 @@ public class UserMapperTests {
 		
 	}
 	
+	@Test
+	public void testSetSysdate() {
+		
+		UserVO user = new UserVO();
+		user.setLastDt("20/12/18");
+		
+		int count = mapper.setSysdate("c@gmail.com");
+		
+		log.info("회원 최종접속일 : " + count);
+	}
 	
 	@Test
 	public void testWithdrawal() {

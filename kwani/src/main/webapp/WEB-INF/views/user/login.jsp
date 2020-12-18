@@ -70,8 +70,8 @@
 				</div>
 			</form>
 			<div class="socialLoginBtn">
-				<a href="#" class="googleBtn">Instagram</a> <a href="/user/kakao"
-					class="kakaoBtn">KaKao</a> <a href="#" class="naverBtn">Facebook</a>
+				<a href="/user/kakao" class="kakaoBtn">KaKao</a> <a href="#"
+					class="googleBtn">Instagram</a> <a href="#" class="naverBtn">Facebook</a>
 			</div>
 			<!-- socialLoginBtn -->
 		</div>
