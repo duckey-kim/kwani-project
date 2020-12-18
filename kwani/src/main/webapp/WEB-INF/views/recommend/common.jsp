@@ -24,10 +24,10 @@
                 <div id="navbarUtil"> 
                     <button class="subnavbtn" onclick="openSearch()">
                       <i class="fa fa-search"></i></button>
-                    <a href="#">Home</a>
-                    <a href="#">Recommend</a>
+                    <a href="/">Home</a>
+                    <a href="/recommend/common">Recommend</a>
                     <a href="#">Find music</a>
-                    <a href="#">Join</a>
+                    <a href="/user/register">Join</a>
                 </div>
             </div>
               <div id="myOverlay" class="overlay">
@@ -68,7 +68,8 @@
                                 
                 <div class="toLogin">
 					<div class="goLogin"><p>더 많은 정보를 원한다면 Login</p>
-					<button class="button">Login</button></div>
+					<form action="/user/login" method="get">
+					<button class="button">Login</button></form></div>
                 </div>
                 <div class="showMv">
 					<iframe width="80%" class="mv" height="340px" src="https://www.youtube.com/embed/eHir_vB1RUI"></iframe>

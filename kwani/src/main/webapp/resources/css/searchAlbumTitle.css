@@ -131,18 +131,27 @@ a {
 #body {
     display: flex;
     width: 100%;
-    height: 1500px;
+    height: 1000px;
 }
 
 #leftSideBar {
     width: 10%;
-    height: 1500px;
+    height: 1000px;
     background-color: white;
 }
 
 #bodyContent {
     width: 80%;
-    height: 1900px;
+    height: 1400px;
+}
+/* 명희 작품*/
+#tableContainer1{
+	display:flex;
+	flex-direction:column; 
+}
+#tableContainer2{
+	display:flex;
+	flex-direction:column;
 }
 
 .searchRst{
@@ -198,7 +207,48 @@ a {
 	height: 20px;
 	cursor: pointer;
 }
+.albumTxt{
+    width: 100%;
+    height: 50px;
+    background-color: white;
+}
+.albumImgContainer{
+	display: flex;
+    width: 100%;
+    height: 310px;
+    background-color: white;    
+	justify-content: space-between;
+}
+.eachAlbum{
+	width: 20%;
+	height: 300px;
+}
+.albumImg{
+	width: 100%;
+	height: 250px;
+}
+.albumArtist{
+	width: 100%;
+	height: 20px;
+}
+.albumTtl{
+	width: 100%;
+	height: 30px;
+}
 
+.artistRstTxt{
+    width: 100%;
+    height: 50px;
+    background-color: white;
+}
+.artistRstContainer{
+    width: 100%;
+    height: 300px;
+    background-color: white;
+}
+.artistTable{
+	width: 70%;
+}
 .td1{
 	width: 20%;
 }
@@ -213,57 +263,6 @@ a {
 }
 hr.one{
 	border: 0.1px solid lightgray;
-}
-.lyricsTxt{
-    width: 100%;
-    height: 50px;
-    background-color: white;
-}
-.lyricsContainer{
-	flex-direction: column;
-	justify-content: flex-start;
-    width: 100%;
-    height: 900px;
-    background-color: white;
-}
-.eachLyrics{
-	width: 100%;
-	height: 100px;
-	background-color: white;
-	padding-top: 10px;
-}
-.lyricsTtl{
-	width: 100%;
-	height: 25px;
-	font-size: 0.9em;
-	font-weight: bold;
-}
-.lyricsContent{
-	width: 100%;
-	height: 50px; 
-	border: none;
-	overflow: hidden;
-	word-wrap: break-word;
-	display: -webkit-box;
-	-webkit-line-clamp: 3;
-	-webkit-box-orient: vertical;
-	text-overflow: ellipsis;
-	font-size: 0.7em;
-}
-.lyricsInfoContainer{
-	width: 100%;
-	height: 25px;
-}
-
-.lyricsArtist{
-	width: 20%;
-	height: 25px;
-	display: inline-block;
-}
-.lyricsAlbum{
-	width: 50%;
-	height: 25px;
-	display: inline-block;
 }
 
 .textInfo{
@@ -302,6 +301,7 @@ th, td{
     width: 10%;
     text-align: center;
 }
+
 .pull-right{
 	width: 400px;
 	height: 66px;
@@ -336,9 +336,11 @@ th, td{
 .pagination button{
 	background-color: white;
 }
+
+
 #rightSideBar {
     width: 10%;
-    height: 1500px;
+    height: 1000px;
     background-color: white;
 }
 

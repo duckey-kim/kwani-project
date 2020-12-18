@@ -65,17 +65,20 @@ public class HomeController {
 		log.info("search result....");
 		System.out.println(searchTxt);
 			
+		//검색  시 가수명으로 결과 나오게 하기
 		model.addAttribute("searchRst", plservice.getSearchRst(searchTxt));
+		
+		//검색 시  곡명으로 결과 나오게 하기(곡 목록만)
+		model.addAttribute("searchRstWithSong", plservice.getSearchRstWithSong(searchTxt));
+		
+		//검색 시 앨범명으로 결과 나오게 하기(곡 목록만)
+		model.addAttribute("searchRstWithAlbum", plservice.getSearchRstWithAlbum(searchTxt));
 				
 		//검색 결과 시 노래 가사 결과 나오게 하기
 		model.addAttribute("searchLyrics", plservice.getSearchLyrics(searchTxt));
 			
 		//검색 결과 시 아티스트 결과 중복없이 나오게 하기
-		model.addAttribute("searchArtist", plservice.getSearchArtist(searchTxt));
-		
-		//type 갖고 오기?
-		//PListVO artistType = plservice.getSearchArtist(searchTxt).
-		
+		model.addAttribute("searchArtist", plservice.getSearchArtist(searchTxt)); 		
 		
 	}	
 		

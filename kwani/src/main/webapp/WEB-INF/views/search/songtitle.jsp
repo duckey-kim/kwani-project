@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
     <script defer src="/resources/js/index.js"></script>
      <script src="/resources/js/jquery-3.5.1.js"/></script>
-    <link rel="stylesheet" type = "text/css" href="/resources/css/searchArtist.css">
-    
+    <link rel="stylesheet" type = "text/css" href="/resources/css/searchSongTitle.css">
     <style>
 .dropbtn {
   color: black;
@@ -50,9 +49,100 @@
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
-</style>   
-    
-    
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 30%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.modalTitle{
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+.plylstListWrap{
+  display: flex;
+  flex-direction: column;
+}
+.plusNew{
+  height: 50px;
+  width: 90%;
+  justify-content: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.plusImg{
+  height: 40px;
+  width: 20%;
+   
+}
+.plusTxt{
+  height: 40px;
+  width: 70%;
+  display: flex;
+  align-items: center;
+}
+.userPlylst{
+  height: 50px;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.userPlylstImg{
+  height: 40px;
+  width: 20%;
+}
+.userPlylstNm{
+  height: 40px;
+  width: 60%;
+  /* display: flex; */
+  display: block;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.userPlylstTrackCnt{
+  height: 40px;
+  width: 20%;
+  align-items: center;
+  text-align: right;
+}
+</style>
 </head>
 <body>
     <div id="main">
@@ -86,8 +176,8 @@
             <div id="leftSideBar"></div>
             <div id="bodyContent">
                 <div class="searchRst"><p><c:out value="${searchTxt}"/>에 대한 검색 결과</p></div>
-                <div class="rstTap">
-                    <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
+                <div class="rstTap"> 
+                     <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
 
                     <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
                   
@@ -108,34 +198,32 @@
 						</div>                    	
                   
                     <a href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
-                </div>
-             
-                
-                <div class="artistRstTxt"><p class="textInfo">아티스트</p></div>
-                <div class="artistRstContainer">
-                	<div class="artistTable">
-                	  <table>
-                            <tr>                            
-                            <th class="th1">이미지</th>
+                </div>               
+     
+			
+                <!-- 곡명으로 searchTxt를 검색했을 때의 곡 목록  -->                
+                <div class="trackHeader"><p class="textInfo">곡명으로 검색</p><button class="plylstBtn" id="plusPlylstBtn">담기</button></div>
+                <div class="trackTable">
+                    <div id="plylstTable">
+                        <table>
+                            <tr>
+                            <th class="th0"><input type="checkbox" name="checkAll" class="checkAll"></th>
+                            <th class="th1">번호</th>
+                        	<th class="th3">제목</th>
                         	<th class="th2">가수</th>
-                        	<th class="th3">솔로/그룹</th>
-                        	<th class="th3">데뷔일</th>
+                        	<th class="th4">듣기</th>
                         	<th class="th4">좋아요</th>
-                            </tr> 
-                            <c:forEach items="${searchArtist}" var="searchArtist" >
+                            </tr>
+                            <c:forEach items="${searchSong2}" var="searchSong2" varStatus="status" begin="0" end="29">
                         	<tr>
-                        	<td class="td1">
-                        		<%-- <div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);"> --%>
-                        		<div class="artistSmallImg">
-                        		<img src="/resources/image/artist/<c:out value="${searchArtist.gropImg}" />" 
-                				style="max-height:50px"></div>  
-                				   	
-                        	</td>
-                        	<td class="td2"><a href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">     
-                        		<c:out value="${searchArtist.nm}" /></a></td>
-                        	<td class="td3"><c:out value="${searchArtist.type}" /></td>
-                        	<td class="td4"><c:out value="${searchArtist.debutDt}" /></td>
-                        	<td class="td5">
+                        	<th><input type="checkbox" name="checkRow"></th>
+                        	<td>${status.index+1}</td>
+                        	<td><a href="/detail/track?trackId=<c:out value='${searchSong2.trackId}'/>">      
+                        		<c:out value="${searchSong2.trackTtl}" /></a></td>
+                        	<td><a href="/detail/artist?gropId=<c:out value='${searchSong2.gropId}'/>">      
+                        		<c:out value="${searchSong2.nm}" /></a></td>
+                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        	<td>
                         	<div class="heartParent">
                         	<img class="defaultHeartImg"src="/resources/image/heart2.png">
                         	<img class="redHeartImg" src="/resources/image/heart.png">
@@ -145,7 +233,7 @@
                         	</c:forEach>
                          </table>
                          
-                         <div class="pull-right">
+                          <div class="pull-right">
                          	<ul class="pagination">
                          		<c:if test="${pageMaker.prev}">
                          		<button class="paginate_button previous">
@@ -164,17 +252,46 @@
                          		 </c:if>
                          	</ul>
                          </div><!-- pull-right -->
-                	</div>
-                </div>
+                    </div> <!-- plylstTable -->
+                </div><!-- trackTable -->
                 
-                <form id="actionForm" action="/search/artist" method="get">
+                  <form id="actionForm" action="/search/songtitle" method="get">
                 	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
                 	<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
                 	<input type="hidden" name="searchTxt" value="${searchTxt}">
                 </form>
-        
+                
+                    <!-- The Modal -->
+                    <div id="myModal" class="modal" style="display:none">                   
+                   
+                    	<!-- Modal content -->`
+                    	<div class="modal-content">
+                    		<span class="close">&times;</span>
+                    		<p class="modalTitle">내 플레이리스트에 추가</p>
+                    		<div class="plylstListWrap">
+                    		<div class="plusNew">
+                    			<div class="plusImg"><img src="/resources/image/plus.png" style="max-height:36px" /></div>
+                    			<div class="plusTxt"><p>새 플레이리스트</p></div>
+                    		</div>
+                    		<c:forEach items="${getUserPlylst}" var="userPlylst">
+                    		<div class="userPlylst">
+                    			<div class="userPlylstImg">
+                    				<img src="/resources/image/album/<c:out value="${userPlylst.plylstImg}" />" style="max-height:40px">
+                    			</div>
+                    			<div class="userPlylstNm"><p style="padding-top: 10px"><c:out value="${userPlylst.nm}" /></p></div>         
+                    			<div class="userPlylstTrackCnt"><p style="padding-top: 10px"><c:out value="${userPlylst.trackCnt}" />1 곡</p></div>           			
+                    		</div>  
+                    		</c:forEach>  
+                    		</div><!-- plylstListWrap -->      	
+                    	</div><!-- modal-content -->
+                    </div><!-- myModal -->
+              
                     
                 <script>
+                
+                console.log("sessionName : " + '${sessionName}');
+                
+                
                 //로그인 안되어있을 때 
                 //좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
                 function sessionCheck(){
@@ -200,8 +317,37 @@
                 }
                 
                 
+                //모달창 --------------------------------------------------------------------------
+                let modal = document.getElementById("myModal");
                 
-           	//좋아요 클릭하면 하트 색깔 바뀌게 설정(클릭한 곡의 track_id 값을 설정해놓음)--------------------------------------------------------                    
+                let btn = document.getElementById("plusPlylstBtn");    
+                let btn2 = document.getElementById("plusPlylstBtn2"); 
+                let btn3 = document.getElementById("plusPlylstBtn3");
+                
+                let span = document.getElementsByClassName("close")[0];
+                
+                //'담기' 버튼을 눌렀을 때
+                btn.onclick = function(){
+                	//doCheck()를 실행해서 
+                	//체크박스에 체크가 하나도 안되어 있다면 경고창 나오게 하고
+                	//체크박스에 하나 이상 체크가 되어 있다면 모달창을 보여준다
+                	if(sessionCheck()){
+                		doCheck();           		
+                	};              	
+                }
+                
+                span.onclick = function(){
+                	modal.style.display = "none";
+                }
+                
+                window.onclick = function(event){
+                	if(event.target == modal){
+                		modal.style.display = "none";
+                	}
+                }
+                
+                
+                //좋아요 클릭하면 하트 색깔 바뀌게 설정(클릭한 곡의 track_id 값을 설정해놓음)--------------------------------------------------------                    
                 $(document).ready(function(){        
                 	
                 	 // 처음엔 모든 수록곡의 빨간하트를 숨기고 빈하트만 보여준다.
@@ -235,8 +381,32 @@
                     });
 				})
                 
-				     
-           		//페이징 처리------------------------------------------------------------------------
+ 				//체크박스에 하나도 체크 안되어 있으면 담기 버튼 눌렀을 때 경고창 나오게 하기--------------------------------				
+ 				function doCheck(){
+                	
+ 					console.log("hi");
+ 					
+ 					//체크된 체크박스 길이 가져오기
+ 	                checkedLength = $("[name=checkRow]:checked").length;
+ 	                	
+ 	                console.log(checkedLength);
+ 	                	
+ 	                //체크된 체크박스가 하나도 없다면
+ 	                if(checkedLength == 0){
+ 	                		
+ 	                	console.log("선택 안함...");
+ 	                	//경고창을 띄워준다
+ 	                	alert("노래를 선택해주세요");
+ 	                	return;
+ 	                }else{
+ 	                	//하나 이상이라도 체크박스에 체크가 되어 있다면 아무것도 하지 않는다
+ 	                	console.log("선택했어!");
+ 	                	modal.style.display = "block";
+ 	                	return;
+ 	                }	                
+ 	             }
+                
+              //페이징 처리------------------------------------------------------------------------
            		let actionForm = $("#actionForm");
            		
            		$(".paginate_button a").on("click", function(e){
@@ -248,6 +418,39 @@
            			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
            			actionForm.submit();
            		});
+                
+              //좋아요 클릭하면 하트 색깔 바뀌게 설정--------------------------------------------------------    
+                $(document).ready(function(){           		
+                		
+                		$(".defaultHeartImg").show();
+    					$(".redHeartImg").hide();
+    					
+    					//기본 하트를 누르면
+    					$(".defaultHeartImg").click(function(){
+    						
+    						//누른 하트의 인덱스를 가져와서
+    						let index = $(".defaultHeartImg").index(this);
+    						
+    						//기본 하트는 숨기고 빨간 하트를 보여준다
+    						$(".defaultHeartImg:eq(" + index + ")").hide();
+    						$(".redHeartImg:eq(" + index + ")").show();
+    						console.log("defaultHeartImg clicked!");  						    						
+    					});
+    					
+    					//빨간 하트를 누르면
+    					$(".redHeartImg").click(function(){
+    						
+    						//누른 하트의 인덱스를 가져와서
+    						let index = $(".redHeartImg").index(this);
+    						
+    						//빨간 하트는 숨기고 기본 하트를 보여준다
+    						$(".defaultHeartImg:eq(" + index + ")").show();
+    						$(".redHeartImg:eq(" + index + ")").hide();
+    						console.log("redHeartImg clicked!");
+    					});		
+               
+				})
+                
                    
                 	//서치바에 입력된 값 없을 때의 설정-------------------------------------------------------
                 	
@@ -268,7 +471,7 @@
                 		}
                 	}
                 		
-                	//체크박스 설정--------------------------------------------------------------------	
+                	//체크박스 설정1--------------------------------------------------------------------	
                 	function allCheckFunc(obj){
                 		//모든 checkRow의 속성이 checked가 되게 한다                		
                 		$("[name=checkRow]").prop("checked", $(obj).prop("checked"));
@@ -318,8 +521,9 @@
                 				oneCheckFunc($(this));
                 			});
                 		});
-                	});
-                
+                	});                
+                	
+                	
                 </script>
                     </div><!--bodyContent-->
             <div id="rightSideBar"></div>

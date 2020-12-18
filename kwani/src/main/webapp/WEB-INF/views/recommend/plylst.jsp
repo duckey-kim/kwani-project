@@ -15,6 +15,101 @@
      <script src="/resources/js/jquery-3.5.1.js"/></script>
    
     <link rel="stylesheet" type = "text/css" href="/resources/css/plylstDetail.css">
+<style type="text/css">
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 30%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.modalTitle{
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+.plylstListWrap{
+  display: flex;
+  flex-direction: column;
+}
+.plusNew{
+  height: 50px;
+  width: 90%;
+  justify-content: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.plusImg{
+  height: 40px;
+  width: 20%;
+   
+}
+.plusTxt{
+  height: 40px;
+  width: 70%;
+  display: flex;
+  align-items: center;
+}
+.userPlylst{
+  height: 50px;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.userPlylstImg{
+  height: 40px;
+  width: 20%;
+}
+.userPlylstNm{
+  height: 40px;
+  width: 60%;
+  /* display: flex; */
+  display: block;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.userPlylstTrackCnt{
+  height: 40px;
+  width: 20%;
+  align-items: center;
+  text-align: right;
+}
+</style>    
+    
 </head>
 <body>
     <div id="main">
@@ -27,10 +122,10 @@
                 <div id="navbarUtil"> 
                     <button class="subnavbtn" onclick="openSearch()">
                       <i class="fa fa-search"></i></button>
-                    <a href="#">Home</a>
-                    <a href="#">Recommend</a>
+                    <a href="/">Home</a>
+                    <a href="/recommend/common">Recommend</a>
                     <a href="#">Find music</a>
-                    <a href="#">Join</a>
+                    <a href="/user/register">Join</a>
                 </div>
             </div>
                <div id="myOverlay" class="overlay">
@@ -47,12 +142,20 @@
             <div id="leftSideBar"></div>
             <div id="bodyContent">   
             <div id="plylstInfo"><h1>PlayList</h1><br>
-                    <h3>${plistName.rcmdPlylstNm}</h3>
+            
+            <div id="plylstInfoContainer">
+            	<div class="plylstInfoImg">
+            		<img class="plylstImg" src="/resources/image/rcmdplylst/<c:out value="${plistName.rcmdPlylstImg}" />"
+            		style="height:200px; width:300px;">
+            	</div>
+                    <h3 class="plylstTxt">${plistName.rcmdPlylstNm}</h3>
                 </div><!--plylstInfo-->
+           </div>     
+                
                 <div id="tracks"><h2>Tracks</h2></div>
                 <div id="plylstBtn">
-                    <button class="button">듣기</button>
-                    <button class="button">담기</button>
+                    <button class="button" onclick='popupPlayer("/player/track?trackId=${plistListDtl[0].trackId}")'>듣기</button>
+                    <button class="button" id="plusPlylstBtn" >담기</button>
                 </div>
                     <div id="plylstTable">
                     <table>
@@ -74,8 +177,8 @@
                         <td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
                         <td>
                         <div class="heartParent">
-                        <img class="defaultHeartImg" src="/resources/image/heart2.png">
-                        <img class="redHeartImg" src="/resources/image/heart.png">
+                        <img class="defaultHeartImg" name="${plstdtl.trackId}" src="/resources/image/heart2.png" onclick="sessionCheck()">
+                        <img class="redHeartImg" name="${plstdtl.trackId}" src="/resources/image/heart.png">
                         </div>
                         </td>
          
@@ -85,56 +188,168 @@
                         </table>
                     </div>
                     
+                    <!-- The Modal -->
+                    <div id="myModal" class="modal" style="display:none">                   
+                   
+                    	<!-- Modal content -->`
+                    	<div class="modal-content">
+                    		<span class="close">&times;</span>
+                    		<p class="modalTitle">내 플레이리스트에 추가</p>
+                    		<div class="plylstListWrap">
+                    		<div class="plusNew">
+                    			<div class="plusImg"><img src="/resources/image/plus.png" style="max-height:36px" /></div>
+                    			<div class="plusTxt"><p>새 플레이리스트</p></div>
+                    		</div>
+                    		<c:forEach items="${getUserPlylst}" var="userPlylst">
+                    		<div class="userPlylst">
+                    			<div class="userPlylstImg">
+                    				<img src="/resources/image/album/<c:out value="${userPlylst.plylstImg}" />" style="max-height:40px">
+                    			</div>
+                    			<div class="userPlylstNm"><p style="padding-top: 10px"><c:out value="${userPlylst.nm}" /></p></div>         
+                    			<div class="userPlylstTrackCnt"><p style="padding-top: 10px"><c:out value="${userPlylst.trackCnt}" />1 곡</p></div>           			
+                    		</div>  
+                    		</c:forEach>  
+                    		</div><!-- plylstListWrap -->      	
+                    	</div><!-- modal-content -->
+                    </div><!-- myModal -->                   
+                    
+                    
                 <script>
+                console.log("sessionName : " + '${sessionName}');
                 
-                //좋아요 클릭하면 하트 색깔 바뀌게 설정--------------------------------------------------------    
-                $(document).ready(function(){           		
+                let popupPlayer = function(url){
+                    let moveTop=screen.height-440;
+                     let moveLeft=screen.width-537;
+                   window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+                }
+         
+                //로그인 안되어있을 때 
+                //좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
+                function sessionCheck(){
+                	
+                	console.log("sessionCheck 실행");
+                	console.log("sessionName : " + '${sessionName}');
+                	
+                	if('${sessionName}' == ''){
                 		
-                		$(".defaultHeartImg").show();
-    					$(".redHeartImg").hide();
-    					
-    					//기본 하트를 누르면
-    					$(".defaultHeartImg").click(function(){
-    						
-    						//누른 하트의 인덱스를 가져와서
-    						let index = $(".defaultHeartImg").index(this);
-    						
-    						//기본 하트는 숨기고 빨간 하트를 보여준다
-    						$(".defaultHeartImg:eq(" + index + ")").hide();
-    						$(".redHeartImg:eq(" + index + ")").show();
-    						console.log("defaultHeartImg clicked!");  						    						
-    					});
-    					
-    					//빨간 하트를 누르면
-    					$(".redHeartImg").click(function(){
-    						
-    						//누른 하트의 인덱스를 가져와서
-    						let index = $(".redHeartImg").index(this);
-    						
-    						//빨간 하트는 숨기고 기본 하트를 보여준다
-    						$(".defaultHeartImg:eq(" + index + ")").show();
-    						$(".redHeartImg:eq(" + index + ")").hide();
-    						console.log("redHeartImg clicked!");
-    					});		
-               
+                		console.log("로그인 안되어있어");
+                		moveToLogin();
+                		return 
+                	
+                    }
+                	else{
+                		return true;
+                	}
+                }              
+                
+                function moveToLogin(){
+                	console.log("go login")
+                	window.location = "/user/login";             	
+                }
+                
+                
+                //모달창 --------------------------------------------------------------------------
+                let modal = document.getElementById("myModal");
+                
+                let btn = document.getElementById("plusPlylstBtn");    
+                
+                let span = document.getElementsByClassName("close")[0];
+                
+                //'담기' 버튼을 눌렀을 때
+                btn.onclick = function(){
+                	//doCheck()를 실행해서 
+                	//체크박스에 체크가 하나도 안되어 있다면 경고창 나오게 하고
+                	//체크박스에 하나 이상 체크가 되어 있다면 모달창을 보여준다
+                	if(sessionCheck()){
+                		doCheck();           		
+                	};              	
+                }
+                
+                span.onclick = function(){
+                	modal.style.display = "none";
+                }
+                
+                window.onclick = function(event){
+                	if(event.target == modal){
+                		modal.style.display = "none";
+                	}
+                }
+                
+                
+                //좋아요 클릭하면 하트 색깔 바뀌게 설정(클릭한 곡의 track_id 값을 설정해놓음)--------------------------------------------------------                    
+                $(document).ready(function(){        
+                	
+                	 // 처음엔 모든 수록곡의 빨간하트를 숨기고 빈하트만 보여준다.
+                    $(".redHeartImg").hide();
+                    
+                    // 좋아요한 노래에 해당하는 노래들은 빈하트를 숨기고 빨간 하트를 보여준다.(track_id 값을 설정해놓음)
+                    <c:forEach items="${getLikedTrack}" var="getLikedTrack">
+                       $("img[name='${getLikedTrack.trackId}'][class=defaultHeartImg]").hide();
+                       $("img[name='${getLikedTrack.trackId}'][class=redHeartImg]").show();
+                    </c:forEach>
+                    
+                    //빈 하트 클릭할 때
+                    $(".defaultHeartImg").on("click", function(){
+                    	sessionCheck();
+                       
+                       let index = $(".defaultHeartImg").index(this);   //누른 하트의 인덱스 저장
+                       
+                       $(".defaultHeartImg:eq(" + index + ")").hide();   //누른 하트를 숨기기
+                       $(".redHeartImg:eq(" + index + ")").show();   //누른 곳에 빨간 하트를 표시
+                       console.log("좋아요할 노래아이디 : " + $(".defaultHeartImg:eq(" + index + ")").attr("name"));
+                    });
+                    
+                    //빨간 하트 클릭할때
+                    $(".redHeartImg").on("click", function(){
+                       
+                       let index = $(".redHeartImg").index(this);      //누른 하트의 인덱스 저장
+                       
+                       $(".redHeartImg:eq(" + index + ")").hide();   //누른 하트를 숨기기
+                       $(".defaultHeartImg:eq(" + index + ")").show();   //누른 곳에 빈 하트를 표시
+                       console.log("좋아요 취소할 노래아이디 : " + $(".redHeartImg:eq(" + index + ")").attr("name"));
+                    });
 				})
                 
- 
+ 				//체크박스에 하나도 체크 안되어 있으면 담기 버튼 눌렀을 때 경고창 나오게 하기--------------------------------				
+ 				function doCheck(){
+                	
+ 					console.log("hi");
+ 					
+ 					//체크된 체크박스 길이 가져오기
+ 	                checkedLength = $("[name=checkRow]:checked").length;
+ 	                	
+ 	                console.log(checkedLength);
+ 	                	
+ 	                //체크된 체크박스가 하나도 없다면
+ 	                if(checkedLength == 0){
+ 	                		
+ 	                	console.log("선택 안함...");
+ 	                	//경고창을 띄워준다
+ 	                	alert("노래를 선택해주세요");
+ 	                	return;
+ 	                }else{
+ 	                	//하나 이상이라도 체크박스에 체크가 되어 있다면 아무것도 하지 않는다
+ 	                	console.log("선택했어!");
+ 	                	modal.style.display = "block";
+ 	                	return;
+ 	                }	                
+ 	             }              
+              
               
                 //서치바 설정-------------------------------------------------------------------------
-                var result = $("input[name=searchTxt]");
+                let result2 = $("input[name=searchTxt]");
         		
             	function checkTxt(){
-            		console.log(result[0].value);
+            		console.log(result2[0].value);
             		//검색어가 제대로 입력되면 아무일도 일어나지 않는다
-            		if(result[0].value.length != 0){
-            			console.log(result+"있어");
+            		if(result2[0].value.length != 0){
+            			console.log(result2+"있어");
             			console.log("경고창 필요 없어!");
             			return true;
             		}
             		//검색어가 입력되지 않으면 경고창을 띄운다
             		else{  
-            			console.log(result+"없어");
+            			console.log(result2+"없어");
             			console.log("경고창 나와라!");
             			alert("검색어를 입력하세요");
             			return false;

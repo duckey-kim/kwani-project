@@ -12,7 +12,46 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
     <script defer src="/resources/js/index.js"></script>
      <script src="/resources/js/jquery-3.5.1.js"/></script>
-    <link rel="stylesheet" type = "text/css" href="/resources/css/searchAlbum.css">
+    <link rel="stylesheet" type = "text/css" href="/resources/css/searchAlbumArtist.css">
+    
+    <style>
+.dropbtn {
+  color: black;
+  font-size: 16px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+</style>   
+    
 </head>
 <body>
     <div id="main">
@@ -25,10 +64,10 @@
                 <div id="navbarUtil"> 
                     <button class="subnavbtn" onclick="openSearch()">
                       <i class="fa fa-search"></i></button>
-                    <a href="#">Home</a>
-                    <a href="#">Recommend</a>
+                    <a href="/">Home</a>
+                    <a href="/recommend/common">Recommend</a>
                     <a href="#">Find music</a>
-                    <a href="#">Join</a>
+                    <a href="/user/register">Join</a>
                 </div>
             </div>
             <div id="myOverlay" class="overlay">
@@ -45,56 +84,128 @@
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
+            
                 <div class="searchRst"><p><c:out value="${searchTxt}"/>에 대한 검색 결과</p></div>
                 <div class="rstTap">
-                    <form action="#">
-                        <button type="button" class="entireBtn">통합검색</button>
-                    </form>
-                    <form action="#">
-                        <button type="button" class="artistBtn">아티스트</button>
-                    </form>
-                    <form action="#">
-                        <button type="button" class="songBtn">곡</button>
-                    </form>
-                    <form action="#">
-                        <button type="button" class="albumBtn">앨범</button>
-                    </form>
-                    <form action="#">
-                        <button type="button" class="lyricsBtn">가사</button>
-                    </form>
+                   <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
+
+                    <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
+                  
+                     	<div class="dropdown">
+  							<span class="dropbtn">곡</span>
+  								<div class="dropdown-content">
+ 									<a href="/search/songartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
+ 									<a href="/search/songtitle?searchTxt=${searchTxt}">곡명으로</a>
+ 								</div>
+						</div>
+                               	                    		
+                     	<div class="dropdown">
+  							<span class="dropbtn">앨범</span>
+  								<div class="dropdown-content">
+ 									<a href="/search/albumartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
+ 									<a href="/search/albumtitle?searchTxt=${searchTxt}">앨범명으로</a>
+ 								</div>
+						</div>                    	
+                  
+                    <a href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
                 </div>
                 
                 
-                <div class="albumTxt"><p class="textInfo">앨범</p></div>
+                <div id="tableContainer1">
+                <div class="albumTxt"><p class="textInfo">아티스트명으로 검색</p></div>
                 <div class="albumImgContainer">
-                	<c:forEach items="${searchRst}" var="searchRst" varStatus="status" begin="0" end="3">
+                	<c:forEach items="${searchAlbum}" var="searchAlbum" varStatus="status" begin="0" end="4">
                 	<div class="eachAlbum">
                 	
                 	<div class="albumImg">         	
-                		<img src="/resources/image/album/<c:out value="${searchRst.albumImg}" />" 
-                		style="max-height:240px">          	
+                		<img src="/resources/image/album/<c:out value="${searchAlbum.albumImg}" />" 
+                		style="max-height:200px">          	
                 	</div><!-- albumImg --> 
                 	<div class="albumArtist">
                 		<p>
-                			<c:out value="${searchRst.nm}" />
+                			<a href="/detail/artist?gropId=<c:out value='${searchAlbum.gropId}'/>"> 
+                			<c:out value="${searchAlbum.nm}" /></a>
                 		</p>
                 	</div><!-- albumArtist -->   
                 	<div class="albumTtl">
                 		<p>
-                			<c:out value="${searchRst.albumTtl}" />
+                			<a href="/detail/album?albumId=<c:out value='${searchAlbum.albumId}'/>"> 
+                			<c:out value="${searchAlbum.albumTtl}" />
                 		</p>
                 	</div><!-- albumTtl -->              	
                 	</div><!-- eachAlbum --> 
                 	</c:forEach>
-                </div><!-- alblumImgContainer --> 
-          
-             
+                	
+                	
+                	<!-- 데이터 두 줄로 나오게 하기 위한 시도...... 잘 되는지 다시 확인해보자------------------------------------------------------------ -->
+                	<c:forEach items="${searchAlbum}" var="searchAlbum" varStatus="status" begin="5" end="9">
+                	<div class="eachAlbum">
+                	
+                	<div class="albumImg">         	
+                		<img src="/resources/image/album/<c:out value="${searchAlbum.albumImg}" />" 
+                		style="max-height:200px">          	
+                	</div><!-- albumImg --> 
+                	<div class="albumArtist">
+                		<p>
+                			<c:out value="${searchAlbum.nm}" />
+                		</p>
+                	</div><!-- albumArtist -->   
+                	<div class="albumTtl">
+                		<p>
+                			<c:out value="${searchAlbum.albumTtl}" />
+                		</p>
+                	</div><!-- albumTtl -->              	
+                	</div><!-- eachAlbum --> 
+                	</c:forEach>
+                	   </div><!-- alblumImgContainer --> 
+                   		
+                   		<div class="a">
+          				<div class="pull-right">
+                         	<ul class="pagination">
+                         		<c:if test="${pageMaker.prev}">
+                         		<button class="paginate_button previous">
+                         		  <a href="${pageMaker.startPage -1}">Previous</a></button>
+                         		</c:if>
+                         		
+                         		<c:forEach var="num" begin="${pageMaker.startPage}"
+                         		end="${pageMaker.endPage}">
+                         		<button class="paginate_button ${pageMaker.cri.pageNum == num ? "active" : ""} " >
+                         		<a href="${num}">${num}</a></button>
+                         		</c:forEach>
+                         		
+                         		<c:if test="${pageMaker.next}">
+                         		<button class="paginate_button next">
+                         		  <a href="${pageMaker.endPage +1}">Next</a></button>
+                         		 </c:if>
+                         	</ul>
+                         </div><!-- pull-right -->
+                         </div>
+                 </div> <!-- tableContainer1 -->           
                 
+             
+                <form id="actionForm" action="/search/albumartist" method="get">
+                	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                	<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+                	<input type="hidden" name="searchTxt" value="${searchTxt}">
+                </form>
                
              
                     
                 <script>
-              //좋아요 클릭하면 하트 색깔 바뀌게 설정--------------------------------------------------------    
+                //페이징 처리------------------------------------------------------------------------
+           		let actionForm = $("#actionForm");
+           		
+           		$(".paginate_button a").on("click", function(e){
+           			
+           			e.preventDefault();
+           			
+           			console.log('click');
+           			
+           			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+           			actionForm.submit();
+           		});
+                
+                //좋아요 클릭하면 하트 색깔 바뀌게 설정--------------------------------------------------------    
                 $(document).ready(function(){           		
                 		
                 		$(".defaultHeartImg").show();

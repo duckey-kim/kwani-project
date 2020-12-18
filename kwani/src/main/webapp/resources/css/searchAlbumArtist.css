@@ -144,6 +144,15 @@ a {
     width: 80%;
     height: 1400px;
 }
+/* 명희 작품*/
+#tableContainer1{
+	display:flex;
+	flex-direction:column; 
+}
+#tableContainer2{
+	display:flex;
+	flex-direction:column;
+}
 
 .searchRst{
     width: 100%;
@@ -182,16 +191,7 @@ a {
     background-color: white;
     padding-left: 20px;
 }
-.trackHeader{
-    width: 100%;
-    height: 50px;
-    background-color: white;
-}
-.trackTable{
-    width: 100%;
-    height: 300px;
-    background-color: white;
-}
+
 .heartParent{
 	width:108px;
 	text-align: center;	
@@ -215,7 +215,7 @@ a {
 .albumImgContainer{
 	display: flex;
     width: 100%;
-    height: 300px;
+    height: 310px;
     background-color: white;    
 	justify-content: space-between;
 }
@@ -264,56 +264,6 @@ a {
 hr.one{
 	border: 0.1px solid lightgray;
 }
-.lyricsTxt{
-    width: 100%;
-    height: 50px;
-    background-color: white;
-}
-.lyricsContainer{
-	flex-direction: column;
-	justify-content: flex-start;
-    width: 100%;
-    height: 300px;
-    background-color: rosybrown;
-}
-.eachLyrics{
-	width: 100%;
-	height: 100px;
-	background-color: white;
-}
-.lyricsTtl{
-	width: 100%;
-	height: 25px;
-	font-size: 0.9em;
-	font-weight: bold;
-}
-.lyricsContent{
-	width: 100%;
-	height: 50px; 
-	border: none;
-	overflow: hidden;
-	word-wrap: break-word;
-	display: -webkit-box;
-	-webkit-line-clamp: 3;
-	-webkit-box-orient: vertical;
-	text-overflow: ellipsis;
-	font-size: 0.7em;
-}
-.lyricsInfoContainer{
-	width: 100%;
-	height: 25px;
-}
-
-.lyricsArtist{
-	width: 20%;
-	height: 25px;
-	display: inline-block;
-}
-.lyricsAlbum{
-	width: 50%;
-	height: 25px;
-	display: inline-block;
-}
 
 .textInfo{
     line-height: 50px;
@@ -351,6 +301,43 @@ th, td{
     width: 10%;
     text-align: center;
 }
+
+.pull-right{
+	width: 400px;
+	height: 66px;
+	text-align: center;	 
+	margin-top: 20px;
+}
+.pagination{
+	display: inline-block;
+}
+.pagination a {
+    color: black;
+    padding: 4px 8px;
+    text-decoration: none;
+    font-size: 0.8em;
+}
+.pagination a.active{
+	background-color: rgb(189, 12, 12);
+	color: white;
+}
+.pagination button.active{
+	background-color: rgb(189, 12, 12);
+	color: white;
+}
+.pagination a:hover:not(.active){
+	background-color:  rgb(156, 6, 6);
+	color: white;
+}
+.pagination a.active:hover{
+	background-color:  rgb(156, 6, 6);
+	color: white;
+}
+.pagination button{
+	background-color: white;
+}
+
+
 #rightSideBar {
     width: 10%;
     height: 1000px;

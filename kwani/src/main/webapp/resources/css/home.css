@@ -46,6 +46,28 @@ a {
     width: 100%;
 }
 
+ .draggable {
+      cursor: move;
+    }
+
+
+    .ring-inputContainer {
+      width: 20vw;
+      height: 60vh;
+    }
+
+    .ring-input {
+      width: 20vw;
+      height: 30vh;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    svg {
+      height: 300px;
+      width: 300px;
+    }
+
 .overlay {
     margin-top: 60px;
     height: 100%;

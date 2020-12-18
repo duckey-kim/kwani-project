@@ -9,11 +9,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
-    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js" integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY=" crossorigin="anonymous"></script>
+  <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
     <link rel="stylesheet" type = "text/css" href="/resources/css/home.css">
 </head> 
 
@@ -43,7 +43,7 @@
                     <button class="subnavbtn" onclick="openSearch()">
                       <i class="fa fa-search"></i></button>
                     <a href="/">Home</a>
-                    <a href="#">Recommend</a>
+                    <a href="/recommend/common">Recommend</a>
                     <a href="#">Find music</a>
                     <a href="/user/register" id="joinBtn">Join</a>
                     <a href="/user/logoutAction" id="logoutBtn" style="display:none">Logout</a>
@@ -94,7 +94,38 @@
                     </div>
                 </div>
                 <div class="bottomContentBox">
-                    <div class="genreYear">장르 & 연도</div>
+                    <div class="genreYear"> 
+                    
+                    <!-- 동그라미 해보기 -->
+                    <div class="ring-inputContainer">
+
+    <div class="ring-input">
+      <svg onload="makeDraggable(evt)" >
+        
+        <defs>
+          <pattern id="circleImg" x="0%" y="0%" height="1" width="1" >
+            <image x="-20" y="-20" height="100%" width="100%" xlink:href="/img/5.png"></image>
+          </pattern>
+        </defs>
+
+        <g transform="translate(16,20)">
+            <circle class="ring" cx="130" cy="130" r="130" stroke="black" stroke-width="6" width="100%" height="100%" fill="url(#circleImg)"></circle>
+          <g id="handles" transform="translate(130,130)">
+            <circle r="10" fill="blue" class="draggable" transform="rotate(0),translate(130,0)"></circle>
+          </g>
+
+          <g id="handles" transform="translate(130,130)">
+            <circle r="10" fill="red" class="draggable" transform="rotate(0),translate(-130,0)"></circle>
+          </g>
+
+        </g>
+      </svg>
+    </div><!--ring-input-->
+
+  </div><!--ring-inputContainer-->
+                    
+                    
+                    </div>
                     <div class="akinator">아키네이터</div>
                 </div>
             </div><!--bodyContent-->
@@ -111,6 +142,56 @@
 <!-- ---------------------------------------------------------------------------------------- -->
 
 <script type="text/javascript">
+var def_val = 0;
+
+function makeDraggable(evt) {
+    var svg = evt.target;
+    svg.addEventListener('mousedown', startDrag);
+    svg.addEventListener('mousemove', drag);
+    svg.addEventListener('mouseup', endDrag);
+    svg.addEventListener('mouseleave', endDrag);
+    var selectedElement = false;
+
+  
+
+    function startDrag(evt) {
+        if (evt.target.classList.contains('draggable')) {
+            selectedElement = evt.target;
+        }
+    }
+
+    function drag(evt) {
+        if (selectedElement) {
+           
+            var x = selectedElement.getAttributeNS(null, "cx");
+            var y = selectedElement.getAttributeNS(null, "cy");
+   
+            var x1 = evt.clientX - 130;
+            var y1 = evt.clientY - 130;
+            var newAngle = Math.atan2(y1, x1) * 57.2957795;
+            if (newAngle < 0) {
+                newAngle = 360 + newAngle;
+            }
+            selectedElement.setAttributeNS(null, "transform", "rotate(" + newAngle + "),translate(130,0)");
+
+        }
+
+    }
+
+    function endDrag() {
+        selectedElement = null;
+    }
+
+    function getMousePosition(evt) {
+        var CTM = svg.getScreenCTM();
+        return {
+            x: (evt.clientX - CTM.e) / CTM.a,
+            y: (evt.clientY - CTM.f) / CTM.d
+        }
+    }
+}
+
+
 
 // 세션값 잘 넘어왔는지 확인한다.
 console.log('${sessionName}');

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
     <script defer src="/resources/js/index.js"></script>
      <script src="/resources/js/jquery-3.5.1.js"/></script>
-    <link rel="stylesheet" type = "text/css" href="/resources/css/searchArtist.css">
+    <link rel="stylesheet" type = "text/css" href="/resources/css/searchAlbumTitle.css">
     
     <style>
 .dropbtn {
@@ -50,8 +50,7 @@
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
-</style>   
-    
+</style>       
     
 </head>
 <body>
@@ -85,9 +84,10 @@
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
+            
                 <div class="searchRst"><p><c:out value="${searchTxt}"/>에 대한 검색 결과</p></div>
                 <div class="rstTap">
-                    <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
+                     <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
 
                     <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
                   
@@ -109,43 +109,34 @@
                   
                     <a href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
                 </div>
-             
                 
-                <div class="artistRstTxt"><p class="textInfo">아티스트</p></div>
-                <div class="artistRstContainer">
-                	<div class="artistTable">
-                	  <table>
-                            <tr>                            
-                            <th class="th1">이미지</th>
-                        	<th class="th2">가수</th>
-                        	<th class="th3">솔로/그룹</th>
-                        	<th class="th3">데뷔일</th>
-                        	<th class="th4">좋아요</th>
-                            </tr> 
-                            <c:forEach items="${searchArtist}" var="searchArtist" >
-                        	<tr>
-                        	<td class="td1">
-                        		<%-- <div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);"> --%>
-                        		<div class="artistSmallImg">
-                        		<img src="/resources/image/artist/<c:out value="${searchArtist.gropImg}" />" 
-                				style="max-height:50px"></div>  
-                				   	
-                        	</td>
-                        	<td class="td2"><a href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">     
-                        		<c:out value="${searchArtist.nm}" /></a></td>
-                        	<td class="td3"><c:out value="${searchArtist.type}" /></td>
-                        	<td class="td4"><c:out value="${searchArtist.debutDt}" /></td>
-                        	<td class="td5">
-                        	<div class="heartParent">
-                        	<img class="defaultHeartImg"src="/resources/image/heart2.png">
-                        	<img class="redHeartImg" src="/resources/image/heart.png">
-                        	</div>
-                        	</td>
-                        	</tr>
-                        	</c:forEach>
-                         </table>
-                         
-                         <div class="pull-right">
+               
+                <div id="tableContainer2">
+                <div class="albumTxt"><p class="textInfo">앨범명으로 검색</p></div>
+                <div class="albumImgContainer">
+                	<c:forEach items="${searchAlbum2}" var="searchAlbum2" varStatus="status" begin="0" end="4">
+                	<div class="eachAlbum">
+                	
+                	<div class="albumImg">         	
+                		<img src="/resources/image/album/<c:out value="${searchAlbum2.albumImg}" />" 
+                		style="max-height:200px">          	
+                	</div><!-- albumImg --> 
+                	<div class="albumArtist">
+                		<p>
+                			<c:out value="${searchAlbum2.nm}" />
+                		</p>
+                	</div><!-- albumArtist -->   
+                	<div class="albumTtl">
+                		<p>
+                			<c:out value="${searchAlbum2.albumTtl}" />
+                		</p>
+                	</div><!-- albumTtl -->              	
+                	</div><!-- eachAlbum --> 
+                	</c:forEach>
+                </div><!-- alblumImgContainer --> 
+                
+                <div>
+                <div class="pull-right">
                          	<ul class="pagination">
                          		<c:if test="${pageMaker.prev}">
                          		<button class="paginate_button previous">
@@ -164,79 +155,21 @@
                          		 </c:if>
                          	</ul>
                          </div><!-- pull-right -->
-                	</div>
-                </div>
+                        </div>
+                </div><!-- tableContainer2 -->
                 
-                <form id="actionForm" action="/search/artist" method="get">
+                
+             
+                <form id="actionForm" action="/search/albumtitle" method="get">
                 	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
                 	<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
                 	<input type="hidden" name="searchTxt" value="${searchTxt}">
                 </form>
-        
+               
+             
                     
                 <script>
-                //로그인 안되어있을 때 
-                //좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
-                function sessionCheck(){
-                	
-                	console.log("sessionCheck 실행");
-                	console.log("sessionName : " + '${sessionName}');
-                	
-                	if('${sessionName}' == ''){
-                		
-                		console.log("로그인 안되어있어");
-                		moveToLogin();
-                		return 
-                	
-                    }
-                	else{
-                		return true;
-                	}
-                }              
-                
-                function moveToLogin(){
-                	console.log("go login")
-                	window.location = "/user/login";             	
-                }
-                
-                
-                
-           	//좋아요 클릭하면 하트 색깔 바뀌게 설정(클릭한 곡의 track_id 값을 설정해놓음)--------------------------------------------------------                    
-                $(document).ready(function(){        
-                	
-                	 // 처음엔 모든 수록곡의 빨간하트를 숨기고 빈하트만 보여준다.
-                    $(".redHeartImg").hide();
-                    
-                    // 좋아요한 노래에 해당하는 노래들은 빈하트를 숨기고 빨간 하트를 보여준다.(track_id 값을 설정해놓음)
-                    <c:forEach items="${getLikedTrack}" var="getLikedTrack">
-                       $("img[name='${getLikedTrack.trackId}'][class=defaultHeartImg]").hide();
-                       $("img[name='${getLikedTrack.trackId}'][class=redHeartImg]").show();
-                    </c:forEach>
-                    
-                    //빈 하트 클릭할 때
-                    $(".defaultHeartImg").on("click", function(){
-                    	sessionCheck();
-                       
-                       let index = $(".defaultHeartImg").index(this);   //누른 하트의 인덱스 저장
-                       
-                       $(".defaultHeartImg:eq(" + index + ")").hide();   //누른 하트를 숨기기
-                       $(".redHeartImg:eq(" + index + ")").show();   //누른 곳에 빨간 하트를 표시
-                       console.log("좋아요할 노래아이디 : " + $(".defaultHeartImg:eq(" + index + ")").attr("name"));
-                    });
-                    
-                    //빨간 하트 클릭할때
-                    $(".redHeartImg").on("click", function(){
-                       
-                       let index = $(".redHeartImg").index(this);      //누른 하트의 인덱스 저장
-                       
-                       $(".redHeartImg:eq(" + index + ")").hide();   //누른 하트를 숨기기
-                       $(".defaultHeartImg:eq(" + index + ")").show();   //누른 곳에 빈 하트를 표시
-                       console.log("좋아요 취소할 노래아이디 : " + $(".redHeartImg:eq(" + index + ")").attr("name"));
-                    });
-				})
-                
-				     
-           		//페이징 처리------------------------------------------------------------------------
+                //페이징 처리------------------------------------------------------------------------
            		let actionForm = $("#actionForm");
            		
            		$(".paginate_button a").on("click", function(e){
@@ -248,6 +181,39 @@
            			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
            			actionForm.submit();
            		});
+                
+                //좋아요 클릭하면 하트 색깔 바뀌게 설정--------------------------------------------------------    
+                $(document).ready(function(){           		
+                		
+                		$(".defaultHeartImg").show();
+    					$(".redHeartImg").hide();
+    					
+    					//기본 하트를 누르면
+    					$(".defaultHeartImg").click(function(){
+    						
+    						//누른 하트의 인덱스를 가져와서
+    						let index = $(".defaultHeartImg").index(this);
+    						
+    						//기본 하트는 숨기고 빨간 하트를 보여준다
+    						$(".defaultHeartImg:eq(" + index + ")").hide();
+    						$(".redHeartImg:eq(" + index + ")").show();
+    						console.log("defaultHeartImg clicked!");  						    						
+    					});
+    					
+    					//빨간 하트를 누르면
+    					$(".redHeartImg").click(function(){
+    						
+    						//누른 하트의 인덱스를 가져와서
+    						let index = $(".redHeartImg").index(this);
+    						
+    						//빨간 하트는 숨기고 기본 하트를 보여준다
+    						$(".defaultHeartImg:eq(" + index + ")").show();
+    						$(".redHeartImg:eq(" + index + ")").hide();
+    						console.log("redHeartImg clicked!");
+    					});		
+               
+				})
+                
                    
                 	//서치바에 입력된 값 없을 때의 설정-------------------------------------------------------
                 	

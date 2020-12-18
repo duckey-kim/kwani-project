@@ -37,20 +37,46 @@ public class SearchControllerTests {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 
+	//search/artist 페이지
 	@Test
 	public void testSearchArtist() throws Exception{
 		
 		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/search/artist")
-			.param("searchTxt", "태연"))
+			.param("pageNum", "1")
+			.param("searchTxt", "태"))
 			.andReturn().getModelAndView().getModelMap());
 	}
 
+	//search/song 페이지
+	@Test
+	public void testSearchSong() throws Exception{
+		
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/search/song")
+				.param("pageNum", "1")
+				.param("searchTxt", "태"))
+				.andReturn().getModelAndView().getModelMap());
+	}
+	
+	//search/song 페이지
+	@Test
+	public void testSearchAlbum() throws Exception{
+			
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/search/album")
+				.param("pageNum", "1")
+				.param("searchTxt", "태"))
+				.andReturn().getModelAndView().getModelMap());
+		}
 	
 	
-	
-	
-	
-	
+	//search/lyrics 페이지
+	@Test
+	public void testSearchLyrics() throws Exception{
+			
+		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/search/lyrics")
+				.param("pageNum", "2")
+				.param("searchTxt", "이"))
+				.andReturn().getModelAndView().getModelMap());
+		}
 	
 	
 	
