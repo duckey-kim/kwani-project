@@ -48,8 +48,9 @@
 						</div>
 
 
-						<div>
-							<input class="form-control" placeholder="isTitle?" type="number"
+						<div class="form-group">
+						<label>타이틀인가요?</label>
+							<input class="form-control" placeholder="Y:1,N:0" type="number"
 								id="ttlTrack" name="ttlTrack" value="${track.ttlTrack}">
 						</div>
 						<div class="form-group">

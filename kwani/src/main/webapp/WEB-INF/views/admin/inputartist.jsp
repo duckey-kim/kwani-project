@@ -5,13 +5,13 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel paenl-default">
+			<div class="panel paenl-default">
 				<div class="panel-body">
 
-					<h4>${msg }</h4>
 					<form action="/admin/inputartistAction" method="post" enctype="multipart/form-data"
 						onsubmit="return checkInput();">
-						<h5>T_ARTIST</h5>
+						<h4>${msg }</h4>
+						<h4>T_ARTIST</h4>
 						<div class="form-group">
 							<label>활동명</label> <input class="form-control" placeholder="NAME"
 								type="text" name="nm" value="${artist.nm }" id="nm">

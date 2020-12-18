@@ -3,13 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="/WEB-INF/views/includes/adminheader.jsp"%>
 
-<h4>${msg }</h4>
 
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<div class=" panel paenl-default">
 				<div class="panel-body">
+					<h4>${msg }</h4>
 					<h4>T_USER</h4>
 
 					<form action="/admin/inputuserAction" method="post"

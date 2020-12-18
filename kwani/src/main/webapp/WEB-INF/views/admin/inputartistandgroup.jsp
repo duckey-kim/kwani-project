@@ -1,4 +1,4 @@
-]<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="/WEB-INF/views/includes/adminheader.jsp"%>
@@ -12,9 +12,14 @@
 					<h4>${msg }</h4>
 					<h4>Group and Artist</h4>
 					<form id='searchForm' action="/admin/getArtistGroup" method="post">
+						
+						<div class="form-group">
+						<label>가수</label>						
 						<input class="form-control" type="text" name="nm" id="nm"
 							placeholder="가수이름입력">
-						<button>가수찾기</button>
+						</div>
+						
+						<button class="btn btn-sm btn-success">가수찾기</button>
 					</form>
 					<h5>GROUP NAME : ${artist.nm }</h5>
 					<h5>GROUP ID :${artist.gropId }</h5>
@@ -22,15 +27,20 @@
 					<form action="/admin/inputartistgroupAction" method="post"
 						onsubmit="return checkInput();">
 						<div class="form-group">
-							<h5>Input GROUP_ID</h5>
+							<div class="form-group">
+							<label>그룹아이디</label>							
 							<input class="form-control" type="text" name="gropId" id="gropId">
-							<div>SOLO_ID</div>
+							</div>
+							
+							<div class="form-group">
+							<label>솔로아이디</label>							
 							<input class="form-control" type="text" name="soloId" id="soloId">
+							</div>
 						</div>
 
 
 						<input type="hidden" name="upUser" id="upUser" value="${mngrId} ">
-						<button>등록</button>
+						<button class="btn btn-sm btn-success">등록</button>
 					</form>
 				</div>
 			</div>

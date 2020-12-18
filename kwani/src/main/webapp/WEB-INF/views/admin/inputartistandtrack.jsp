@@ -10,18 +10,29 @@
 			<h4>INPUT ARTIST</h4>
 			<h4>Search Artist</h4>
 			<form id='searchForm' action="/admin/getArtist" method="post">
+				<div class="form-group">
+				<label>가수이름</label>
 				<input class="form-control" type="text" name="nm" id="nm"
 					placeholder="가수이름입력">
-				<button>가수찾기</button>
+				</div>
+				<button class="btn btn-sm btn-success">가수찾기</button>
 			</form>
-			<h5>GROUP NAME : ${artist.nm }</h5>
-			<h5>GROUP ID :${artist.gropId }</h5>
+			<h4>GROUP NAME : ${artist.nm }</h4>
+			<h4>GROUP ID :${artist.gropId }</h4>
 			<form action="/admin/inputartisttracksAction" method="post"
 				onsubmit="return checkInput();">
+				
+				<div class="form-group">
 				<label>그룹아이디</label>
 				<input class="form-control" type="text" name="gropId" id="gropId">
+				</div>
+				
+				<div class="form-group">
 				<label>노래아이디</label>
 				<input class="form-control" type="text" name="trackId" id="trackId">
+				
+				</div>
+				
 				<input type="hidden" name="upUser" id="upUser" value="${mngrId} ">
 				<button class="btn btn-sm btn-success">등록</button>
 			</form>

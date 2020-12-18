@@ -33,7 +33,7 @@ public class AdminController {
 
 	@Setter(onMethod_ = @Autowired)
 	private TableService tableService;
-
+	
 	final static private String ALBUM_PATH = "C:\\upload\\album";
 	final static private String ARTIST_PATH = "C:\\upload\\artist";
 	final static private String USER_PATH = "C:\\upload\\user";
@@ -47,7 +47,11 @@ public class AdminController {
 	}
 
 	@GetMapping({ "/", "/home" })
-	public String basic() {
+	public String basic(Model model) {
+		//장르에 대한 곡
+		
+		
+		
 		return "/admin/home";
 	}
 

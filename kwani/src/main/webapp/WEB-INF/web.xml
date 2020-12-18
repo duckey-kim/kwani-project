@@ -55,7 +55,20 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>com.kwani.filter.LoginFilter</filter-class>
+	</filter>
 
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/mypage/*</url-pattern>
+		<url-pattern>/player/like</url-pattern>
+		<url-pattern>/player/list</url-pattern>
+		<url-pattern>/player/library</url-pattern>
+	</filter-mapping>
 
 
 
