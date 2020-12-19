@@ -35,6 +35,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND T.TRACK_ID= #{trackId})
 		WHERE PLYLST_ID = #{plylstId}
 	</insert>
+	
+	<insert id="updatePlaylistBasicImg">
+		UPDATE T_PLYLST
+		SET PLYLST_IMG = 'noplaylist.png'
+		WHERE PLYLST_ID = #{plylstId}
+	</insert>
 
 	<select id="getPlaylistTrackList" resultMap="Integer">
 		SELECT PD.TRACK_ID
@@ -154,9 +160,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE PLYLST_ID = #{plylstId}
 	</delete>
 	
+	<delete id="deletePlaylistTrack">
+		DELETE FROM T_PLYLST_DTL
+		WHERE PLYLST_ID = #{plylstId}
+		AND TRACK_ID = #{trackId}
+	</delete>
+	
 	<select id="getOnePlaylist" resultMap="Integer">
 		SELECT PLYLST_ID FROM T_PLYLST
 		WHERE PLYLST_ID = #{plylstId}
+	</select>
+	
+	<select id="getOneTrackInPlaylist" resultMap="Integer">
+		SELECT TRACK_ID FROM T_PLYLST_DTL
+		WHERE PLYLST_ID = #{plylstId}
+		AND TRACK_ID = #{trackId}	
 	</select>
 
 	<update id="updatePlaylist">

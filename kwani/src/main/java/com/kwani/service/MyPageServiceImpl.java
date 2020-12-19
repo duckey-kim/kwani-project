@@ -59,11 +59,25 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		return true;
 	}
+	
+	// 플레이리스트 안에 이 곡이 있는지 확인
+	public boolean checkValidTrackInPlaylist(Integer plylstId, Integer trackId) {
+		if(myPageMapper.getOneTrackInPlaylist(plylstId, trackId) == null) {
+			return false;
+		}
+		return true;
+	}
 
 	// 플레이리스트 이미지 수정
 	@Override
 	public int modifyPlaylistImg(Integer plylstId, Integer trackId) {
 		return myPageMapper.updatePlaylistImg(plylstId, trackId);
+	}
+	
+	// 플레이리스트 이미지 기본 저장
+	@Override
+	public int modifyPlaylistBasicImg(Integer plylstId) {
+		return myPageMapper.updatePlaylistBasicImg(plylstId);
 	}
 	
 	@Override
@@ -176,6 +190,12 @@ public class MyPageServiceImpl implements MyPageService {
 		myPageMapper.deletePlaylistDetail(plylstId);
 		
 		return true;
+	}
+	
+	public void removePlaylistTrack(Set<Integer> trackList, Integer plylstId) {	
+		for(Integer trackId : trackList) {
+			myPageMapper.deletePlaylistTrack(trackId, plylstId);
+		}
 	}
 	
 	private boolean checkValidPlaylistId(Integer plylstId, String email) {

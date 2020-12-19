@@ -2,6 +2,33 @@ console.log("module");
 
 let mypageService = (function(){
 	
+	function deleteTrackList(trackList, plylstId, callback, error){
+		
+		console.log("delete TrackList");
+		
+		let dataAll = {
+			"trackList" : trackList,
+			"plylstId" : plylstId
+		}
+		
+		$.ajax({
+			type : "post",
+			url : "/mypage/playlist/deletetrack",
+			contentType : "application/x-www-form-urlencoded; charset=utf-8",
+			data : dataAll,
+			dataType : 'json',
+			success : function(result, status, xhr) {
+				if(callback){
+					callback(result);
+				}
+			},
+			error : function(xhr, status, err) {
+				// TODO: 에러처리
+				alert("에러");
+			}
+		});
+	}
+	
 	function addTrackList(trackList, plylstId, callback, error) {
 
 		console.log("add TrackList");
@@ -70,6 +97,7 @@ let mypageService = (function(){
 	}
 	
 	return{
+		deleteTrackList : deleteTrackList,
 		addTrackList : addTrackList,
 		getLikedList : getLikedList,
 		getLibraryList : getLibraryList

@@ -75,5 +75,30 @@ public class MyPageAjaxController {
 		}
 		return result;
 	}
-
+	
+	// 플레이리스트 곡 삭제
+	@PostMapping(value = "/playlist/deletetrack", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public String deleteTrack(@RequestParam(value = "trackList[]") Set<Integer> trackList, @RequestParam(value = "plylstId") Integer plylstId, HttpSession session) {
+		UserVO user = (UserVO) session.getAttribute("user");
+		
+		Gson gson = new Gson();
+		String result = gson.toJson("FAILED");
+		
+		for(Integer trackId : trackList) {
+			if(myPageService.checkValidTrackInPlaylist(plylstId, trackId)) {
+				myPageService.removePlaylistTrack(trackList, plylstId);
+				
+				List<Map<String,String>> playlist = myPageService.getListPlaylistDetail(plylstId, user.getEmail());			
+				if(playlist.size() == 0) {
+					myPageService.modifyPlaylistBasicImg(plylstId);
+					return gson.toJson("NO");
+				}
+				String firstTrackId = String.valueOf(playlist.get(0).get("TRACK_ID"));	
+				myPageService.modifyPlaylistImg(plylstId, Integer.parseInt(firstTrackId));
+					result = gson.toJson(playlist);
+					System.out.println(result);
+				}
+		}
+		return result;
+	}
 }

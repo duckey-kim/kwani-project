@@ -96,7 +96,7 @@
 								<input type="hidden" value="내용을 입력하세요" name="desc">
 								<input type="hidden" value="noplaylist.png" name="plylstImg">
 								<input type="hidden" value="${user.email}" name="email">
-								<button id="createBtn" class="button2">새로운플레이리스트 만들기</button>
+								<button id="createBtn" class="button">새로운플레이리스트 만들기</button>
 							</form>
 						</div>
 					</div>
@@ -137,7 +137,7 @@
 											<td>
 												<form action="/mypage/playlistDetail" method="post">
 													<input class="plylstValue" type="hidden" value="${plylst.plylstId}" name="plylstId">
-													<button class="button2">
+													<button class="button">
 														<c:out value="${plylst.nm}"/>
 													</button>
 												</form>

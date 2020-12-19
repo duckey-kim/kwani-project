@@ -229,6 +229,77 @@
 <script type="text/javascript" src="/resources/js/mypage.js"></script>
 <script type="text/javascript">
 
+//플레이리스트 삭제
+$(document).on("click", ".delBtn", function(){
+	
+	let trackList = [];
+	let trackIdx = $(".delBtn").index(this);
+	let trackIdValue = $(".trackIdValue:eq(" + trackIdx + ")").val();
+
+	trackList.push(trackIdValue);
+	
+	console.log(trackIdx);		
+	console.log(trackIdValue);
+	
+	plylstId = ${playlistVO.plylstId};
+	
+	console.log(plylstId);
+	console.log(trackList);
+	
+	mypageService.deleteTrackList(
+			trackList, plylstId,
+			function(obj){
+				
+				if(obj === "NO"){
+					$("#change-img").empty();
+					// TODO : 고정 말고..
+					let str = "<img class='myArtistImg' src='/resources/image/album/noplaylist.png'>"
+					$("#change-img").append(str);
+					$("#change-plylstDtl").empty();
+					basicModalContent("곡 삭제를 완료했습니다.");
+					setTimeout(function(){ $("#myModal").attr("style", "display:none");}, 1000);
+					return;
+				}
+				
+				if(obj === "FAILED"){
+					basicModalContent("플레이리스트에 해당 곡이 존재하지 않습니다.");
+					setTimeout(function(){window.location.href = "/mypage/playlist";}, 1100);
+					return;
+				}
+				
+				console.log("obj : " + obj);
+				
+				$("#change-img").empty();
+				let str = "<img class='myArtistImg' src='/resources/image/album/" + obj[0].ALBUM_IMG + "'>"
+				$("#change-img").append(str);
+				
+				$("#change-plylstDtl").empty();
+				str = "<tr><th class='th1'></th><th class='th1'></th><th class='th1'></th><th></th><th></th><th></th><th class='th1'></th></tr>";
+				$("#change-plylstDtl").append(str);
+				
+				str = "";
+				
+				$.each(obj,function(i) {
+						str += "<tr>";
+						str += "<td>" + (i+1) + "</td>";
+						str += "<td>" + obj[i].TRACK_ID + "</td>";
+						str += "<td><img class='myImg' src='/resources/image/album/" + obj[i].ALBUM_IMG + "'></td>";
+						str += '<td>' + obj[i].ANM + '</td>';
+						str += '<td>' + obj[i].TRACK_TTL+ '</td>';
+						str += '<td>' + obj[i].ALBUM_TTL+ '</td>';
+						str += '<td><input class="trackIdValue" type="hidden" value="' + obj[i].TRACK_ID + '" name="trackIdValue">';
+						str += "<td><button class='delBtn'>삭제</button></td>";
+						str += "</tr>";
+					})
+					$("#change-plylstDtl").append(str);
+				
+				$("#addModal").attr("style", "display:none");
+				basicModalContent("곡 삭제를 완료했습니다.");
+				setTimeout(function(){ $("#myModal").attr("style", "display:none");}, 1000);
+			})
+		
+	});
+	
 	// 플레이리스트 추가
 	// 담기 버튼이 눌리면 addTrackList 함수 실행
 	$(document).on("click", ".addSelectedTrack", function(){
