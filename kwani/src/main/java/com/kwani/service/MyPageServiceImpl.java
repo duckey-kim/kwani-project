@@ -3,8 +3,10 @@ package com.kwani.service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,45 @@ public class MyPageServiceImpl implements MyPageService {
 
 	private MyPageMapper myPageMapper;
 
+	// 트랙에 곡 삽입
+	@Override
+	public void insertTrackList(Set<Integer> checkedTrackList, Integer plylstId, String email) {
+		
+		Set<Integer> tmpList = checkedTrackList;
+		List<Integer> playlistTrackList = myPageMapper.getPlaylistTrackList(plylstId, email);
+		
+		// 중복체크 : 플레이리스트에 곡이 존재하는 경우에만
+		if(playlistTrackList.size() != 0) {
+			// TODO : 초깃값 변경
+			tmpList = new HashSet<>();
+			for(Integer trackId : checkedTrackList) {
+				if(playlistTrackList.contains(trackId)) continue; // 플레이리스트에 곡이 존재하고, tmpList에 곡이 존재하면 continue
+				tmpList.add(trackId);				
+			}
+		}
+			
+		// 중복없는 trackId 값 Insert
+		for(Integer trackId : tmpList) {
+			myPageMapper.insertTrack(plylstId, trackId);
+		}
+		
+	}
+
+	// 플레이리스트 있는지 여부 체크
+	@Override
+	public boolean checkValidPlaylist(Integer plylstId) {
+		if(myPageMapper.getOnePlaylist(plylstId) == null) {
+			return false;
+		}
+		return true;
+	}
+
+	// 플레이리스트 이미지 수정
+	@Override
+	public int modifyPlaylistImg(Integer plylstId, Integer trackId) {
+		return myPageMapper.updatePlaylistImg(plylstId, trackId);
+	}
+	
 	@Override
 	public List<Map<String, String>> getListLibrary(String email) {
 
@@ -175,12 +216,6 @@ public class MyPageServiceImpl implements MyPageService {
 	public int removePlaylist(Integer plylstId) {
 		log.info("remove Playlist" + plylstId);
 		return myPageMapper.deletePlaylist(plylstId);
-	}
-
-	@Override
-	public List<Map<String, String>> findTrack(String searchTxt) {
-		System.out.println(searchTxt);
-		return myPageMapper.findTrack(searchTxt);
 	}
 
 }

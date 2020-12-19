@@ -1,11 +1,17 @@
 package com.kwani.controller;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -45,6 +51,29 @@ public class MyPageAjaxController {
 		String data = gson.toJson(myPageService.getListLikedTrack(user.getEmail()));
 
 		return data;
+	}
+	
+	// 플레이리스트 곡 추가
+	@PostMapping(value = "/playlist/inserttrack" , produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public String insertTrack(@RequestParam(value = "trackList[]") Set<Integer> trackList, @RequestParam Integer plylstId, HttpSession session) {
+		
+		System.out.println(trackList);
+		System.out.println(plylstId);
+		
+		UserVO user = (UserVO) session.getAttribute("user");
+		
+		Gson gson = new Gson();
+		String result = gson.toJson("FAILED");
+		
+		if(myPageService.checkValidPlaylist(plylstId)) {
+			myPageService.insertTrackList(trackList, plylstId, user.getEmail());
+			
+			List<Map<String,String>> playlist = myPageService.getListPlaylistDetail(plylstId, user.getEmail());
+			String trackId = String.valueOf(playlist.get(0).get("TRACK_ID"));
+			myPageService.modifyPlaylistImg(plylstId, Integer.parseInt(trackId));
+			result = gson.toJson(playlist);
+		}
+		return result;
 	}
 
 }
