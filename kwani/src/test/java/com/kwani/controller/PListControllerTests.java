@@ -73,11 +73,15 @@ public class PListControllerTests {
 				.param("searchTxt", "이"))
 				.andReturn().getModelAndView().getModelMap());
 	}
+
+
+	/*
+	 * @Test public void testGetListPlylstAjax() throws Exception{
+	 * 
+	 * log.info( mockMvc.perform(MockMvcRequestBuilders.get) ) }
+	 */
+
 }
-
-
-
-
 
 
 

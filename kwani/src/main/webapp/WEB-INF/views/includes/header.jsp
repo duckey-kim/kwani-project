@@ -1,16 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="/resources/css/header.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/noVideoHeader.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/footer.css">
 
 
 <body>
 	<div id="main">
 		<div id="header">
-			<div id="header_cover">
-				<video id="video" src="/resources/video/AudioWave.mp4"
-					type="video/mp4" autoplay muted loop></video>
-			</div>
 			<div id="header_navbar">
 				<div id="musicPlayer"></div>
 				<div id="pageLogo">
@@ -37,7 +33,7 @@
 
 			<div id="myOverlay" class="overlay">
 				<div class="overlay-content">
-					<form action="/recommend/search" method="get" name="searchForm"
+					<form action="/search" method="get" name="searchForm"
 						onsubmit="return checkTxt();">
 						<input type="text" placeholder="Search.." name="searchTxt"
 							value="">
