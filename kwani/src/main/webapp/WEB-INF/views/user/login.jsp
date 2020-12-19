@@ -31,7 +31,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/login.css">
 </head>
 
-<%@include file="../includes/header.jsp"%>
+<%@include file="../includes/mainHeader.jsp"%>
 
 <div id="body">
 	<div id="leftSideBar"></div>
