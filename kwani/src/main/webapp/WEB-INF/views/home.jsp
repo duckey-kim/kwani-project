@@ -350,7 +350,6 @@
 					contentType : "application/json; charset=UTF-8",
 					success : function(data) {
 						console.log(data);
-
 						$(".genreYearImg").css(
 								"background-image",
 								"url(/resources/image/artist/"
@@ -358,7 +357,6 @@
 						$(".genreYearImg").click(function() {
 							location.href = "/detail/artist?gropId=" + data[0].gropId
 						});
-
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {
 						$(".genreYearImg").css("background-image",

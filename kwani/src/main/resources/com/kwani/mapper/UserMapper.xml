@@ -73,7 +73,7 @@
 		where email =
 		#{email}
 	</update>
-	
+
 	<update id="setSysdateForSocial">
 		update t_user
 		set last_dt = sysdate
