@@ -1,216 +1,356 @@
-*{
+* {
 	margin: 0;
-	padding :0;
+	padding: 0;
 	left: 0;
 	top: 0;
 	box-sizing: border-box;
 }
 
-a{
+a {
 	text-decoration: none;
 	color: black;
 }
 
-table{
-	border-collpase: collpase;
+table {
+	border-collapse: collapse;
 	width: 100%;
 }
 
-th, td{
+th, td {
 	padding: 5px;
 	text-align: center;
-	border-bottom: 2px solid white;
 	width: auto;
+	border-bottom: 1px solid #ddd;
 }
 
-
-tr{
+tr {
 	margin-bottom: 10vw;
 }
 
-body{
-	height:1126px;
+tr:hover {background-color:#f5f5f5;}
+
+body {
+	height: 1126px;
 }
 
-.item-div{
-	display:flex;
+li {
+	list-style-type: none;
+}
+
+#addModal{
+	z-index: 3;
+}
+
+#addModal .modal-content{
+	width: 70%;
+	height: auto;
+}
+
+#myModal{
+	z-index: 10;	
+}
+
+#myModal .modal-content{
+	width: 40%;
+}
+
+.artistTable{
+}
+
+.modal {
+	clear: both;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal .modal-content{
+	clear: both;
+	height: auto;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: white;
+	
+}
+
+.modal-content{
+	padding: 20px 40px;
+	border-radius: 6px;
+	text-align: center;
+}
+
+.modal-footer{
+	text-align: center;
+}
+
+.modal-overlay{
+	background-color: rgba(0, 0, 0, 0.3);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+.modal-close{
+	position: absolute;
+	top: 5%;
+	left: 94%;
+	font-size: 20px;
+	color: grey;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-header{
+	text-align: center;
+}
+
+.img-td {
+	position: relative;
+}
+
+.img-div img {
+	position: absolute;
+}
+
+.img-div .myArtistImg {
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.img-div .moreImg {
+	left: 73%;
+	margin-top: 4%;
+}
+
+.img-div ul {
+	left: 73%;
+	top: -1.5em;
+	width: 5em;
+	height: 3.5em;
+	text-align: center;
+}
+
+.img-div ul li {
+	transform: translateY(55%);
+}
+
+.item-div {
+	display: flex;
 	justify-content: left;
-	flex-flow:wrap;
+	flex-flow: wrap;
 }
 
-.item-div .table{
+.item-div .table {
 	width: 19em;
 	margin: 2em;
 }
 
+.item-div .artistTable {
+	width: 13vw;
+	margin: 2vw;
+}
+
 .button {
-  background-color: lightpink;
-  border: none;
-  color: white;
-  padding: 10px 28px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  cursor: pointer;
+	background-color: white;
+	color: black;
+	padding: 10px 28px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	border-bottom: 2px solid #fff;
+}
+
+.button:hover{
+	border-bottom: 2px solid #b90000;
 }
 
 .button2 {
-  background-color: plum;
-  border: none;
-  color: white;
-  padding: 10px 28px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
-  margin: 4px 2px;
-  cursor: pointer;
+	background-color: plum;
+	border: none;
+	color: white;
+	padding: 10px 28px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	margin: 4px 2px;
+	cursor: pointer;
 }
 
-.userImg{
-	width:126px;
-	height:126px;
+.userImg {
+	width: 126px;
+	height: 126px;
 }
 
-.table .td8{
+.table .td8 {
 	text-align: left;
 }
 
-.td7{
+.td7 {
 	height: 13em;
 	width: 13em;
 }
 
-.td8{
+.td8 {
 	height: 13em;
-	width : 13em;
+	width: 13em;
 }
 
-.tdsmall{
+.tdsmall {
 	height: 2em;
 }
 
-.th{
-	width:2em;
+.th {
+	width: 2em;
 }
 
-.th1, .th2, .th3{
+.th1, .th2, .th3 {
 	width: 4em;
 }
 
-.th4, .th5, .th6{
+.th4, .th5, .th6 {
 	width: auto;
 }
 
-.play{
+.play {
 	width: 20px;
 	height: 20px;
 }
 
-.myImg{
+.moreImg {
+	z-index: 1;
+	width: 1.6em;
+	height: 1.6em;
+}
+
+.dropdown-content {
+	display: none;
+	position: relative;
+	background-color: white;
+	border-radius: 6px;
+}
+
+.show {display: block;}
+
+.myImg {
 	width: 30px;
 	height: 30px;
 }
 
-.myAlbumImg{
+.myAlbumImg {
 	width: 100%;
 	height: 100%;
 }
 
-.myArtistImg{
-	width: 68%;
-	height: 100%;
+.myArtistImg {
+	width: 13em;
+	height: 13em;
 }
 
-.mypage-header{
+.mypage-header {
 	width: 100%;
 	height: 126px;
 	display: flex;
-	align-items:center;
-	background-color: #26254B;
-	color:white;
+	align-items: center;
+	background-color: white;
+	color: white;
 }
 
-.mypage-header .header-item{
+.mypage-header .header-item {
 	height: 126px;
-	font: white;
+	font: black;
 	background-color: green;
 }
 
-.mypage-nav{
+.mypage-nav {
 	width: 100%;
+	background-color: white;
+	border-bottom : 1px solid black;
 }
 
-.nav-left{
+.nav-left {
 	width: 50%;
 	display: flex;
 	justify-content: space-between;
 }
-.mypage-nav .nav-item{
-	background-color:lightpink;
+
+.mypage-nav .nav-item {
+	background-color: white;
 }
 
-.mypage-body{
+.mypage-body {
 	width: 100%;
 }
 
-.mypage-body .body-item{
+.mypage-body .body-item {
 	margin-bottom: 3vw;
 	justify-content: center;
 }
 
-.body-item .item-header{
+.body-item .item-header {
 	margin-bottom: 2vw;
 }
 
 .container {
-	display:flex;
+	display: flex;
 }
 
-.item a{
+.item a {
 	display: block;
 }
 
-.item-body .item{
+.item-body .item {
 	margin-right: 2vw;
 }
 
-.bg-bl{
-	background-color: #FFEBE1;
+.bg-bl {
+	background-color: white;
 }
 
 /* Style the search field */
 form.example input[type=text] {
-  padding: 10px;
-  font-size: 17px;
-  border: 1px solid grey;
-  float: left;
-  width: 80%;
-  background: #f1f1f1;
+	padding: 10px;
+	font-size: 17px;
+	border: 1px solid grey;
+	float: left;
+	width: 80%;
+	background: #f1f1f1;
 }
 
 /* Style the submit button */
 form.example button {
-  float: left;
-  width: 20%;
-  padding: 10px;
-  background: #2196F3;
-  color: white;
-  font-size: 17px;
-  border: 1px solid grey;
-  border-left: none; /* Prevent double borders */
-  cursor: pointer;
+	float: left;
+	width: 20%;
+	padding: 10px;
+	background: #2196F3;
+	color: white;
+	font-size: 17px;
+	border: 1px solid grey;
+	border-left: none; /* Prevent double borders */
+	cursor: pointer;
 }
 
 form.example button:hover {
-  background: #0b7dda;
+	background: #0b7dda;
 }
 
 /* Clear floats */
 form.example::after {
-  content: "";
-  clear: both;
-  display: table;
+	content: "";
+	clear: both;
+	display: table;
 }

@@ -24,15 +24,15 @@
                 <div id="navbarUtil"> 
                     <button class="subnavbtn" onclick="openSearch()">
                       <i class="fa fa-search"></i></button>
-                    <a href="#">Home</a>
-                    <a href="#">Recommend</a>
+                    <a href="/">Home</a>
+                    <a href="/recommend/common">Recommend</a>
                     <a href="#">Find music</a>
-                    <a href="#">Join</a>
+                    <a href="/user/register">Join</a>
                 </div>
             </div>
               <div id="myOverlay" class="overlay">
                 <div class="overlay-content">
-                  <form action="/recommend/search" method="get" name="searchForm" onsubmit="return checkTxt();">
+                  <form action="/search" method="get" name="searchForm" onsubmit="return checkTxt();">
                     <input type="text" placeholder="Search.." name="searchTxt" value="">
                     <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
                   </form>
@@ -56,7 +56,7 @@
                     </div>
                     <div id="rec_txt">
                     	<c:out value="${plist.rcmdPlylstId}" />  
-                    	<form action="/recommend/plylst" method="post">
+                    	<form action="/recommend/plylst" method="get">
                     		<input type="hidden" value="${plist.rcmdPlylstId}" name="plylstId">
                     		<button type="submit">         	
                     		<c:out value="${plist.rcmdPlylstNm}" />
@@ -68,7 +68,8 @@
                                 
                 <div class="toLogin">
 					<div class="goLogin"><p>더 많은 정보를 원한다면 Login</p>
-					<button class="button">Login</button></div>
+					<form action="/user/login" method="get">
+					<button class="button">Login</button></form></div>
                 </div>
                 <div class="showMv">
 					<iframe width="80%" class="mv" height="340px" src="https://www.youtube.com/embed/eHir_vB1RUI"></iframe>
@@ -95,4 +96,11 @@
                 </script>
                 
                
-<%@include file="../includes/footer.jsp" %>
+ </div><!--bodyContent-->
+            <div id="rightSideBar"></div>
+        </div><!--body-->
+        <div id="footer"></div>
+    </div><!--main-->
+</body>
+</html>
+                

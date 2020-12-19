@@ -131,18 +131,33 @@ a {
 #body {
     display: flex;
     width: 100%;
-    height: 1800px;
+    height: auto;
+    overflow: hidden;
 }
 
 #leftSideBar {
     width: 10%;
-    height: 1800px;
+    height: auto;
+    overflow: hidden;
     background-color: white;
 }
 
 #bodyContent {
     width: 80%;
-    height: 2200px;
+    height: auto;
+    overflow: hidden;
+}
+.plylstBtn{
+    background-color: #e7e7e7; 
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px; 
+    cursor: pointer;
+    height: 36px;
 }
 
 .searchRst{
@@ -159,6 +174,7 @@ a {
     height: 50px;
     background-color: white;
 }
+
 .rstInfo{
     display: flex;
     width: 100%;
@@ -186,11 +202,28 @@ a {
     width: 100%;
     height: 50px;
     background-color: white;
+    display: flex;
+    justify-content: space-between;
 }
 .trackTable{
     width: 100%;
     height: 300px;
     background-color: white;
+}
+.heartParent{
+	width:108px;
+	text-align: center;	
+}
+
+.defaultHeartImg{
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+}
+.redHeartImg{
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
 }
 .albumTxt{
     width: 100%;
@@ -200,7 +233,8 @@ a {
 .albumImgContainer{
 	display: flex;
     width: 100%;
-    height: 300px;
+    height: auto;
+    overflow: hidden;
     background-color: white;    
 	justify-content: space-between;
 }
@@ -210,7 +244,10 @@ a {
 }
 .albumImg{
 	width: 100%;
-	height: 250px;
+	height: 80%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
 }
 .albumArtist{
 	width: 100%;
@@ -221,28 +258,98 @@ a {
 	height: 30px;
 }
 
-.artistAllTxt{
+.artistRstTxt{
     width: 100%;
     height: 50px;
-    background-color: wheat;
+    background-color: white;
 }
-.artistAllImg{
+.artistRstContainer{
     width: 100%;
     height: 300px;
-    background-color: seagreen;
+    background-color: white;
+}
+.artistTable{
+	width: 70%;
+}
+.artistSmallImg{
+	height: 50px;
+	width: 50px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+.td1{
+	width: 20%;
+}
+.td2{
+	width: 40%;
+}
+.td3{
+	width: 20%;
+}
+.td4{
+	width: 10%;
+}
+hr.one{
+	border: 0.1px solid lightgray;
 }
 .lyricsTxt{
     width: 100%;
     height: 50px;
-    background-color: skyblue;
+    background-color: white;
 }
-.lyricsImg{
+.lyricsContainer{
+	flex-direction: column;
+	justify-content: flex-start;
     width: 100%;
     height: 300px;
-    background-color: rosybrown;
+    background-color: white;
+    padding-bottom: 50px;
 }
+.eachLyrics{
+	width: 100%;
+	height: 100px;
+	background-color: white;
+}
+.lyricsTtl{
+	width: 100%;
+	height: 25px;
+	font-size: 0.9em;
+	font-weight: bold;
+}
+.lyricsContent{
+	width: 100%;
+	height: 50px; 
+	border: none;
+	overflow: hidden;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+	font-size: 0.7em;
+}
+.lyricsInfoContainer{
+	width: 100%;
+	height: 25px;
+}
+
+.lyricsArtist{
+	width: 20%;
+	height: 25px;
+	display: inline-block;
+}
+.lyricsAlbum{
+	width: 50%;
+	height: 25px;
+	display: inline-block;
+}
+
 .textInfo{
     line-height: 50px;
+}
+.btnParent{
+	text-align: center;
 }
 .playBtn{
 	width: 20px;
@@ -265,17 +372,19 @@ th, td{
     width: 10%;
 }
 .th2{
-    width: 40%;
-}
-.th3{
     width: 20%;
 }
-
-
-
+.th3{
+    width: 40%;
+}
+.th4{
+    width: 10%;
+    text-align: center;
+}
 #rightSideBar {
     width: 10%;
-    height: 1800px;
+    height: auto;
+    overflow: hidden;
     background-color: white;
 }
 
