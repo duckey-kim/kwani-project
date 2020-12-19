@@ -24,7 +24,7 @@ public class MyPageMapperTests {
 
 	@Test
 	public void testGetListLibrary() {
-		log.info(mapper.getListLibrary("qwani@"));
+		log.info(mapper.getListLibrary("a@naver.com"));
 	}
 
 	@Test

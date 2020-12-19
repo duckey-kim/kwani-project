@@ -1,58 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<style type="text/css">
-a{
-text-decoration: none;
-}
-div{
-margin-top: 10px;
-}
-</style>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="/resources/css/admin.css" />
-</head>
-<body>
-<div>
-<h4>${msg }</h4>
-<a href="/admin/logout">LOG OUT</a> 
-</div>
-<div>
-<div>USER</div>
-<a href="/admin/inputuser">input user</a>
-</div>
-<div>
-<div>ALBUM</div>
-<a href="/admin/inputalbum">input album</a>
-</div>
-<div>
-<div>TRACKS 
-앨범이 잇어야함</div>
-<a href="/admin/inputtracks">input tracks</a>
-</div>
-<div>
-<div>
-ARTIST</div>
-<a href="/admin/inputartist">input artist</a>
-</div>
+	pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/views/includes/adminheader.jsp"%>
 
-<div>
-<div>
-ARTIST AND TRACKS
-</div>
-<a href="/admin/inputartistandtrack">input Artist and Tracks</a>
-</div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
-<div>
-<div>
-ARTIST AND GROUP
-</div>
-<a href="/admin/inputartistandgroup">input Artist and group</a>
-</div>
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['노래', '갯수'],
+          ['힙합',5],
+          ['발라드',5],
+          ['락',  5],
+          ['댄스', 5]
+        ]);
+
+        var options = {
+          title: '장르별 노래 CHART'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+  </body>
 
 
-</body>
-</html>
+
+<%@include file="/WEB-INF/views/includes/adminfooter.jsp"%>

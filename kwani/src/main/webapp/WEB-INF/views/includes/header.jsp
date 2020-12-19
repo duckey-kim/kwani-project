@@ -1,44 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script defer src="/resources/js/index.js"></script>
-    <link rel="stylesheet" type = "text/css" href="/resources/css/c_recmd.css">
-</head>
-<body>
-    <div id="main">
-        <div id="header">
-            <div id="header_navbar">
-                <div id="musicPlayer">musicPlayer</div>
-                <div id="pageLogo">
-                    <a href="#">Last.fm</a>
-                </div>
-                <div id="navbarUtil"> 
-                    <button class="subnavbtn" onclick="openSearch()">
-                      <i class="fa fa-search"></i></button>
-                    <a href="#">Home</a>
-                    <a href="#">Recommend</a>
-                    <a href="#">Find music</a>
-                    <a href="#">Join</a>
-                </div>
-            </div>
-            <div id="myOverlay" class="overlay">
-                <div class="overlay-content">
-                  <form action="/recommend/search" method="get" name="searchForm">
-                    <input type="text" placeholder="Search.." name="searchTxt" value="">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                  </form>
-                </div>
-            </div><!--myOverlay-->
-        </div><!--header-->
+	pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css" href="/resources/css/header.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/footer.css">
 
-        <div id="body">
-            <div id="leftSideBar"></div>
-            <div id="bodyContent">   
+
+<body>
+	<div id="main">
+		<div id="header">
+			<div id="header_cover">
+				<video id="video" src="/resources/video/AudioWave.mp4"
+					type="video/mp4" autoplay muted loop></video>
+			</div>
+			<div id="header_navbar">
+				<div id="musicPlayer"></div>
+				<div id="pageLogo">
+					<a href="/">Baam</a>
+				</div>
+				<div id="navbarUtil">
+					<button class="subnavbtn" onclick="openSearch()">
+						<i class="fa fa-search"></i>
+					</button>
+					<a href="/">Home</a> <a href="/recommend/common">Recommend</a> <a
+						href="/user/register" id="joinBtn">Join</a>
+					<div class="dropdown">
+						<div class="dropbtn">
+							<i class="fas fa-user-circle"></i>
+						</div>
+						<div id="myDropdown" class="dropdown-content">
+							<a href="/mypage/overview" id="toMypageBtn"
+								style="display: none">My Page</a> <a href="/user/checkUserInfo">Settings</a>
+							<a href="/user/logoutAction" id="logoutBtn" style="display: none">Logout</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="myOverlay" class="overlay">
+				<div class="overlay-content">
+					<form action="/recommend/search" method="get" name="searchForm"
+						onsubmit="return checkTxt();">
+						<input type="text" placeholder="Search.." name="searchTxt"
+							value="">
+						<button type="submit" id="searchBtn">
+							<i class="fa fa-search"></i>
+						</button>
+					</form>
+				</div>
+			</div>
+			<!--myOverlay-->
+		</div>
+		<!--header-->

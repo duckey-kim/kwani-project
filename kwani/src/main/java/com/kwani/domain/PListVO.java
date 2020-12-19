@@ -7,13 +7,15 @@ import lombok.Data;
 @Data
 public class PListVO {
 
-	private int trackId;
+	private Integer trackId;
 	private String nm;
 	private String trackTtl;
-	private int plylstId;
+	private Integer plylstId;
 	private String plylstNm;
-	private int rcmdPlylstId;
+	private String plylstImg;
+	private Integer rcmdPlylstId;
 	private String rcmdPlylstNm;
+	private String rcmdPlylstImg;
 	
 	private String type;
 	private String genreCd;
@@ -21,7 +23,11 @@ public class PListVO {
 	private String albumTtl;
 	private String imgPath;
 	private String sex;
-	private int albumId;
-	private int gropId;
+	private Integer albumId;
+	private Integer gropId;
 	private String albumImg;
+	private String gropImg;
+	private String trackLyrics;
+	private Integer rn;
+	private Integer trackCnt;
 }
