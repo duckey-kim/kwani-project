@@ -82,7 +82,7 @@ public class MyPageAjaxController {
 		UserVO user = (UserVO) session.getAttribute("user");
 		
 		Gson gson = new Gson();
-		String result = gson.toJson("FAILED");
+		String result = gson.toJson("FAIL");
 		
 		for(Integer trackId : trackList) {
 			if(myPageService.checkValidTrackInPlaylist(plylstId, trackId)) {
@@ -91,7 +91,7 @@ public class MyPageAjaxController {
 				List<Map<String,String>> playlist = myPageService.getListPlaylistDetail(plylstId, user.getEmail());			
 				if(playlist.size() == 0) {
 					myPageService.modifyPlaylistBasicImg(plylstId);
-					return gson.toJson("NO");
+					return gson.toJson("EMPTY");
 				}
 				String firstTrackId = String.valueOf(playlist.get(0).get("TRACK_ID"));	
 				myPageService.modifyPlaylistImg(plylstId, Integer.parseInt(firstTrackId));

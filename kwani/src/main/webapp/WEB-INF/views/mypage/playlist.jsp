@@ -210,10 +210,8 @@
 		closeModalContent("삭제하시겠습니까?");
 	});
 	
-	// 모달 x 누르면 닫힘
-	$(".modal-close, .modal-overlay").click(function(){
-		$(".modal").attr("style", "display:none");
-	});
+	// 모달 x, 바 누르면 닫힘
+	$(document).on("click", ".modal-close, .modal-overlay", hideAllModal);
 	
 	// 등록모달 : 제목 등록 완료
 	function checkModal(result) {
@@ -221,7 +219,8 @@
 		
 		if(result === 'FAIL'){
 			basicModalContent("플레이리스트 수정에 실패했습니다.");
-			setTimeout(function(){ $("#myModal").attr("style", "display:none");window.location.href = "/mypage/playlist";}, 1100);
+			setTimeout(hideBasicModal, 1100);
+			setTimeout(changeLoc, 1100);
 			return;
 		}
 		
@@ -232,14 +231,15 @@
 		basicModalContent("플레이리스트 [" + result + "] 등록이 완료되었습니다.");
 		
 		history.replaceState({}, null, null);
-		setTimeout(function(){ $("#myModal").attr("style", "display:none");}, 1100);
+		setTimeout(hideBasicModal, 1100);
 	}
 	
 	//삭제모달 : 플레이리스트 삭제 완료
 	function deleteModal(result) {
 		if (result === 'FAIL') {
 			basicModalContent("플레이리스트 삭제에 실패했습니다.");
-			setTimeout(function(){ $("#myModal").attr("style", "display:none");window.location.href = "/mypage/playlist";}, 1100);
+			setTimeout(hideBasicModal, 1100);
+			setTimeout(changeLoc, 1100);
 			return;
 		}
 		
@@ -250,11 +250,19 @@
 		basicModalContent("플레이리스트 삭제가 완료되었습니다.");
 		
 		history.replaceState({}, null, null);
-		setTimeout(function(){ $("#myModal").attr("style", "display:none");}, 1100);
+		setTimeout(hideBasicModal, 1100);
 	}
 	
-	function showModal (){
+	function hideAllModal(){
+		$(".modal").attr("style", "display:none");
+	}
+	
+	function hideBasicModal(){
 		$("#myModal").attr("style", "display:none");
+	}
+	
+	function changeLoc(){
+		window.location.href = "/mypage/playlist";
 	}
 	
 	// 기본 모달 내용 변경 함수
