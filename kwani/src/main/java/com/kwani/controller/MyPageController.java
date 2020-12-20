@@ -105,33 +105,29 @@ public class MyPageController {
 		return "/mypage/playlistView";
 	}
 
-	// TODO : AJAX로 변경
 	// 플레이리스트 삭제
 	@PostMapping("/playlist/delete")
-	public String deletePlaylist(Integer plylstId, String email, RedirectAttributes rttr) {
+	public String deletePlaylist(Integer plylstId, HttpSession session, RedirectAttributes rttr) {
 
-		Boolean result = myPageService.removePlaylist(plylstId, email);
+		UserVO user = (UserVO) session.getAttribute("user");
+
+		boolean result = myPageService.removePlaylist(plylstId, user.getEmail());
 		
-		if(!result) {
-			return "error_page";
-		}
-		rttr.addFlashAttribute("successDel", result);
+		rttr.addFlashAttribute("successDel", result ? "SUCCESS" : "FAIL");
 		
 		return "redirect:/mypage/playlist";
 	}
 
-	// TODO : AJAX로 변경
 	// 플레이리스트 수정
 	@PostMapping("/playlist/modify")
-	public String getPlaylistEdit(@ModelAttribute("playlistVO") PlaylistVO playlistVO, RedirectAttributes rttr) {
-
-		// 제목, 내용 변경..Ø
-		// 여기서 곡을 한번에 저장하는게 날지..
-		// 클릭마다 그냥 저장해버리는게 날지..
+	public String getPlaylistEdit(@ModelAttribute("playlistVO") PlaylistVO playlistVO, HttpSession session, RedirectAttributes rttr) {
 		
-		//TODO : VO로 묶지말고 변경?
-		myPageService.modifyPlaylist(playlistVO);
-		rttr.addFlashAttribute("result", playlistVO.getNm());
+		//유효성체크.. 본인만 수정할 수 있도록
+		UserVO user = (UserVO) session.getAttribute("user");
+		
+		boolean result = myPageService.modifyPlaylist(playlistVO, user.getEmail());
+		
+		rttr.addFlashAttribute("result", result ? playlistVO.getNm() : "FAIL");
 
 		return "redirect:/mypage/playlist";
 	}

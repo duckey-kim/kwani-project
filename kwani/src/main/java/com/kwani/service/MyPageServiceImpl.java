@@ -177,10 +177,6 @@ public class MyPageServiceImpl implements MyPageService {
 	public boolean removePlaylist(Integer plylstId, String email) {
 		log.info("remove Playlist" + plylstId);
 		
-		// delete
-		// 없는 플레이리스트 삭제했을때 0
-		// 삭제 성공 1
-		
 		// playlistId가 존재하는지 아닌지
 		if(!checkValidPlaylistId(plylstId, email)) {
 			return false;
@@ -221,21 +217,17 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public int modifyPlaylist(PlaylistVO playlistVO) {
-		log.info("modify Playlist..." + playlistVO);
-		return myPageMapper.updatePlaylist(playlistVO);
+	public boolean modifyPlaylist(PlaylistVO playlistVO, String email) {
+		if(myPageMapper.updatePlaylist(playlistVO, email) == 0)
+			return false;
+		
+		return true;
 	}
 
 	@Override
 	public int countPlaylistTrack(Integer plylstId) {
 		log.info("count PlaylistTrack" + plylstId);
 		return myPageMapper.countPlaylistTrack(plylstId);
-	}
-
-	@Override
-	public int removePlaylist(Integer plylstId) {
-		log.info("remove Playlist" + plylstId);
-		return myPageMapper.deletePlaylist(plylstId);
 	}
 
 }

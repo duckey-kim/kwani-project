@@ -13,13 +13,12 @@ public interface MyPageService {
 	public boolean checkValidPlaylist(Integer plylstId);
 	public boolean checkValidTrackInPlaylist(Integer plylstId, Integer trackId);
 	public boolean removePlaylist(Integer plylstId, String email);
+	public boolean modifyPlaylist(PlaylistVO playlistVO, String email);
 	public int createPlaylist(PlaylistVO playlistVO);
 	public int countPlaylist(String email);
 	public int countPlaylistTrack(Integer plylstId);
-	public int modifyPlaylist(PlaylistVO playlistVO);
 	public int modifyPlaylistImg(Integer plylstId, Integer trackId);
 	public int modifyPlaylistBasicImg(Integer plylstId);
-	public int removePlaylist(Integer plylstId);
 	public void removePlaylistTrack(Set<Integer> trackList, Integer plylstId);
 
 	public UserVO getOneUser(String email);

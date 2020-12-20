@@ -185,7 +185,6 @@
 </body>
 
 <script>
-
 	$(document).ready(function() {
 	
 		let result = '<c:out value="${result}"/>';
@@ -202,8 +201,30 @@
 		$(".dropdown-content:eq(" + idx + ")").toggle();
 	});
 	
+	// 삭제모달 : 플레이리스트 번호 넘김
+	$(".del").click(function() {
+		let idx = $(".del").index(this);
+		let idxValue = $(".plylstValue:eq(" + idx + ")").val();
+		$(".plylstDel").val(idxValue);
+
+		closeModalContent("삭제하시겠습니까?");
+	});
+	
+	// 모달 x 누르면 닫힘
+	$(".modal-close, .modal-overlay").click(function(){
+		$(".modal").attr("style", "display:none");
+	});
+	
 	// 등록모달 : 제목 등록 완료
 	function checkModal(result) {
+		console.log(result);
+		
+		if(result === 'FAIL'){
+			basicModalContent("플레이리스트 수정에 실패했습니다.");
+			setTimeout(function(){ $("#myModal").attr("style", "display:none");window.location.href = "/mypage/playlist";}, 1100);
+			return;
+		}
+		
 		if (result === '' || history.state) {
 			return;
 		}
@@ -216,34 +237,25 @@
 	
 	//삭제모달 : 플레이리스트 삭제 완료
 	function deleteModal(result) {
-		if (result === '' || result === 'false' || history.state) {
+		if (result === 'FAIL') {
+			basicModalContent("플레이리스트 삭제에 실패했습니다.");
+			setTimeout(function(){ $("#myModal").attr("style", "display:none");window.location.href = "/mypage/playlist";}, 1100);
 			return;
 		}
-	
+		
+		if (result === '' || history.state) {
+			return;
+		}
+		
 		basicModalContent("플레이리스트 삭제가 완료되었습니다.");
 		
 		history.replaceState({}, null, null);
 		setTimeout(function(){ $("#myModal").attr("style", "display:none");}, 1100);
 	}
 	
-	// 삭제모달 : 플레이리스트 번호 넘김
-	$(".del").click(function() {
-		let idx = $(".del").index(this);
-		let idxValue = $(".plylstValue:eq(" + idx + ")").val();
-		$(".plylstDel").val(idxValue);
-
-		closeModalContent("삭제하시겠습니까?");
-	});
-	
-	// 모달 x 누르면 닫힘
-	$(".modal-close").click(function(){
-		$(".modal").attr("style", "display:none");
-	});
-	
-	// 모달 바깥 누르면 닫힘
-	$(".modal-overlay").click(function(){
-		$(".modal").attr("style", "display:none");
-	});
+	function showModal (){
+		$("#myModal").attr("style", "display:none");
+	}
 	
 	// 기본 모달 내용 변경 함수
 	function basicModalContent(content){
@@ -260,6 +272,7 @@
 		$(".modal-close").show();
 		$("#myModal").attr("style", "display:block");
 	}
+	
 </script>
 
 </html>

@@ -179,9 +179,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="updatePlaylist">
 		UPDATE T_PLYLST
-		SET NM = #{nm}, DESCP = #{desc}
-		WHERE
-		PLYLST_ID = #{plylstId}
+		SET NM = #{plylst.nm}, DESCP = #{plylst.desc}
+		WHERE PLYLST_ID = #{plylst.plylstId}
+		AND EMAIL = #{email}
 	</update>
 
 	<insert id="insertSelectKeyPlaylist">

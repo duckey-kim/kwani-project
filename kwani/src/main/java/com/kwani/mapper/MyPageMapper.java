@@ -11,10 +11,9 @@ import com.kwani.domain.UserVO;
 public interface MyPageMapper {
 
 	public Integer insertSelectKeyPlaylist(PlaylistVO playlistVO);
-	public Integer updatePlaylist(PlaylistVO playlistVO);
+	public Integer updatePlaylist(@Param("plylst")PlaylistVO plyalistVO, @Param("email")String email);
 	public Integer updatePlaylistImg(@Param("plylstId")Integer plylstId, @Param("trackId")Integer trackId);
 	public Integer updatePlaylistBasicImg(@Param("plylstId")Integer plylstId);
-	public Integer deletePlaylist(Integer plylstId);	
 	public Integer countPlaylist(String email);
 	public Integer countPlaylistTrack(Integer plylstId);
 	public Integer insertTrack(@Param("plylstId")Integer plylstId, @Param("trackId")Integer trackId);
@@ -34,6 +33,5 @@ public interface MyPageMapper {
 	public List<Map<String,String>> getListLikedTrack(String email);
 	public List<Map<String,String>> getListLikedAlbum(String email);
 	public List<Map<String,String>> getPlaylistDetail(@Param("plylstId")Integer plylstId, @Param("email")String email);
-	
 
 }
