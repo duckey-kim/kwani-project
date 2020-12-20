@@ -2,17 +2,13 @@ package com.kwani.service;
 
 import static org.junit.Assert.assertNotNull;
 
-import javax.sound.midi.MidiDevice.Info;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.kwani.domain.HomeVO;
 import com.kwani.domain.UserVO;
-import com.kwani.service.UserService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -44,15 +40,6 @@ public class UserServiceTests {
 		user.setNick("투");
 		user.setPwd("123123");
 		user.setUserImg("");
-		user.setMoodCd("");
-		user.setGenreCd("");
-		user.setSituCd("");
-		user.setStusCd("");
-		user.setLastDt("");
-		user.setInUser("");
-		user.setInDate("");
-		user.setUpUser("");
-		user.setUpDate("");
 
 		service.register(user);
 
@@ -89,7 +76,6 @@ public class UserServiceTests {
 		if (user == null) {
 			return;
 		}
-		user.setStusCd("2");
 		log.info("회원권한변경완료!" + service.withdrawal(user));
 	}
 
