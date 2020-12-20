@@ -20,11 +20,12 @@ public interface MyPageMapper {
 	public Integer deletePlaylist(@Param("plylstId")Integer plylstId, @Param("email")String email);
 	public Integer deletePlaylistDetail(@Param("plylstId")Integer plylstId);
 	public Integer deletePlaylistTrack(@Param("trackId")Integer trackId, @Param("plylstId")Integer plylstId);
-	public Integer getOnePlaylist(Integer plylstId);
+	public Integer getOnePlaylist(@Param("plylstId")Integer plylstId, @Param("email")String email);
 	public Integer getOneTrackInPlaylist(@Param("plylstId")Integer plylstId, @Param("trackId")Integer trackId);
 
 	public UserVO getUser(String email);
 
+	public PlaylistVO getOnePlaylistVO(@Param("plylstId")Integer plylstId, @Param("email")String email);
 	public List<Integer> getPlaylistTrackList(@Param("plylstId")Integer plylstId, @Param("email")String email);
 	public List<PlaylistVO> getListPlaylist(String email);
 	public List<Map<String,String>> getListLibrary(String email);

@@ -53,8 +53,8 @@ public class MyPageServiceImpl implements MyPageService {
 
 	// 플레이리스트 있는지 여부 체크
 	@Override
-	public boolean checkValidPlaylist(Integer plylstId) {
-		if(myPageMapper.getOnePlaylist(plylstId) == null) {
+	public boolean checkValidPlaylist(Integer plylstId, String email) {
+		if(myPageMapper.getOnePlaylist(plylstId, email) == null) {
 			return false;
 		}
 		return true;
@@ -136,12 +136,11 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	// 좋아요 곡 목록 가져오기
-		@Override
-		public List<Map<String, String>> getListLikedTrack(String email) {
-			log.info("getList LikedTrack...");
-			
-			return myPageMapper.getListLikedTrack(email);
-		}
+	@Override
+	public List<Map<String, String>> getListLikedTrack(String email) {
+		log.info("getList LikedTrack...");	
+		return myPageMapper.getListLikedTrack(email);
+	}
 
 	@Override
 	public List<Map<String, String>> getListLikedAlbum(String email) {
@@ -150,13 +149,20 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
+	public Integer getOnePlaylist(Integer plylstId, String email){
+		log.info("get One Playlist...");
+		return myPageMapper.getOnePlaylist(plylstId, email);
+	}
+	
+	public PlaylistVO getOnePlaylistVO(Integer plylstId, String email){
+		log.info("get One PlaylistVO...");		
+		return myPageMapper.getOnePlaylistVO(plylstId, email);
+	}
+	
+	@Override
 	public List<PlaylistVO> getListPlaylist(String email) throws MyBatisSystemException {
 		log.info("get Playlist...");
-
-		List<PlaylistVO> result = null;
-		result = myPageMapper.getListPlaylist(email);
-
-		return result;
+		return myPageMapper.getListPlaylist(email);
 	}
 
 	@Override
@@ -195,7 +201,7 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	private boolean checkValidPlaylistId(Integer plylstId, String email) {
-		if(myPageMapper.getOnePlaylist(plylstId) == null) {
+		if(myPageMapper.getOnePlaylist(plylstId, email) == null) {
 			return false;
 		}
 		return true;

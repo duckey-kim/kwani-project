@@ -185,6 +185,7 @@
 </body>
 
 <script>
+
 	$(document).ready(function() {
 	
 		let result = '<c:out value="${result}"/>';

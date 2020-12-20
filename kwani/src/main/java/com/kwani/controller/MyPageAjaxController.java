@@ -65,7 +65,7 @@ public class MyPageAjaxController {
 		Gson gson = new Gson();
 		String result = gson.toJson("FAILED");
 		
-		if(myPageService.checkValidPlaylist(plylstId)) {
+		if(myPageService.checkValidPlaylist(plylstId, user.getEmail())) {
 			myPageService.insertTrackList(trackList, plylstId, user.getEmail());
 			
 			List<Map<String,String>> playlist = myPageService.getListPlaylistDetail(plylstId, user.getEmail());

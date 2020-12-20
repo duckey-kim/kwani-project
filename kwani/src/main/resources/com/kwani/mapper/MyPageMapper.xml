@@ -169,6 +169,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getOnePlaylist" resultMap="Integer">
 		SELECT PLYLST_ID FROM T_PLYLST
 		WHERE PLYLST_ID = #{plylstId}
+		AND EMAIL = #{email}
+	</select>
+	
+	<select id="getOnePlaylistVO" resultMap="PlayListResult">
+		SELECT * FROM T_PLYLST
+		WHERE PLYLST_ID = #{plylstId}
+		AND EMAIL = #{email}
 	</select>
 	
 	<select id="getOneTrackInPlaylist" resultMap="Integer">

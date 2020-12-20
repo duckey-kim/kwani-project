@@ -10,7 +10,8 @@ import com.kwani.domain.UserVO;
 public interface MyPageService {
 
 	public void insertTrackList(Set<Integer> trackId, Integer plylstId, String email);
-	public boolean checkValidPlaylist(Integer plylstId);
+	public void removePlaylistTrack(Set<Integer> trackList, Integer plylstId);
+	public boolean checkValidPlaylist(Integer plylstId, String email);
 	public boolean checkValidTrackInPlaylist(Integer plylstId, Integer trackId);
 	public boolean removePlaylist(Integer plylstId, String email);
 	public boolean modifyPlaylist(PlaylistVO playlistVO, String email);
@@ -19,10 +20,11 @@ public interface MyPageService {
 	public int countPlaylistTrack(Integer plylstId);
 	public int modifyPlaylistImg(Integer plylstId, Integer trackId);
 	public int modifyPlaylistBasicImg(Integer plylstId);
-	public void removePlaylistTrack(Set<Integer> trackList, Integer plylstId);
 
 	public UserVO getOneUser(String email);
 
+	public Integer getOnePlaylist(Integer plylstId, String email);
+	public PlaylistVO getOnePlaylistVO(Integer plylstId, String email);
 	public List<PlaylistVO> getListPlaylist(String email);
 	public List<Map<String,String>> getListLibrary(String object);
 	public List<Map<String,String>> getListLikedArtist(String email);

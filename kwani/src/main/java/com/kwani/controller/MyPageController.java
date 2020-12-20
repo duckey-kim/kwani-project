@@ -5,7 +5,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -90,16 +92,29 @@ public class MyPageController {
 
 		return "/mypage/playlistDetail";
 	}
-
+	
 	// TODO : Null check
-	// 새 플레이리스트 생성
+		// 새 플레이리스트 생성
 	@PostMapping("/playlist/create")
 	public String createPlaylist(@ModelAttribute("playlistVO") PlaylistVO playlistVO, HttpSession session , Model model) {
+			
+		UserVO user = (UserVO) session.getAttribute("user");
+			
+		myPageService.createPlaylist(playlistVO);
+		System.out.println(playlistVO);
+		model.addAttribute("playlistVO", playlistVO);
+					
+		return "redirect:/mypage/playlist/" + playlistVO.getPlylstId();
+	}
+
+	@GetMapping("/playlist/{plylstId}")
+	public String showPlaylist(@PathVariable("plylstId")Integer plylstId, HttpSession session , Model model) {
 		
 		UserVO user = (UserVO) session.getAttribute("user");
 		
-		myPageService.createPlaylist(playlistVO);
-		model.addAttribute("playlistVO", playlistVO);
+		System.out.println(plylstId);
+		model.addAttribute("playlistVO", myPageService.getOnePlaylistVO(plylstId, user.getEmail()));		
+		System.out.println(myPageService.getOnePlaylist(plylstId, user.getEmail()));
 		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(user.getEmail()));
 				
 		return "/mypage/playlistView";
