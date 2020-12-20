@@ -211,6 +211,10 @@
 		closeModalContent("삭제하시겠습니까?");
 	});
 	
+	// 수정모달 : 수정페이지ㄱㄱ
+	$(".mod").click(function(){
+	});
+	
 	// 모달 x, 바 누르면 닫힘
 	$(document).on("click", ".modal-close, .modal-overlay", hideAllModal);
 	
