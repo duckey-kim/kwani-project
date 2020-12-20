@@ -185,11 +185,46 @@
 </body>
 
 <script>
+
+	$(document).ready(function() {
+	
+		let result = '<c:out value="${result}"/>';
+		let delResult = '<c:out value="${successDel}"/>';
+				
+		checkModal(result);
+		deleteModal(delResult);
+	
+	});
+	
 	//드롭박스 : 수정,삭제
 	$(".dropBtn").click(function() {
 		let idx = $(".dropBtn").index(this);
 		$(".dropdown-content:eq(" + idx + ")").toggle();
 	});
+	
+	// 등록모달 : 제목 등록 완료
+	function checkModal(result) {
+		if (result === '' || history.state) {
+			return;
+		}
+
+		basicModalContent("플레이리스트 [" + result + "] 등록이 완료되었습니다.");
+		
+		history.replaceState({}, null, null);
+		setTimeout(function(){ $("#myModal").attr("style", "display:none");}, 1100);
+	}
+	
+	//삭제모달 : 플레이리스트 삭제 완료
+	function deleteModal(result) {
+		if (result === '' || result === 'false' || history.state) {
+			return;
+		}
+	
+		basicModalContent("플레이리스트 삭제가 완료되었습니다.");
+		
+		history.replaceState({}, null, null);
+		setTimeout(function(){ $("#myModal").attr("style", "display:none");}, 1100);
+	}
 	
 	// 삭제모달 : 플레이리스트 번호 넘김
 	$(".del").click(function() {
