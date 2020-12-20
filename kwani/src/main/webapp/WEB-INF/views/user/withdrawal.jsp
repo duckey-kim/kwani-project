@@ -32,7 +32,7 @@
 	href="/resources/css/withdrawal.css">
 </head>
 
-<%@include file="../includes/header.jsp"%>
+<%@include file="../includes/mainHeader.jsp"%>
 
 <div id="body">
 	<div id="leftSideBar"></div>
@@ -83,20 +83,6 @@
 		}
 
 		return true;
-	}
-
-	window.onscroll = function() {
-		myFunction()
-	};
-	let navbar = document.getElementById("header_navbar");
-	let sticky = navbar.offsetTop;
-
-	function myFunction() {
-		if (window.pageYOffset >= sticky) {
-			navbar.classList.add("sticky")
-		} else {
-			navbar.classList.remove("sticky");
-		}
 	}
 
 	function openSearch() {

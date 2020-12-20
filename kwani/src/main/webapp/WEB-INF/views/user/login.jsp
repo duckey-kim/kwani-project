@@ -31,7 +31,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/login.css">
 </head>
 
-<%@include file="../includes/header.jsp"%>
+<%@include file="../includes/mainHeader.jsp"%>
 
 <div id="body">
 	<div id="leftSideBar"></div>
@@ -120,32 +120,6 @@
 		}
 
 		return true;
-	}
-
-	window.onscroll = function() {
-		myFunction()
-	};
-	let navbar = document.getElementById("header_navbar");
-	let sticky = navbar.offsetTop;
-
-	function myFunction() {
-		if (window.pageYOffset >= sticky) {
-			navbar.classList.add("sticky")
-		} else {
-			navbar.classList.remove("sticky");
-		}
-	}
-
-	function openSearch() {
-		document.getElementById("myOverlay").style.display = "block";
-	}
-
-	let overlay = document.getElementById('myOverlay');
-
-	window.onclick = function(event) {
-		if (event.target == overlay) {
-			overlay.style.display = "none";
-		}
 	}
 
 	function remember() {
