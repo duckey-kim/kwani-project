@@ -8,8 +8,8 @@
 			<div class="panel paenl-default">
 				<div class="panel-body">
 
-					<form action="/admin/inputartistAction" method="post" enctype="multipart/form-data"
-						onsubmit="return checkInput();">
+					<form action="/admin/inputartistAction" method="post"
+						enctype="multipart/form-data" onsubmit="return checkInput();">
 						<h4>${msg }</h4>
 						<h4>T_ARTIST</h4>
 						<div class="form-group">
@@ -28,7 +28,8 @@
 								value="${artist.sex }">
 						</div>
 						<div class="form-group">
-							<label>활동형태</label> <select class="form-control" name="type" id="type">
+							<label>활동형태</label> <select class="form-control" name="type"
+								id="type">
 								<option value="g">그룹</option>
 								<option value="s">솔로</option>
 								<option value="sg">그룹,솔로</option>
@@ -37,13 +38,14 @@
 						</div>
 						<div class="form-group">
 							<label>데뷔일</label> <input class="form-control"
-								placeholder="DEBUT 2020-10-10" type="date" name="debutDt" id="debutDt"
-								value="${artist.debutDt }">
+								placeholder="DEBUT 2020-10-10" type="date" name="debutDt"
+								id="debutDt" value="${artist.debutDt }">
 
 						</div>
 						<div class="form-group">
 							<label>상태</label> <input class="form-control" placeholder="상태코드"
-								type="text" name="stusCd" value="${artist.statusCode }" id="stusCd">
+								type="text" name="stusCd" value="${artist.statusCode }"
+								id="stusCd">
 						</div>
 
 
@@ -89,7 +91,7 @@
 
 	let checkInput = function() {
 
-		let nmFld =document.getElementById("nm");
+		let nmFld = document.getElementById("nm");
 		let sexFld = document.getElementById("sex");
 		let typeFld = document.getElementById("type");
 		let dateFld = document.getElementById("debutDt");
@@ -97,10 +99,10 @@
 		let imgFld = document.getElementById("imgFile");
 
 		let gropImg = imgFld.files.item(0);
-		
+
 		const specialPattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 		const numRegex = /[^0-9]/g;
-		
+
 		if (nmFld.value.trim() == "") {
 			alert("활동명을 입력해주세요")
 			return false;
@@ -113,8 +115,7 @@
 		if (!check(specialPattern, nmFld, "활동명에 특수문자는 안됩니다")) {
 			return false;
 		}
-	
-		
+
 		if (sexFld.value.trim() == "") {
 			alert("가수 성별을 입력해주세요")
 			return false;
@@ -128,12 +129,14 @@
 			alert("아티스트의 유형을 입력해주세요");
 			return false;
 		}
-		
-		if (imgFld.value == "") {
+
+		if (gropImg == null) {
 			alert("파일을 선택해주세요");
 			return false;
+		} else if (!checkExtension(gropImg.name, gropImg.size)) {
+			return false;
 		}
-		
+
 		if (stusCdFld.value == "") {
 			alert("상태코드를 입력해주세요");
 			return false;
@@ -145,13 +148,6 @@
 		if (!check(numRegex, stusCdFld, "상태코드는  숫자만 입력해주세요")) {
 			return false;
 		}
-		
-		
-
-		if (!checkExtension(gropImg.name, gropImg.size)) {
-			return false;
-		}
-
 
 		return true;
 
