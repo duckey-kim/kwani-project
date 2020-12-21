@@ -53,6 +53,7 @@ public class MyPageController {
 		String email = (String)session.getAttribute("userEmail");
 
 		model.addAttribute("likedArtistList", myPageService.getListLikedArtist(email));
+		System.out.println(myPageService.getListLikedArtist(email));
 		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
 		model.addAttribute("likedAlbumList", myPageService.getListLikedAlbum(email));
 

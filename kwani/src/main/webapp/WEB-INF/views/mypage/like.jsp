@@ -105,12 +105,12 @@
 											<th class="th"></th>
 										</tr>
 										<tr>
-											<td class="td8" colspan="2"><img class="myArtistImg" src="/resources/image/artist/${artist.GROP_IMG}"></td>
+											<td class="td8" colspan="2"><a href="/detail/artist?gropId=${artist.GROP_ID}"><img class="myArtistImg" src="/resources/image/artist/${artist.GROP_IMG}"></a></td>
 										</tr>
 										
 										<tr>
 											<td><img src="/resources/image/heart.png" class="play"></td>
-											<td style="text-align:left"><c:out value="${artist.NM}" /></td>
+											<td style="text-align:left"><a href="/detail/artist?gropId=${artist.GROP_ID}"><c:out value="${artist.NM}" /></a></td>
 										</tr>
 									</table>
 								</c:forEach>
@@ -136,11 +136,11 @@
 									</tr>
 
 									<tr>
-										<td class="td7" rowspan="4"><img class="myAlbumImg" src="/resources/image/album/${album.ALBUM_IMG}"></td>
-										<td colspan="3"><c:out value="${album.ALBUM_TTL}" /></td>
+										<td class="td7" rowspan="4"><a href="/detail/album?albumId=${album.ALBUM_ID}"><img class="myAlbumImg" src="/resources/image/album/${album.ALBUM_IMG}"></a></td>
+										<td colspan="3"><a href="/detail/album?albumId=${album.ALBUM_ID}"><c:out value="${album.ALBUM_TTL}" /></a></td>
 									</tr>
 									<tr>
-										<td colspan="3"><c:out value="${album.NM}" /></td>
+										<td colspan="3"><a href="/detail/artist?gropId=${album.GROP_ID}"><c:out value="${album.NM}" /></a></td>
 									</tr>
 									<tr>
 										<td colspan="3">10</td>
@@ -172,10 +172,10 @@
 							</tr>
 							<c:forEach items="${likedTrackList}" var="track" begin="0" end="4">
 								<tr>
-									<td><a href="#"><img src="/resources/image/album/${track.ALBUM_IMG}" class="myImg"></a></td>
-									<td><c:out value="${track.TRACK_TTL}" /></td>
-									<td><c:out value="${track.NM}" /></td>
-									<td><c:out value="${track.ALBUM_TTL}" /></td>
+									<td><a href="/detail/album?albumId=${track.ALBUM_ID}"><img src="/resources/image/album/${track.ALBUM_IMG}" class="myImg"></a></td>
+									<td><a href="/detail/track?trackId=${track.TRACK_ID}"><c:out value="${track.TRACK_TTL}" /></a></td>
+									<td><a href="/detail/artist?gropId=${track.GROP_ID}"><c:out value="${track.NM}" /></a></td>
+									<td><a href="/detail/album?albumId=${track.ALBUM_ID}"><c:out value="${track.ALBUM_TTL}" /></a></td>
 									<td onclick='popupPlayer("/player/track?trackId=${track.TRACK_ID}")'><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
 									<td><a href="#"><img src="/resources/image/heart.png" class="play"></a></td>
 								</tr>

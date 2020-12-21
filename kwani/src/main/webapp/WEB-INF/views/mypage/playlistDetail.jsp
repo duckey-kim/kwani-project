@@ -113,10 +113,10 @@
 									<c:forEach items="${playlistDetail}" var="playlistDetail" varStatus="status">
 										<tr>
 											<td>${status.count}</td>											
-											<td><a href="#"><img src="/resources/image/album/${playlistDetail.ALBUM_IMG}" class="myImg"></a></td>
-											<td><c:out value="${playlistDetail.TRACK_TTL}" /></td>
-											<td><c:out value="${playlistDetail.ANM}" /></td>
-											<td><c:out value="${playlistDetail.ALBUM_TTL}" /></td>
+											<td><a href="/detail/album?albumId=${playlistDetail.ALBUM_ID}"><img src="/resources/image/album/${playlistDetail.ALBUM_IMG}" class="myImg"></a></td>
+											<td><a href="/detail/track?trackId=${playlistDetail.TRACK_ID}"><c:out value="${playlistDetail.TRACK_TTL}" /></a></td>
+											<td><a href="/detail/artist?gropId=${playlistDetail.GROP_ID}"><c:out value="${playlistDetail.ANM}" /></a></td>
+											<td><a href="/detail/album?albumId=${playlistDetail.ALBUM_ID}"><c:out value="${playlistDetail.ALBUM_TTL}" /></a></td>
 											<td onclick='popupPlayer("/player/track?trackId=${playlistDetail.TRACK_ID}")'><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
 											<td><a href="#"><img src="/resources/image/heart.png" class="play"></a></td>
 										</tr>
