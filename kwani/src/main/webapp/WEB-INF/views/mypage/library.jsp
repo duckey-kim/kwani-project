@@ -92,23 +92,24 @@
 							</h3>
 						</div>
 						<div class="item-body">
-							<table style="width: 100%">
+							<table>
 								<tr>
-									<th class="th1"></th>
-									<th class="th2"></th>
-									<th class="th3"></th>
-									<th class="th4"></th>
-									<th class="th5"></th>
-									<th class="th6"></th>
+								<th class="th1"></th>
+								<th class="th4"></th>
+								<th class="th3"></th>
+								<th class="th3"></th>
+								<th class="th1"></th>
+								<th class="th1"></th>
 								</tr>
-								<c:forEach items="${libraryList}" var="library">
+								<c:forEach items="${libraryList}" var="library" begin="0"
+									end="4">
 									<tr>
-										<td onclick='popupPlayer("/player/track?trackId=${library.TRACK_ID}")'><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
-										<td><a href="#"><img src="/resources/image/${library.heart}" class="play"></a></td>
 										<td><a href="#"><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"></a></td>
 										<td><c:out value="${library.TRACK_TTL}" /></td>
 										<td><c:out value="${library.NM}" /></td>
 										<td><c:out value="${library.PLAY_DT}" /></td>
+										<td onclick='popupPlayer("/player/track?trackId=${library.TRACK_ID}")'><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
+										<td><img src="/resources/image/${library.heart}" class="play"></td>
 									</tr>
 								</c:forEach>
 							</table>

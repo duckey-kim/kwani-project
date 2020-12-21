@@ -53,8 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="getListPlaylist" resultMap="PlayListResult">
-		SELECT NM, PLYLST_ID,
-		PLYLST_IMG FROM T_PLYLST
+		SELECT NM, PLYLST_ID, PLYLST_IMG FROM T_PLYLST
 		WHERE EMAIL = #{email}
 		ORDER BY PLYLST_ID ASC
 	</select>

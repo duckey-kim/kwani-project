@@ -54,7 +54,7 @@ li {
 	width: 40%;
 }
 
-.artistTable{
+.basicTable{
 }
 
 .modal {
@@ -156,7 +156,7 @@ li {
 	margin: 2em;
 }
 
-.item-div .artistTable {
+.item-div .basicTable {
 	width: 13vw;
 	margin: 2vw;
 }
@@ -222,8 +222,28 @@ li {
 	width: 4em;
 }
 
-.th4, .th5, .th6 {
-	width: auto;
+.th1{
+	width: 1vw;
+}
+
+.th2{
+	width: 2vw;
+}
+
+.th3{
+	width: 3vw;
+}
+
+.th4{
+	width: 4vw;
+}
+
+.th5{
+	width : 5vw;
+}
+
+.th6 {
+	width: 6vw;
 }
 
 .play {

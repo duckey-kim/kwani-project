@@ -114,7 +114,7 @@
 								<c:forEach items="${playlistVO}" var="plylst">
 									<table class="table">
 										<tr>
-											<th class="th" colspan="2"></th>
+											<th></th><th></th>
 										</tr>
 										<tr>
 											<td class="td8 img-td" colspan="2">
@@ -123,10 +123,10 @@
 														<a class="dropBtn"><img class="moreImg" src="/resources/image/more.png"></a>
 															<img class="myArtistImg myPlaylist" src="/resources/image/album/${plylst.plylstImg}">
 															<div class="dropdown">
-																<ul class="dropdown-content">
-																	<li><button class="mod">수정</button></li>
-																	<li><button class="del">삭제</button></li>
-																</ul>
+																	<ul class="dropdown-content">
+																			<li><button class="mod">수정</button></li>
+																			<li><button class="del">삭제</button></li>
+																	</ul>
 															</div>
 													</div>
 												</div>
@@ -196,7 +196,7 @@
 	
 	});
 	
-	//드롭박스 : 수정,삭제
+	// 드롭박스 : 수정,삭제
 	$(".dropBtn").click(function() {
 		let idx = $(".dropBtn").index(this);
 		$(".dropdown-content:eq(" + idx + ")").toggle();
@@ -211,8 +211,13 @@
 		closeModalContent("삭제하시겠습니까?");
 	});
 	
-	// 수정모달 : 수정페이지ㄱㄱ
+	// TODO: 수정
+	// 수정모달 : 수정페이지
 	$(".mod").click(function(){
+		let idx = $(".mod").index(this);
+		let idxValue = $(".plylstValue:eq(" + idx + ")").val();
+		let address = "/mypage/playlist/" + idxValue;
+		window.location.href = address;
 	});
 	
 	// 모달 x, 바 누르면 닫힘

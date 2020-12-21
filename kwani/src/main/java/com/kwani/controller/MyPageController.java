@@ -130,8 +130,7 @@ public class MyPageController {
 
 		String email = (String)session.getAttribute("userEmail");
 		
-		boolean result = myPageService.removePlaylist(plylstId, email);
-		
+		boolean result = myPageService.removePlaylist(plylstId, email);	
 		rttr.addFlashAttribute("successDel", result ? "SUCCESS" : "FAIL");
 		
 		return "redirect:/mypage/playlist";
@@ -144,8 +143,7 @@ public class MyPageController {
 		//유효성체크.. 본인만 수정할 수 있도록
 		String email = (String)session.getAttribute("userEmail");
 		
-		boolean result = myPageService.modifyPlaylist(playlistVO, email);
-		
+		boolean result = myPageService.modifyPlaylist(playlistVO, email);		
 		rttr.addFlashAttribute("result", result ? playlistVO.getNm() : "FAIL");
 
 		return "redirect:/mypage/playlist";
