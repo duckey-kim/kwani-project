@@ -394,16 +394,22 @@
 					} else if (genreCntPx > 240 && genreCntPx <= 280) {
 						$("#genreName").text("인디");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 280 && genreCntPx <= 320) {
+					} else if (genreCntPx > 280 && genreCntPx <= 310) {
 						$("#genreName").text("트로트");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 320 && genreCntPx <= 360) {
+					} else if (genreCntPx > 310 && genreCntPx <= 340) {
 						$("#genreName").text("R&B");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 360 && genreCntPx <= 400) {
+					} else if (genreCntPx > 340 && genreCntPx <= 370) {
 						$("#genreName").text("포크");
 						$("#genreName").css("display", "show");
-						// OST, classic, jazz, blues, soul
+					} else if (genreCntPx > 370 && genreCntPx <= 400) {
+						$("#genreName").text("OST");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 400 && genreCntPx <= 440) {
+						$("#genreName").text("soul");
+						$("#genreName").css("display", "show");
+						//classic, jazz, blues
 					}
 				});
 				console.log(startDate + "-" + finishDate + "-" + genreName)
