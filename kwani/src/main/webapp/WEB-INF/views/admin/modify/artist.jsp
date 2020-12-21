@@ -41,14 +41,13 @@
 
 						</div>
 						<div class="form-group">
-							<label>데뷔일</label> <input class="form-control" type="date" name="debutDt"
-								id="debutDt">
+							<label>데뷔일</label> <input class="form-control" type="date"
+								name="debutDt" id="debutDt">
 
 						</div>
 						<div class="form-group">
-							<label>상태코드</label> <input class="form-control"
-								 type="number" name="stusCd" id="stusCd"
-								value="${artist.stusCd }">
+							<label>상태코드</label> <input class="form-control" type="number"
+								name="stusCd" id="stusCd" value="${artist.stusCd }">
 						</div>
 
 						<input type="hidden" value="${mngrId }" name="upUser">
@@ -91,23 +90,22 @@
 
 	let checkInput = function() {
 
-		let nmFld =  document.getElementById("nm");
-		let sexFld =  document.getElementById("sex");
-		let typeFld =  document.getElementById("type");
-		let dateFld =  document.getElementById("debutDt");
-		let stusFld =  document.getElementById("stusCd");
-		let imgFld =  document.getElementById("imgFile");
-		
+		let nmFld = document.getElementById("nm");
+		let sexFld = document.getElementById("sex");
+		let typeFld = document.getElementById("type");
+		let dateFld = document.getElementById("debutDt");
+		let stusFld = document.getElementById("stusCd");
+		let imgFld = document.getElementById("imgFile");
+
 		let gropImg = imgFld.files.item(0);
 
-		
 		const specialPattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 		const numRegex = /[^0-9]/g;
-		
+
 		if (!check(specialPattern, nmFld, "활동명에 특수문자는 안됩니다")) {
 			return false;
 		}
-		
+
 		if (nmFld.value.trim() == "") {
 			alert("활동명을 적어주세요")
 			return false;
@@ -117,10 +115,7 @@
 			nmFld.value = "";
 			return false;
 		}
-		
-		
-		
-		
+
 		if (sexFld.value.trim() == "") {
 			alert("성별을 입력해주세요 f,m");
 			return false;
@@ -135,34 +130,25 @@
 			return false;
 		}
 
-		
-
-		if (stusCdFld.value == "") {
+		if (stusFld.value == "") {
 			alert("상태코드를 입력해주세요");
 			return false;
-		} else if (stusCdFld.value.length > 2) {
+		} else if (stusFld.value.length > 2) {
 			alert("stusCd 의 길이가 2을 넘습니다");
-			stusCdFld.value = "";
+			stusFld.value = "";
 			return false
 		}
-		if (!check(numRegex, stusCdFld, "상태코드는  숫자만 입력해주세요")) {
+		if (!check(numRegex, stusFld, "상태코드는  숫자만 입력해주세요")) {
 			return false;
 		}
-		
-		
 
-		if (imgFld.value == "") {
+		if (gropImg == null) {
 			alert("파일을 선택해주세요");
 			return false;
-		}
-		
-		if (!checkExtension(gropImg.name, gropImg.size)) {
+		} else if (!checkExtension(gropImg.name, gropImg.size)) {
 			return false;
 		}
-		
-		
-		
-		
+
 		return true;
 
 	}
