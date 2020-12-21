@@ -17,7 +17,7 @@
 	href="/resources/css/findUserPwd1.css">
 </head>
 
-<%@include file="../includes/header.jsp"%>
+<%@include file="../includes/mainHeader.jsp"%>
 
 		<div id="body">
 			<div id="leftSideBar"></div>

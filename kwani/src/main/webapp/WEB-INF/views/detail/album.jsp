@@ -15,44 +15,12 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/indexNoVideoYC.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/album.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/footer.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/header.css">
 
 </head>
 
-
-
-
-<body>
-	<div id="main">
-		<div id="header">
-			<div id="header_navbar">
-				<div id="musicPlayer">musicPlayer</div>
-				<div id="pageLogo">
-					<a href="#">Last.fm</a>
-				</div>
-				<div id="navbarUtil">
-					<button class="subnavbtn" onclick="openSearch()">
-						<i class="fa fa-search"></i>
-					</button>
-					<a href="#">Home</a> <a href="#">Recommend</a> <a href="#">Find
-						music</a> <a href="#">Join</a>
-				</div>
-			</div>
-			<div id="myOverlay" class="overlay">
-				<div class="overlay-content">
-					<form action="/action_page.php">
-						<input type="text" placeholder="Search.." name="search">
-						<button type="submit">
-							<i class="fa fa-search"></i>
-						</button>
-					</form>
-				</div>
-			</div>
-			<!--myOverlay-->
-
-		</div>
-		<!--header-->
-
-
+<%@ include file="/WEB-INF/views/includes/header.jsp"%>
 
 		<div id="body">
 			<div id="leftSideBar"></div>
@@ -185,7 +153,8 @@
 			<div id="rightSideBar"></div>
 		</div>
 		<!--body-->
-		<div id="footer"></div>
+		<%@ include file="/WEB-INF/views/includes/footer.jsp"%>
+		<!-- <div id="footer"></div> -->
 	</div>
 	<!--main-->
 

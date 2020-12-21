@@ -21,8 +21,8 @@
 
 
 					<div class="form-group">
-						<label>이미지</label> <input class="form-control"
-							placeholder="albumIMG" type="file" name="imgFile" id="imgFile">
+						<label>이미지</label> <input class="form-control" type="file"
+							name="imgFile" id="imgFile">
 					</div>
 					<div class="form-group">
 						<label>제목</label> <input class="form-control"
@@ -95,7 +95,7 @@
 			return false;
 		}
 
-		if (!check(datePattern, dateFld, "날짜는 yyyy-MM-dd형식을 지켜주세요")) {
+		if (!check(datePattern, dateFld, "날짜는 yy-MM-dd형식을 지켜주세요")) {
 			return false;
 		}
 
@@ -120,12 +120,10 @@
 			return false
 		}
 
-		if (imgFld == "") {
+		if (albumImg == null) {
 			alert("파일을 선택해주세요");
 			return false;
-		}
-
-		if (!checkExtension(albumImg.name, albumImg.size)) {
+		} else if (!checkExtension(albumImg.name, albumImg.size)) {
 			return false;
 		}
 

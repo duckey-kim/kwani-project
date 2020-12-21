@@ -106,12 +106,10 @@
 			return false;
 		}
 
-		if (imgFld.value == "") {
+		if (albumImg == null) {
 			alert("파일을 선택해주세요");
 			return false;
-		}
-
-		if (!checkExtension(albumImg.name, albumImg.size)) {
+		}else if (!checkExtension(albumImg.name, albumImg.size)) {
 			return false;
 		}
 

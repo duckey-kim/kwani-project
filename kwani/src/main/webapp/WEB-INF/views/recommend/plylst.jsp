@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,32 +113,8 @@
 </style>    
     
 </head>
-<body>
-    <div id="main">
-        <div id="header">
-            <div id="header_navbar">
-                <div id="musicPlayer">musicPlayer</div>
-                <div id="pageLogo">
-                    <a href="#">Last.fm</a>
-                </div>
-                <div id="navbarUtil"> 
-                    <button class="subnavbtn" onclick="openSearch()">
-                      <i class="fa fa-search"></i></button>
-                    <a href="/">Home</a>
-                    <a href="/recommend/common">Recommend</a>
-                    <a href="#">Find music</a>
-                    <a href="/user/register">Join</a>
-                </div>
-            </div>
-               <div id="myOverlay" class="overlay">
-                <div class="overlay-content">
-                  <form action="/search" method="get" name="searchForm" onsubmit="return checkTxt();">
-                    <input type="text" placeholder="Search.." name="searchTxt" value="">
-                    <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
-                  </form>
-                </div>
-            </div><!--myOverlay-->
-        </div><!--header-->
+
+<%@include file="../includes/header.jsp" %>
 
         <div id="body">
             <div id="leftSideBar"></div>
@@ -337,27 +314,7 @@
  	             }              
               
               
-                //서치바 설정-------------------------------------------------------------------------
-                let result2 = $("input[name=searchTxt]");
-        		
-            	function checkTxt(){
-            		console.log(result2[0].value);
-            		//검색어가 제대로 입력되면 아무일도 일어나지 않는다
-            		if(result2[0].value.length != 0){
-            			console.log(result2+"있어");
-            			console.log("경고창 필요 없어!");
-            			return true;
-            		}
-            		//검색어가 입력되지 않으면 경고창을 띄운다
-            		else{  
-            			console.log(result2+"없어");
-            			console.log("경고창 나와라!");
-            			alert("검색어를 입력하세요");
-            			return false;
-            		}
-            	}
-
-            	
+                
             	
                 //체크박스 설정-------------------------------------------------------------------------
                 	function allCheckFunc(obj){
@@ -417,8 +374,4 @@
  </div><!--bodyContent-->
             <div id="rightSideBar"></div>
         </div><!--body-->
-        <div id="footer"></div>
-    </div><!--main-->
-</body>
-</html>
-                
+          <%@include file="../includes/footer.jsp" %>

@@ -16,17 +16,17 @@
     <link rel="stylesheet" type = "text/css" href="/resources/css/searchAlbumTitle.css">
     
     <style>
-.dropbtn {
+.dropbtn2 {
   color: black;
   font-size: 16px;
 }
 
-.dropdown {
+.dropdown2 {
   position: relative;
   display: inline-block;
 }
 
-.dropdown-content {
+.dropdown-content2 {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
@@ -35,20 +35,20 @@
   z-index: 1;
 }
 
-.dropdown-content a {
+.dropdown-content2 a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content2 a:hover {background-color: #f1f1f1}
 
-.dropdown:hover .dropdown-content {
+.dropdown2:hover .dropdown-content2 {
   display: block;
 }
 
-.dropdown:hover .dropbtn {
+.dropdown2:hover .dropbtn2 {
   background-color: #3e8e41;
 }
 </style>       
@@ -92,17 +92,17 @@
 
                     <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
                   
-                     	<div class="dropdown">
-  							<span class="dropbtn">곡</span>
-  								<div class="dropdown-content">
+                     	<div class="dropdown2">
+  							<span class="dropbtn2">곡</span>
+  								<div class="dropdown-content2">
  									<a href="/search/songartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/songtitle?searchTxt=${searchTxt}">곡명으로</a>
  								</div>
 						</div>
                                	                    		
-                     	<div class="dropdown">
-  							<span class="dropbtn">앨범</span>
-  								<div class="dropdown-content">
+                     	<div class="dropdown2">
+  							<span class="dropbtn2">앨범</span>
+  								<div class="dropdown-content2">
  									<a href="/search/albumartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/albumtitle?searchTxt=${searchTxt}">앨범명으로</a>
  								</div>
