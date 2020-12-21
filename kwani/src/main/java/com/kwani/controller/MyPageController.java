@@ -118,7 +118,8 @@ public class MyPageController {
 			return "errorAccess";
 		}
 		
-		model.addAttribute("playlistVO", playlistVO);		
+		model.addAttribute("playlistVO", playlistVO);
+		model.addAttribute("playlistDetail", myPageService.getListPlaylistDetail(plylstId, email));		
 		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
 				
 		return "/mypage/playlistView";

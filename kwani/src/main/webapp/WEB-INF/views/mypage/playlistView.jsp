@@ -128,11 +128,10 @@
 										<thead>
 										<tr>
 											<th class="th1"></th>
+											<th class="th5"></th>
+											<th class="th5"></th>
+											<th class="th6"></th>
 											<th class="th1"></th>
-											<th class="th1"></th>
-											<th></th>
-											<th></th>
-											<th></th>
 											<th class="th1"></th>
 										</tr>
 										</thead>
@@ -140,7 +139,6 @@
 										<c:forEach items="${playlistDetail}" var="playlistDetail" varStatus="status">
 											<tr>
 												<td>${status.count}</td>
-												<td><c:out value="${playlistDetail.PLY_NO}" /></td>
 												<td><img class="myImg"
 													src="/resources/image/album/${playlistDetail.ALBUM_IMG}" /></td>
 												<td><c:out value="${playlistDetail.ANM}" /></td>
@@ -206,7 +204,7 @@
 											<td><c:out value="${track.NM}" /></td>
 											<td><c:out value="${track.ALBUM_TTL}" /></td>
 											<td>
-												<button class="addSelectedTrack"> + </button>
+												<button class="addSelectedOneTrack"> + </button>
 											</td>
 										</tr>
 									</c:forEach>
@@ -228,6 +226,34 @@
 
 <script type="text/javascript" src="/resources/js/mypage.js"></script>
 <script type="text/javascript">
+
+	// 한 곡 등록
+	$(".addSelectedOneTrack").click(function(){
+		let idx = $(".addSelectedOneTrack").index(this);
+		
+		let trackList = [];
+		let plylstId = ${playlistVO.plylstId};
+		trackList.push($(".checkbox:eq("+ idx +")").val());
+		
+		// 체크된 곡, 플레이리스트 번호 넘겨서 플레이리스트에 등록하기
+		mypageService.addTrackList(
+			trackList, plylstId,
+			function(obj){
+				
+				if(obj === "FAILED"){
+					basicModalContent("플레이리스트가 존재하지 않습니다.");
+					setTimeout(changeLoc, 1100);
+					return;
+				}
+				
+				showPlaylistTrack(obj);
+				
+				basicModalContent("중복을 제외한 곡 추가를 완료했습니다.");
+				checkReset();
+				setTimeout(hideBasicModal, 1000);
+				
+		})
+	})
 
 	// 플레이리스트 추가
 	// 담기 버튼이 눌리면 addTrackList 함수 실행
@@ -419,7 +445,7 @@
 		$("#change-img").append(str);
 		
 		$("#change-plylstDtl").empty();
-		str = "<tr><th class='th1'></th><th class='th1'></th><th class='th1'></th><th></th><th></th><th></th><th></th><th class='th1'></th></tr>";
+		str = "<tr><th class='th1'></th><th class='th4'></th><th class='th5'></th><th class='th5'></th><th class='th6'></th><th class='th1'></th><th class='th1'></th></tr>";
 		$("#change-plylstDtl").append(str);
 		
 		str = "";
@@ -427,10 +453,9 @@
 		$.each(obj,function(i) {
 			str += "<tr>";
 			str += "<td>" + (i+1) + "</td>";
-			str += "<td>" + obj[i].TRACK_ID + "</td>";
 			str += "<td><img class='myImg' src='/resources/image/album/" + obj[i].ALBUM_IMG + "'></td>";
-			str += '<td>' + obj[i].ANM + '</td>';
 			str += '<td>' + obj[i].TRACK_TTL+ '</td>';
+			str += '<td>' + obj[i].ANM + '</td>';
 			str += '<td>' + obj[i].ALBUM_TTL+ '</td>';
 			str += '<td><input class="trackIdValue" type="hidden" value="' + obj[i].TRACK_ID + '" name="trackIdValue">';
 			str += "<td><button class='delBtn'>삭제</button></td>";
