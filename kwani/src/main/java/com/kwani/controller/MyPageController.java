@@ -133,6 +133,7 @@ public class MyPageController {
 		
 		boolean result = myPageService.removePlaylist(plylstId, email);	
 		rttr.addFlashAttribute("successDel", result ? "SUCCESS" : "FAIL");
+		rttr.addFlashAttribute("playlistCount", myPageService.countPlaylist(email));
 		
 		return "redirect:/mypage/playlist";
 	}

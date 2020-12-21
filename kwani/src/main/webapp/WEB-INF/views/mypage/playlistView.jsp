@@ -227,6 +227,7 @@
 <script type="text/javascript" src="/resources/js/mypage.js"></script>
 <script type="text/javascript">
 
+	// TODO : 코드 정리
 	// 한 곡 등록
 	$(".addSelectedOneTrack").click(function(){
 		let idx = $(".addSelectedOneTrack").index(this);

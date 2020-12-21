@@ -196,6 +196,21 @@
 	
 	});
 	
+	// 플레이리스트 개수 제한
+	$("#createBtn").click(function(e){
+		e.preventDefault();
+		
+		let countPlaylist = '<c:out value="${playlistCount}"/>';
+		
+		if(countPlaylist >= 8){
+			basicModalContent("플레이리스트를 만들 수 없습니다.(최대 생성 개수 : 8개)");
+			setTimeout(hideBasicModal, 1000);
+			return;
+		}
+		
+		$("#create-playlist").submit();
+	});
+	
 	// 드롭박스 : 수정,삭제
 	$(".dropBtn").click(function() {
 		let idx = $(".dropBtn").index(this);
