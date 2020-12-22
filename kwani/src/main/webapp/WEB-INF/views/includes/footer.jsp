@@ -40,39 +40,36 @@
 </body>
 
 <script type="text/javascript">
+	//서치바 설정-------------------------------------------------------------------------
+	var result2 = $("input[name=searchTxt]");
 
-//서치바 설정-------------------------------------------------------------------------
-var result2 = $("input[name=searchTxt]");
-
-function checkTxt(){
-	console.log(result2[0].value);
-	//검색어가 제대로 입력되면 아무일도 일어나지 않는다
-	if(result2[0].value.length != 0){
-		console.log(result2+"있어");
-		console.log("경고창 필요 없어!");
-		return true;
+	function checkTxt() {
+		console.log(result2[0].value);
+		//검색어가 제대로 입력되면 아무일도 일어나지 않는다
+		if (result2[0].value.length != 0) {
+			console.log(result2 + "있어");
+			console.log("경고창 필요 없어!");
+			return true;
+		}
+		//검색어가 입력되지 않으면 경고창을 띄운다
+		else {
+			console.log(result2 + "없어");
+			console.log("경고창 나와라!");
+			alert("검색어를 입력하세요");
+			return false;
+		}
 	}
-	//검색어가 입력되지 않으면 경고창을 띄운다
-	else{  
-		console.log(result2+"없어");
-		console.log("경고창 나와라!");
-		alert("검색어를 입력하세요");
-		return false;
+
+	function openSearch() {
+		document.getElementById("myOverlay").style.display = "block";
 	}
-}
 
-function openSearch() {
-	document.getElementById("myOverlay").style.display = "block";
-}
+	let overlay = document.getElementById('myOverlay');
 
-let overlay = document.getElementById('myOverlay');
-
-window.onclick = function(event) {
-	if (event.target == overlay) {
-		overlay.style.display = "none";
+	window.onclick = function(event) {
+		if (event.target == overlay) {
+			overlay.style.display = "none";
+		}
 	}
-}
-
-
 </script>
 </html>

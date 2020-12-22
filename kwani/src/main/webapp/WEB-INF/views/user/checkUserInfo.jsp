@@ -10,7 +10,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Settings</title>
-
 <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/checkUserInfo.css">
@@ -54,9 +53,7 @@
 	<div id="rightSideBar"></div>
 </div>
 <!-- body -->
-<div id="footer"></div>
-</div>
-</body>
+
 
 
 <!-- ----------------------------- JavaScript------------------------------- -->
@@ -99,18 +96,6 @@
 		return true;
 	}
 
-	function openSearch() {
-		document.getElementById("myOverlay").style.display = "block";
-	}
-
-	let overlay = document.getElementById('myOverlay');
-
-	window.onclick = function(event) {
-		if (event.target == overlay) {
-			overlay.style.display = "none";
-		}
-	}
-
 	let checkUtilBtn = document.getElementById("update");
 
 	$(document).ready(function() {
@@ -142,5 +127,4 @@
 	});
 </script>
 
-
-</html>
+<%@include file="../includes/footer.jsp"%>

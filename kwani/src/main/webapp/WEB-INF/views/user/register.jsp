@@ -73,90 +73,64 @@
 	<div id="rightSideBar"></div>
 </div>
 <!-- body -->
-<div id="footer"></div>
-</div>
-</body>
 
 <!-- ----------------------------- JavaScript------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------- -->
 
 
 <script type="text/javascript">
-
-	if('${msg}' != "") {
+	if ('${msg}' != "") {
 		alert('${msg}')
 	}
-	
-	
 
+	function checkInput() {
 
-function checkInput(){
-	
-	let email = document.getElementById("email").value;
-	let nick = document.getElementById("nick").value;
-	let pwd = document.getElementById("password").value;
-	let pwdRe = document.getElementById("passwordRe").value;
-	
-	
-	// 정규식
-	// 비밀번호 : 영어+특수문자+숫자를 섞어서 (8~16)자리 
-	let pwdPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
-	// 이름 : 한글만 2~4글자
-	let nickPattern = /^[가-힣]{2,6}$/;
-	
-	
-	if(email.length == 0){
-        alert("아이디(이메일)를(을) 입력하세요.");
-        return false;
-    }
-	
-	if(nick.length == 0){
-        alert("닉네임을 입력하세요.");
-        return false;
-    }
-    if(nickPattern.test(nick) == false){
-        alert("닉네임은 한글 2~6글자로만 가능합니다.");
-        return false;
-    }
-    
-    if(pwd.length == 0){
-        alert("비밀번호를 입력하세요.");
-        return false;
-    }
-    
-    if(pwdPattern.test(pwd) == false){
-    	alert("비밀번호는 영어+특수문자+숫자를 섞어서 (8~16)자리만 가능합니다.");
-        return false;
-    }
-    
-    if(pwdRe.length == 0){
-        alert("비밀번호를 다시 입력해주세요.");
-        return false;
-    }
-    
-    if(pwd != pwdRe){
-        alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
-        return false;
-    }
-    
-    alert("회원가입이 완료되었습니다. 로그인 후 이용해주세요.");
-	return true;
-}
+		let email = document.getElementById("email").value;
+		let nick = document.getElementById("nick").value;
+		let pwd = document.getElementById("password").value;
+		let pwdRe = document.getElementById("passwordRe").value;
 
-function openSearch() {
-    document.getElementById("myOverlay").style.display = "block";
-}
+		// 정규식
+		// 비밀번호 : 영어+특수문자+숫자를 섞어서 (8~16)자리 
+		let pwdPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+		// 이름 : 한글만 2~4글자
+		let nickPattern = /^[가-힣]{2,6}$/;
 
-let overlay = document.getElementById('myOverlay');
+		if (email.length == 0) {
+			alert("아이디(이메일)를(을) 입력하세요.");
+			return false;
+		}
 
-window.onclick = function(event){
-    if(event.target == overlay){
-        overlay.style.display = "none";
-    }
-}
+		if (nick.length == 0) {
+			alert("닉네임을 입력하세요.");
+			return false;
+		}
+		if (nickPattern.test(nick) == false) {
+			alert("닉네임은 한글 2~6글자로만 가능합니다.");
+			return false;
+		}
 
+		if (pwd.length == 0) {
+			alert("비밀번호를 입력하세요.");
+			return false;
+		}
 
+		if (pwdPattern.test(pwd) == false) {
+			alert("비밀번호는 영어+특수문자+숫자를 섞어서 (8~16)자리만 가능합니다.");
+			return false;
+		}
+
+		if (pwdRe.length == 0) {
+			alert("비밀번호를 다시 입력해주세요.");
+			return false;
+		}
+
+		if (pwd != pwdRe) {
+			alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
+			return false;
+		}
+
+	}
 </script>
 
-
-</html>
+<%@include file="../includes/footer.jsp"%>

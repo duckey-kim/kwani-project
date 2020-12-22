@@ -39,28 +39,9 @@
 			<div id="rightSideBar"></div>
 		</div>
 		<!-- body -->
-		<div id="footer"></div>
-	</div>
-</body>
 
 <!-- ----------------------------- JavaScript------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------- -->
 
-<script type="text/javascript">
 
-function openSearch() {
-    document.getElementById("myOverlay").style.display = "block";
-}
-
-let overlay = document.getElementById('myOverlay');
-
-window.onclick = function(event){
-    if(event.target == overlay){
-        overlay.style.display = "none";
-    }
-}
-
-</script>
-
-
-</html>
+<%@include file="../includes/footer.jsp"%>

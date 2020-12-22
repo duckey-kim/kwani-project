@@ -216,13 +216,16 @@ public class UserController {
 	@PostMapping("/socialRegisterAction")
 	public String socialRegisterAction(UserVO user, String email, String checked, HttpServletRequest request,
 			HttpServletResponse response) {
-
+		
+		System.out.println("!!!!!!!!!!!!!!!!!!!!" + user);
 		// 회원가입 후,
 		service.socialRegister(user);
+		System.out.println("###############################" + user);
 		// 쿠키와 세션을 발급하고
 		service.cookieSession(email, checked, request, response);
 		service.setSysdateForSocial(email);
 		// home으로 이동한다.
+		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" + user);
 		return "redirect:/home";
 	}
 

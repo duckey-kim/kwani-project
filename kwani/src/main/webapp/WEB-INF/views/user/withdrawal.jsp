@@ -26,7 +26,7 @@
 			<div class="h1">
 				<h1>Settings</h1>
 			</div>
-			<form action="/user/withdrawalAction" method="POST">
+			<form action="/user/withdrawalAction" method="POST"> 
 				<div class="utilBtnContainer">
 					<input type="button" class="delete" value="회원탈퇴">
 				</div>
@@ -50,9 +50,6 @@
 	<div id="rightSideBar"></div>
 </div>
 <!-- body -->
-<div id="footer"></div>
-</div>
-</body>
 
 <!-- ----------------------------- JavaScript------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------- -->
@@ -70,18 +67,7 @@
 		return true;
 	}
 
-	function openSearch() {
-		document.getElementById("myOverlay").style.display = "block";
-	}
-
-	let overlay = document.getElementById('myOverlay');
-
-	window.onclick = function(event) {
-		if (event.target == overlay) {
-			overlay.style.display = "none";
-		}
-	}
 </script>
 
 
-</html>
+<%@include file="../includes/footer.jsp"%>

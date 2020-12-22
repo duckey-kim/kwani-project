@@ -59,7 +59,7 @@
 				<div id="text">
 					COMING SOON
 					<hr>
-				<p id="demo"></p>
+					<p id="demo"></p>
 				</div>
 			</div>
 			<!-- clickOverlay -->
@@ -76,9 +76,6 @@
 	<div id="rightSideBar"></div>
 </div>
 <!-- body -->
-<div id="footer"></div>
-</div>
-</body>
 
 <!-- ----------------------------- JavaScript------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------- -->
@@ -128,6 +125,12 @@
 	}
 </script>
 
+
+
+
+
+
+
 <script>
 	function on() {
 		document.getElementById("clickOverlay").style.display = "block";
@@ -168,7 +171,6 @@
 	}, 1000);
 </script>
 
-
-</html>
+<%@include file="../includes/footer.jsp"%>
 
 

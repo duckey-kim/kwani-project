@@ -66,9 +66,6 @@
 	<div id="rightSideBar"></div>
 </div>
 <!-- body -->
-<div id="footer"></div>
-</div>
-</body>
 
 <!-- ----------------------------- JavaScript------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------- -->
@@ -112,23 +109,8 @@
 			alert("닉네임은 한글 2~6글자로만 가능합니다.");
 			return false;
 		}
-
-		alert("회원가입이 완료되었습니다.");
-		return true;
-	}
-
-	function openSearch() {
-		document.getElementById("myOverlay").style.display = "block";
-	}
-
-	let overlay = document.getElementById('myOverlay');
-
-	window.onclick = function(event) {
-		if (event.target == overlay) {
-			overlay.style.display = "none";
-		}
 	}
 </script>
 
 
-</html>
+<%@include file="../includes/footer.jsp"%>
