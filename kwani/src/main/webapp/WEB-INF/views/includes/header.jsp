@@ -26,7 +26,7 @@
 			<div id="header_navbar">
 				<div id="musicPlayer"></div>
 				<div id="pageLogo">
-					<a href="/">Baam</a>
+					<a href="/">B.A.A.M</a>
 				</div>
 				<div id="navbarUtil">
 					<button class="subnavbtn" onclick="openSearch()">
