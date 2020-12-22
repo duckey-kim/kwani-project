@@ -201,7 +201,7 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	private boolean checkValidPlaylistId(Integer plylstId, String email) {
-		if(myPageMapper.getOnePlaylist(plylstId, email) == null) {
+		if(myPageMapper.getOnePlaylist(plylstId, email) == 0) {
 			return false;
 		}
 		return true;
