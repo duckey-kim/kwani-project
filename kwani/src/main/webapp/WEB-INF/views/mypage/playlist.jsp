@@ -10,53 +10,18 @@
 <title>Library</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <script src="/resources/js/jquery-3.5.1.js"/></script>
-
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/indexNoVideomh.css">
-<link rel="stylesheet" href="/resources/css/mainmh.css" />
+<link rel="stylesheet" href="/resources/css/mypage.css" />
 </head>
 
-<body>
-	<div id="main">
-		<div id="header">
-			<div id="header_navbar">
-				<div id="musicPlayer">musicPlayer</div>
-				<div id="pageLogo">
-					<a href="#">Last.fm</a>
-				</div>
-				<div id="navbarUtil">
-					<button class="subnavbtn" onclick="openSearch()">
-						<i class="fa fa-search"></i>
-					</button>
-					<a href="#">Home</a> <a href="#">Recommend</a> <a href="#">Find
-						music</a> <a href="#">Join</a>
-				</div>
-			</div>
-			<div id="myOverlay" class="overlay">
-				<div class="overlay-content">
-					<form action="/action_page.php">
-						<input type="text" placeholder="Search.." name="search">
-						<button type="submit">
-							<i class="fa fa-search"></i>
-						</button>
-					</form>
-				</div>
-			</div>
-			<!--myOverlay-->
-
-		</div>
-		<!--header-->
-
-		<div id="body" style="height: 100px">
+<%@include file="../includes/header.jsp" %>
+		<div id="body">
 			<div id="leftSideBar"></div>
 			<div id="bodyContent">
 				<div class="mypage-header">
 					<div class="header-item">
 						<img class="userImg" src="/resources/image/${user.userImg}" />
 					</div>
-
 					<div>
 						<div>
 							<c:out value="${user.nick}" />
@@ -120,10 +85,10 @@
 											<td class="td8 img-td" colspan="2">
 												<div class="img-container">
 													<div class="img-div">
-														<a class="dropBtn"><img class="moreImg" src="/resources/image/more.png"></a>
+														<a class="ddBtn"><img class="moreImg" src="/resources/image/more.png"></a>
 															<img class="myArtistImg myPlaylist" src="/resources/image/album/${plylst.plylstImg}">
-															<div class="dropdown">
-																	<ul class="dropdown-content">
+															<div class="dropdown-playlist">
+																	<ul class="dd-plylst-content">
 																			<li><button class="mod">수정</button></li>
 																			<li><button class="del">삭제</button></li>
 																	</ul>
@@ -179,12 +144,7 @@
 		</div>
 	</div>
 
-	<!--body-->
-	<div id="footer"></div>
-	<!--main-->
-</body>
-
-<script>
+	<script>
 
 	$(document).ready(function() {
 	
@@ -212,9 +172,9 @@
 	});
 	
 	// 드롭박스 : 수정,삭제
-	$(".dropBtn").click(function() {
-		let idx = $(".dropBtn").index(this);
-		$(".dropdown-content:eq(" + idx + ")").toggle();
+	$(".ddBtn").click(function() {
+		let idx = $(".ddBtn").index(this);
+		$(".dd-plylst-content:eq(" + idx + ")").toggle();
 	});
 	
 	// 삭제모달 : 플레이리스트 번호 넘김
@@ -305,7 +265,7 @@
 		$(".modal-close").show();
 		$("#myModal").attr("style", "display:block");
 	}
-	
-</script>
+	</script>
+<%@include file="../includes/footer.jsp" %>
 
-</html>
+	

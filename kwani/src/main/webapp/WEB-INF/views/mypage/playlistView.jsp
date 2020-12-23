@@ -13,43 +13,11 @@
 
 <script src="/resources/js/jquery-3.5.1.js" /></script>
 
-<link rel="stylesheet" type="text/css"href="/resources/css/indexNoVideomh.css">
-<link rel="stylesheet" href="/resources/css/mainmh.css" />
-
+<link rel="stylesheet" href="/resources/css/mypage.css" />
 </head>
 
-<body>
-	<div id="main">
-		<div id="header">
-			<div id="header_navbar">
-				<div id="musicPlayer">musicPlayer</div>
-				<div id="pageLogo">
-					<a href="#">Last.fm</a>
-				</div>
-				<div id="navbarUtil">
-					<button class="subnavbtn" onclick="openSearch()">
-						<i class="fa fa-search"></i>
-					</button>
-					<a href="#">Home</a> <a href="#">Recommend</a> <a href="#">Find
-						music</a> <a href="#">Join</a>
-				</div>
-			</div>
-			<div id="myOverlay" class="overlay">
-				<div class="overlay-content">
-					<form action="/action_page.php">
-						<input type="text" placeholder="Search.." name="search">
-						<button type="submit">
-							<i class="fa fa-search"></i>
-						</button>
-					</form>
-				</div>
-			</div>
-			<!--myOverlay-->
-
-		</div>
-		<!--header-->
-
-		<div id="body" style="height: 200px">
+<%@include file="../includes/header.jsp" %>
+		<div id="body">
 			<div id="leftSideBar"></div>
 			<div id="bodyContent">
 				<div class="mypage-header">
@@ -217,13 +185,11 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	</div>
 		<!--bodyContent-->
 		<div id="rightSideBar"></div>
-	</div>
-	<div id="footer"></div>
-	<!--main-->
-</body>
-
+	
 <script type="text/javascript" src="/resources/js/mypage.js"></script>
 <script type="text/javascript">
 
@@ -488,4 +454,4 @@
 
 </script>
 
-</html>
+<%@include file="../includes/footer.jsp" %>
