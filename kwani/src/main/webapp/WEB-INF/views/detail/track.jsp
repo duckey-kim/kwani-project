@@ -16,7 +16,7 @@
 	href="/resources/css/indexNoVideoYC.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/track.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/footer.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/header.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/noVideoHeader.css">
 </head>
 
 <%@ include file="/WEB-INF/views/includes/header.jsp"%>

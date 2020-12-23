@@ -16,7 +16,7 @@
 	href="/resources/css/indexNoVideoYC.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/album.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/footer.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/header.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/noVideoHeader.css">
 
 </head>
 
@@ -73,7 +73,7 @@
 						<div>
 							<c:forEach items="${getAlbumInfoList }" var="AlbumInfo" begin="0"
 								end="0">
-								<pre>장르	: <c:out value="${AlbumInfo.GENRE_CD }" />
+								<pre style="display:none">장르	: <c:out value="${AlbumInfo.GENRE_CD }" />
 								</pre>
 								<pre>발매일	: <c:out value="${AlbumInfo.RLESDT }" />
 								</pre>
