@@ -1,6 +1,7 @@
 package com.kwani.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.kwani.domain.AdminVO;
 import com.kwani.domain.AlbumVO;
 import com.kwani.domain.ArtistVO;
@@ -50,8 +52,14 @@ public class AdminController {
 	public String basic(Model model) {
 		//장르에 대한 곡
 		
+		List<Map<String,String>>getList =tableService.getGenreCount();
+		List<Map<String,String>>getCountList =tableService.getPlayCount();
 		
-		
+		Gson gson = new Gson();
+		String genreJson = gson.toJson(getList);
+		String countJson = gson.toJson(getCountList);
+		model.addAttribute("getList",genreJson);
+		model.addAttribute("getListPlay",countJson);
 		return "/admin/home";
 	}
 

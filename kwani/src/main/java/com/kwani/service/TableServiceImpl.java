@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -465,5 +466,16 @@ public class TableServiceImpl implements TableService {
 
 		imgFile.transferTo(saveFile);
 
+	}
+	@Override
+	public List<Map<String, String>> getGenreCount() {
+		List<Map<String,String>> getList = mapper.getGenreCount();
+		
+		return getList==null?Collections.emptyList():getList;
+	}
+	@Override
+	public List<Map<String, String>> getPlayCount() {
+		List<Map<String,String>> getList = mapper.getCountPlay();
+		return getList==null?Collections.emptyList():getList;
 	}
 }

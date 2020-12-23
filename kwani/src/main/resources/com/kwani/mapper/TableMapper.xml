@@ -7,35 +7,41 @@
 	<resultMap type="hashMap" id="selectMap"></resultMap>
 
 	<select id="getSeqGropCurrval" resultType="int">
-		select seq_grop.currval from dual
+		select
+		seq_grop.currval from dual
 	</select>
 
 
 	<select id="getArtistGroup" resultMap="selectMap">
-		select * from t_artist_group where grop_id=#{gropId} and solo_id=#{soloId}
+		select * from
+		t_artist_group where grop_id=#{gropId} and solo_id=#{soloId}
 
 	</select>
 	<select id="getAlbumById" resultMap="AlbumResult">
 
-		select * from t_album where album_id =#{albumId}
+		select * from t_album where
+		album_id =#{albumId}
 	</select>
 
 
 	<select id="getUser" resultMap="UserResult">
-		select * from t_user where email =#{email}
+		select * from t_user where email
+		=#{email}
 
 	</select>
 
 	<select id="getTracksToInsert" resultMap="TrackResult">
-		select t.track_id,t.track_ttl from t_tracks t
+		select
+		t.track_id,t.track_ttl from t_tracks t
 		where t.track_id not in(
-		select track_id
+		select
+		track_id
 		from t_artist_tracks
 		)
 	</select>
-	
+
 	<select id="getUserList" resultMap="UserResult">
-	select * from t_user
+		select * from t_user
 	</select>
 
 
@@ -46,7 +52,7 @@
 		<result property="pwd" column="PWD" />
 		<result property="userImg" column="USER_IMG" />
 		<result property="stusCd" column="STUS_CD" />
-		<result property="lastDt" column="LAST_DT"/>
+		<result property="lastDt" column="LAST_DT" />
 	</resultMap>
 
 	<!--ALBUM MAP -->
@@ -71,18 +77,18 @@
 		<result property="ttlTrack" column="TTL_TRACK" />
 		<result property="trackLyrics" column="TRACK_LYRICS" />
 		<result property="trackOrder" column="TRACK_ORDER" />
-		
+
 	</resultMap>
 
 	<!--ARTIST MAP -->
 	<resultMap type="com.kwani.domain.ArtistVO" id="ArtistResult">
 		<result property="gropId" column="GROP_ID" />
 		<result property="nm" column="NM" />
-		<result property="sex" column="SEX"/>
-		<result property="type" column="TYPE"/>
-		<result property="debutDt" column="DEBUT_DT"/>
-		<result property="stusCd" column="STUS_CD"/>
-		<result property="gropImg" column="GROP_IMG"/>
+		<result property="sex" column="SEX" />
+		<result property="type" column="TYPE" />
+		<result property="debutDt" column="DEBUT_DT" />
+		<result property="stusCd" column="STUS_CD" />
+		<result property="gropImg" column="GROP_IMG" />
 	</resultMap>
 
 	<!--ADMIN MAP -->
@@ -94,7 +100,8 @@
 
 	<!--입력 ARTIST -->
 	<insert id="insertArtist">
-		insert into t_artist (grop_id,nm,sex,type,debut_dt,stus_cd,up_user,up_date,in_user,in_date,grop_img)
+		insert into t_artist
+		(grop_id,nm,sex,type,debut_dt,stus_cd,up_user,up_date,in_user,in_date,grop_img)
 		values(seq_grop.nextval,#{artist.nm},#{artist.sex},#{artist.type},#{artist.debutDt},#{artist.stusCd},#{upUser},sysdate,#{upUser},sysdate,#{artist.gropImg})
 	</insert>
 
@@ -117,19 +124,22 @@
 
 	<!--입력 USER -->
 	<insert id="insertUser">
-		insert into t_user (email,nick,pwd,in_date,in_user,up_date,up_user,user_img)
+		insert into t_user
+		(email,nick,pwd,in_date,in_user,up_date,up_user,user_img)
 		values(#{user.email},#{user.nick},#{user.pwd},sysdate,#{upUser},sysdate,#{upUser},#{user.userImg})
 	</insert>
 
 	<!--입력 ARTIST AND TRACK -->
 	<insert id="insertArtistTrack">
-		insert into t_artist_tracks (track_id,grop_id,up_date,up_user,in_date,in_user)
+		insert into t_artist_tracks
+		(track_id,grop_id,up_date,up_user,in_date,in_user)
 		values(#{trackId},#{gropId},sysdate,#{upUser},sysdate,#{upUser})
 	</insert>
 
 	<!--입력 ARTIST AND GROUP -->
 	<insert id="insertArtistGroup">
-		insert into t_artist_group(grop_id,solo_id,up_date,up_user,in_date,in_user)
+		insert into
+		t_artist_group(grop_id,solo_id,up_date,up_user,in_date,in_user)
 		values(#{gropId},#{soloId},sysdate,#{upUser},sysdate,#{upUser})
 
 	</insert>
@@ -142,14 +152,16 @@
 	</select>
 
 	<select id="getAlbum" resultMap="AlbumResult">
-		select album_id,album_ttl,rles_dt from t_album where album_ttl=#{albumTtl}
+		select
+		album_id,album_ttl,rles_dt from t_album where album_ttl=#{albumTtl}
 
 	</select>
 
 	<!--작성완료 -->
 
 	<select id="getTracks" resultMap="TrackResult">
-		select track_id,track_ttl,track_url,album_id from t_tracks where
+		select
+		track_id,track_ttl,track_url,album_id from t_tracks where
 		track_ttl=#{trackTtl}
 	</select>
 
@@ -177,11 +189,13 @@
 	</select>
 
 	<select id="getArtistById" resultMap="ArtistResult">
-		select * from t_artist where grop_id=#{gropId}
+		select * from t_artist
+		where grop_id=#{gropId}
 	</select>
 
 	<select id="getTracksById" resultMap="TrackResult">
-		select * from t_tracks where track_id =#{trackId}
+		select * from t_tracks
+		where track_id =#{trackId}
 	</select>
 
 
@@ -192,7 +206,8 @@
 	</select>
 
 	<select id="getTracksArtistTrack" resultMap="selectMap">
-		select * from t_artist_tracks where track_id=#{trackId}
+		select * from
+		t_artist_tracks where track_id=#{trackId}
 	</select>
 
 	<!--업데이트 앨범 -->
@@ -204,49 +219,71 @@
 		rles_dt=#{album.rlesDt},
 		up_date =sysdate,
 		up_user =#{upUser}
-		where album_id=#{album.albumId}
+		where
+		album_id=#{album.albumId}
 	</update>
-	<!--업데이트 아티스트  -->
+	<!--업데이트 아티스트 -->
 	<update id="updateArtist">
-	update t_artist
-	set grop_img=#{artist.gropImg},
-	up_date=sysdate,
-	up_user=#{upUser},
-	stus_cd=#{artist.stusCd},
-	debut_dt=#{artist.debutDt},
-	type=#{artist.type},
-	sex=#{artist.sex},
-	nm=#{artist.nm}
-	where grop_id=#{artist.gropId}
+		update t_artist
+		set grop_img=#{artist.gropImg},
+		up_date=sysdate,
+		up_user=#{upUser},
+		stus_cd=#{artist.stusCd},
+		debut_dt=#{artist.debutDt},
+		type=#{artist.type},
+		sex=#{artist.sex},
+		nm=#{artist.nm}
+		where grop_id=#{artist.gropId}
 	</update>
-	
-	<!--업데이트 트랙-->
+
+	<!--업데이트 트랙 -->
 	<update id="updateTracks">
-	update t_tracks
-	set track_ttl=#{track.trackTtl},
-	mood_cd = #{track.moodCd},
-	genre_cd =#{track.genreCd},
-	situ_cd =#{track.situCd},
-	stus_cd =#{track.stusCd},
-	ttl_track =#{track.ttlTrack},
-	track_url =#{track.trackUrl},
-	up_date=sysdate,
-	up_user=#{upUser},
-	album_id=#{track.albumId},
-	track_lyrics=#{track.trackLyrics},
-	track_order=#{track.trackOrder}
-	where track_id=#{track.trackId}
+		update t_tracks
+		set track_ttl=#{track.trackTtl},
+		mood_cd = #{track.moodCd},
+		genre_cd =#{track.genreCd},
+		situ_cd
+		=#{track.situCd},
+		stus_cd =#{track.stusCd},
+		ttl_track
+		=#{track.ttlTrack},
+		track_url =#{track.trackUrl},
+		up_date=sysdate,
+		up_user=#{upUser},
+		album_id=#{track.albumId},
+		track_lyrics=#{track.trackLyrics},
+		track_order=#{track.trackOrder}
+		where track_id=#{track.trackId}
 	</update>
-	
+
 	<update id="updateUser">
-	update t_user
-	set nick =#{user.nick},
-	pwd =#{user.pwd},
-	user_img=#{user.userImg},
-	up_user=#{upUser},
-	up_date=sysdate,
-	stus_cd=#{user.stusCd}
-	where email=#{user.email}
+		update t_user
+		set nick =#{user.nick},
+		pwd =#{user.pwd},
+		user_img=#{user.userImg},
+		up_user=#{upUser},
+		up_date=sysdate,
+		stus_cd=#{user.stusCd}
+		where email=#{user.email}
 	</update>
+
+	<select id="getGenreCount" resultMap="selectMap">
+		select genre_cd , count(*)
+		as count
+		from t_tracks
+		group by genre_cd
+		order by genre_cd
+	</select>
+
+	<select id="getCountPlay" resultMap="selectMap">
+		select * from(
+		select to_char(play_dt,'yy-MM-dd') playdt , count(*) as play
+		from t_history
+		group by to_char(play_dt,'yy-MM-dd')
+		order by to_char(play_dt,'yy-MM-dd') desc
+		)
+		where 	<![CDATA[  rownum <=7 ]]>
+	</select>
+
 
 </mapper>

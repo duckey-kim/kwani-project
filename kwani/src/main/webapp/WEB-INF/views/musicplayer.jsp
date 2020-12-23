@@ -72,7 +72,7 @@ tr:nth-child(even) {
 <body>
 
 	<div class="list-nm">${listNm }</div>
-	${videoMap }
+	<%-- ${videoMap } --%>
 	<div id="player"></div>
 
 	<%-- 	<div class="list-wrapper">

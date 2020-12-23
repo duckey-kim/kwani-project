@@ -60,7 +60,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/admin/home">KWANI ADMIN</a>
+				<a class="navbar-brand" href="/admin/home">BAAM ADMIN</a>
 			</div>
 			<!-- /.navbar-header -->
 
@@ -92,7 +92,7 @@
 							</div> <!-- /input-group -->
 						</li>
 						<li><a href="/admin/home"><i
-								class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
+								class="fa fa-dashboard fa-fw"></i> 관리자 홈</a></li>
 						<li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>
 						데이터 입력<span class="fa arrow"></span></a>
 							<ul class="nav nav-second-level">

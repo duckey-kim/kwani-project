@@ -4,6 +4,7 @@ package com.kwani.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -103,6 +104,10 @@ public interface TableService {
 	public <T> void setImgColumn(T obj, String fileName);
 
 	public void saveImgFile(String uploadFolder, String fileName, MultipartFile imgFile) throws IllegalStateException, IOException;
+
+	public List<Map<String, String>> getGenreCount();
+
+	public List<Map<String, String>> getPlayCount();
 	
 	
 	

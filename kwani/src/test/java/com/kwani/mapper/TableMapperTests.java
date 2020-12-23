@@ -1,5 +1,8 @@
 package com.kwani.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +93,18 @@ public class TableMapperTests {
 		user.setNick("duckey");
 		System.out.println("update result 1?"+mapper.updateUser("duckhwan", user));
 		
+	}
+	
+	@Test
+	public void getCount () {
+		List<Map<String,String>> getlist = mapper.getGenreCount();
+		log.info(getlist);
+	}
+	
+	@Test
+	public void getCount2() {
+		List<Map<String,String>> getList = mapper.getCountPlay();
+		log.info(getList);
 	}
 
 }
