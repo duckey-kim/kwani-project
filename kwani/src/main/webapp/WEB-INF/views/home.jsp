@@ -6,36 +6,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>home</title>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"
-	integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY="
-	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href='https://fonts.googleapis.com/css?family=Open Sans'
-	rel='stylesheet'>
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
-	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
-	crossorigin="anonymous">
-
 <link rel="stylesheet" type="text/css" href="/resources/css/home.css">
-
 </head>
 
-
-
 <%@include file="includes/mainHeader.jsp"%>
-
-
 
 <div id="body">
 	<div id="leftSideBar"></div>
@@ -195,18 +172,11 @@
 		welcomeBtn.style.display = "block";
 		toMypageBtn.style.display = "block";
 	}
-	$(".genreYearImg").click(function() {
-		location.href = "/detail/artist?gropId=1"
-	});
+	
 </script>
 
 <script type="text/javascript">
 	/*-------------------------------------------- searchBox ----------------------------------------------------- */
-	function openSearch() {
-		document.getElementById("myOverlay").style.display = "block";
-	}
-
-	let overlay = document.getElementById('myOverlay');
 
 	window.onclick = function(event) {
 		if (event.target == overlay) {
@@ -354,7 +324,6 @@
 					contentType : "application/json; charset=UTF-8",
 					success : function(data) {
 						console.log(data);
-
 						$(".genreYearImg").css(
 								"background-image",
 								"url(/resources/image/artist/"
@@ -362,7 +331,6 @@
 						$(".genreYearImg").click(function() {
 							location.href = "/detail/artist?gropId=" + data[0].gropId
 						});
-
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {
 						$(".genreYearImg").css("background-image",
@@ -418,16 +386,22 @@
 					} else if (genreCntPx > 240 && genreCntPx <= 280) {
 						$("#genreName").text("인디");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 280 && genreCntPx <= 320) {
+					} else if (genreCntPx > 280 && genreCntPx <= 310) {
 						$("#genreName").text("트로트");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 320 && genreCntPx <= 360) {
+					} else if (genreCntPx > 310 && genreCntPx <= 340) {
 						$("#genreName").text("R&B");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 360 && genreCntPx <= 400) {
+					} else if (genreCntPx > 340 && genreCntPx <= 370) {
 						$("#genreName").text("포크");
 						$("#genreName").css("display", "show");
-						// OST, classic, jazz, blues, soul
+					} else if (genreCntPx > 370 && genreCntPx <= 400) {
+						$("#genreName").text("OST");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 400 && genreCntPx <= 440) {
+						$("#genreName").text("soul");
+						$("#genreName").css("display", "show");
+						//classic, jazz, blues
 					}
 				});
 				console.log(startDate + "-" + finishDate + "-" + genreName)
@@ -494,4 +468,4 @@
 	});
 </script>
 
-<%@include file="includes/footer.jsp"%>
+<%@include file="includes/mainFooter.jsp"%>
