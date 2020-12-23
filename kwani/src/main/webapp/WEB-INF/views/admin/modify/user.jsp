@@ -108,12 +108,10 @@
 			return false;
 		}
 
-		if (imgFld.value == "") {
+		if (userImg == null) {
 			alert("파일을 선택해주세요");
 			return false;
-		}
-
-		if (!checkExtension(userImg.name, userImg.size)) {
+		}else if (!checkExtension(userImg.name, userImg.size)) {
 			return false;
 		}
 

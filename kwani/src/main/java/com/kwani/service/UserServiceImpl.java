@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void socialRegister(UserVO user) {
 		log.info("social API로 회원의 정보를 등록한다." + user);
+		System.out.println("@@@@@@@@@@@");
 		mapper.socialRegister(user);
 	}
 

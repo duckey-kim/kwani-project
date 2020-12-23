@@ -15,13 +15,13 @@
     justify-content: center;
     padding-top: 200px;
     width: 80%;
-    height: 1200px;
+    height: 1100px;
     background-color: black;
 }
   
 .loginBox {
     border-radius: 10%;
-    width: 500px;
+    width: 600px;
     height: 600px;
     border: 1px solid black;
     background-color: whitesmoke;
@@ -39,7 +39,7 @@
     justify-content: space-between;
     padding-top: 80px;
     text-align: center;
-    height: 200px;
+    height: 300px;
 }
 
 .emailField {
@@ -50,11 +50,9 @@
 .nickField {
     width: 100%;
     height: 40px;
-    padding-top: 10px;
 }
 
 .pwdField {
-    padding-top: 10px;
     width: 100%;
     height: 40px;
 }
@@ -72,16 +70,19 @@
 .inputNick {
     width: 60%;
     height: 40px;
+    margin-top: 10px;
 }
 
 .inputPwd {
     width: 60%;
     height: 40px;
+    margin-top: 10px;
 }
 
 .inputPwdRe {
     width: 60%;
     height: 40px;
+    margin-top: 10px;
 }
 
 .loginBtn {
