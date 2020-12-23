@@ -125,12 +125,6 @@
 	}
 </script>
 
-
-
-
-
-
-
 <script>
 	function on() {
 		document.getElementById("clickOverlay").style.display = "block";

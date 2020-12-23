@@ -172,9 +172,7 @@
 		welcomeBtn.style.display = "block";
 		toMypageBtn.style.display = "block";
 	}
-	$(".genreYearImg").click(function() {
-		location.href = "/detail/artist?gropId=1"
-	});
+	
 </script>
 
 <script type="text/javascript">
@@ -470,4 +468,4 @@
 	});
 </script>
 
-<%@include file="includes/footer.jsp"%>
+<%@include file="includes/mainFooter.jsp"%>

@@ -48,7 +48,7 @@ public class UserController {
 	}
 
 	@GetMapping("/socialRegister")
-	public String socialRegister(HttpSession session, Model model) {
+	public String socialRegister(Model model) {
 
 		String uuid = service.newPwd();
 
@@ -58,14 +58,17 @@ public class UserController {
 	}
 
 	@GetMapping("/withdrawal")
-	public String remove(HttpSession session, RedirectAttributes rttr) {
+	public String remove(HttpSession session, Model model) {
 		System.out.println("sessionName : " + session.getAttribute("userEmail"));
+		model.addAttribute("sessionName", session.getAttribute("userEmail"));
 
 		return "user/withdrawal";
 	}
 
 	@GetMapping("/checkUserInfo")
 	public String checkUserInfo(HttpSession session, RedirectAttributes rttr, Model model) {
+		System.out.println("sessionName : " + session.getAttribute("userEmail"));
+		model.addAttribute("sessionName", session.getAttribute("userEmail"));
 
 		if (!(service.checkSession(session, model))) {
 			return "redirect:/user/login";
