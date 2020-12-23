@@ -40,11 +40,12 @@
   </select>
   
   <select id="getListDtl" resultMap="PListResult">
-  select a.nm, t.track_ttl, t.track_id 
-  from t_rcmd_plylst_dtl dtl, t_tracks t, t_artist_tracks at, t_artist a
+  select a.nm, t.track_ttl, t.track_id, a.grop_id, al.album_img
+  from t_rcmd_plylst_dtl dtl, t_tracks t, t_artist_tracks at, t_artist a, t_album al
   where dtl.track_id = t.track_id
   and t.track_id = at.track_id
   and a.grop_id = at.grop_id
+  and t.album_id = al.album_id
   and dtl.plylst_type_id = #{plylstId}
   </select>
   

@@ -47,10 +47,6 @@
   display: block;
 }
 
-.dropdown2:hover .dropbtn2 {
-  background-color: #3e8e41;
-}
-
 
 .modal {
   display: none; /* Hidden by default */
@@ -188,8 +184,6 @@
                         	<tr>
                         	<td class="td1">
                         		<div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);">
-                        		<%-- <img src="/resources/image/artist/<c:out value="${searchArtist.gropImg}" />" 
-                				style="max-height:50px"> --%>
                 				</div>         	
                         	</td>
                         	<td class="td2"><a href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">
@@ -400,6 +394,12 @@
                 <script>
                 console.log("sessionName : " + '${sessionName}');
                 
+                //뮤직 플레이어----------------------------------------------------------------
+                let popupPlayer = function(url){
+                    let moveTop=screen.height-440;
+                     let moveLeft=screen.width-537;
+                   window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+                } 
               
                 //로그인 안되어있을 때 
                 //좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
@@ -437,7 +437,7 @@
                 
                 //'담기' 버튼을 눌렀을 때
                 btn.onclick = function(){
-                	//doCheck()를 실행해서 
+                	//로그인이 되어 있다면 doCheck()를 실행해서 
                 	//체크박스에 체크가 하나도 안되어 있다면 경고창 나오게 하고
                 	//체크박스에 하나 이상 체크가 되어 있다면 모달창을 보여준다
                 	if(sessionCheck()){
@@ -518,15 +518,13 @@
  	                	alert("노래를 선택해주세요");
  	                	return;
  	                }else{
- 	                	//하나 이상이라도 체크박스에 체크가 되어 있다면 아무것도 하지 않는다
+ 	                	//하나 이상이라도 체크박스에 체크가 되어 있을 때 클릭하면
  	                	console.log("선택했어!");
+ 	                	//모달창을 보여준다
  	                	modal.style.display = "block";
  	                	return;
  	                }	                
- 	             }     
-                
-              
-                	
+ 	             }                 	
                 		
                 	//체크박스 설정 1--------------------------------------------------------------------	
                 	function allCheckFunc(obj){

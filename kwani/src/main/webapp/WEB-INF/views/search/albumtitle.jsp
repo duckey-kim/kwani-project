@@ -47,40 +47,12 @@
   display: block;
 }
 
-.dropdown2:hover .dropbtn2 {
-  background-color: #3e8e41;
-}
 </style>       
     
 </head>
 <body>
-    <div id="main">
-        <div id="header">
-            <div id="header_navbar">
-                <div id="musicPlayer">musicPlayer</div>
-                <div id="pageLogo">
-                    <a href="#">Last.fm</a>
-                </div>
-                <div id="navbarUtil"> 
-                    <button class="subnavbtn" onclick="openSearch()">
-                      <i class="fa fa-search"></i></button>
-                    <a href="/">Home</a>
-                    <a href="/recommend/common">Recommend</a>
-                    <a href="#">Find music</a>
-                    <a href="/user/register">Join</a>
-                </div>
-            </div>
-            <div id="myOverlay" class="overlay">
-                <div class="overlay-content">
-                  <form action="/search" method="get" name="searchForm" onsubmit="return checkTxt();">
-                    <input type="text" placeholder="Search.." name="searchTxt" value="">
-                    <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
-                  </form>
-                </div>
-            </div><!--myOverlay-->
-        </div><!--header-->
-
-        
+    
+    <%@include file="../includes/header.jsp" %>
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
@@ -123,19 +95,21 @@
                 	</div><!-- albumImg --> 
                 	<div class="albumArtist">
                 		<p>
-                			<c:out value="${searchAlbum2.nm}" />
+                			<a href="/detail/artist?gropId=<c:out value='${searchAlbum2.gropId}'/>">
+                			<c:out value="${searchAlbum2.nm}" /></a>
                 		</p>
                 	</div><!-- albumArtist -->   
                 	<div class="albumTtl">
                 		<p>
-                			<c:out value="${searchAlbum2.albumTtl}" />
+                			<a href="/detail/album?albumId=<c:out value='${searchAlbum2.albumId}'/>">
+                			<c:out value="${searchAlbum2.albumTtl}" /></a>
                 		</p>
                 	</div><!-- albumTtl -->              	
                 	</div><!-- eachAlbum --> 
                 	</c:forEach>
                 </div><!-- alblumImgContainer --> 
                 
-                <div>
+                <div class="pull-rightContainer">
                 <div class="pull-right">
                          	<ul class="pagination">
                          		<c:if test="${pageMaker.prev}">
@@ -217,17 +191,17 @@
                    
                 	//서치바에 입력된 값 없을 때의 설정-------------------------------------------------------
                 	
-                	var result = $("input[name=searchTxt]");
+                	var result2 = $("input[name=searchTxt]");
                 		
                 	function checkTxt(){
-                		console.log(result[0].value);
-                		if(result[0].value.length != 0){
-                			console.log(result+"있어");
+                		console.log(result2[0].value);
+                		if(result2[0].value.length != 0){
+                			console.log(result2+"있어");
                 			console.log("모달창 필요 없어!");
                 			return true; 
                 		}
                 		else{  
-                			console.log(result+"없어");
+                			console.log(result2+"없어");
                 			console.log("모달창 나와라!");
                 			alert("검색어를 입력하세요");
                 			return false;
@@ -290,10 +264,6 @@
                     </div><!--bodyContent-->
             <div id="rightSideBar"></div>
         </div><!--body-->
-        <div id="footer"></div>
-    </div><!--main-->
-</body>
-</html>
-                
+            <%@include file="../includes/footer.jsp" %>
                     
            

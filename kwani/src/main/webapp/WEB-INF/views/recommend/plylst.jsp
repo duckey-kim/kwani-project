@@ -139,8 +139,9 @@
                         <tr>
                         <th class="th0"><input type="checkbox" name="checkAll" class="checkAll"></th>
                         <th class="th1">번호</th>
-                        <th class="th2">가수</th>
-                        <th class="th3">제목</th>
+                        <th class="th5"></th>
+                        <th class="th2">곡정보</th>
+                        <th class="th3">가수</th>
                         <th class="th4">듣기</th>
                         <th class="th4">좋아요</th>
                         </tr>
@@ -149,9 +150,16 @@
                         <tr>
                         <th><input type="checkbox" name="checkRow"></th>
                         <td class="num">${status.index+1}</td>
-                        <td><c:out value="${plstdtl.nm}" /></td>
-                        <td><c:out value="${plstdtl.trackTtl}" /></td>
-                        <td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        <td>
+                        	<div class="artistSmallImg" style="background-image:url(/resources/image/album/<c:out value='${plstdtl.albumImg}'/>);">
+                        </div></td>
+                        
+                        <td><a href="/detail/track?trackId=<c:out value='${plstdtl.trackId}'/>">     
+                        	<c:out value="${plstdtl.trackTtl}" /></td>
+                        <td><a href="/detail/artist?gropId=<c:out value='${plstdtl.gropId}'/>">      
+                        	<c:out value="${plstdtl.nm}" /></td>
+                        <td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
+                        	onclick='popupPlayer("/player/track?trackId=${plistListDtl[0].trackId}")'></td>
                         <td>
                         <div class="heartParent">
                         <img class="defaultHeartImg" name="${plstdtl.trackId}" src="/resources/image/heart2.png" onclick="sessionCheck()">

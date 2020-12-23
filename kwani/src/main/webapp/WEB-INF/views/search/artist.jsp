@@ -47,40 +47,11 @@
   display: block;
 }
 
-.dropdown2:hover .dropbtn2 {
-  background-color: #3e8e41;
-}
 </style>   
     
     
 </head>
-<body>
-    <div id="main">
-        <div id="header">
-            <div id="header_navbar">
-                <div id="musicPlayer">musicPlayer</div>
-                <div id="pageLogo">
-                    <a href="#">Last.fm</a>
-                </div>
-                <div id="navbarUtil"> 
-                    <button class="subnavbtn" onclick="openSearch()">
-                      <i class="fa fa-search"></i></button>
-                    <a href="/">Home</a>
-                    <a href="/recommend/common">Recommend</a>
-                    <a href="#">Find music</a>
-                    <a href="/user/register">Join</a>
-                </div>
-            </div>
-            <div id="myOverlay" class="overlay">
-                <div class="overlay-content">
-                  <form action="/search" method="get" name="searchForm" onsubmit="return checkTxt();">
-                    <input type="text" placeholder="Search.." name="searchTxt" value="">
-                    <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
-                  </form>
-                </div>
-            </div><!--myOverlay-->
-        </div><!--header-->
-
+	<%@include file="../includes/header.jsp" %>
         
         <div id="body">
             <div id="leftSideBar"></div>
@@ -125,10 +96,10 @@
                             <c:forEach items="${searchArtist}" var="searchArtist" >
                         	<tr>
                         	<td class="td1">
-                        		<%-- <div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);"> --%>
-                        		<div class="artistSmallImg">
+                        		<div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);"></div>
+                        		<%-- <div class="artistSmallImg">
                         		<img src="/resources/image/artist/<c:out value="${searchArtist.gropImg}" />" 
-                				style="max-height:50px"></div>  
+                				style="max-height:50px"></div> --%>  
                 				   	
                         	</td>
                         	<td class="td2"><a href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">     
@@ -251,17 +222,17 @@
                    
                 	//서치바에 입력된 값 없을 때의 설정-------------------------------------------------------
                 	
-                	var result = $("input[name=searchTxt]");
+                	var result2 = $("input[name=searchTxt]");
                 		
                 	function checkTxt(){
-                		console.log(result[0].value);
-                		if(result[0].value.length != 0){
-                			console.log(result+"있어");
+                		console.log(result2[0].value);
+                		if(result2[0].value.length != 0){
+                			console.log(result2+"있어");
                 			console.log("모달창 필요 없어!");
                 			return true; 
                 		}
                 		else{  
-                			console.log(result+"없어");
+                			console.log(result2+"없어");
                 			console.log("모달창 나와라!");
                 			alert("검색어를 입력하세요");
                 			return false;
@@ -324,10 +295,5 @@
                     </div><!--bodyContent-->
             <div id="rightSideBar"></div>
         </div><!--body-->
-        <div id="footer"></div>
-    </div><!--main-->
-</body>
-</html>
-                
-                    
+        <%@include file="../includes/footer.jsp" %>
            
