@@ -25,7 +25,7 @@ import lombok.extern.log4j.Log4j;
 @RestController
 @Log4j
 @AllArgsConstructor
-public class MyPageAjaxController {
+public class MyPageRestController {
 
 	private MyPageService myPageService;
 

@@ -177,7 +177,6 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageMapper.getUser(email);
 	}
 
-	// TODO : check controller?
 	// 플레이리스트 삭제
 	@Override
 	public boolean removePlaylist(Integer plylstId, String email) {
@@ -213,8 +212,6 @@ public class MyPageServiceImpl implements MyPageService {
 		log.info("count Playlist" + email);
 		return myPageMapper.countPlaylist(email);
 	}
-
-	// 2차 개발 미완성
 
 	@Override
 	public int createPlaylist(PlaylistVO playlistVO) {

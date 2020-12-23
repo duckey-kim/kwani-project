@@ -33,13 +33,14 @@ public class MyPageController {
 	@RequestMapping(value = "/overview", method = { RequestMethod.POST, RequestMethod.GET })
 	public String overview(HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
-		UserVO userVO = userService.get(email);
+		String sessionName = (String)session.getAttribute("userEmail");
+		UserVO userVO = userService.get(sessionName);
 
-		model.addAttribute("libraryList", myPageService.getListLibrary(email));
-		model.addAttribute("likedArtistList", myPageService.getListLikedArtist(email));
-		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
-		model.addAttribute("likedAlbumList", myPageService.getListLikedAlbum(email));
+		model.addAttribute("libraryList", myPageService.getListLibrary(sessionName));
+		model.addAttribute("likedArtistList", myPageService.getListLikedArtist(sessionName));
+		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(sessionName));
+		model.addAttribute("likedAlbumList", myPageService.getListLikedAlbum(sessionName));
+		model.addAttribute("sessionName", sessionName);
 
 		session.setAttribute("user", userVO);
 		
@@ -50,12 +51,12 @@ public class MyPageController {
 	@PostMapping("/like")
 	public String like(HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
+		String sessionName = (String)session.getAttribute("userEmail");
 
-		model.addAttribute("likedArtistList", myPageService.getListLikedArtist(email));
-		System.out.println(myPageService.getListLikedArtist(email));
-		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
-		model.addAttribute("likedAlbumList", myPageService.getListLikedAlbum(email));
+		model.addAttribute("likedArtistList", myPageService.getListLikedArtist(sessionName));
+		System.out.println(myPageService.getListLikedArtist(sessionName));
+		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(sessionName));
+		model.addAttribute("likedAlbumList", myPageService.getListLikedAlbum(sessionName));
 
 		return "/mypage/like";
 	}
@@ -64,9 +65,9 @@ public class MyPageController {
 	@PostMapping("/library")
 	public void trackList(HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
+		String sessionName = (String)session.getAttribute("userEmail");
 		
-		model.addAttribute("libraryList", myPageService.getListLibrary(email));
+		model.addAttribute("libraryList", myPageService.getListLibrary(sessionName));
 
 	}
 
@@ -74,10 +75,10 @@ public class MyPageController {
 	@RequestMapping(value = "/playlist", method = { RequestMethod.POST, RequestMethod.GET })
 	public String playlist(HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
+		String sessionName = (String)session.getAttribute("userEmail");
 
-		model.addAttribute("playlistVO", myPageService.getListPlaylist(email));
-		model.addAttribute("playlistCount", myPageService.countPlaylist(email));
+		model.addAttribute("playlistVO", myPageService.getListPlaylist(sessionName));
+		model.addAttribute("playlistCount", myPageService.countPlaylist(sessionName));
 
 		return "/mypage/playlist";
 	}
@@ -86,9 +87,9 @@ public class MyPageController {
 	@PostMapping("/playlistDetail")
 	public String playlistDetail(@ModelAttribute("plylstId") Integer plylstId, HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
+		String sessionName = (String)session.getAttribute("userEmail");
 
-		model.addAttribute("playlistDetail", myPageService.getListPlaylistDetail(plylstId, email));
+		model.addAttribute("playlistDetail", myPageService.getListPlaylistDetail(plylstId, sessionName));
 		model.addAttribute("trackCount", myPageService.countPlaylistTrack(plylstId));
 
 		return "/mypage/playlistDetail";
@@ -99,7 +100,7 @@ public class MyPageController {
 	@PostMapping("/playlist/create")
 	public String createPlaylist(@ModelAttribute("playlistVO") PlaylistVO playlistVO, HttpSession session , Model model) {
 			
-		String email = (String)session.getAttribute("userEmail");
+		String sessionName = (String)session.getAttribute("userEmail");
 			
 		myPageService.createPlaylist(playlistVO);
 		model.addAttribute("playlistVO", playlistVO);
@@ -111,17 +112,17 @@ public class MyPageController {
 	@GetMapping("/playlist/{plylstId}")
 	public String showPlaylist(@PathVariable("plylstId")Integer plylstId, HttpSession session , Model model) {
 		
-		String email = (String)session.getAttribute("userEmail");
+		String sessionName = (String)session.getAttribute("userEmail");
 
-		PlaylistVO playlistVO =  myPageService.getOnePlaylistVO(plylstId, email);
+		PlaylistVO playlistVO =  myPageService.getOnePlaylistVO(plylstId, sessionName);
 		
 		if(playlistVO == null) {
 			return "errorAccess";
 		}
 		
 		model.addAttribute("playlistVO", playlistVO);
-		model.addAttribute("playlistDetail", myPageService.getListPlaylistDetail(plylstId, email));		
-		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
+		model.addAttribute("playlistDetail", myPageService.getListPlaylistDetail(plylstId, sessionName));		
+		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(sessionName));
 				
 		return "/mypage/playlistView";
 	}
@@ -130,11 +131,11 @@ public class MyPageController {
 	@PostMapping("/playlist/delete")
 	public String deletePlaylist(Integer plylstId, HttpSession session, RedirectAttributes rttr) {
 
-		String email = (String)session.getAttribute("userEmail");
+		String sessionName = (String)session.getAttribute("userEmail");
 		
-		boolean result = myPageService.removePlaylist(plylstId, email);	
+		boolean result = myPageService.removePlaylist(plylstId, sessionName);	
 		rttr.addFlashAttribute("successDel", result ? "SUCCESS" : "FAIL");
-		rttr.addFlashAttribute("playlistCount", myPageService.countPlaylist(email));
+		rttr.addFlashAttribute("playlistCount", myPageService.countPlaylist(sessionName));
 		
 		return "redirect:/mypage/playlist";
 	}
@@ -144,9 +145,9 @@ public class MyPageController {
 	public String getPlaylistEdit(@ModelAttribute("playlistVO") PlaylistVO playlistVO, HttpSession session, RedirectAttributes rttr) {
 		
 		//유효성체크.. 본인만 수정할 수 있도록
-		String email = (String)session.getAttribute("userEmail");
+		String sessionName = (String)session.getAttribute("userEmail");
 		
-		boolean result = myPageService.modifyPlaylist(playlistVO, email);		
+		boolean result = myPageService.modifyPlaylist(playlistVO, sessionName);		
 		rttr.addFlashAttribute("result", result ? playlistVO.getNm() : "FAIL");
 
 		return "redirect:/mypage/playlist";
