@@ -111,7 +111,6 @@
 		when not matched then
 		insert(email,track_id,play_dt,in_user,in_date,up_user,up_date)
 		values(#{email},#{trackId},sysdate,#{email},sysdate,#{email},sysdate)
-
 	</update>
 
 

@@ -53,8 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="getListPlaylist" resultMap="PlayListResult">
-		SELECT NM, PLYLST_ID,
-		PLYLST_IMG FROM T_PLYLST
+		SELECT NM, PLYLST_ID, PLYLST_IMG FROM T_PLYLST
 		WHERE EMAIL = #{email}
 		ORDER BY PLYLST_ID ASC
 	</select>
@@ -88,14 +87,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getPlaylistDetail" resultMap="selectMap">
 		SELECT PD.PLYLST_ID,
 		T.TRACK_TTL, A.NM AS ANM, AL.ALBUM_TTL, AL.ALBUM_IMG AS ALBUM_IMG,
-		PD.PLY_NO, PD.TRACK_ID AS TRACK_ID
+		PD.PLY_NO, PD.TRACK_ID AS TRACK_ID, A.GROP_ID
 		FROM T_PLYLST P, T_PLYLST_DTL PD,
 		T_TRACKS T, T_ARTIST A, T_ARTIST_TRACKS AT, T_ALBUM AL
 		WHERE
 		PD.PLYLST_ID = #{plylstId}
 		AND P.EMAIL = #{email}
-		AND P.PLYLST_ID =
-		PD.PLYLST_ID
+		AND P.PLYLST_ID = PD.PLYLST_ID
 		AND AL.ALBUM_ID = T.ALBUM_ID
 		AND AT.TRACK_ID = T.TRACK_ID
 		AND AT.GROP_ID = A.GROP_ID
@@ -103,7 +101,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="getListLibrary" resultMap="selectMap">
-		SELECT T.TRACK_ID AS TRACK_ID, T.TRACK_TTL, A.NM , TO_CHAR(H.PLAY_DT, 'YYYYMMDDHH24MISS') AS PLAY_DT, AL.ALBUM_IMG, AL.ALBUM_TTL
+		SELECT T.TRACK_ID AS TRACK_ID, T.TRACK_TTL, A.NM , TO_CHAR(H.PLAY_DT, 'YYYYMMDDHH24MISS') AS PLAY_DT, AL.ALBUM_IMG, AL.ALBUM_TTL,
+		AL.ALBUM_ID, A.GROP_ID
 		FROM T_HISTORY H, T_TRACKS T, T_ALBUM AL,
 		T_ARTIST_TRACKS AT, T_ARTIST A
 		WHERE H.EMAIL = #{email}
@@ -116,14 +115,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="getListLikedArtist" resultMap="selectMap">
-		SELECT A.NM, A.GROP_IMG
+		SELECT A.NM, A.GROP_IMG, A.GROP_ID
 		FROM T_LIKE_ARTISTS LA, T_ARTIST A
 		WHERE LA.EMAIL = #{email}
 		AND LA.GROP_ID = A.GROP_ID
 	</select>
 
 	<select id="getListLikedTrack" resultMap="selectMap">
-		SELECT T.TRACK_TTL,A.NM, AL.ALBUM_TTL, AL.ALBUM_IMG, T.TRACK_ID AS TRACK_ID
+		SELECT T.TRACK_TTL, A.NM, AL.ALBUM_TTL, AL.ALBUM_IMG, T.TRACK_ID AS TRACK_ID, AL.ALBUM_ID, A.GROP_ID
 		FROM T_LIKE_TRACKS LT, T_TRACKS T, T_ALBUM AL, T_ARTIST_TRACKS AT, T_ARTIST A
 		WHERE LT.EMAIL = #{email}
 		AND LT.TRACK_ID = T.TRACK_ID
@@ -134,7 +133,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getListLikedAlbum" resultMap="selectMap">
 		SELECT DISTINCT
-		AL.ALBUM_TTL, A.NM, AL.ALBUM_IMG
+		AL.ALBUM_TTL, A.NM, AL.ALBUM_IMG, AL.ALBUM_ID, A.GROP_ID
 		FROM T_LIKE_ALBUMS LA, T_ALBUM AL,
 		T_TRACKS T, T_ARTIST_TRACKS AT, T_ARTIST A
 		WHERE LA.EMAIL = #{email}
@@ -169,6 +168,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getOnePlaylist" resultMap="Integer">
 		SELECT PLYLST_ID FROM T_PLYLST
 		WHERE PLYLST_ID = #{plylstId}
+		AND EMAIL = #{email}
+	</select>
+	
+	<select id="getOnePlaylistVO" resultMap="PlayListResult">
+		SELECT * FROM T_PLYLST
+		WHERE PLYLST_ID = #{plylstId}
+		AND EMAIL = #{email}
 	</select>
 	
 	<select id="getOneTrackInPlaylist" resultMap="Integer">
@@ -179,9 +185,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="updatePlaylist">
 		UPDATE T_PLYLST
-		SET NM = #{nm}, DESCP = #{desc}
-		WHERE
-		PLYLST_ID = #{plylstId}
+		SET NM = #{plylst.nm}, DESCP = #{plylst.desc}
+		WHERE PLYLST_ID = #{plylst.plylstId}
+		AND EMAIL = #{email}
 	</update>
 
 	<insert id="insertSelectKeyPlaylist">

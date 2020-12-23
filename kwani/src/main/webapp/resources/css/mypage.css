@@ -1,14 +1,25 @@
 * {
-	margin: 0;
-	padding: 0;
-	left: 0;
-	top: 0;
-	box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    left: 0;
+    top: 0;
 }
 
 a {
-	text-decoration: none;
-	color: black;
+    text-decoration: none;
+    color:black;
+}
+
+#body{
+	display: flex;
+	width: 100%;
+	height: auto;
+}
+
+#bodyContent{
+	width: 80%;
+	height: auto;
 }
 
 table {
@@ -28,10 +39,6 @@ tr {
 }
 
 tr:hover {background-color:#f5f5f5;}
-
-body {
-	height: 1126px;
-}
 
 li {
 	list-style-type: none;
@@ -54,7 +61,7 @@ li {
 	width: 40%;
 }
 
-.artistTable{
+.basicTable{
 }
 
 .modal {
@@ -156,7 +163,7 @@ li {
 	margin: 2em;
 }
 
-.item-div .artistTable {
+.item-div .basicTable {
 	width: 13vw;
 	margin: 2vw;
 }
@@ -222,8 +229,28 @@ li {
 	width: 4em;
 }
 
-.th4, .th5, .th6 {
-	width: auto;
+.th1{
+	width: 1vw;
+}
+
+.th2{
+	width: 2vw;
+}
+
+.th3{
+	width: 3vw;
+}
+
+.th4{
+	width: 4vw;
+}
+
+.th5{
+	width : 5vw;
+}
+
+.th6 {
+	width: 6vw;
 }
 
 .play {
@@ -237,7 +264,7 @@ li {
 	height: 1.6em;
 }
 
-.dropdown-content {
+.dd-plylst-content {
 	display: none;
 	position: relative;
 	background-color: white;
@@ -247,8 +274,8 @@ li {
 .show {display: block;}
 
 .myImg {
-	width: 30px;
-	height: 30px;
+	width: 50px;
+	height: 50px;
 }
 
 .myAlbumImg {
