@@ -201,7 +201,8 @@
                         		<c:out value="${searchSong.trackTtl}" /></a></td>
                         	<td><a href="/detail/artist?gropId=<c:out value='${searchSong.gropId}'/>">          
                         		<c:out value="${searchSong.nm}" /></a></td>
-                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
+                        		onclick='popupPlayer("/player/track?trackId=${searchSong.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
                         	<img class="defaultHeartImg"src="/resources/image/heart2.png">
@@ -269,6 +270,13 @@
                     
                 <script>
                 console.log("sessionName : " + '${sessionName}');
+                
+
+                let popupPlayer = function(url){
+                    let moveTop=screen.height-440;
+                     let moveLeft=screen.width-537;
+                   window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+                }
                 
                 //로그인 안되어있을 때 
                 //좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------

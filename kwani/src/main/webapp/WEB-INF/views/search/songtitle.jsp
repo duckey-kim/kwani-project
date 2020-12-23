@@ -125,7 +125,6 @@
 .userPlylstNm{
   height: 40px;
   width: 60%;
-  /* display: flex; */
   display: block;
   align-items: center;
   overflow: hidden;
@@ -192,7 +191,8 @@
                         		<c:out value="${searchSong2.trackTtl}" /></a></td>
                         	<td><a href="/detail/artist?gropId=<c:out value='${searchSong2.gropId}'/>">      
                         		<c:out value="${searchSong2.nm}" /></a></td>
-                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
+                        		onclick='popupPlayer("/player/track?trackId=${searchSong2.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
                         	<img class="defaultHeartImg"src="/resources/image/heart2.png">
@@ -260,7 +260,12 @@
                 <script>
                 
                 console.log("sessionName : " + '${sessionName}');
-                
+
+                let popupPlayer = function(url){
+                    let moveTop=screen.height-440;
+                     let moveLeft=screen.width-537;
+                   window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+                }
                 
                 //로그인 안되어있을 때 
                 //좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
@@ -424,17 +429,17 @@
                    
                 	//서치바에 입력된 값 없을 때의 설정-------------------------------------------------------
                 	
-                	var result = $("input[name=searchTxt]");
+                	var result2 = $("input[name=searchTxt]");
                 		
                 	function checkTxt(){
-                		console.log(result[0].value);
-                		if(result[0].value.length != 0){
-                			console.log(result+"있어");
+                		console.log(result2[0].value);
+                		if(result2[0].value.length != 0){
+                			console.log(result2+"있어");
                 			console.log("모달창 필요 없어!");
                 			return true; 
                 		}
                 		else{  
-                			console.log(result+"없어");
+                			console.log(result2+"없어");
                 			console.log("모달창 나와라!");
                 			alert("검색어를 입력하세요");
                 			return false;

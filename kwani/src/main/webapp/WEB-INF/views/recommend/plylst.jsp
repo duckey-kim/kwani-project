@@ -159,7 +159,7 @@
                         <td><a href="/detail/artist?gropId=<c:out value='${plstdtl.gropId}'/>">      
                         	<c:out value="${plstdtl.nm}" /></td>
                         <td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
-                        	onclick='popupPlayer("/player/track?trackId=${plistListDtl[0].trackId}")'></td>
+                        	onclick='popupPlayer("/player/track?trackId=${plstdtl.trackId}")'></td>
                         <td>
                         <div class="heartParent">
                         <img class="defaultHeartImg" name="${plstdtl.trackId}" src="/resources/image/heart2.png" onclick="sessionCheck()">

@@ -115,7 +115,7 @@ public class SearchController {
 	
 	//검색 결과에서 '앨범' 탭 누른 결과 페이지 -> 아티스트명으로 검색
 	@GetMapping("/albumartist")
-	public void searchAlbumArtist(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri) {
+	public void searchAlbumArtist(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri, HttpSession session) {
 		
 		log.info("searchAlbumArtist" + cri);
 		
@@ -124,12 +124,13 @@ public class SearchController {
 		
 		int total = plservice.getTotalCountAlbumArtist(searchTxt);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
-	   
+
+		model.addAttribute("sessionName", session.getAttribute("userEmail"));
 	}
 	
 	//검색 결과에서 '앨범' 탭 누른 결과 페이지 -> 앨범명으로 검색
 	@GetMapping("/albumtitle")
-	public void searchAlbumTitle(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri) {
+	public void searchAlbumTitle(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri, HttpSession session) {
 		
 		log.info("searchAlbumTitle" + cri);
 		
@@ -138,12 +139,14 @@ public class SearchController {
 		
 		int total = plservice.getTotalCountAlbumTitle(searchTxt);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+		model.addAttribute("sessionName", session.getAttribute("userEmail"));
 	}
 	
 	
 	//검색 결과에서 '가사' 탭 누른 결과 페이지
 	@GetMapping("/lyrics")
-	public void searchLyrics(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri) {
+	public void searchLyrics(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri, HttpSession session) {
 		
 		System.out.println("searchLyrics" + cri);
 		
@@ -152,6 +155,8 @@ public class SearchController {
 		
 		int total = plservice.getTotalCountLyrics(searchTxt);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+		model.addAttribute("sessionName", session.getAttribute("userEmail"));
 	}
 	
 	

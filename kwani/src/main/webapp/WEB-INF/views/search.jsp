@@ -222,7 +222,8 @@
                         		<c:out value="${searchRst.trackTtl}" /></a></td>
                         	<td><a href="/detail/artist?gropId=<c:out value='${searchRst.gropId}'/>">
                         		<c:out value="${searchRst.nm}" /></a></td>
-                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
+                        		onclick='popupPlayer("/player/track?trackId=${searchRst.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
                         	<img class="defaultHeartImg"src="/resources/image/heart2.png">
@@ -256,7 +257,8 @@
                         		<c:out value="${searchRstWithSong.trackTtl}" /></a></td>
                         	<td><a href="/detail/artist?gropId=<c:out value='${searchRstWithSong.gropId}'/>">    
                         		<c:out value="${searchRstWithSong.nm}" /></a></td>
-                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
+                        		onclick='popupPlayer("/player/track?trackId=${searchRstWithSong.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
                         	<img class="defaultHeartImg"src="/resources/image/heart2.png">
@@ -293,7 +295,8 @@
                         		<c:out value="${searchRstWithAlbum.nm}" /></a></td>
                         	<td><a href="/detail/album?albumId=<c:out value='${searchRstWithAlbum.albumId}'/>">      
                         		<c:out value="${searchRstWithAlbum.albumTtl}" /></a></td>
-                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
+                        		onclick='popupPlayer("/player/track?trackId=${searchRstWithAlbum.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
                         	<img class="defaultHeartImg"src="/resources/image/heart2.png">
