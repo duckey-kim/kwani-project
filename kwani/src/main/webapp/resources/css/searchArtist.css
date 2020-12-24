@@ -24,6 +24,7 @@
     height: 50px;
     background-color: white;
     margin-bottom: 30px;
+    border-bottom : 1px solid black;
 }
 .rstTap a.active{
 	background-color: rgb(124, 120, 120);

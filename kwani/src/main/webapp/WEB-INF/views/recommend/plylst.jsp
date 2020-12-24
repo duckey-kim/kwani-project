@@ -92,12 +92,14 @@
 }
 .userPlylstImg{
   height: 40px;
-  width: 20%;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 .userPlylstNm{
   height: 40px;
   width: 60%;
-  /* display: flex; */
   display: block;
   align-items: center;
   overflow: hidden;
@@ -123,12 +125,14 @@
             
             <div id="plylstInfoContainer">
             	<div class="plylstInfoImg">
-            		<img class="plylstImg" src="/resources/image/rcmdplylst/<c:out value="${plistName.rcmdPlylstImg}" />"
-            		style="height:200px; width:300px;">
+            		<img class="plylstImg" src="/resources/image/rcmdplylst/<c:out value="${plistName.rcmdPlylstImg}" />">
             	</div>
-                    <h3 class="plylstTxt">${plistName.rcmdPlylstNm}</h3>
-                </div><!--plylstInfo-->
-           </div>     
+            	<div class="plylstInfoDetail">
+            		<div class="plylstTxt"><h3>${plistName.rcmdPlylstNm}</h3></div>
+                    <div class="plylstCovers"></div>
+                </div>
+            </div><!-- plylstInfoContainer -->
+           </div><!--plylstInfo-->     
                 
                 <div id="tracks"><h2>Tracks</h2></div>
                 <div id="plylstBtn">
@@ -137,7 +141,7 @@
                 </div>
                     <div id="plylstTable">
                     <table>
-                        <tr>
+                        <tr> 
                         <th class="th0"><input type="checkbox" name="checkAll" class="checkAll"></th>
                         <th class="th1">번호</th>
                         <th class="th5"></th>
@@ -188,8 +192,7 @@
                     		</div>
                     		<c:forEach items="${getUserPlylst}" var="userPlylst">
                     		<div class="userPlylst">
-                    			<div class="userPlylstImg">
-                    				<img src="/resources/image/album/<c:out value="${userPlylst.plylstImg}" />" style="max-height:40px">
+                    			<div class="userPlylstImg" style="background-image:url(/resources/image/album/<c:out value='${userPlylst.plylstImg}'/>);">
                     			</div>
                     			<div class="userPlylstNm"><p style="padding-top: 10px"><c:out value="${userPlylst.nm}" /></p></div>         
                     			<div class="userPlylstTrackCnt"><p style="padding-top: 10px"><c:out value="${userPlylst.trackCnt}" />1 곡</p></div>           			

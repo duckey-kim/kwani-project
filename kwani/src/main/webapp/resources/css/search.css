@@ -37,6 +37,7 @@
     height: 50px;
     background-color: white;
     margin-bottom: 30px;
+    border-bottom : 1px solid black;
 }
 
 .rstInfo{
@@ -73,6 +74,7 @@
     width: 100%;
     height: 300px;
     background-color: white;
+    margin-bottom: 50px;
 }
 .heartParent{
 	width:108px;
@@ -101,6 +103,7 @@
     overflow: hidden;
     background-color: white;    
 	justify-content: space-between;
+	margin-bottom: 50px;
 }
 .eachAlbum{
 	width: 20%;
@@ -131,6 +134,7 @@
     width: 100%;
     height: 300px;
     background-color: white;
+    margin-bottom: 50px;
 }
 .artistTable{
 	width: 70%;
