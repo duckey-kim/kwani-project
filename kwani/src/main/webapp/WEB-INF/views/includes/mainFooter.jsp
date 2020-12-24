@@ -40,30 +40,6 @@
 </body>
 
 <script type="text/javascript">
-
-	//세션값이 잘 넘어왔는지 확인한다.
-	console.log('${sessionName}');
-	console.log('${userNick}');
-	console.log('${list}');
-	console.log('${slideImg}');
-
-
-	let logoutBtn = document.getElementById("logoutBtn");
-	let toMypageBtn = document.getElementById("toMypageBtn");
-	let joinBtn = document.getElementById("joinBtn");
-	
-
-	//세션이 있으면 loginBtn을 없애고, logoutBtn, toMypageBtn, welcomeBtn을 보이게 한다.
-
-	if ('${sessionName}' != "") {
-		joinBtn.style.display = "none";
-		logoutBtn.style.display = "block";
-		toMypageBtn.style.display = "block";
-	}
-	
-</script>
-
-<script type="text/javascript">
 	//서치바 설정-------------------------------------------------------------------------
 	var result2 = $("input[name=searchTxt]");
 

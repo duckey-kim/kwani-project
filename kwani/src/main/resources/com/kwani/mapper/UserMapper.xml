@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kwani.mapper.UserMapper">
 
@@ -16,30 +16,23 @@
 
 	<insert id="insert">
 		insert into t_user (email, nick, pwd, user_img,
-		mood_cd, genre_cd, situ_cd,
 		stus_cd, last_dt, in_user, in_date,
 		up_user, up_date)
-		values(#{email}, #{nick}, #{pwd}, #{userImg},
-		#{moodCd}, #{genreCd},
-		#{situCd},
-		#{stusCd},
-		#{lastDt}, #{inUser},
-		#{inDate}, #{upUser},
-		#{upDate})
+		values(#{email},
+		#{nick}, #{pwd}, #{userImg},
+		#{stusCd}, #{lastDt}, #{email}, sysdate,
+		#{email},
+		sysdate)
 	</insert>
 
 	<insert id="socialRegister">
 		insert into t_user (email, nick, pwd, user_img,
-		mood_cd, genre_cd, situ_cd,
 		stus_cd, last_dt, in_user, in_date,
 		up_user, up_date)
 		values(#{email}, #{nick}, #{pwd}, #{userImg},
-		#{moodCd}, #{genreCd},
-		#{situCd}, #{stusCd},
-		#{lastDt},
-		#{inUser},
-		#{inDate}, #{upUser},
-		#{upDate})
+		#{stusCd},
+		#{lastDt}, #{email}, sysdate, #{email},
+		sysdate)
 	</insert>
 
 	<select id="get" resultMap="UserResult">
@@ -73,7 +66,7 @@
 		where email =
 		#{email}
 	</update>
-	
+
 	<update id="setSysdateForSocial">
 		update t_user
 		set last_dt = sysdate
