@@ -11,7 +11,6 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="/resources/js/jquery-3.5.1.js" /></script>
-<script defer src="/resources/js/indexNoVideo.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/indexNoVideoYC.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/album.css">
@@ -84,16 +83,13 @@
 
 						<div class="header-buttons">
 							<button type="button" id="playNow"
-								onclick='popupPlayer("/player/album?albumId=${albumId}")'>⯈
-								앨범듣기</button>
-							<button type="button" id="addPlayer" style="display: none">플레이어에
-								추가</button>
+								onclick='popupPlayer("/player/album?albumId=${albumId}")'>⯈앨범듣기</button>
+							<button type="button" id="addPlayer" style="display: none">플레이어에 추가</button>
 							<button type="button" id="addAlbumMyPlaylist">내 재생목록 추가</button>
 							<input type="button" value="공유하기" onclick="copyURL()">
 							<textarea id="address" style="display: none"></textarea>
-							<img class="emptyHeart1" id="likeAlbum"
-								src="/resources/image/heart2.png"> <img class="redHeart1"
-								id="likeAlbum" src="/resources/image/heart.png">
+							<img class="emptyHeart1" id="likeAlbum" src="/resources/image/heart2.png"> 
+							<img class="redHeart1" id="likeAlbum" src="/resources/image/heart.png">
 						</div>
 
 					</div>
@@ -105,10 +101,13 @@
 				<div class="related">
 					<div class="subtitle">
 						<h2>앨범 수록곡></h2>
+						<button> 듣기 </button>
+						<button id="addCheckedTrackMyPlaylist"> 내 재생목록에 담기 </button>
 					</div>
 					<div class="items">
 						<table>
 							<tr style="background-color: #f5f5f5">
+								<th><input type="checkbox" class="checkAll" onclick="checkAll()"></th>
 								<th>순서</th>
 								<th>곡</th>
 								<th>아티스트</th>
@@ -118,6 +117,7 @@
 							</tr>
 							<c:forEach items="${getAlbumInfoList }" var="AlbumInfo">
 								<tr>
+									<td><input type="checkbox" id="checkRow" value="${AlbumInfo.TRACK_ID }"></td>
 									<td><c:out value="${AlbumInfo.TRACK_ORDER }" /></td>
 									<td><a style="color: black"
 										href="/detail/track?trackId=<c:out value='${AlbumInfo.TRACK_ID }' />"><c:out
@@ -127,10 +127,9 @@
 												value="${AlbumInfo.NM }" /> </a></td>
 									<td>
 										<button value='${AlbumInfo.TRACK_ID }'
-											name="addTrackMyPlaylist">내 재생목록에 추가</button>
+											name="addTrackMyPlaylist">내 재생목록에 담기</button>
 									</td>
 									<td>
-										<%-- <button value='${AlbumInfo.TRACK_ID }' class="playbutton" name="addPlayer" onclick='popupPlayer("/player/track?trackId=${AlbumInfo.TRACK_ID}")'><img src="/resources/image/play-button.png" class="playbuttonImg"></button> --%>
 										<img src="/resources/image/play-button.png"
 										class="playbuttonImg"
 										onclick='popupPlayer("/player/track?trackId=${AlbumInfo.TRACK_ID}")'>
@@ -154,8 +153,6 @@
 		</div>
 		<!--body-->
 		<%@ include file="/WEB-INF/views/includes/footer.jsp"%>
-		<!-- <div id="footer"></div> -->
-	</div>
 	<!--main-->
 
 	<!-- 앨범전체를 위한 모달창 -->
@@ -215,11 +212,40 @@
 		<div class="modal-layer"></div>
 	</div>
 	<!-- 앨범 내 수록곡을 위한 모달창 끝 -->
+	
+	<!-- 체크된 곡을 위한 모달창 -->
+	<div id="modal2">
+		<div class="modal-content">
+			<h2>${userNick }님의플레이리스트</h2>
+
+			<div id="playlists">
+				<table>
+					<c:forEach items="${getPlaylists }" var="Playlists">
+						<tr>
+							<td><img style="width: 50px" class="playlistImage"
+								src="/resources/image/album/<c:out value="${Playlists.PLYLST_IMG }" />" />
+							</td>
+							<td><c:out value='${Playlists.NM }' /></td>
+							<td><c:out value='${Playlists.TRACK_CNT }' />곡</td>
+							<td>
+								<button value='${Playlists.PLYLST_ID }' class="selectPlaylist2">선택</button>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+			<div id="modal-buttons">
+				<button type="button" id="modalCloseBtn2">취소</button>
+			</div>
+		</div>
+		<div class="modal-layer"></div>
+	</div>
+	<!-- 체크된 곡을 위한 모달창 끝 -->
 
 	<script>
 		let tmpTrackId;
 
-		if ('${sessionName}' == "") { // 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
+		if ('${userEmail}' == "") { // 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
 			// 빨간 하트를 숨긴다.
 			$(".redHeart1, .redHeart2").hide();
 
@@ -236,6 +262,9 @@
 			for (var i = 0; i < amp.length; i++) {
 				amp[i].addEventListener("click", goLogin);
 			}
+			
+			// 선택된 곡 내 플레이리스트에 추가 기능
+			$("#addCheckedTrackMyPlaylist").on("click", goLogin);
 
 			// 개별 곡 좋아요 기능
 			var lt = document.getElementsByName("likeTrack");
@@ -247,10 +276,12 @@
 
 			addAlbumMyPlaylist();
 			addTrackMyPlaylist();
+			countCheckboxLength();
 			likeAlbum();
 			likeTrack();
 			selectPlaylist();
-			selectPlaylist1()
+			selectPlaylist1();
+			selectPlaylist2();
 
 		}
 
@@ -260,11 +291,7 @@
 
 		// 앨범 좋아요
 		function likeAlbum() {
-			let albumId = $
-			{
-				albumId
-			}
-			;
+			let albumId = ${albumId};
 
 			if ('${checkLikeAlbum}' != "") { // 해당 노래를 좋아요 여부에 따라 페이지 로딩에 보여주는 하트를 다르게한다.
 				$(".emptyHeart1").hide(); // 좋아요 했다면 빈 하트를 숨기고 빨간 하트를 보여준다.
@@ -299,48 +326,35 @@
 
 			// 좋아요한 노래에 해당하는 노래들은 빈하트를 숨기고 빨간 하트를 보여준다.
 			<c:forEach items="${getLikeTracksInAlbum}" var="getLikeTracksInAlbum">
-			$(
-					"img[title='${getLikeTracksInAlbum.TRACK_ID}'][class=emptyHeart2]")
-					.hide();
-			$("img[title='${getLikeTracksInAlbum.TRACK_ID}'][class=redHeart2]")
-					.show();
+			$("img[title='${getLikeTracksInAlbum.TRACK_ID}'][class=emptyHeart2]").hide();
+			$("img[title='${getLikeTracksInAlbum.TRACK_ID}'][class=redHeart2]").show();
 			</c:forEach>
 
 			//빈 하트 클릭할 때
-			$(".emptyHeart2").on(
-					"click",
-					function() {
+			$(".emptyHeart2").on("click", function() {
 
-						let index = $(".emptyHeart2").index(this); //누른 하트의 인덱스 저장
+				let index = $(".emptyHeart2").index(this); //누른 하트의 인덱스 저장
 
-						$(".emptyHeart2:eq(" + index + ")").hide(); //누른 하트를 숨기기
-						$(".redHeart2:eq(" + index + ")").show(); //누른 곳에 빨간 하트를 표시
-						console.log("좋아요할 노래아이디 : "
-								+ $(".emptyHeart2:eq(" + index + ")").attr(
-										"title"));
+				$(".emptyHeart2:eq(" + index + ")").hide(); //누른 하트를 숨기기
+				$(".redHeart2:eq(" + index + ")").show(); //누른 곳에 빨간 하트를 표시
+				console.log("좋아요할 노래아이디 : " + $(".emptyHeart2:eq(" + index + ")").attr("title"));
 
-						let trackId = $(".emptyHeart2:eq(" + index + ")").attr(
-								"title");
-						addLikeTrack(trackId);
-					});
+				let trackId = $(".emptyHeart2:eq(" + index + ")").attr("title");
+				addLikeTrack(trackId);
+			});
 
 			//빨간 하트 클릭할때
-			$(".redHeart2").on(
-					"click",
-					function() {
+			$(".redHeart2").on("click", function() {
 
-						let index = $(".redHeart2").index(this); //누른 하트의 인덱스 저장
+				let index = $(".redHeart2").index(this); //누른 하트의 인덱스 저장
 
-						$(".redHeart2:eq(" + index + ")").hide(); //누른 하트를 숨기기
-						$(".emptyHeart2:eq(" + index + ")").show(); //누른 곳에 빈 하트를 표시
-						console.log("좋아요 취소할 노래아이디 : "
-								+ $(".redHeart2:eq(" + index + ")").attr(
-										"title"));
+				$(".redHeart2:eq(" + index + ")").hide(); //누른 하트를 숨기기
+				$(".emptyHeart2:eq(" + index + ")").show(); //누른 곳에 빈 하트를 표시
+				console.log("좋아요 취소할 노래아이디 : " + $(".redHeart2:eq(" + index + ")").attr("title"));
 
-						let trackId = $(".redHeart2:eq(" + index + ")").attr(
-								"title");
-						removeLikeTrack(trackId);
-					});
+				let trackId = $(".redHeart2:eq(" + index + ")").attr("title");
+				removeLikeTrack(trackId);
+			});
 
 		}
 
@@ -357,85 +371,104 @@
 
 		// 개별곡 내 재생목록에 추가 버튼 (모달창)
 		function addTrackMyPlaylist() {
-			$("button[name=addTrackMyPlaylist]").click(
-					function() {
-						$("#modal1").attr("style", "display:block");
-						let index = $("button[name=addTrackMyPlaylist]").index(
-								this);
-						tmpTrackId = $(
-								"button[name=addTrackMyPlaylist]:eq(" + index
-										+ ")").val();
-					});
+			$("button[name=addTrackMyPlaylist]").click(function() {
+				$("#modal1").attr("style", "display:block");
+				let index = $("button[name=addTrackMyPlaylist]").index(this);
+				tmpTrackId = $("button[name=addTrackMyPlaylist]:eq(" + index + ")").val();
+			});
 
 			$("#modalCloseBtn1").click(function() {
 				$("#modal1").attr("style", "display:none");
 			});
 		}
+		
+		// 체크된 노래 재생목록에 담는 버튼 누르면 체크된 노래 갯수 카운트하고 체크된 노래가 있을 경우 내 재생목록을 보여주는 모달창을 띄우기
+		function countCheckboxLength(){
+			$("#addCheckedTrackMyPlaylist").on("click", function() {
+				
+				let checkedTracks = [];
+				$('input:checkbox[id=checkRow]:checked').each(function () {
+					checkedTracks.push($(this).val());
+				});
+				console.log(checkedTracks);
+				if(checkedTracks.length == 0){
+					alert("체크된 항목이 없습니다.");
+				}else{
+					$("#modal2").attr("style", "display:block");
+				}
+				
+				$("#modalCloseBtn2").click(function() {
+					$("#modal2").attr("style", "display:none");
+				});
+			});
+			
+		}
 
 		// 앨범전체 모달창 내 플레이리스트 선택 버튼
 		function selectPlaylist() {
-			$(".selectPlaylist")
-					.on(
-							"click",
-							function() {
-								let index = $(".selectPlaylist").index(this);
-								console
-										.log("누른 버튼의 플레이리스트 아이디 : "
-												+ $(
-														".selectPlaylist:eq("
-																+ index + ")")
-														.val());
-								console.log("플레이리스트에 넣을 앨범아이디 : "
-										+ '${albumId}');
+			$(".selectPlaylist").on("click", function() {
+				let index = $(".selectPlaylist").index(this);
+				console.log("누른 버튼의 플레이리스트 아이디 : " + $(".selectPlaylist:eq(" + index + ")").val());
+				console.log("플레이리스트에 넣을 앨범아이디 : " + '${albumId}');
 
-								$("#modal").attr("style", "display:none");
+				$("#modal").attr("style", "display:none");
 
-								// 넣을 플레이리스트ID
-								let plylstId = $(
-										".selectPlaylist:eq(" + index + ")")
-										.val();
+				// 넣을 플레이리스트ID
+				let plylstId = $(".selectPlaylist:eq(" + index + ")").val();
 
-								// 재생목록에 추가할 트랙ID들을 담는 배열
-								let trackIdArr = new Array();
-								<c:forEach items="${getAlbumInfoList }" var="AlbumInfo">
-								trackIdArr.push('${AlbumInfo.TRACK_ID }');
-								</c:forEach>
+				// 재생목록에 추가할 트랙ID들을 담는 배열
+				let trackIdArr = new Array();
+				<c:forEach items="${getAlbumInfoList }" var="AlbumInfo">
+				trackIdArr.push('${AlbumInfo.TRACK_ID }');
+				</c:forEach>
 
-								addToPlaylist(trackIdArr, plylstId);
-							});
+				addToPlaylist(trackIdArr, plylstId);
+			});
 		}
 
 		// 개별곡 모달창 내 플레이리스트 선택 버튼
 		function selectPlaylist1() {
-			$(".selectPlaylist1")
-					.on(
-							"click",
-							function() {
-								let index = $(".selectPlaylist1").index(this);
-								console
-										.log("누른 버튼의 플레이리스트 아이디 : "
-												+ $(
-														".selectPlaylist:eq("
-																+ index + ")")
-														.val());
-								console.log("플레이리스트에 넣을 노래아이디 : " + tmpTrackId);
+			$(".selectPlaylist1").on("click", function() {
+				let index = $(".selectPlaylist1").index(this);
+				console.log("누른 버튼의 플레이리스트 아이디 : " + $(".selectPlaylist1:eq(" + index + ")").val());
+				console.log("플레이리스트에 넣을 노래아이디 : " + tmpTrackId);
 
-								$("#modal1").attr("style", "display:none");
+				$("#modal1").attr("style", "display:none");
 
-								// 넣을 플레이리스트ID
-								let plylstId = $(
-										".selectPlaylist:eq(" + index + ")")
-										.val();
+				// 넣을 플레이리스트ID
+				let plylstId = $(".selectPlaylist1:eq(" + index + ")").val();
 
-								// 재생목록에 추가할 트랙ID들을 담는 배열
-								let trackIdArr = new Array();
-								trackIdArr.push(tmpTrackId);
+				// 재생목록에 추가할 트랙ID들을 담는 배열
+				let trackIdArr = new Array();
+				trackIdArr.push(tmpTrackId);
 
-								addToPlaylist(trackIdArr, plylstId);
-							});
+				addToPlaylist(trackIdArr, plylstId);
+			});
+		}
+		
+		// 체크된 곡 모달창 내 플레이리스트 선택 버튼
+		function selectPlaylist2() {
+			$(".selectPlaylist2").on("click", function() {
+				let index = $(".selectPlaylist2").index(this);
+				console.log("누른 버튼의 플레이리스트 아이디 : " + $(".selectPlaylist2:eq(" + index + ")").val());
+
+				$("#modal2").attr("style", "display:none");
+
+				// 넣을 플레이리스트ID
+				let plylstId = $(".selectPlaylist2:eq(" + index + ")").val();
+
+				// 재생목록에 추가할 체크된 트랙ID들을 담는 배열
+				let checkedTracks = [];
+				$('input:checkbox[id=checkRow]:checked').each(function () {
+					checkedTracks.push($(this).val());
+				});
+				
+				addToPlaylist(checkedTracks, plylstId);
+			});
 		}
 
 		function goLogin() { // 로그아웃 상태에서 로그인이 필요한 기능을 사용하려고 할때 로그인 페이지로 이동
+			let currUrl = location.href;
 			location.href = "/user/login";
 		}
 
@@ -464,9 +497,7 @@
 					} else {
 						alert("좋아요 리스트 추가에 실패했습니다.")
 					}
-				},
-				error : function() {
-
+				}, error : function() {
 				}
 			});
 		}
@@ -485,9 +516,7 @@
 					} else {
 						alert("좋아요 취소를 실패했습니다.")
 					}
-				},
-				error : function() {
-
+				},error : function() {
 				}
 			});
 		}
@@ -506,9 +535,7 @@
 					} else {
 						alert("좋아요 리스트 추가에 실패했습니다.")
 					}
-				},
-				error : function() {
-
+				},error : function() {
 				}
 			});
 		}
@@ -527,9 +554,7 @@
 					} else {
 						alert("좋아요 취소를 실패했습니다.")
 					}
-				},
-				error : function() {
-
+				},error : function() {
 				}
 			});
 		}
@@ -542,37 +567,46 @@
 				"trackIdArr" : trackIdArr
 			};
 
-			$
-					.ajax({
-						type : 'post',
-						url : '/detail/addTracksInPlaylist',
-						data : objParams,
-						contentType : 'application/x-www-form-urlencoded; charset=utf-8;', // 서버로 보내는 데이터 타입
-						dataType : 'json', // 서버로부터 받는 데이터 타입
+			$.ajax({
+				type : 'post',
+				url : '/detail/addTracksInPlaylist',
+				data : objParams,
+				contentType : 'application/x-www-form-urlencoded; charset=utf-8;', // 서버로 보내는 데이터 타입
+				dataType : 'json', // 서버로부터 받는 데이터 타입
 
-						success : function(data) {
-							console.log("data : " + data);
-							if (data == 1) {
-								alert("중복곡을 제외하고 플레이리스트에 추가했습니다.");
-							} else {
-								alert("존재하지 않는 플레이리스트 입니다. 새로고침 후 다시 시도해주세요.")
-							}
-						},
-						error : function() {
+				success : function(data) {
+					console.log("data : " + data);
+					if (data == 1) {
+						alert("중복곡을 제외하고 플레이리스트에 추가했습니다.");
+					} else {
+						alert("존재하지 않는 플레이리스트 입니다. 새로고침 후 다시 시도해주세요.")
+					}
+				}, error : function() {
 
-						}
-					});
+				}
+			});
 		}
 
 		let popupPlayer = function(url) {
 			let moveTop = screen.height - 440;
 			let moveLeft = screen.width - 537;
-			window
-					.open(
-							url,
-							'player',
-							'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='
-									+ moveTop + ',left=' + moveLeft);
+			window.open(
+				url,
+				'player',
+				'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top=' + moveTop + ',left=' + moveLeft);
+		}
+		
+		// 전체 체크박스 이벤트
+		function checkAll(){
+			//만약 전체 선택 체크박스가 체크된상태일경우 
+			if($(".checkAll").prop("checked")) { 
+				//해당화면에 전체 checkbox들을 체크해준다 
+				$("input[type=checkbox]").prop("checked",true); 
+				// 전체선택 체크박스가 해제된 경우 
+			} else { 
+				//해당화면에 모든 checkbox들의 체크를해제시킨다. 
+				$("input[type=checkbox]").prop("checked",false); 
+				}
 		}
 	</script>
 

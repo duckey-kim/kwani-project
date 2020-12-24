@@ -14,43 +14,11 @@
 
 <script src="/resources/js/jquery-3.5.1.js" /></script>
 
-<link rel="stylesheet" type="text/css"href="/resources/css/indexNoVideomh.css">
-<link rel="stylesheet" href="/resources/css/mainmh.css" />
-
+<link rel="stylesheet" href="/resources/css/mypage.css" />
 </head>
 
-<body>
-	<div id="main">
-		<div id="header">
-			<div id="header_navbar">
-				<div id="musicPlayer">musicPlayer</div>
-				<div id="pageLogo">
-					<a href="#">Last.fm</a>
-				</div>
-				<div id="navbarUtil">
-					<button class="subnavbtn" onclick="openSearch()">
-						<i class="fa fa-search"></i>
-					</button>
-					<a href="#">Home</a> <a href="#">Recommend</a> <a href="#">Find
-						music</a> <a href="#">Join</a>
-				</div>
-			</div>
-			<div id="myOverlay" class="overlay">
-				<div class="overlay-content">
-					<form action="/action_page.php">
-						<input type="text" placeholder="Search.." name="search">
-						<button type="submit">
-							<i class="fa fa-search"></i>
-						</button>
-					</form>
-				</div>
-			</div>
-			<!--myOverlay-->
-
-		</div>
-		<!--header-->
-
-		<div id="body" style="height: 200px">
+<%@include file="../includes/header.jsp" %>
+		<div id="body">
 			<div id="leftSideBar"></div>
 			<div id="bodyContent">
 				<div class="mypage-header">
@@ -129,11 +97,10 @@
 										<thead>
 										<tr>
 											<th class="th1"></th>
+											<th class="th5"></th>
+											<th class="th5"></th>
+											<th class="th6"></th>
 											<th class="th1"></th>
-											<th class="th1"></th>
-											<th></th>
-											<th></th>
-											<th></th>
 											<th class="th1"></th>
 										</tr>
 										</thead>
@@ -141,7 +108,6 @@
 										<c:forEach items="${playlistDetail}" var="playlistDetail" varStatus="status">
 											<tr>
 												<td>${status.count}</td>
-												<td><c:out value="${playlistDetail.PLY_NO}" /></td>
 												<td><img class="myImg"
 													src="/resources/image/album/${playlistDetail.ALBUM_IMG}" /></td>
 												<td><c:out value="${playlistDetail.ANM}" /></td>
@@ -196,7 +162,7 @@
 							<div class="modal-bbody">
 								<table class="changetr" style="width: 100%">
 									<tr>
-										<th><input type="checkbox" id="checkAll"></th><th></th><th></th><th></th><th></th><th></th>
+										<th class='th1'><input type='checkbox' id='checkAll'></th><th></th><th></th><th></th><th></th><th></th>
 									</tr>
 									<c:forEach items="${likedTrackList}" var="track">
 										<tr class="tr-check">
@@ -207,7 +173,7 @@
 											<td><c:out value="${track.NM}" /></td>
 											<td><c:out value="${track.ALBUM_TTL}" /></td>
 											<td>
-												<button class="addSelectedTrack"> + </button>
+												<button class="addSelectedOneTrack"> + </button>
 											</td>
 										</tr>
 									</c:forEach>
@@ -220,87 +186,43 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	</div>
 		<!--bodyContent-->
 		<div id="rightSideBar"></div>
-	</div>
-	<div id="footer"></div>
-	<!--main-->
-</body>
-
+	
 <script type="text/javascript" src="/resources/js/mypage.js"></script>
 <script type="text/javascript">
 
-//플레이리스트 삭제
-$(document).on("click", ".delBtn", function(){
-	
-	let trackList = [];
-	let trackIdx = $(".delBtn").index(this);
-	let trackIdValue = $(".trackIdValue:eq(" + trackIdx + ")").val();
-
-	trackList.push(trackIdValue);
-	
-	console.log(trackIdx);		
-	console.log(trackIdValue);
-	
-	plylstId = ${playlistVO.plylstId};
-	
-	console.log(plylstId);
-	console.log(trackList);
-	
-	mypageService.deleteTrackList(
+	// TODO : 코드 정리
+	// 한 곡 등록
+	$(".addSelectedOneTrack").click(function(){
+		let idx = $(".addSelectedOneTrack").index(this);
+		
+		let trackList = [];
+		let plylstId = ${playlistVO.plylstId};
+		trackList.push($(".checkbox:eq("+ idx +")").val());
+		
+		// 체크된 곡, 플레이리스트 번호 넘겨서 플레이리스트에 등록하기
+		mypageService.addTrackList(
 			trackList, plylstId,
 			function(obj){
 				
-				if(obj === "NO"){
-					$("#change-img").empty();
-					// TODO : 고정 말고..
-					let str = "<img class='myArtistImg' src='/resources/image/album/noplaylist.png'>"
-					$("#change-img").append(str);
-					$("#change-plylstDtl").empty();
-					basicModalContent("곡 삭제를 완료했습니다.");
-					setTimeout(function(){ $("#myModal").attr("style", "display:none");}, 1000);
-					return;
-				}
-				
 				if(obj === "FAILED"){
-					basicModalContent("플레이리스트에 해당 곡이 존재하지 않습니다.");
-					setTimeout(function(){window.location.href = "/mypage/playlist";}, 1100);
+					basicModalContent("플레이리스트가 존재하지 않습니다.");
+					setTimeout(changeLoc, 1100);
 					return;
 				}
 				
-				console.log("obj : " + obj);
+				showPlaylistTrack(obj);
 				
-				$("#change-img").empty();
-				let str = "<img class='myArtistImg' src='/resources/image/album/" + obj[0].ALBUM_IMG + "'>"
-				$("#change-img").append(str);
+				basicModalContent("중복을 제외한 곡 추가를 완료했습니다.");
+				checkReset();
+				setTimeout(hideBasicModal, 1000);
 				
-				$("#change-plylstDtl").empty();
-				str = "<tr><th class='th1'></th><th class='th1'></th><th class='th1'></th><th></th><th></th><th></th><th class='th1'></th></tr>";
-				$("#change-plylstDtl").append(str);
-				
-				str = "";
-				
-				$.each(obj,function(i) {
-						str += "<tr>";
-						str += "<td>" + (i+1) + "</td>";
-						str += "<td>" + obj[i].TRACK_ID + "</td>";
-						str += "<td><img class='myImg' src='/resources/image/album/" + obj[i].ALBUM_IMG + "'></td>";
-						str += '<td>' + obj[i].ANM + '</td>';
-						str += '<td>' + obj[i].TRACK_TTL+ '</td>';
-						str += '<td>' + obj[i].ALBUM_TTL+ '</td>';
-						str += '<td><input class="trackIdValue" type="hidden" value="' + obj[i].TRACK_ID + '" name="trackIdValue">';
-						str += "<td><button class='delBtn'>삭제</button></td>";
-						str += "</tr>";
-					})
-					$("#change-plylstDtl").append(str);
-				
-				$("#addModal").attr("style", "display:none");
-				basicModalContent("곡 삭제를 완료했습니다.");
-				setTimeout(function(){ $("#myModal").attr("style", "display:none");}, 1000);
-			})
-		
-	});
-	
+		})
+	})
+
 	// 플레이리스트 추가
 	// 담기 버튼이 눌리면 addTrackList 함수 실행
 	$(document).on("click", ".addSelectedTrack", function(){
@@ -308,10 +230,10 @@ $(document).on("click", ".delBtn", function(){
 		let trackList = [];
 		let plylstId = ${playlistVO.plylstId};
 		
-		// *아무 곡도 체크되어있지 않은 경우 모달창..
+		// 아무 곡도 체크되어있지 않은 경우 모달창
 		if($(".checkbox:checked").length == 0){
-				basicModalContent("담을 곡을 선택하세요.");
-				setTimeout(function(){ $("#myModal").attr("style", "display:none");}, 1000);
+			basicModalContent("담을 곡을 선택하세요.");
+			setTimeout(hideBasicModal, 1000);
 			return;
 		}
 		
@@ -321,78 +243,66 @@ $(document).on("click", ".delBtn", function(){
 				trackList.push($(".checkbox:eq("+ index+")").val());
 			}
 		});
-
-	// 함수로 분리하기
-	// 체크된 곡, 플레이리스트 번호 넘겨서 플레이리스트에 등록하기
-	mypageService.addTrackList(
+	
+		// 체크된 곡, 플레이리스트 번호 넘겨서 플레이리스트에 등록하기
+		mypageService.addTrackList(
 			trackList, plylstId,
 			function(obj){
 				
 				if(obj === "FAILED"){
 					basicModalContent("플레이리스트가 존재하지 않습니다.");
-					setTimeout(function(){window.location.href = "/mypage/playlist";}, 1100);
+					setTimeout(changeLoc, 1100);
 					return;
 				}
 				
-				$("#change-img").empty();
-				let str = "<img class='myArtistImg' src='/resources/image/album/" + obj[0].ALBUM_IMG + "'>"
-				$("#change-img").append(str);
+				showPlaylistTrack(obj);
 				
-				$("#change-plylstDtl").empty();
-				str = "<tr><th class='th1'></th><th class='th1'></th><th class='th1'></th><th></th><th></th><th></th><th></th><th class='th1'></th></tr>";
-				$("#change-plylstDtl").append(str);
-				
-				str = "";
-				
-				$.each(obj,function(i) {
-						str += "<tr>";
-						str += "<td>" + (i+1) + "</td>";
-						str += "<td>" + obj[i].TRACK_ID + "</td>";
-						str += "<td><img class='myImg' src='/resources/image/album/" + obj[i].ALBUM_IMG + "'></td>";
-						str += '<td>' + obj[i].ANM + '</td>';
-						str += '<td>' + obj[i].TRACK_TTL+ '</td>';
-						str += '<td>' + obj[i].ALBUM_TTL+ '</td>';
-						str += '<td><input class="trackIdValue" type="hidden" value="' + obj[i].TRACK_ID + '" name="trackIdValue">';
-						str += "<td><button class='delBtn'>삭제</button></td>";
-						str += "</tr>";
-					})
-					$("#change-plylstDtl").append(str);
-				
-				$("#addModal").attr("style", "display:none");
 				basicModalContent("중복을 제외한 곡 추가를 완료했습니다.");
-				setTimeout(function(){ $("#myModal").attr("style", "display:none");}, 1000);
+				checkReset();
+				setTimeout(hideBasicModal, 1000);
+				
 			})
 	
 	});
 	
-	let checkAll = "input[id='checkAll']";
-	let checkBox = "input[id='checkbox']";
-	let checkedCheckBox = "input[id='checkbox']:checked";
-	// 전체 선택 - 모든 체크박스 선택
-	// 전체 해제 - 모든 체크박스 해제
-	$(document).on("click", "#checkAll", function(){
-		if($(checkAll).prop("checked")){
-			$(checkBox).prop("checked", true);
-			return;
-		}
-		$(checkBox).prop("checked", false);
-	});
-			
-	// 하나라도 선택이 없을 경우 - 전체선택 해제	
-	// 모두 선택되었을 경우 - 전체선택 체크
-	$(document).on("click", ".checkbox", function(){
-		if($(checkedCheckBox).length == $(checkBox).length){
-			$(checkAll).prop("checked", true);
-			return;
-		}
-		$(checkAll).prop("checked", false);
-	});
+	//플레이리스트 삭제
+	$(document).on("click", ".delBtn", function(){
 	
-	// 체크박스 전체 해제
-	function checkReset(){
-		$(checkAll).prop("checked", false);
-		$(checkBox).prop("checked", false);
-	}
+		let trackList = [];
+		let trackIdx = $(".delBtn").index(this);
+		let trackIdValue = $(".trackIdValue:eq(" + trackIdx + ")").val();
+	
+		trackList.push(trackIdValue);
+		plylstId = ${playlistVO.plylstId};
+		
+		mypageService.deleteTrackList(
+				trackList, plylstId,
+				function(obj){
+					
+					if(obj === "EMPTY"){
+						$("#change-img").empty();
+						let str = "<img class='myArtistImg' src='/resources/image/album/noplaylist.png'>"
+						$("#change-img").append(str);
+						$("#change-plylstDtl").empty();
+						basicModalContent("곡 삭제를 완료했습니다.");
+						setTimeout(hideBasicModal, 1000);
+						return;
+					}
+					
+					if(obj === "FAIL"){
+						basicModalContent("플레이리스트에 해당 곡이 존재하지 않습니다.");
+						setTimeout(changeLoc, 1100);
+						return;
+					}
+										
+					showPlaylistTrack(obj);
+					
+					basicModalContent("곡 삭제를 완료했습니다.");
+					checkReset();
+					setTimeout(hideBasicModal, 1000);
+				})
+		
+	});
 	
 	// 플레이리스트 제목,설명 유효성 체크
 	function checkInput() {
@@ -404,16 +314,64 @@ $(document).on("click", ".delBtn", function(){
 	
 		if (nmValue.length == 0) {
 			basicModalContent("플레이리스트 제목을 입력하세요.");
-			setTimeout(function(){ $("#myModal").attr("style", "display:none");}, 1100);
+			setTimeout(hideBasicModal, 1100);
 			return false;
 		}
 		if (descValue.length == 0) {
 			basicModalContent("플레이리스트 설명을 입력하세요.");
-			setTimeout(function(){ $("#myModal").attr("style", "display:none");}, 1100);
+			setTimeout(hideBasicModal, 1100);
 			return false;
 		}
 		return true;
 	}
+	
+	// 전체 선택 - 모든 체크박스 선택
+	// 전체 해제 - 모든 체크박스 해제
+	$(document).on("click", "#checkAll", function(){
+		if($("#checkAll").prop("checked")){
+			$(".checkbox").prop("checked", true);
+			return;
+		}
+		$(".checkbox").prop("checked", false);
+	});
+			
+	// 하나라도 선택이 없을 경우 - 전체선택 해제	
+	// 모두 선택되었을 경우 - 전체선택 체크
+	$(document).on("click", ".checkbox", function(){
+		if($("#checkAll:checked").length == $(".checkbox").length){
+			$(".checkbox").prop("checked", true);
+			return;
+		}
+		$("#checkAll").prop("checked", false);
+	});
+	
+	// 체크박스 전체 해제
+	function checkReset(){
+		$("#checkAll").prop("checked", false);
+		$(".checkbox").prop("checked", false);
+	}
+	
+	// 담기 버튼을 누르면 곡 추가 모달 나옴
+	$(document).on("click", "#addBtn", showAddModal);
+	
+	// 모달 x, 바 누르면 닫힘
+	$(document).on("click", ".modal-close, .modal-overlay", hideAllModal);
+			
+	// 최근들은곡 ajax
+	$(document).on("click", ".libraryBtn", function() {
+		mypageService.getLibraryList(function(data) {
+			let obj = JSON.parse(data);
+			showTrack(obj);
+		})
+	});
+	
+	// 좋아요곡 ajax	
+	$(document).on("click",".likeBtn", function() {
+			mypageService.getLikedList(function(data) {
+				let obj = JSON.parse(data);
+				showTrack(obj);
+			})
+	});
 	
 	// 기본 모달 내용 변경 함수
 	function basicModalContent(content){
@@ -431,71 +389,70 @@ $(document).on("click", ".delBtn", function(){
 		$("#myModal").attr("style", "display:block");
 	}
 	
-	// 곡 추가 모달
-	$("#addBtn").click(function() {
+	function hideAllModal(){
+		$(".modal").attr("style", "display:none");
+	}
+	
+	function showAddModal(){
 		$("#addModal").attr("style", "display:block");
-	});
+	}
 	
-	// 모달 x 누르면 닫힘
-	$(".modal-close").click(function(){
-		$(".modal").attr("style", "display:none");
-	});
+	function hideBasicModal(){
+		$("#myModal").attr("style", "display:none");
+	}
 	
-	// 모달 바깥 누르면 닫힘
-	$(".modal-overlay").click(function(){
-		$(".modal").attr("style", "display:none");
-	});
+	function changeLoc(){
+		window.location.href = "/mypage/playlist";
+	}
+	
+	// 플레이리스트 곡 목록 보여주는 함수
+	function showPlaylistTrack(obj){
 		
-	// 최근들은곡 ajax
-	$(".libraryBtn").click(function() {
-			mypageService.getLibraryList(function(data) {
-			
-					let obj = JSON.parse(data);
+		$("#change-img").empty();
+		let str = "<img class='myArtistImg' src='/resources/image/album/" + obj[0].ALBUM_IMG + "'>"
+		$("#change-img").append(str);
+		
+		$("#change-plylstDtl").empty();
+		str = "<tr><th class='th1'></th><th class='th4'></th><th class='th5'></th><th class='th5'></th><th class='th6'></th><th class='th1'></th><th class='th1'></th></tr>";
+		$("#change-plylstDtl").append(str);
+		
+		str = "";
+		
+		$.each(obj,function(i) {
+			str += "<tr>";
+			str += "<td>" + (i+1) + "</td>";
+			str += "<td><img class='myImg' src='/resources/image/album/" + obj[i].ALBUM_IMG + "'></td>";
+			str += '<td>' + obj[i].TRACK_TTL+ '</td>';
+			str += '<td>' + obj[i].ANM + '</td>';
+			str += '<td>' + obj[i].ALBUM_TTL+ '</td>';
+			str += '<td><input class="trackIdValue" type="hidden" value="' + obj[i].TRACK_ID + '" name="trackIdValue">';
+			str += "<td><button class='delBtn'>삭제</button></td>";
+			str += "</tr>";
+		})
+		$("#change-plylstDtl").append(str);
+		$("#addModal").attr("style", "display:none");
+	}
 	
-					$(".changetr").empty();
-					let str = "<tr><th class='th1'><input type='checkbox' id='checkAll'></th><th></th><th></th><th></th><th></th><th></th></tr>";
-					$(".changetr").append(str);
-					str = "";
-					
-					$.each(obj,function(i) {
-							str += "<tr>";
-							str += "<td><input class='checkbox' type='checkbox' id='checkbox' value='" + obj[i].TRACK_ID + "'></td>";
-							str += "<td><a href='#'><img src='/resources/image/album/" + obj[i].ALBUM_IMG + "' class=myImg></a></td>";
-							str += '<td>'+ obj[i].TRACK_TTL+ '</td>';
-							str += '<td>'+ obj[i].NM+ '</td>';
-							str += '<td>'+ obj[i].ALBUM_TTL+ '</td>';
-							str += "<td><button class='addSelectedTrack'>+</button></td>";
-							str += "</tr>";
-						})
-						$(".changetr").append(str);
-					})
-	});
-	
-	// 좋아요곡 ajax	
-	$(".likeBtn").click(function() {
-				mypageService.getLikedList(function(data) {
+	// 모달 창에 곡 리스트 보여주는 함수
+	function showTrack(obj) {
+		$(".changetr").empty();
+		let str = "<tr><th class='th1'><input type='checkbox' id='checkAll'></th><th></th><th></th><th></th><th></th><th></th></tr>";
+		$(".changetr").append(str);
+		str = "";
 
-					let obj = JSON.parse(data);
-
-					$(".changetr").empty();
-					let str = "<tr><th class='th1'><input type='checkbox' id='checkAll'></th><th></th><th></th><th></th><th></th><th></th></tr>";
-					$(".changetr").append(str);
-					str = "";
-									
-					$.each(obj,function(i) {
-						str += "<tr>";
-						str += "<td><input class='checkbox' type='checkbox' id='checkbox' value='" + obj[i].TRACK_ID + "'></span></td>";
-						str += "<td><a href='#'><img src='/resources/image/album/" + obj[i].ALBUM_IMG + "' class=myImg></a></td>";
-						str += '<td>'+ obj[i].TRACK_TTL+ '</td>';
-						str += '<td>'+ obj[i].NM+ '</td>';
-						str += '<td>'+ obj[i].ALBUM_TTL + '</td>';
-						str += "<td><button class='addSelectedTrack'>+</button></td>";
-						str += "</tr>";
-					})
-					$(".changetr").append(str);
-				})		
-	});
+		$.each(obj, function(i) {
+			str += "<tr>";
+			str += "<td><input class='checkbox' type='checkbox' id='checkbox' value='" + obj[i].TRACK_ID + "'></td>";
+			str += "<td><a href='#'><img src='/resources/image/album/" + obj[i].ALBUM_IMG + "' class=myImg></a></td>";
+			str += '<td>'+ obj[i].TRACK_TTL+ '</td>';
+			str += '<td>'+ obj[i].NM+ '</td>';
+			str += '<td>'+ obj[i].ALBUM_TTL+ '</td>';
+			str += "<td><button class='addSelectedTrack'>+</button></td>";
+			str += "</tr>";
+		})
+		$(".changetr").append(str);	
+	}
 
 </script>
 
-</html>
+<%@include file="../includes/footer.jsp" %>
