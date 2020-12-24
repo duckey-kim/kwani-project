@@ -1,7 +1,4 @@
 * {
-    margin: 0;
-    padding: 0;
-    border: 0;
     left: 0;
     top: 0;
 }
@@ -62,9 +59,6 @@ li {
 	width: 40%;
 }
 
-.basicTable{
-}
-
 .modal {
 	clear: both;
 	display: none;
@@ -75,6 +69,10 @@ li {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.3);
 }
+
+.heartParent{
+}
+
 
 .modal .modal-content{
 	clear: both;
@@ -164,8 +162,8 @@ li {
 }
 
 .item-div .basicTable {
-	width: 13vw;
-	margin-right: 2vw;
+	width: 20%;
+	margin: 0 2.5% 0 2.5%;
 }
 
 .button {
@@ -284,8 +282,8 @@ li {
 }
 
 .myArtistImg {
-	width: 13em;
-	height: 13em;
+	width:200px;
+	height:200px;
 }
 
 .mypage-header {
@@ -324,13 +322,12 @@ li {
 }
 
 .mypage-body .body-item {
-	margin-top: 3vw;
-	margin-bottom: 3vw;
+	margin: 0 2vw 0 2vw 0;
 	justify-content: center;
 }
 
 .body-item .item-header {
-	margin-bottom: 2vw;
+	
 }
 
 .container {
