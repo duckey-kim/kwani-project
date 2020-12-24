@@ -148,9 +148,8 @@ public class DetailPageController {
 			System.out.println("--userNick : " + userNick);
 
 			// 1-1. 세션값과 회원의 닉네임을 home으로 전달한다.
-
-			model.addAttribute("sessionName", sessionName);
 			model.addAttribute("userNick", userNick);
+			 
 			
 			return true;
 		}else {
