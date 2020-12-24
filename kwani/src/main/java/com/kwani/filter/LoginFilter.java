@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 public class LoginFilter implements Filter {
 
-	private static final String USER_EMAIL="userEmail";
+	private static final String USER_EMAIL="user";
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 
