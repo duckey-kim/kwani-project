@@ -94,12 +94,19 @@
 				<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a
 					class="next" onclick="plusSlides(1)">&#10095;</a>
 			</div>
+
+
 			<div class="loginFormBox">
-				<a href="/user/login" class="loginBtn" id="loginBtn">Login</a>
-				<div id="welcomeBtn" class="welcomeBtn" style="display: none">
-					환영합니다!<br> ${userNick} 님
+				<div class="loginBtnWrap">
+					<button class="loginBtn" id="loginBtn" onclick="location.href='/user/login'">Login</button>
+				</div>
+				<div id="welcomeBtn" class="loginBtn" style="display: none">
+					<p>환영합니다!</p>
+					<p>${userNick}님</p>
 				</div>
 			</div>
+
+
 		</div>
 		<!-- topContentBox -->
 
@@ -114,7 +121,7 @@
 								type="hidden" id="finishDate" name="finishDate">
 						</form>
 					</div>
-					<div class="genreYearImg" 
+					<div class="genreYearImg"
 						style="background-image: url(/resources/image/artist/소녀시대.jpg);">
 						<div class="circle red">
 							<div class="year">
@@ -147,33 +154,6 @@
 <!-- ----------------------------- JavaScript------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------- -->
 
-<script type="text/javascript">
-
-	//세션값이 잘 넘어왔는지 확인한다.
-	console.log('${sessionName}');
-	console.log('${userNick}');
-	console.log('${list}');
-	console.log('${slideImg}');
-
-
-	let logoutBtn = document.getElementById("logoutBtn");
-	let loginBtn = document.getElementById("loginBtn");
-	let welcomeBtn = document.getElementById("welcomeBtn");
-	let toMypageBtn = document.getElementById("toMypageBtn");
-	let joinBtn = document.getElementById("joinBtn");
-	
-
-	//세션이 있으면 loginBtn을 없애고, logoutBtn, toMypageBtn, welcomeBtn을 보이게 한다.
-
-	if ('${sessionName}' != "") {
-		loginBtn.style.display = "none";
-		joinBtn.style.display = "none";
-		logoutBtn.style.display = "block";
-		welcomeBtn.style.display = "block";
-		toMypageBtn.style.display = "block";
-	}
-	
-</script>
 
 <script type="text/javascript">
 	/*-------------------------------------------- searchBox ----------------------------------------------------- */

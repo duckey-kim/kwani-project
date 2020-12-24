@@ -45,8 +45,13 @@
 					<div class="pwdReField">
 						<input class="inputPwdRe" id="passwordRe"
 							placeholder="Confirm Password" type="password" name="pwdRe" /> <input
-							class="input" type="hidden" name="targetUrl" value=""> <input
-							type="hidden" name="userImg"> <input type="hidden"
+							class="input" type="hidden" name="targetUrl" value=""> 
+							
+							
+							<input type="hidden" name="userImg" value="default.png"> 
+							
+							
+							<input type="hidden"
 							name="moodCd"> <input type="hidden" name="genreCd">
 						<input type="hidden" name="situCd"> <input type="hidden"
 							name="stusCd" value="1" /> <input type="hidden" name="lastDt">

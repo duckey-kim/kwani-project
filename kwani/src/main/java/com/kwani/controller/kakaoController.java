@@ -61,9 +61,9 @@ public class kakaoController {
 		
 		System.out.println("userInfo : " + userInfo);
 
-		// Get id
-//		String userNick = null;
-		String kakaoEmail = null;
+		String userNick = null;
+		String kakaoEmail = "";
+		String kakaoImg = "";
 
 		// 유저정보 카카오에서 가져오기 Get properties
 		JsonNode properties = userInfo.path("properties");
@@ -73,10 +73,13 @@ public class kakaoController {
 		System.out.println("properties : " + properties);
 		System.out.println("kakao_account : " + kakao_account);
 		
-//		userNick = properties.path("nickname").asText(); // 이름 정보 가져오는 것
+		userNick = properties.path("nickname").asText();
 		kakaoEmail = kakao_account.path("email").asText();
+		kakaoImg = properties.get("thumbnail_image").asText();
 		
+		System.out.println("kakaoImg : " + kakaoImg);
 		System.out.println("kakaoEmail : " + kakaoEmail);
+		System.out.println("userNick : " + userNick);
 		// 정보가 없으면,
 		// 저장된 이메일과 카카오 이메일 비교.
 		if (service.get(kakaoEmail) == null) {
