@@ -151,7 +151,7 @@
 	<!-- 모달창 -->
 	<div id="modal">
 		<div class="modal-content">
-			<h2>${userNick }님의플레이리스트</h2>
+			<h2>${user.nick }님의플레이리스트</h2>
 
 			<div id="playlists">
 				<table>
@@ -180,7 +180,7 @@
 	<!-- 체크된 곡을 위한 모달창 -->
 	<div id="modal1">
 		<div class="modal-content">
-			<h2>${userNick }님의플레이리스트</h2>
+			<h2>${user.nick }님의플레이리스트</h2>
 
 			<div id="playlists">
 				<table>
@@ -209,7 +209,7 @@
 	<script>
 		let tmpTrackId;
 
-		if ('${userEmail}' == "") { // 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
+		if ('${user.email}' == "") { // 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
 			// 빨간 하트를 숨긴다.
 			$(".redHeart1, .redHeart2").hide();
 

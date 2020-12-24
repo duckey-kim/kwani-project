@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kwani.domain.UserVO;
 import com.kwani.service.AlbumPageService;
 import com.kwani.service.ArtistPageService;
 import com.kwani.service.LikeAndPlaylistService;
@@ -39,18 +40,19 @@ public class DetailPageController {
 
 		// getTrackList의 결과를 result에 담는다.
 		List<Map<String, String>> result = trackService.getTrackList(trackId);
-
+		UserVO user = (UserVO)session.getAttribute("user");
 		// result가 비어있는 지 확인 후 비어있으면 NoInfo 페이지로 보낸다.
 		if (isNotValidId(result)) {
 			return "/detail/NoInfo";
 		}
 		
 		if(getSession(model, session)) {	// 로그인 되어있다면 유저의 좋아요 여부와 플레이리스트 정보를 보낸다.
+			String email = user.getEmail();
 			log.info("checkLikeTrack");
-			model.addAttribute("checkLikeTrack", likeAndPlaylistService.checkLikeTrack((String)session.getAttribute("userEmail"), trackId));
+			model.addAttribute("checkLikeTrack", likeAndPlaylistService.checkLikeTrack(email, trackId));
 			
 			log.info("getPlaylists");
-			model.addAttribute("getPlaylists", likeAndPlaylistService.getPlaylists((String)session.getAttribute("userEmail")));
+			model.addAttribute("getPlaylists", likeAndPlaylistService.getPlaylists(email));
 		}
 
 		log.info("getTrackList");
@@ -67,21 +69,22 @@ public class DetailPageController {
 
 		// getAlbumInfoList의 결과를 result에 담는다.
 		List<Map<String, String>> result = albumService.getAlbumInfoList(albumId);
-
+		UserVO user = (UserVO)session.getAttribute("user");
 		// result가 비어있는 지 확인 후 비어있으면 NoInfo 페이지로 보낸다.
 		if (isNotValidId(result)) {
 			return "/detail/NoInfo";
 		}
 		
 		if(getSession(model, session)) {	// 로그인 되어있다면 유저의 좋아요 여부와 플레이리스트 정보를 보낸다.
+			String email = user.getEmail();
 			log.info("checkLikeAlbum");
-			model.addAttribute("checkLikeAlbum", likeAndPlaylistService.checkLikeAlbum((String)session.getAttribute("userEmail"), albumId));
+			model.addAttribute("checkLikeAlbum", likeAndPlaylistService.checkLikeAlbum(email, albumId));
 			
 			log.info("getPlaylists");
-			model.addAttribute("getPlaylists", likeAndPlaylistService.getPlaylists((String)session.getAttribute("userEmail")));
+			model.addAttribute("getPlaylists", likeAndPlaylistService.getPlaylists(email));
 			
 			log.info("getLikeTracksInAlbum");
-			model.addAttribute("getLikeTracksInAlbum", likeAndPlaylistService.getLikeTracksInAlbum((String)session.getAttribute("userEmail"), albumId));
+			model.addAttribute("getLikeTracksInAlbum", likeAndPlaylistService.getLikeTracksInAlbum(email, albumId));
 		}
 
 		log.info("getAlbumInfoList");
@@ -98,21 +101,22 @@ public class DetailPageController {
 
 		// getArtistInfo의 결과를 result에 담는다.
 		Map<String, String> result = artistService.getArtistInfo(gropId);
-
+		UserVO user = (UserVO)session.getAttribute("user");
 		// result가 비어있는 지 확인 후 비어있으면 NoInfo 페이지로 보낸다.
 		if (result == null) {
 			return "/detail/NoInfo";
 		}
 		
 		if(getSession(model, session)) {	// 로그인 되어있다면 유저의 좋아요 여부와 플레이리스트 정보를 보낸다.
+			String email = user.getEmail();
 			log.info("checkLikeArtist");
-			model.addAttribute("checkLikeArtist", likeAndPlaylistService.checkLikeArtist((String)session.getAttribute("userEmail"), gropId));
+			model.addAttribute("checkLikeArtist", likeAndPlaylistService.checkLikeArtist(email, gropId));
 			
 			log.info("getPlaylists");
-			model.addAttribute("getPlaylists", likeAndPlaylistService.getPlaylists((String)session.getAttribute("userEmail")));
+			model.addAttribute("getPlaylists", likeAndPlaylistService.getPlaylists(email));
 		
 			log.info("getLikeTracksInArtist");
-			model.addAttribute("getLikeTracksInArtist", likeAndPlaylistService.getLikeTracksInArtist((String)session.getAttribute("userEmail"), gropId));
+			model.addAttribute("getLikeTracksInArtist", likeAndPlaylistService.getLikeTracksInArtist(email, gropId));
 		}
 
 		log.info("getArtistInfo");
@@ -139,16 +143,17 @@ public class DetailPageController {
 	private boolean getSession(Model model, HttpSession session) {
 		
 		// 세션에서 유저의 이메일주소를 얻는다.
-		String sessionName = (String)session.getAttribute("userEmail");
+//		String sessionName = (String)session.getAttribute("userEmail");
 		
-		if (sessionName != null) {
-			String userNick = userService.get(sessionName).getNick();
-
-			System.out.println("--sessionName : " + sessionName);
-			System.out.println("--userNick : " + userNick);
-
-			// 1-1. 세션값과 회원의 닉네임을 home으로 전달한다.
-			model.addAttribute("userNick", userNick);
+		UserVO user = (UserVO) session.getAttribute("user");
+		
+		if (user != null) {
+//			String userNick = userService.get(sessionName).getNick();
+//
+//			System.out.println("--sessionName : " + sessionName);
+//			System.out.println("--userNick : " + userNick);
+//
+//			// 1-1. 세션값과 회원의 닉네임을 home으로 전달한다.
 			 
 			
 			return true;

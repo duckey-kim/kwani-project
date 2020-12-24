@@ -232,10 +232,10 @@ public class UserController {
 
 	@RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
 	public String login(@CookieValue(value = "cookie", required = false, defaultValue = "0") String cookie,
-			String checked, HttpServletRequest request, Model model) {
-
+			String checked, HttpServletRequest request, Model model, String prevPath) {
+		
 		service.checkCookie(cookie, checked, request, model);
-
+		model.addAttribute("prevPath",prevPath);
 		return "/user/login";
 	}
 
