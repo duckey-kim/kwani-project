@@ -221,7 +221,6 @@ public class UserController {
 	public String socialRegisterAction(UserVO user, String email, String checked, HttpServletRequest request,
 			HttpServletResponse response) {
 		
-		System.out.println("!!!!!!!!!!!!!!!!!!!!" + user);
 		// 회원가입 후,
 		service.socialRegister(user);
 		// 쿠키와 세션을 발급하고

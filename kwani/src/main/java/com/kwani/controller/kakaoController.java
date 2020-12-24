@@ -73,9 +73,9 @@ public class kakaoController {
 		System.out.println("properties : " + properties);
 		System.out.println("kakao_account : " + kakao_account);
 		
-		userNick = properties.path("nickname").asText(); // 이름 정보 가져오는 것
+		userNick = properties.path("nickname").asText();
 		kakaoEmail = kakao_account.path("email").asText();
-		kakaoImg =properties.get("thumbnail_image").asText();
+		kakaoImg = properties.get("thumbnail_image").asText();
 		
 		System.out.println("kakaoImg : " + kakaoImg);
 		System.out.println("kakaoEmail : " + kakaoEmail);
