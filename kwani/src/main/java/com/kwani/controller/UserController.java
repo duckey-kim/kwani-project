@@ -59,16 +59,14 @@ public class UserController {
 
 	@GetMapping("/withdrawal")
 	public String remove(HttpSession session, Model model) {
-		System.out.println("sessionName : " + session.getAttribute("userEmail"));
-		model.addAttribute("sessionName", session.getAttribute("userEmail"));
+		System.out.println("sessionName : " + session.getAttribute("user"));
 
 		return "user/withdrawal";
 	}
 
 	@GetMapping("/checkUserInfo")
 	public String checkUserInfo(HttpSession session, RedirectAttributes rttr, Model model) {
-		System.out.println("sessionName : " + session.getAttribute("userEmail"));
-		model.addAttribute("sessionName", session.getAttribute("userEmail"));
+		System.out.println("sessionName : " + session.getAttribute("user"));
 
 		if (!(service.checkSession(session, model))) {
 			return "redirect:/user/login";
@@ -79,25 +77,28 @@ public class UserController {
 
 	@GetMapping("/modifyUserInfo")
 	public String modifyUserInfo(HttpSession session, Model model) {
-
-		if (!(service.checkUserImg((String) session.getAttribute("userEmail")))) {
+		
+		
+		UserVO user = (UserVO) session.getAttribute("user");
+		
+		if (!(service.checkUserImg(user.getEmail()))) {
 			String imgMsg = "이미지를 추가해주세요!";
 			model.addAttribute("imgMsg", imgMsg);
-			model.addAttribute("sessionName", session.getAttribute("userEmail"));
+			model.addAttribute("sessionName", user.getEmail());
 
 		} else {
 
-			UserVO userVO = service.getUserImg((String) session.getAttribute("userEmail"));
+			UserVO userVO = service.getUserImg(user.getEmail());
 
 			String userImg = userVO.getUserImg();
 			System.out.println("userImg : " + userImg);
 
-			model.addAttribute("sessionName", session.getAttribute("userEmail"));
+			model.addAttribute("sessionName", user.getEmail());
 			model.addAttribute("userImg", userImg);
 
 		}
 
-		System.out.println("sessionName : " + session.getAttribute("userEmail"));
+		System.out.println("sessionName : " + session.getAttribute("user"));
 
 		return "/user/modifyUserInfo";
 	}
@@ -223,12 +224,10 @@ public class UserController {
 		System.out.println("!!!!!!!!!!!!!!!!!!!!" + user);
 		// 회원가입 후,
 		service.socialRegister(user);
-		System.out.println("###############################" + user);
 		// 쿠키와 세션을 발급하고
 		service.cookieSession(email, checked, request, response);
 		service.setSysdateForSocial(email);
 		// home으로 이동한다.
-		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" + user);
 		return "redirect:/home";
 	}
 
@@ -246,7 +245,7 @@ public class UserController {
 			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr, String prevPath) {
 		// 회원 로그인.
 		// checkUserIdPwd가 true면(즉, 사용자가 입력한 정보가 서버에 없으면)
-		String path = "";
+		String path = "";     
 		if ("".equals(prevPath)) {
 			path = "/home";
 		} else {
@@ -273,7 +272,7 @@ public class UserController {
 	@RequestMapping(value = "/logoutAction", method = { RequestMethod.GET, RequestMethod.POST })
 	public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 
-		System.out.println("sessionName : " + session.getAttribute("userEmail"));
+		System.out.println("sessionName : " + session.getAttribute("user"));
 		session.invalidate();
 
 		return "redirect:/home";
@@ -285,7 +284,7 @@ public class UserController {
 
 		System.out.println(btnValue);
 
-		System.out.println("sessionName : " + session.getAttribute("userEmail"));
+		System.out.println("sessionName : " + session.getAttribute("user"));
 		// 정보가 일치하면 userInfoModify로 이동하고,
 		if (service.checkUserIdPwd(email, pwd, rttr)) {
 
@@ -303,7 +302,7 @@ public class UserController {
 	public String modifyUserInfoAction(HttpSession session, UserVO user, RedirectAttributes rttr, Model model,
 			MultipartFile uploadFile) {
 
-		System.out.println("sessionName : " + session.getAttribute("userEmail"));
+		System.out.println("sessionName : " + session.getAttribute("user"));
 
 		// 회원의 정보를 수정한다.
 		if (service.modifyUserInfo(user)) {
@@ -316,7 +315,7 @@ public class UserController {
 	@PostMapping("/withdrawalAction")
 	public String withdrawalAction(UserVO user, String email, HttpSession session, RedirectAttributes rttr) {
 
-		System.out.println("sessionName : " + session.getAttribute("userEmail"));
+		System.out.println("sessionName : " + session.getAttribute("user"));
 
 		if (service.withdrawal(user)) {
 			rttr.addFlashAttribute("result", "success");
