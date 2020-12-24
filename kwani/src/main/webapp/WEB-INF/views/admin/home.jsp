@@ -36,12 +36,18 @@
 		]);
 
 		let genreOptions = {
-			title : '장르별 노래 CHART'
+			width :500,
+			height:375,
+			chartArea: {
+				width : '80%'
+			},
+			is3D:true
 		};
 		let playOptions = {
-			
+				width :500,
+				height:375,
 			chartArea : {
-				width : '80%'
+				width : '100%'
 			},
 			hAxis : {
 				title : '일일 플레이 수',
@@ -56,21 +62,21 @@
 				.getElementById('piechart'));
 		let playChart = new google.visualization.BarChart(document
 				.getElementById('barchart'));
-		genreChart.draw(genreData);
+		genreChart.draw(genreData,genreOptions);
 		playChart.draw(playData, playOptions);
 	}
 </script>
 <div class="row">
-	<div class="col-md-12">
-		<div class="panel panel-default">
+	<div class="col-lg-12">
+		<div class="panel panel-warning">
 			<div class="panel-heading">
 			<h4>BAAM CHART</h4>
 			</div>
 		</div>
 		<!-- /.panel -->
 	</div>
-	<div class="col-md-12">
-		<div class="panel panel-default">
+	<div class="col-lg-6">
+		<div class="panel panel-red">
 			<div class="panel-heading">장르 당 곡 수</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">
@@ -81,8 +87,8 @@
 		<!-- /.panel -->
 	</div>
 	<!-- /.col-md-12 -->
-	<div class="col-md-12">
-		<div class="panel panel-default">
+	<div class="col-lg-6">
+		<div class="panel panel-yellow">
 			<div class="panel-heading">일간 총 플레이 횟수</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">

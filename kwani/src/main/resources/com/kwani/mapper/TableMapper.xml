@@ -277,12 +277,22 @@
 
 	<select id="getCountPlay" resultMap="selectMap">
 		select * from(
-		select to_char(play_dt,'yy-MM-dd') playdt , count(*) as play
+		select to_char(play_dt,'yy-MM-dd') playdt , count(*) as
+		play
 		from t_history
 		group by to_char(play_dt,'yy-MM-dd')
-		order by to_char(play_dt,'yy-MM-dd') desc
+		order by
+		to_char(play_dt,'yy-MM-dd') desc
 		)
 		where 	<![CDATA[  rownum <=7 ]]>
+	</select>
+
+	<select id="getCodeTable" resultMap="selectMap">
+		select cd.cd_nm as codenm,cd.cd_no as codeno from
+		t_code_type ty,t_code cd
+		where ty.type_id=#{typeCode}
+		and ty.type_id=cd.type_id
+
 	</select>
 
 

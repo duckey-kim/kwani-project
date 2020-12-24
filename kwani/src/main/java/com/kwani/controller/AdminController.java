@@ -43,11 +43,14 @@ public class AdminController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@GetMapping({ "/inputartistandgroup", "/inputtracks", "/inputuser", "/inputartist", "/inputalbum", "/loginform" })
-	public void basic2(HttpSession session, Model model) {
-		model.addAttribute("mngrId", (String) session.getAttribute("mngrId"));
+	@GetMapping({ "/inputartistandgroup", "/inputuser", "/inputartist", "/inputalbum", "/loginform" })
+	public void basic2() {
 	}
-
+	@GetMapping("/inputtracks")
+	public void inputtracks(HttpSession session, Model model) {
+		List<Map<String,String>> codeList= tableService.getCodeTable(100);
+		model.addAttribute("codeList",codeList);
+	}
 	@GetMapping({ "/", "/home" })
 	public String basic(Model model) {
 		//장르에 대한 곡

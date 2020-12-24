@@ -6,12 +6,12 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-12 ">
+		<div class="col-md-6 ">
 			<div class="panel paenl-default">
 				<div class="panel-body">
 					<h4>${msg}</h4>
-					<h4>T_TRACKS</h4>
-					<h4>Search albumId</h4>
+					<h4>곡 입력</h4>
+					<h4>앨범ID 찾기</h4>
 
 					<form id='searchForm' action="/admin/getAlbum" method="post">
 						<input class="form-control" type="text" name="albumTtl"
@@ -19,8 +19,8 @@
 						<button class="btn btn-sm btn-success">앨범ID찾기</button>
 					</form>
 					<div>
-						<h4>albumId : ${album.albumId }</h4>
-						<h4>albumTtl : ${album.albumTtl }</h4>
+						<h4>앨범ID : ${album.albumId }</h4>
+						<h4>앨범제목 : ${album.albumTtl }</h4>
 
 					</div>
 					<form action="/admin/inputtracksAction" method="post"
@@ -90,11 +90,45 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-md-6">
+			<div class="panel paenl-default">
+				<div class="panel-body">
+				<table width="100%"
+					class="table table-striped table-bordered table-hover"
+					id="dataTables-example">
+					<thead>
+						<tr>
+							<th width="50%">코드 네임</th>
+							<th width="50%">코드 번호</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<c:forEach items="${codeList}" var="code">
+							<tr>
+								<td>
+											${code.CODENM}
+								</td>
+
+								<td>
+											${Integer.parseInt(code.CODENO)}
+
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				
+				</div>
+			</div>
+				
+		
+		</div>
+		
 	</div>
 </div>
 
 
-<script type="text/javascript" src="/resources/js/admin.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 
@@ -138,7 +172,7 @@
 
 		const numRegex = /[^0-9]/g;
 		const specialPattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
-		const numRegex = /[^0-9]/g;
+		
 
 		if (!check(numRegex, stusFld, "상태코드는  숫자만 입력해주세요")) {
 			return false;

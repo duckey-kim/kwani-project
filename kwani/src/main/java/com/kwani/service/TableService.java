@@ -108,6 +108,8 @@ public interface TableService {
 	public List<Map<String, String>> getGenreCount();
 
 	public List<Map<String, String>> getPlayCount();
+
+	public List<Map<String, String>> getCodeTable(int typeCode);
 	
 	
 	

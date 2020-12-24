@@ -72,5 +72,8 @@ public interface TableMapper {
 	
 	public List<Map<String,String>> getCountPlay();
 	
+	public List<Map<String,String>> getCodeTable(int typeCode);
+	
+	
 
 }

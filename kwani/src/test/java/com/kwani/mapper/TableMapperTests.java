@@ -106,5 +106,12 @@ public class TableMapperTests {
 		List<Map<String,String>> getList = mapper.getCountPlay();
 		log.info(getList);
 	}
+	
+	@Test
+	public void getgenreCode() {
+		List<Map<String,String>> getList = mapper.getCodeTable(100);
+		log.info(getList);
+		
+	}
 
 }

@@ -478,4 +478,9 @@ public class TableServiceImpl implements TableService {
 		List<Map<String,String>> getList = mapper.getCountPlay();
 		return getList==null?Collections.emptyList():getList;
 	}
+	@Override
+	public List<Map<String, String>> getCodeTable(int typeCode) {
+		List<Map<String,String>> codeList=mapper.getCodeTable(typeCode);
+		return codeList==null?Collections.emptyList():codeList;
+	}
 }
