@@ -116,7 +116,7 @@ a:hover{
 }
 
 /* 모달 */
-#modal {
+#modal, #modal1 {
 	display: none;
 	position: fixed;
 	left: 10px;
@@ -126,18 +126,18 @@ a:hover{
 	z-index: 1;
 }
 
-#modal h2 {
+#modal h2, #modal1 h2 {
 	margin: 0;
 }
 
-#modal button {
+#modal button, #modal1 button {
 	display: inline-block;
 	margin: 5px auto;
 	/* width: 10px;
 	margin-left: calc(100% - 100px - 10px); */
 }
 
-#modal .modal-content {
+.modal-content {
 	width: 500px;
 	margin: 100px auto;
 	padding: 20px 10px;
@@ -145,7 +145,7 @@ a:hover{
 	border: 2px solid #666;
 }
 
-#modal .modal-layer {
+.modal-layer {
 	position: fixed;
 	top: 0;
 	left: 0;
