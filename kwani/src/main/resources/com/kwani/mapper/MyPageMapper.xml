@@ -27,6 +27,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="plylstId" column="plylst_id" /> <result property="trackId" 
 		column="track_id" /> <result property="plyNo" column="ply_no" /> </resultMap> -->
 
+	<insert id="insertLikeTrack">
+		INSERT INTO T_LIKE_TRACKS(TRACK_ID, EMAIL)
+		VALUES(#{trackId}, #{email})
+	</insert>
+
 	<insert id="updatePlaylistImg">
 		UPDATE T_PLYLST
 		SET PLYLST_IMG = (SELECT A.ALBUM_IMG

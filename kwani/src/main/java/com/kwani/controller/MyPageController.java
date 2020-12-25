@@ -54,7 +54,6 @@ public class MyPageController {
 		String sessionName = (String)session.getAttribute("userEmail");
 
 		model.addAttribute("likedArtistList", myPageService.getListLikedArtist(sessionName));
-		System.out.println(myPageService.getListLikedArtist(sessionName));
 		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(sessionName));
 		model.addAttribute("likedAlbumList", myPageService.getListLikedAlbum(sessionName));
 
@@ -68,6 +67,7 @@ public class MyPageController {
 		String sessionName = (String)session.getAttribute("userEmail");
 		
 		model.addAttribute("libraryList", myPageService.getListLibrary(sessionName));
+		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(sessionName));
 
 	}
 

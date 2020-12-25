@@ -70,10 +70,6 @@ li {
 	background-color: rgba(0, 0, 0, 0.3);
 }
 
-.heartParent{
-}
-
-
 .modal .modal-content{
 	clear: both;
 	height: auto;
@@ -249,6 +245,11 @@ li {
 
 .th6 {
 	width: 6vw;
+}
+
+.heart, .heart-empty{
+	width: 20px;
+	height: 20px;
 }
 
 .play {

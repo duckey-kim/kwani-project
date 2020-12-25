@@ -27,6 +27,11 @@ public class MyPageServiceImpl implements MyPageService {
 
 	private MyPageMapper myPageMapper;
 
+	@Override
+	public int addLikeTrack(Integer trackId, String email) {
+		return myPageMapper.insertLikeTrack(trackId, email);
+	}
+	
 	// 트랙에 곡 삽입
 	@Override
 	public void insertTrackList(Set<Integer> checkedTrackList, Integer plylstId, String email) {

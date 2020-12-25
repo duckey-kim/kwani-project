@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,17 @@ public class MyPageRestController {
 
 	private MyPageService myPageService;
 
+	@PostMapping(value="/addliketrack", produces = {"text/plane"})
+	public String addLikeTrack(@RequestBody String trackId, HttpSession session, Model model) {
+		
+		String email = (String)session.getAttribute("userEmail");
+		Integer trackIdValue = Integer.parseInt(trackId);
+		
+		int result = myPageService.addLikeTrack(trackIdValue, email);
+		
+		return result == 1? "SUCCESS" : "FAIL";
+	}
+	
 	// 최근들은 곡 목록 가져오기
 	@GetMapping(value = "/libraryList", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public String getLibraryList(HttpSession session, Model model) {
@@ -69,6 +81,7 @@ public class MyPageRestController {
 			myPageService.insertTrackList(trackList, plylstId, email);
 			
 			List<Map<String,String>> playlist = myPageService.getListPlaylistDetail(plylstId, email);
+			//TODO: null check
 			String trackId = String.valueOf(playlist.get(0).get("TRACK_ID"));
 			myPageService.modifyPlaylistImg(plylstId, Integer.parseInt(trackId));
 			result = gson.toJson(playlist);
@@ -94,6 +107,7 @@ public class MyPageRestController {
 					myPageService.modifyPlaylistBasicImg(plylstId);
 					return gson.toJson("EMPTY");
 				}
+				//TODO: null check
 				String firstTrackId = String.valueOf(playlist.get(0).get("TRACK_ID"));	
 				myPageService.modifyPlaylistImg(plylstId, Integer.parseInt(firstTrackId));
 					result = gson.toJson(playlist);

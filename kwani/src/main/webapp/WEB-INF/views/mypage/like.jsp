@@ -144,8 +144,9 @@
 									<td><a href="/detail/track?trackId=${track.TRACK_ID}"><c:out value="${track.TRACK_TTL}" /></a></td>
 									<td><a href="/detail/artist?gropId=${track.GROP_ID}"><c:out value="${track.NM}" /></a></td>
 									<td><a href="/detail/album?albumId=${track.ALBUM_ID}"><c:out value="${track.ALBUM_TTL}" /></a></td>
-									<td onclick='popupPlayer("/player/track?trackId=${track.TRACK_ID}")'><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
-									<td><a href="#"><img src="/resources/image/heart.png" class="play"></a></td>
+									<td onclick='popupPlayer("/player/track?trackId=${track.TRACK_ID}")'><img src="/resources/image/play-button.png" class="play"></td>
+									<td><img class="heart" name="${track.TRACK_ID}" src="/resources/image/heart.png">
+										<img class="heart-empty" name="${track.TRACK_ID}" src="/resources/image/heart2.png"></td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -190,5 +191,33 @@
 		           let moveLeft=screen.width-537;
 		         window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
 		      }
+		</script>
+		
+		<script>
+			$(document).ready(function(){
+				likedTrack();
+			});
+			
+			function likedTrack(){
+				$(".heart").hide();			
+				<c:forEach items="${likedTrackList}" var="track">
+					$("img[name='${track.TRACK_ID}'][class=heart]").show();
+					$("img[name='${track.TRACK_ID}'][class=heart-empty]").hide();
+				</c:forEach>
+			}
+			
+			// 빨간 하트 누르면 좋아요 테이블에 추가
+		 	$(document).on("click", ".heart", function(){
+		 		let idx = $(".heart").index(this);
+		 		$(".heart:eq(" + idx + ")").hide();
+				$(".heart-empty:eq(" + idx + ")").show();
+		 	});
+			
+			// 빈 하트 누르면 좋아요 테이블에 삭제
+		 	$(document).on("click", ".heart-empty", function(){
+		 		let idx = $(".heart-empty").index(this);
+		 		$(".heart:eq(" + idx + ")").show();
+				$(".heart-empty:eq(" + idx + ")").hide();
+		 	});
 		</script>
 <%@include file="../includes/footer.jsp" %>

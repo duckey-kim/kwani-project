@@ -83,9 +83,8 @@
 										<td><a href="/detail/artist?gropId=${library.GROP_ID}"><c:out value="${library.NM}" /></a></td>
 										<td><c:out value="${library.PLAY_DT}" /></td>
 										<td onclick='popupPlayer("/player/track?trackId=${library.TRACK_ID}")'><img src="/resources/image/play-button.png" class="play"></td>
-										<td class="heart-td">
-										<img name="${library.TRACK_ID}" src="/resources/image/heart.png" class="heart" style="width:20px; height:20px">
-										<img name="${library.TRACK_ID}" src="/resources/image/heart2.png" class="heart-empty" style="width:20px; height:20px"></td>
+										<td><img class="heart" name="${library.TRACK_ID}" src="/resources/image/heart.png">
+										<img class="heart-empty" name="${library.TRACK_ID}" src="/resources/image/heart2.png"></td>
 									</tr>
 								</c:forEach>
 							</table>
@@ -182,8 +181,12 @@
 									<td><a href="/detail/track?trackId=${track.TRACK_ID}"><c:out value="${track.TRACK_TTL}" /></a></td>
 									<td><a href="/detail/artist?gropId=${track.GROP_ID}"><c:out value="${track.NM}" /></a></td>
 									<td><a href="/detail/album?albumId=${track.ALBUM_ID}"><c:out value="${track.ALBUM_TTL}" /></a></td>
-									<td onclick='popupPlayer("/player/track?trackId=${track.TRACK_ID}")'><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
-									<td><img src="/resources/image/heart.png" class="play"></td>
+									<td onclick='popupPlayer("/player/track?trackId=${track.TRACK_ID}")'>
+									<img class="play" src="/resources/image/play-button.png"></td>
+									<td>
+									<img class="heart" name="${track.TRACK_ID}" src="/resources/image/heart.png">
+									<img class="heart-empty" name="${track.TRACK_ID}" src="/resources/image/heart2.png">
+									</td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -197,6 +200,7 @@
 		<div id="rightSideBar"></div>
 	</div>
 	<!--body-->
+	<script type="text/javascript" src="/resources/js/like.js"></script>
 	<script>	
 		let popupPlayer = function(url){
 	        let moveTop=screen.height-440;
@@ -205,31 +209,45 @@
 	    }
 
 		$(document).ready(function(){
-			likedTrack();
+			showLikeTrack();
+			likeTrack();
 		});
 		
-		function likedTrack(){
-			$(".heart").hide();
-			
+		function showLikeTrack(){
+			$(".heart").hide();		
 			<c:forEach items="${likedTrackList}" var="track">
 				$("img[name='${track.TRACK_ID}'][class=heart]").show();
 				$("img[name='${track.TRACK_ID}'][class=heart-empty]").hide();
 			</c:forEach>
 		}
 		
-		// 빨간 하트 누르면 좋아요 테이블에 추가
-	 	$(document).on("click", ".heart", function(){
-	 		let idx = $(".heart").index(this);
-	 		$(".heart:eq(" + idx + ")").hide();
-			$(".heart-empty:eq(" + idx + ")").show();
-	 	});
+		function likeTrack(){
+			
+			let trackId = "";
+			let idx = "";
+			
+			// 빨간 하트 누르면 좋아요 테이블에 삭제
+		 	$(document).on("click", ".heart", function(){
+		 		idx = $(".heart").index(this);
+		 		$(".heart:eq(" + idx + ")").hide();
+				$(".heart-empty:eq(" + idx + ")").show();
+				trackId = $(".heart:eq(" + idx + ")").attr("name");
+				console.log(trackId);
+		 	});
+			
+			// 빈 하트 누르면 좋아요 테이블에 추가
+		 	$(document).on("click", ".heart-empty", function(){
+		 		idx = $(".heart-empty").index(this);
+		 		$(".heart:eq(" + idx + ")").show();
+				$(".heart-empty:eq(" + idx + ")").hide();
+				trackId = $(".heart-empty:eq(" + idx + ")").attr("name");
+				likeService.addLikeTrack(trackId, function(obj){
+					alert(obj);
+				});
+		 	});
+			
+		}
 		
-		// 빈 하트 누르면 좋아요 테이블에 삭제
-	 	$(document).on("click", ".heart-empty", function(){
-	 		let idx = $(".heart-empty").index(this);
-	 		$(".heart:eq(" + idx + ")").show();
-			$(".heart-empty:eq(" + idx + ")").hide();
-	 	});
 		
 	</script>
 	
