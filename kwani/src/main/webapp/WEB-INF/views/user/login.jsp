@@ -11,22 +11,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login</title>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"
-	integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY="
-	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href='https://fonts.googleapis.com/css?family=Open Sans'
-	rel='stylesheet'>
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
-	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
-	crossorigin="anonymous">
+
 <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/login.css">
 </head>
@@ -69,9 +54,19 @@
 					<p id="text" style="display: none">Checkbox is CHECKED!</p>
 				</div>
 			</form>
+
+			<div id="clickOverlay" onclick="off()">
+				<div id="text">
+					COMING SOON
+					<hr>
+					<p id="demo"></p>
+				</div>
+			</div>
+			<!-- clickOverlay -->
 			<div class="socialLoginBtn">
 				<a href="/user/kakao" class="kakaoBtn">KaKao</a> <a href="#"
-					class="googleBtn">Instagram</a> <a href="#" class="naverBtn">Facebook</a>
+					class="googleBtn" onclick="on()">Instagram</a> <a href="#"
+					class="naverBtn" onclick="on()">Google</a>
 			</div>
 			<!-- socialLoginBtn -->
 		</div>
@@ -81,9 +76,6 @@
 	<div id="rightSideBar"></div>
 </div>
 <!-- body -->
-<div id="footer"></div>
-</div>
-</body>
 
 <!-- ----------------------------- JavaScript------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------- -->
@@ -133,7 +125,46 @@
 	}
 </script>
 
+<script>
+	function on() {
+		document.getElementById("clickOverlay").style.display = "block";
+	}
 
-</html>
+	function off() {
+		document.getElementById("clickOverlay").style.display = "none";
+	}
+
+	// Set the date we're counting down to
+	var countDownDate = new Date("Jan 7, 2021 00:00:00").getTime();
+
+	// Update the count down every 1 second
+	var countdownfunction = setInterval(function() {
+
+		// Get todays date and time
+		var now = new Date().getTime();
+
+		// Find the distance between now an the count down date
+		var distance = countDownDate - now;
+
+		// Time calculations for days, hours, minutes and seconds
+		var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		var hours = Math.floor((distance % (1000 * 60 * 60 * 24))
+				/ (1000 * 60 * 60));
+		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+		// Output the result in an element with id="demo"
+		document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+				+ minutes + "m " + seconds + "s ";
+
+		// If the count down is over, write some text 
+		if (distance < 0) {
+			clearInterval(countdownfunction);
+			document.getElementById("demo").innerHTML = "EXPIRED";
+		}
+	}, 1000);
+</script>
+
+<%@include file="../includes/footer.jsp"%>
 
 

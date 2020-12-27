@@ -7,10 +7,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>track</title>
+<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="/resources/js/jquery-3.5.1.js" /></script>
-<script defer src="/resources/js/indexNoVideo.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/indexNoVideoYC.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/track.css">
@@ -50,7 +50,7 @@
 					</div>
 
 					<pre>
-							</pre>
+					</pre>
 
 					<div>
 						<h4>
@@ -60,9 +60,6 @@
 						</h4>
 					</div>
 				</c:forEach>
-
-				<pre>
-						</pre>
 
 				<div class="artist-name">
 
@@ -80,16 +77,12 @@
 
 				<div class="header-buttons">
 					<button type="button" id="playNow"
-						onclick='popupPlayer("/player/track?trackId=${trackId}")'>
-						⯈ 듣기</button>
-					<button type="button" id="addPlayer" style="display: none">
-						플레이어에 추가</button>
+						onclick='popupPlayer("/player/track?trackId=${trackId}")'>⯈ 듣기</button>
+					<button type="button" id="addPlayer" style="display: none">플레이어에 추가</button>
 					<button type="button" id="addMyPlaylist">내 재생목록 추가</button>
 					<input type="button" value="공유하기" onclick="copyURL()">
 					<textarea id="address" style="display: none"></textarea>
-					<img class="emptyHeart" id="likeTrack"
-						src="/resources/image/heart2.png"> <img class="redHeart"
-						id="likeTrack" src="/resources/image/heart.png">
+					<img class="emptyHeart" id="likeTrack" src="/resources/image/heart2.png"> <img class="redHeart" id="likeTrack" src="/resources/image/heart.png">
 				</div>
 
 			</div>
@@ -105,8 +98,7 @@
 				<c:forEach items="${getTrackList }" var="TrackList" begin="0"
 					end="0">
 					<iframe width="100%" height="100%"
-						src="https://www.youtube.com/embed/<c:out value="${TrackList.TRACK_URL }" />"
-						frameborder="0" allowfullscreen></iframe>
+						src="https://www.youtube.com/embed/<c:out value="${TrackList.TRACK_URL }" />" frameborder="0" allowfullscreen></iframe>
 				</c:forEach>
 			</div>
 			<div class="lyrics">
@@ -131,12 +123,10 @@
 					<div class="item">
 						<a
 							href="/detail/album?albumId=<c:out value="${AlbumList.ALBUM_ID }"/>">
-							<img
-							src="/resources/image/album/<c:out value="${AlbumList.ALBUM_IMG }" />"
-							style="max-height: 200px">
-						</a> <a style="color: black"
-							href="/detail/album?albumId=<c:out value="${AlbumList.ALBUM_ID }"/>"><c:out
-								value="${AlbumList.ALBUM_TTL }" /></a>
+							<img src="/resources/image/album/<c:out value="${AlbumList.ALBUM_IMG }" />" style="max-height: 200px">
+						</a> 
+						<a style="color: black" href="/detail/album?albumId=<c:out value="${AlbumList.ALBUM_ID }"/>">
+						<c:out value="${AlbumList.ALBUM_TTL }" /></a>
 					</div>
 				</c:forEach>
 			</div>
@@ -144,24 +134,21 @@
 
 		<div class="emptybox"></div>
 
-		<div class="related">
+		<div class="related" style="display:none">
 			<div class="subtitle">
 				<h2>관련 플레이리스트></h2>
 			</div>
 			<div class="items">
 				<div class="item">
-					<a href="#"> <img src="/resources/image/1.jpg"
-						style="max-height: 200px">
+					<a href="#"> <img src="/resources/image/1.jpg" style="max-height: 200px">
 					</a> <a href="#" style="color: black">플레이리스트 제목</a>
 				</div>
 				<div class="item">
-					<a href="#"> <img src="/resources/image/2.jpg"
-						style="max-height: 200px">
+					<a href="#"> <img src="/resources/image/2.jpg" style="max-height: 200px">
 					</a> <a href="#" style="color: black">플레이리스트 제목</a>
 				</div>
 				<div class="item">
-					<a href="#"> <img src="/resources/image/3.jpg"
-						style="max-height: 200px">
+					<a href="#"> <img src="/resources/image/3.jpg" style="max-height: 200px">
 					</a> <a href="#" style="color: black">플레이리스트 제목</a>
 				</div>
 			</div>
@@ -176,14 +163,13 @@
 <!--body-->
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp"%>
-<!-- <div id="footer"></div> -->
-</div>
+<!-- </div> -->
 <!--main-->
 
 <!-- 모달창 -->
 <div id="modal">
 	<div class="modal-content">
-		<h2>${userNick }님의플레이리스트</h2>
+		<h2>${user.nick }님의플레이리스트</h2>
 
 		<div id="playlists">
 			<table>
@@ -210,7 +196,7 @@
 <!-- 모달창 끝 -->
 
 <script>
-	if ('${sessionName}' == "") { // 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
+	if ('${user.email}' == "") { // 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
 		// 빨간 하트를 숨긴다.
 		$(".redHeart").hide();
 
@@ -231,10 +217,10 @@
 	function addPlayer() {
 
 	}
-
+	
+	// 노래 좋아요
 	function likeTrack() {
-		let trackId = $
-		{
+		let trackId = ${
 			trackId
 		}
 		;
@@ -305,11 +291,11 @@
 	}
 
 	function goLogin() { // 로그아웃 상태에서 로그인이 필요한 기능을 사용하려고 할때 로그인 페이지로 이동
-
-		location.href = "/user/login";
+		location.href = "/user/login?prevPath=/detail/track?trackId=" + ${trackId};
 
 	}
 
+	// 공유하기
 	function copyURL() {
 		var address = document.getElementById("address");
 		address.innerHTML = location.href; //textarea 안에 주소를 집어 넣는다.
@@ -321,6 +307,7 @@
 		alert("주소가 복사되었습니다.")
 	}
 
+	// 좋아요한 노래 Ajax로 보내기
 	function addLikeTrack(trackId) {
 		$.ajax({
 			type : 'post',
@@ -341,7 +328,8 @@
 			}
 		});
 	}
-
+	
+	// 좋아요 취소한 노래 Ajax로 보내기
 	function removeLikeTrack(trackId) {
 		$.ajax({
 			type : 'post',
@@ -363,6 +351,7 @@
 		});
 	}
 
+	// 플레이리스트에 추가하기
 	function addToPlaylist(trackIdArr, plylstId) {
 		console.log("플레이리스트ID : " + plylstId);
 
@@ -392,6 +381,7 @@
 		});
 	}
 
+	// 듣기
 	let popupPlayer = function(url) {
 		let moveTop = screen.height - 440;
 		let moveLeft = screen.width - 537;

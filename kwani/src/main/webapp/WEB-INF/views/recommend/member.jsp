@@ -183,16 +183,16 @@
 
 			</table>
 		</div>
-		
-		
+
+
 		<div id="plylstInfo"><h1>${user.nick}님이 많이 들은 장르 곡 추천</h1><br>
-            
+
             <div id="plylstInfoContainer">
             	<div class="plylstInfoImg">
             	</div>
                 </div><!--plylstInfo-->
-           </div>     
-                
+           </div>
+
                 <div id="tracks"><h2>Tracks</h2></div>
                 <div id="plylstBtn">
                     <button class="button" onclick='popupPlayer("/player/track?trackId=${plistListDtl[0].trackId}")'>듣기</button>
@@ -208,7 +208,7 @@
                         <th class="th4">듣기</th>
                         <th class="th4">좋아요</th>
                         </tr>
-                          
+
                         <c:forEach items="${genreList}" var="genreList" varStatus="status" begin="0" end="19">
                         <tr>
                         <th><input type="checkbox" name="checkRow"></th>
@@ -222,18 +222,18 @@
                         <img class="redHeartImg" name="${genreList.TRACK_ID}" src="/resources/image/heart.png">
                         </div>
                         </td>
-         
+
                         </tr>
                         </c:forEach>
-                        
+
                         </table>
                     </div>
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 
 		<!-- The Modal -->
 		<div id="myModal" class="modal" style="display: none">
@@ -282,113 +282,113 @@
 
 		<script>
                 console.log("sessionName : " + '${sessionName}');
-                
+
                 let popupPlayer = function(url){
                     let moveTop=screen.height-440;
                      let moveLeft=screen.width-537;
                    window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
                 }
-         
-                //로그인 안되어있을 때 
+
+                //로그인 안되어있을 때
                 //좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
                 function sessionCheck(){
-                	
+
                 	console.log("sessionCheck 실행");
                 	console.log("sessionName : " + '${sessionName}');
-                	
+
                 	if('${sessionName}' == ''){
-                		
+
                 		console.log("로그인 안되어있어");
                 		moveToLogin();
-                		return 
-                	
+                		return
+
                     }
                 	else{
                 		return true;
                 	}
-                }              
-                
+                }
+
                 function moveToLogin(){
                 	console.log("go login")
-                	window.location = "/user/login";             	
+                	window.location = "/user/login";
                 }
-                
-                
+
+
                 //모달창 --------------------------------------------------------------------------
                 let modal = document.getElementById("myModal");
-                
-                let btn = document.getElementById("plusPlylstBtn");    
-                
+
+                let btn = document.getElementById("plusPlylstBtn");
+
                 let span = document.getElementsByClassName("close")[0];
-                
+
                 //'담기' 버튼을 눌렀을 때
                 btn.onclick = function(){
-                	//doCheck()를 실행해서 
+                	//doCheck()를 실행해서
                 	//체크박스에 체크가 하나도 안되어 있다면 경고창 나오게 하고
                 	//체크박스에 하나 이상 체크가 되어 있다면 모달창을 보여준다
                 	if(sessionCheck()){
-                		doCheck();           		
-                	};              	
+                		doCheck();
+                	};
                 }
-                
+
                 span.onclick = function(){
                 	modal.style.display = "none";
                 }
-                
+
                 window.onclick = function(event){
                 	if(event.target == modal){
                 		modal.style.display = "none";
                 	}
                 }
-                
-                
-                //좋아요 클릭하면 하트 색깔 바뀌게 설정(클릭한 곡의 track_id 값을 설정해놓음)--------------------------------------------------------                    
-                $(document).ready(function(){        
-                	
+
+
+                //좋아요 클릭하면 하트 색깔 바뀌게 설정(클릭한 곡의 track_id 값을 설정해놓음)--------------------------------------------------------
+                $(document).ready(function(){
+
                 	 // 처음엔 모든 수록곡의 빨간하트를 숨기고 빈하트만 보여준다.
                     $(".redHeartImg").hide();
-                    
+
                     // 좋아요한 노래에 해당하는 노래들은 빈하트를 숨기고 빨간 하트를 보여준다.(track_id 값을 설정해놓음)
                     <c:forEach items="${getLikedTrack}" var="getLikedTrack">
                        $("img[name='${getLikedTrack.trackId}'][class=defaultHeartImg]").hide();
                        $("img[name='${getLikedTrack.trackId}'][class=redHeartImg]").show();
                     </c:forEach>
-                    
+
                     //빈 하트 클릭할 때
                     $(".defaultHeartImg").on("click", function(){
                     	sessionCheck();
-                       
+
                        let index = $(".defaultHeartImg").index(this);   //누른 하트의 인덱스 저장
-                       
+
                        $(".defaultHeartImg:eq(" + index + ")").hide();   //누른 하트를 숨기기
                        $(".redHeartImg:eq(" + index + ")").show();   //누른 곳에 빨간 하트를 표시
                        console.log("좋아요할 노래아이디 : " + $(".defaultHeartImg:eq(" + index + ")").attr("name"));
                     });
-                    
+
                     //빨간 하트 클릭할때
                     $(".redHeartImg").on("click", function(){
-                       
+
                        let index = $(".redHeartImg").index(this);      //누른 하트의 인덱스 저장
-                       
+
                        $(".redHeartImg:eq(" + index + ")").hide();   //누른 하트를 숨기기
                        $(".defaultHeartImg:eq(" + index + ")").show();   //누른 곳에 빈 하트를 표시
                        console.log("좋아요 취소할 노래아이디 : " + $(".redHeartImg:eq(" + index + ")").attr("name"));
                     });
 				})
-                
- 				//체크박스에 하나도 체크 안되어 있으면 담기 버튼 눌렀을 때 경고창 나오게 하기--------------------------------				
+
+ 				//체크박스에 하나도 체크 안되어 있으면 담기 버튼 눌렀을 때 경고창 나오게 하기--------------------------------
  				function doCheck(){
-                	
+
  					console.log("hi");
- 					
+
  					//체크된 체크박스 길이 가져오기
  	                checkedLength = $("[name=checkRow]:checked").length;
- 	                	
+
  	                console.log(checkedLength);
- 	                	
+
  	                //체크된 체크박스가 하나도 없다면
  	                if(checkedLength == 0){
- 	                		
+
  	                	console.log("선택 안함...");
  	                	//경고창을 띄워준다
  	                	alert("노래를 선택해주세요");
@@ -398,37 +398,37 @@
  	                	console.log("선택했어!");
  	                	modal.style.display = "block";
  	                	return;
- 	                }	                
- 	             }              
-              
-              
-                
-            	
+ 	                }
+ 	             }
+
+
+
+
                 //체크박스 설정-------------------------------------------------------------------------
                 	function allCheckFunc(obj){
-                		//모든 checkRow의 속성이 checked가 되게 한다                		
+                		//모든 checkRow의 속성이 checked가 되게 한다
                 		$("[name=checkRow]").prop("checked", $(obj).prop("checked"));
                 	}
-                	
+
                 	function oneCheckFunc(obj){
-                		
+
                 		//checkAll이란 name값을 가진 요소를 allObj에 저장한다
                 		let allObj = $("[name=checkAll]");
-                		//obj의 name이란 속성(attribute)값을 objName에 저장한다 
+                		//obj의 name이란 속성(attribute)값을 objName에 저장한다
                 		let objName = $(obj).attr("name");
-                		
+
                 		//obj의 속성값이 checked라면
                 		if($(obj).prop("checked")){
-                			
+
                 			//모든 체크박스의 길이를 변수로 지정
                 			checkBoxLength = $("[name=" + objName + "]").length;
                 			//체크된 체크박스의 길이를 변수로 지정
                 			checkedLength = $("[name=" + objName + "]:checked").length;
-                			
+
                 			//전체 체크박스의 개수와 체크된 체크박스의 개수가 일치하면
                 			if(checkBoxLength == checkedLength){
                 				//checkAll 이름의 체크박스를 체크한다
-                				allObj.prop("checked", true);                				
+                				allObj.prop("checked", true);
                 			}else{
                 				//하나라도 체크가 안된 경우에는 checkAll 체크박스를 해제한다
                 				allObj.prop("checked", false);
@@ -438,24 +438,24 @@
                 			//checkAll이 체크를 해제한다
                 			allObj.prop("checked", false);
                 			console.log("선택 해제!!!");
-                		}              		
+                		}
                 	}
-                	
+
                 	$(function(){
-                		
+
                 		$("[name=checkAll]").click(function(){
                 			//checkAll 이름의 체크박스를 클릭하면 전체가 선택되게 한다
                 			allCheckFunc(this);
                 		});
                 		$("[name=checkRow]").each(function(){
                 			//checkRow라는 이름의 체크박스 하나하나에 oneCheckFunc 메서드를 적용시킨다
-                			//checkRow 체크박스 하나하나 모두 체크되면 checkAll 체크박스도 체크된다 
+                			//checkRow 체크박스 하나하나 모두 체크되면 checkAll 체크박스도 체크된다
                 			$(this).click(function(){
                 				oneCheckFunc($(this));
                 			});
                 		});
                 	});
-                
+
                 </script>
 
 

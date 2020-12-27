@@ -11,22 +11,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>register</title>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"
-	integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY="
-	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href='https://fonts.googleapis.com/css?family=Open Sans'
-	rel='stylesheet'>
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
-	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
-	crossorigin="anonymous">
+
 <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/register.css">
@@ -60,8 +45,13 @@
 					<div class="pwdReField">
 						<input class="inputPwdRe" id="passwordRe"
 							placeholder="Confirm Password" type="password" name="pwdRe" /> <input
-							class="input" type="hidden" name="targetUrl" value=""> <input
-							type="hidden" name="userImg"> <input type="hidden"
+							class="input" type="hidden" name="targetUrl" value=""> 
+							
+							
+							<input type="hidden" name="userImg" value="default.png"> 
+							
+							
+							<input type="hidden"
 							name="moodCd"> <input type="hidden" name="genreCd">
 						<input type="hidden" name="situCd"> <input type="hidden"
 							name="stusCd" value="1" /> <input type="hidden" name="lastDt">
@@ -88,90 +78,64 @@
 	<div id="rightSideBar"></div>
 </div>
 <!-- body -->
-<div id="footer"></div>
-</div>
-</body>
 
 <!-- ----------------------------- JavaScript------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------- -->
 
 
 <script type="text/javascript">
-
-	if('${msg}' != "") {
+	if ('${msg}' != "") {
 		alert('${msg}')
 	}
-	
-	
 
+	function checkInput() {
 
-function checkInput(){
-	
-	let email = document.getElementById("email").value;
-	let nick = document.getElementById("nick").value;
-	let pwd = document.getElementById("password").value;
-	let pwdRe = document.getElementById("passwordRe").value;
-	
-	
-	// 정규식
-	// 비밀번호 : 영어+특수문자+숫자를 섞어서 (8~16)자리 
-	let pwdPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
-	// 이름 : 한글만 2~4글자
-	let nickPattern = /^[가-힣]{2,6}$/;
-	
-	
-	if(email.length == 0){
-        alert("아이디(이메일)를(을) 입력하세요.");
-        return false;
-    }
-	
-	if(nick.length == 0){
-        alert("닉네임을 입력하세요.");
-        return false;
-    }
-    if(nickPattern.test(nick) == false){
-        alert("닉네임은 한글 2~6글자로만 가능합니다.");
-        return false;
-    }
-    
-    if(pwd.length == 0){
-        alert("비밀번호를 입력하세요.");
-        return false;
-    }
-    
-    if(pwdPattern.test(pwd) == false){
-    	alert("비밀번호는 영어+특수문자+숫자를 섞어서 (8~16)자리만 가능합니다.");
-        return false;
-    }
-    
-    if(pwdRe.length == 0){
-        alert("비밀번호를 다시 입력해주세요.");
-        return false;
-    }
-    
-    if(pwd != pwdRe){
-        alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
-        return false;
-    }
-    
-    alert("회원가입이 완료되었습니다. 로그인 후 이용해주세요.");
-	return true;
-}
+		let email = document.getElementById("email").value;
+		let nick = document.getElementById("nick").value;
+		let pwd = document.getElementById("password").value;
+		let pwdRe = document.getElementById("passwordRe").value;
 
-function openSearch() {
-    document.getElementById("myOverlay").style.display = "block";
-}
+		// 정규식
+		// 비밀번호 : 영어+특수문자+숫자를 섞어서 (8~16)자리 
+		let pwdPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+		// 이름 : 한글만 2~4글자
+		let nickPattern = /^[가-힣]{2,6}$/;
 
-let overlay = document.getElementById('myOverlay');
+		if (email.length == 0) {
+			alert("아이디(이메일)를(을) 입력하세요.");
+			return false;
+		}
 
-window.onclick = function(event){
-    if(event.target == overlay){
-        overlay.style.display = "none";
-    }
-}
+		if (nick.length == 0) {
+			alert("닉네임을 입력하세요.");
+			return false;
+		}
+		if (nickPattern.test(nick) == false) {
+			alert("닉네임은 한글 2~6글자로만 가능합니다.");
+			return false;
+		}
 
+		if (pwd.length == 0) {
+			alert("비밀번호를 입력하세요.");
+			return false;
+		}
 
+		if (pwdPattern.test(pwd) == false) {
+			alert("비밀번호는 영어+특수문자+숫자를 섞어서 (8~16)자리만 가능합니다.");
+			return false;
+		}
+
+		if (pwdRe.length == 0) {
+			alert("비밀번호를 다시 입력해주세요.");
+			return false;
+		}
+
+		if (pwd != pwdRe) {
+			alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
+			return false;
+		}
+
+	}
 </script>
 
-
-</html>
+<%@include file="../includes/footer.jsp"%>

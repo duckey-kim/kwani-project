@@ -44,10 +44,13 @@
 	//세션값이 잘 넘어왔는지 확인한다.
 	console.log('${user}');
 	console.log('${userNick}');
-	console.log('${prevPath}');
-	
+	console.log('${list}');
+	console.log('${slideImg}');
+
 
 	let logoutBtn = document.getElementById("logoutBtn");
+	let loginBtn = document.getElementById("loginBtn");
+	let welcomeBtn = document.getElementById("welcomeBtn");
 	let toMypageBtn = document.getElementById("toMypageBtn");
 	let joinBtn = document.getElementById("joinBtn");
 	
@@ -55,12 +58,15 @@
 	//세션이 있으면 loginBtn을 없애고, logoutBtn, toMypageBtn, welcomeBtn을 보이게 한다.
 
 	if ('${user}' != "") {
+		loginBtn.style.display = "none";
 		joinBtn.style.display = "none";
 		logoutBtn.style.display = "block";
+		welcomeBtn.style.display = "block";
 		toMypageBtn.style.display = "block";
 	}
 	
 </script>
+
 
 <script type="text/javascript">
 	//서치바 설정-------------------------------------------------------------------------

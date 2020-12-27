@@ -6,36 +6,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>home</title>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"
-	integrity="sha256-kRbW+SRRXPogeps8ZQcw2PooWEDPIjVQmN1ocWVQHRY="
-	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href='https://fonts.googleapis.com/css?family=Open Sans'
-	rel='stylesheet'>
-<link rel="stylesheet"
-	href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
-	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
-	crossorigin="anonymous">
-
 <link rel="stylesheet" type="text/css" href="/resources/css/home.css">
-
 </head>
 
-
-
 <%@include file="includes/mainHeader.jsp"%>
-
-
 
 <div id="body">
 	<div id="leftSideBar"></div>
@@ -117,12 +94,19 @@
 				<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a
 					class="next" onclick="plusSlides(1)">&#10095;</a>
 			</div>
+
+
 			<div class="loginFormBox">
-				<a href="/user/login" class="loginBtn" id="loginBtn">Login</a>
-				<div id="welcomeBtn" class="welcomeBtn" style="display: none">
-					환영합니다!<br> ${userNick} 님
+				<div class="loginBtnWrap">
+					<button class="loginBtn" id="loginBtn" onclick="location.href='/user/login'">Login</button>
+				</div>
+				<div id="welcomeBtn" class="loginBtn" style="display: none">
+					<p>환영합니다!</p>
+					<p>${userNick}님</p>
 				</div>
 			</div>
+
+
 		</div>
 		<!-- topContentBox -->
 
@@ -137,7 +121,7 @@
 								type="hidden" id="finishDate" name="finishDate">
 						</form>
 					</div>
-					<div class="genreYearImg" 
+					<div class="genreYearImg"
 						style="background-image: url(/resources/image/artist/소녀시대.jpg);">
 						<div class="circle red">
 							<div class="year">
@@ -170,43 +154,9 @@
 <!-- ----------------------------- JavaScript------------------------------- -->
 <!-- ---------------------------------------------------------------------------------------- -->
 
-<script type="text/javascript">
-
-	//세션값이 잘 넘어왔는지 확인한다.
-	console.log('${sessionName}');
-	console.log('${userNick}');
-	console.log('${list}');
-	console.log('${slideImg}');
-
-
-	let logoutBtn = document.getElementById("logoutBtn");
-	let loginBtn = document.getElementById("loginBtn");
-	let welcomeBtn = document.getElementById("welcomeBtn");
-	let toMypageBtn = document.getElementById("toMypageBtn");
-	let joinBtn = document.getElementById("joinBtn");
-	
-
-	//세션이 있으면 loginBtn을 없애고, logoutBtn, toMypageBtn, welcomeBtn을 보이게 한다.
-
-	if ('${sessionName}' != "") {
-		loginBtn.style.display = "none";
-		joinBtn.style.display = "none";
-		logoutBtn.style.display = "block";
-		welcomeBtn.style.display = "block";
-		toMypageBtn.style.display = "block";
-	}
-	$(".genreYearImg").click(function() {
-		location.href = "/detail/artist?gropId=1"
-	});
-</script>
 
 <script type="text/javascript">
 	/*-------------------------------------------- searchBox ----------------------------------------------------- */
-	function openSearch() {
-		document.getElementById("myOverlay").style.display = "block";
-	}
-
-	let overlay = document.getElementById('myOverlay');
 
 	window.onclick = function(event) {
 		if (event.target == overlay) {
@@ -354,7 +304,6 @@
 					contentType : "application/json; charset=UTF-8",
 					success : function(data) {
 						console.log(data);
-
 						$(".genreYearImg").css(
 								"background-image",
 								"url(/resources/image/artist/"
@@ -362,7 +311,6 @@
 						$(".genreYearImg").click(function() {
 							location.href = "/detail/artist?gropId=" + data[0].gropId
 						});
-
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {
 						$(".genreYearImg").css("background-image",
@@ -418,16 +366,22 @@
 					} else if (genreCntPx > 240 && genreCntPx <= 280) {
 						$("#genreName").text("인디");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 280 && genreCntPx <= 320) {
+					} else if (genreCntPx > 280 && genreCntPx <= 310) {
 						$("#genreName").text("트로트");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 320 && genreCntPx <= 360) {
+					} else if (genreCntPx > 310 && genreCntPx <= 340) {
 						$("#genreName").text("R&B");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 360 && genreCntPx <= 400) {
+					} else if (genreCntPx > 340 && genreCntPx <= 370) {
 						$("#genreName").text("포크");
 						$("#genreName").css("display", "show");
-						// OST, classic, jazz, blues, soul
+					} else if (genreCntPx > 370 && genreCntPx <= 400) {
+						$("#genreName").text("OST");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 400 && genreCntPx <= 440) {
+						$("#genreName").text("soul");
+						$("#genreName").css("display", "show");
+						//classic, jazz, blues
 					}
 				});
 				console.log(startDate + "-" + finishDate + "-" + genreName)
@@ -494,4 +448,4 @@
 	});
 </script>
 
-<%@include file="includes/footer.jsp"%>
+<%@include file="includes/mainFooter.jsp"%>
