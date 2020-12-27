@@ -148,9 +148,9 @@ li {
 }
 
 .item-div {
+	position: relative;
 	display: flex;
 	justify-content: left;
-	flex-flow: wrap;
 }
 
 .item-div .table {

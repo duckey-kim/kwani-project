@@ -99,23 +99,26 @@
 							</form>
 						</div>
 							<div class="item-div">
-								<c:forEach items="${likedArtistList}" var="artist" begin="0" end="2">
-									<table class="basicTable">
-										<tr>
-											<th class="th"></th>
-											<th class="th"></th>
-										</tr>
-										<tr>
-											<td class="td8" colspan="2"><img class="myArtistImg" src="/resources/image/artist/${artist.GROP_IMG}"
-																		onclick= 'location.href="/detail/artist?gropId=${artist.GROP_ID}"'></td>
-										</tr>
-										
-										<tr>
-											<td><img src="/resources/image/heart.png" class="play"></td>
-											<td style="text-align:left"><a href="/detail/artist?gropId=${artist.GROP_ID}"><c:out value="${artist.NM}" /></a></td>
-										</tr>
-									</table>
-								</c:forEach>
+								<div class="slide-wrap">
+									<div class="slides">
+										<c:forEach items="${likedArtistList}" var="artist">
+											<table class="basicTable">
+												<tr>
+													<th class="th"></th>
+													<th class="th"></th>
+												</tr>
+												<tr>
+													<td class="td8" colspan="2"><img class="myArtistImg" src="/resources/image/artist/${artist.GROP_IMG}"
+																				onclick= 'location.href="/detail/artist?gropId=${artist.GROP_ID}"'></td>
+												</tr>												
+												<tr>
+													<td><img src="/resources/image/heart.png" class="play"></td>
+													<td style="text-align:left"><a href="/detail/artist?gropId=${artist.GROP_ID}"><c:out value="${artist.NM}" /></a></td>
+												</tr>
+											</table>
+										</c:forEach>
+									</div>
+								</div>
 							</div>
 					</div>
 
@@ -128,7 +131,6 @@
 							</form>
 						</div>
 						<div class="item-div">
-
 							<c:forEach items="${likedAlbumList}" var="album" begin="0" end="2">
 								<table class="table">
 									<tr>
@@ -155,6 +157,11 @@
 									</tr>
 								</table>
 							</c:forEach>
+							<p class="control">
+								<span class="prev">prev</span>
+								<span class="next">next</span>
+							</p>
+							
 						</div>
 					</div>
 
