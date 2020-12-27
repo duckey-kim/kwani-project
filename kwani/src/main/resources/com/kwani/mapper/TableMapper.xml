@@ -288,12 +288,55 @@
 	</select>
 
 	<select id="getCodeTable" resultMap="selectMap">
-		select cd.cd_nm as codenm,cd.cd_no as codeno from
+		select cd.cd_nm as
+		codenm,cd.cd_no as codeno from
 		t_code_type ty,t_code cd
-		where ty.type_id=#{typeCode}
+		where
+		ty.type_id=#{typeCode}
 		and ty.type_id=cd.type_id
 
 	</select>
+	<!--TEST -->
+	<select id="getGenre" resultType="int">
+		select genre_cd from
+		t_history
+		h, t_tracks t
+		where h.email =#{email}
+		and h.track_id=t.track_id
+	</select>
 
+	<select id="getCodeName" resultType="String">
+		select cd_nm
+		from t_code
+		where type_id=#{typeId}
+		and cd_no =#{cdNo}
+	</select>
+
+	<select id="getCodeNo" resultType="Integer">
+		select t.cd_no
+		from t_code
+		t,t_code_type ty
+		where ty.type_id=#{typeCode}
+		and ty.type_id=t.type_id
+	</select>
+
+	<select id="recommendGenre" resultMap="selectMap">
+	select  DISTINCT t.track_id,t.track_ttl,t.genre_cd,a.nm
+		from t_tracks t,t_artist_tracks at,t_artist a,t_code cd
+		where at.track_id=t.track_id
+        and at.grop_id=a.grop_id
+        and bitand(genre_cd,#{genreCd})=#{genreCd}
+
+	</select>
+
+	<select id="getTheme" resultType="int">
+		select mood_cd from
+		t_history
+		h, t_tracks t
+		where h.email =#{email}
+		and
+		h.track_id=t.track_id
+
+	</select>
 
 </mapper>

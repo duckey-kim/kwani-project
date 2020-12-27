@@ -72,7 +72,23 @@ public interface TableMapper {
 	
 	public List<Map<String,String>> getCountPlay();
 	
-	public List<Map<String,String>> getCodeTable(int typeCode);
+	public List<Map<String,String>> getCodeTable(Integer typeCode);
+	
+	public List<Integer> getGenre(String email);
+	
+	public String getCodeName(@Param("typeId")Integer typeId,@Param("cdNo")Integer cdNo);
+	
+	public List<Integer> getCodeNo(Integer typeCode);
+	
+	public List<Integer> getTheme(String email);
+	
+	public List<Map<String,String>> recommendGenre(Integer genreCd);
+
+	public List<Map<String,String>> recommendType(Integer typeCd);
+	
+	
+	
+	
 	
 	
 

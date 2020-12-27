@@ -1,6 +1,9 @@
 package com.kwani.service;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import com.kwani.domain.Criteria;
 import com.kwani.domain.PListVO;
@@ -76,8 +79,15 @@ public interface PListService {
 	
 	//회원이 좋아요한 아티스트 목록 가져오기
 	public List<PListVO> getLikedArtist(String email);
-	
-	
 
+	
+	//덕환
+	public int getUserLikeGenre(HttpSession session, int i);
+
+	public List<Map<String, String>> recommendGenre(int genreCode);
+
+	public int getUserLikeType(HttpSession session, int i);
+
+	public List<Map<String, String>> recommendType(int typeCode);
 	
 }

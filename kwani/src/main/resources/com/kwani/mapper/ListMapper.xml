@@ -344,4 +344,66 @@
   
   
   
+  
+  
+  <!--덕환 추가부분  -->
+  <resultMap type="hashMap" id="selectMap"></resultMap>
+  <select id="getGenre" resultType="int">
+		select genre_cd from
+		t_history
+		h, t_tracks t
+		where h.email =#{email}
+		and h.track_id=t.track_id
+	</select>
+
+	<select id="getCodeName" resultType="String">
+		select cd_nm
+		from t_code
+		where type_id=#{typeId}
+		and cd_no =#{cdNo}
+	</select>
+
+	<select id="getCodeNo" resultType="Integer">
+		select t.cd_no
+		from t_code
+		t,t_code_type ty
+		where ty.type_id=#{typeCode}
+		and ty.type_id=t.type_id
+	</select>
+
+	<select id="recommendGenre" resultMap="selectMap">
+	select * from(
+select  DISTINCT t.track_id,t.track_ttl,t.genre_cd,a.nm
+		from t_tracks t,t_artist_tracks at,t_artist a,t_code cd
+		where at.track_id=t.track_id
+        and at.grop_id=a.grop_id
+        and bitand(genre_cd,#{genreCd})=#{genreCd}
+        order by dbms_random.value
+        )
+        where <![CDATA[rownum <10}]]>
+
+	</select>
+
+	<select id="getTheme" resultType="int">
+		select mood_cd from
+		t_history
+		h, t_tracks t
+		where h.email =#{email}
+		and
+		h.track_id=t.track_id
+
+	</select>
+  
+  <select id="recommendType" resultMap="selectMap">
+  select * from(
+  select  DISTINCT t.track_id,t.track_ttl,t.genre_cd,a.nm
+		from t_tracks t,t_artist_tracks at,t_artist a,t_code cd
+		where at.track_id=t.track_id
+        and at.grop_id=a.grop_id
+        and bitand(mood_cd,#{typeCd})=#{typeCd}
+        order by dbms_random.value)
+          where <![CDATA[rownum <10}]]>
+        
+  </select>
+  
   </mapper>

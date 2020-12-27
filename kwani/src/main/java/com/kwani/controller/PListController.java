@@ -1,5 +1,8 @@
 package com.kwani.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -64,6 +67,23 @@ public class PListController {
 			System.out.println(session.getAttribute("userEmail"));
 		 }
 
+	}
+	
+	
+	
+	//덕환부분
+	
+	
+	
+	@GetMapping("/member")
+	public void memberRecommend(HttpSession session,Model model) {
+		int genreCode = plservice.getUserLikeGenre(session,100);
+		int typeCode = plservice.getUserLikeType(session,200);
+		List<Map<String,String>> listByGenre =plservice.recommendGenre(genreCode);
+		List<Map<String,String>> listByType = plservice.recommendType(typeCode);
+		
+		model.addAttribute("genreList",listByGenre);
+		model.addAttribute("typeList",listByType);
 	}
 }
 
