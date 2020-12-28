@@ -37,10 +37,10 @@
    <select id="getSlideImg" resultMap="HomeResult">
       <![CDATA[
       select distinct al.album_img, al.album_id, a.debut_dt
-       from t_album al, t_artist a
-       where a.debut_dt >= to_date('2000-01-01', 'yyyy-mm-dd') and a.debut_dt < to_date('2010-12-31', 'yyyy-mm-dd')
-       and rownum <= 8
-        order by DBMS_RANDOM.VALUE
+      from t_album al, t_artist a
+      where a.debut_dt >= to_date('1980-01-01', 'yyyy-mm-dd') and a.debut_dt < to_date('2021-12-31', 'yyyy-mm-dd')
+      and rownum <= 6
+      order by DBMS_RANDOM.VALUE
       ]]>
    </select>
 

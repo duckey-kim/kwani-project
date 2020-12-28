@@ -26,9 +26,7 @@
 					onclick="currentSlide(3)"></span> <span class="dot"
 					onclick="currentSlide(4)"></span> <span class="dot"
 					onclick="currentSlide(5)"></span> <span class="dot"
-					onclick="currentSlide(6)"></span> <span class="dot"
-					onclick="currentSlide(7)"></span> <span class="dot"
-					onclick="currentSlide(8)"></span>
+					onclick="currentSlide(6)"></span> 
 			</div>
 		</div>
 		<div class="topContentBox">
@@ -237,11 +235,11 @@
 <script type="text/javascript">
 	/*---------------------------------------------------------------------------------------------------------------- */
 
-	$("#yearCnt").text("1970s");
+	$("#yearCnt").text("2010s");
 
-	let startDate = "1970"
-	let finishDate = "1979";
-	let genreName = "힙합";
+	let startDate = "2010"
+	let finishDate = "2019";
+	let genreName = "트로트";
 
 	$(".year").on(
 			'click',
@@ -253,38 +251,14 @@
 					let yearCnt = $(".year").css('top');
 					let yearCntPx = parseInt(yearCnt, 10);
 
-					if (yearCntPx >= 0 && yearCntPx <= 40) {
+					if (yearCntPx >= 0 && yearCntPx <= 130) {
 						$("#yearCnt").text("2020s");
 						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 40 && yearCntPx <= 80) {
+					} else if (yearCntPx > 130 && yearCntPx <= 270) {
 						$("#yearCnt").text("2010s");
 						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 80 && yearCntPx <= 120) {
+					} else if (yearCntPx > 270 && yearCntPx <= 440) {
 						$("#yearCnt").text("2000s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 120 && yearCntPx <= 160) {
-						$("#yearCnt").text("1990s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 160 && yearCntPx <= 200) {
-						$("#yearCnt").text("1980s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 200 && yearCntPx <= 240) {
-						$("#yearCnt").text("1970s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 240 && yearCntPx <= 280) {
-						$("#yearCnt").text("1960s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 280 && yearCntPx <= 320) {
-						$("#yearCnt").text("1950s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 320 && yearCntPx <= 360) {
-						$("#yearCnt").text("1940s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 360 && yearCntPx <= 390) {
-						$("#yearCnt").text("1930s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 390 && yearCntPx <= 440) {
-						$("#yearCnt").text("1920s");
 						$("#yearCnt").css("display", "show");
 					}
 
@@ -332,7 +306,7 @@
 
 	/* ------------------------------------------------------------ */
 
-	$("#genreName").text("힙합");
+	$("#genreName").text("트로트");
 
 	$(".genre").on(
 			'click',
@@ -345,43 +319,33 @@
 					let genreCntPx = parseInt(genreCnt, 10);
 					genreName = $("#genreName").text();
 
-					if (genreCntPx >= 0 && genreCntPx <= 40) {
+					if (genreCntPx >= 0 && genreCntPx <= 50) {
 						$("#genreName").text("락");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 40 && genreCntPx <= 80) {
-						$("#genreName").text("메탈");
-						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 80 && genreCntPx <= 120) {
+					} else if (genreCntPx > 50 && genreCntPx <= 90) {
 						$("#genreName").text("발라드");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 120 && genreCntPx <= 160) {
+					} else if (genreCntPx > 90 && genreCntPx <= 140) {
 						$("#genreName").text("랩");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 160 && genreCntPx <= 200) {
-						$("#genreName").text("힙합");
-						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 200 && genreCntPx <= 240) {
+					} else if (genreCntPx > 140 && genreCntPx <= 200) {
 						$("#genreName").text("댄스");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 240 && genreCntPx <= 280) {
-						$("#genreName").text("인디");
-						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 280 && genreCntPx <= 310) {
+					} else if (genreCntPx > 200 && genreCntPx <= 260) {
 						$("#genreName").text("트로트");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 310 && genreCntPx <= 340) {
+					} else if (genreCntPx > 260 && genreCntPx <= 300) {
 						$("#genreName").text("R&B");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 340 && genreCntPx <= 370) {
-						$("#genreName").text("포크");
-						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 370 && genreCntPx <= 400) {
+					} else if (genreCntPx > 300 && genreCntPx <= 340) {
 						$("#genreName").text("OST");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 400 && genreCntPx <= 440) {
-						$("#genreName").text("soul");
+					} else if (genreCntPx > 340 && genreCntPx <= 390) {
+						$("#genreName").text("메탈");
 						$("#genreName").css("display", "show");
-						//classic, jazz, blues
+					} else if (genreCntPx > 390 && genreCntPx <= 440) {
+						$("#genreName").text("힙합");
+						$("#genreName").css("display", "show");
 					}
 				});
 				console.log(startDate + "-" + finishDate + "-" + genreName)
