@@ -30,10 +30,27 @@ public class MyPageRestController {
 
 	private MyPageService myPageService;
 
+	// 좋아요 곡 삭제
+	@PostMapping(value="/liketrack/remove", produces = {"text/plane"})
+	public String removeLikeTrack(@RequestBody String trackId, HttpSession session, Model model) {
+		
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+		
+		Integer trackIdValue = Integer.parseInt(trackId);
+		
+		int result = myPageService.removeLikeTrack(trackIdValue, email);
+		
+		return result == 1? "SUCCESS" : "FAIL";
+	}
+	
+	// 좋아요 곡 추가
 	@PostMapping(value="/addliketrack", produces = {"text/plane"})
 	public String addLikeTrack(@RequestBody String trackId, HttpSession session, Model model) {
 		
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+		
 		Integer trackIdValue = Integer.parseInt(trackId);
 		
 		int result = myPageService.addLikeTrack(trackIdValue, email);
@@ -45,7 +62,8 @@ public class MyPageRestController {
 	@GetMapping(value = "/libraryList", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public String getLibraryList(HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 
 		Gson gson = new Gson();
 		String data = gson.toJson(myPageService.getListLibrary(email));
@@ -57,7 +75,8 @@ public class MyPageRestController {
 	@GetMapping(value = "/likeList", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public String getLikeTrackList(HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 
 		Gson gson = new Gson();
 		String data = gson.toJson(myPageService.getListLikedTrack(email));
@@ -69,11 +88,9 @@ public class MyPageRestController {
 	@PostMapping(value = "/playlist/inserttrack" , produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public String insertTrack(@RequestParam(value = "trackList[]") Set<Integer> trackList, @RequestParam Integer plylstId, HttpSession session) {
 		
-		System.out.println(trackList);
-		System.out.println(plylstId);
-		
-		String email = (String)session.getAttribute("userEmail");
-		
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+				
 		Gson gson = new Gson();
 		String result = gson.toJson("FAILED");
 		
@@ -93,7 +110,8 @@ public class MyPageRestController {
 	@PostMapping(value = "/playlist/deletetrack", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public String deleteTrack(@RequestParam(value = "trackList[]") Set<Integer> trackList, @RequestParam(value = "plylstId") Integer plylstId, HttpSession session) {
 
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 		
 		Gson gson = new Gson();
 		String result = gson.toJson("FAIL");

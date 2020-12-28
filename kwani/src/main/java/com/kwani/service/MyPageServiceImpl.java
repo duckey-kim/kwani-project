@@ -28,6 +28,11 @@ public class MyPageServiceImpl implements MyPageService {
 	private MyPageMapper myPageMapper;
 
 	@Override
+	public int removeLikeTrack(Integer trackId, String email) {
+		return myPageMapper.deleteLikeTrack(trackId, email);
+	}
+	
+	@Override
 	public int addLikeTrack(Integer trackId, String email) {
 		return myPageMapper.insertLikeTrack(trackId, email);
 	}

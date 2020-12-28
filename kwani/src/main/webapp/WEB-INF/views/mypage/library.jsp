@@ -58,7 +58,7 @@
 					<div class="body-item bg-bl">
 						<div class="item-header">
 							<h3>
-								<a href="#">Recent Tracks</a>
+								<button class="button">Recent Tracks</button>
 							</h3>
 						</div>
 						<div class="item-body">
@@ -104,6 +104,7 @@
 		<script>
 			$(document).ready(function(){
 				likedTrack();
+				likeTrack();
 			});
 			
 			function likedTrack(){
@@ -114,23 +115,34 @@
 				</c:forEach>
 			}
 			
-			// 빨간 하트 누르면 좋아요 테이블에 삭제
-		 	$(document).on("click", ".heart", function(){
-		 		let idx = $(".heart").index(this);
-		 		$(".heart:eq(" + idx + ")").hide();
-				$(".heart-empty:eq(" + idx + ")").show();
-		 	});
-			
-		 	// 빈 하트 누르면 좋아요 테이블에 추가
-		 	$(document).on("click", ".heart-empty", function(){
-		 		idx = $(".heart-empty").index(this);
-		 		$(".heart:eq(" + idx + ")").show();
-				$(".heart-empty:eq(" + idx + ")").hide();
-				trackId = $(".heart-empty:eq(" + idx + ")").attr("name");
-				likeService.addLikeTrack(trackId, function(obj){
-					alert(obj);
-				});
-		 	});
+			function likeTrack(){
+				
+				let trackId = "";
+				let idx = "";
+				
+				// 빨간 하트 누르면 좋아요 테이블에 삭제
+			 	$(document).on("click", ".heart", function(){
+			 		idx = $(".heart").index(this);
+			 		$(".heart:eq(" + idx + ")").hide();
+					$(".heart-empty:eq(" + idx + ")").show();
+					trackId = $(".heart:eq(" + idx + ")").attr("name");
+					likeService.removeLikeTrack(trackId, function(obj){
+						alert(obj);
+					});
+			 	});
+				
+				// 빈 하트 누르면 좋아요 테이블에 추가
+			 	$(document).on("click", ".heart-empty", function(){
+			 		idx = $(".heart-empty").index(this);
+			 		$(".heart:eq(" + idx + ")").show();
+					$(".heart-empty:eq(" + idx + ")").hide();
+					trackId = $(".heart-empty:eq(" + idx + ")").attr("name");
+					likeService.addLikeTrack(trackId, function(obj){
+						alert(obj);
+					});
+			 	});
+				
+			}
 		</script>
 		<!--body-->
 <%@include file="../includes/footer.jsp" %>

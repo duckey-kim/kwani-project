@@ -67,8 +67,8 @@
 							</h3>
 						</div>
 						<div class="item-body">
+							<p>플레이리스트 곡 개수 : ${trackCount}</div>
 							<div class="item-div">
-								<div>플레이리스트 곡 개수 : ${trackCount}</div>
 								<br>
 									<table style="width: 100%">
 										<tr>

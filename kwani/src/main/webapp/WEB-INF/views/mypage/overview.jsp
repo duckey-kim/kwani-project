@@ -98,27 +98,23 @@
 								</h3>
 							</form>
 						</div>
-							<div class="item-div">
-								<div class="slide-wrap">
-									<div class="slides">
-										<c:forEach items="${likedArtistList}" var="artist">
-											<table class="basicTable">
-												<tr>
-													<th class="th"></th>
-													<th class="th"></th>
-												</tr>
-												<tr>
-													<td class="td8" colspan="2"><img class="myArtistImg" src="/resources/image/artist/${artist.GROP_IMG}"
-																				onclick= 'location.href="/detail/artist?gropId=${artist.GROP_ID}"'></td>
-												</tr>												
-												<tr>
-													<td><img src="/resources/image/heart.png" class="play"></td>
-													<td style="text-align:left"><a href="/detail/artist?gropId=${artist.GROP_ID}"><c:out value="${artist.NM}" /></a></td>
-												</tr>
-											</table>
-										</c:forEach>
-									</div>
-								</div>
+							<div class="item-div slide-wrapper">
+								<c:forEach items="${likedArtistList}" var="artist">
+									<table class="basicTable">
+										<tr>
+											<th class="th"></th>
+											<th class="th"></th>
+										</tr>
+										<tr>
+											<td class="td8" colspan="2"><img class="myArtistImg" src="/resources/image/artist/${artist.GROP_IMG}"
+																		onclick= 'location.href="/detail/artist?gropId=${artist.GROP_ID}"'></td>
+										</tr>												
+										<tr>
+											<td><img src="/resources/image/heart.png" class="play"></td>
+											<td style="text-align:left"><a href="/detail/artist?gropId=${artist.GROP_ID}"><c:out value="${artist.NM}" /></a></td>
+										</tr>
+									</table>
+								</c:forEach>
 							</div>
 					</div>
 
@@ -156,12 +152,7 @@
 										<td><img src="/resources/image/heart.png" class="play"></td>
 									</tr>
 								</table>
-							</c:forEach>
-							<p class="control">
-								<span class="prev">prev</span>
-								<span class="next">next</span>
-							</p>
-							
+							</c:forEach>							
 						</div>
 					</div>
 
@@ -239,7 +230,9 @@
 		 		$(".heart:eq(" + idx + ")").hide();
 				$(".heart-empty:eq(" + idx + ")").show();
 				trackId = $(".heart:eq(" + idx + ")").attr("name");
-				console.log(trackId);
+				likeService.removeLikeTrack(trackId, function(obj){
+					alert(obj);
+				});
 		 	});
 			
 			// 빈 하트 누르면 좋아요 테이블에 추가
