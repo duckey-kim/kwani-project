@@ -72,22 +72,22 @@
 					<div class="body-item bg-bl">
 						<div class="item-header">
 							<h3>
-								<a href="#">Playlist</a>
+								<button class="button">Playlist</button>
 							</h3>
 						</div>
 						<div class="item-body">
 							<div class="item-div">
 								<c:forEach items="${playlistVO}" var="plylst">
-									<table class="table">
+									<table class="basicTable">
 										<tr>
 											<th></th><th></th>
 										</tr>
 										<tr>
-											<td class="td8 img-td" colspan="2">
+											<td class="td9 img-td" colspan="2">
 												<div class="img-container">
 													<div class="img-div">
 														<a class="ddBtn"><img class="moreImg" src="/resources/image/more.png"></a>
-															<img class="myArtistImg myPlaylist" src="/resources/image/album/${plylst.plylstImg}">
+															<img class="myArtistImg" src="/resources/image/album/${plylst.plylstImg}">
 															<div class="dropdown-playlist">
 																	<ul class="dd-plylst-content">
 																			<li><button class="mod">수정</button></li>
@@ -98,7 +98,6 @@
 												</div>
 											</td>
 										</tr>
-
 										<tr>
 											<td>
 												<form action="/mypage/playlistDetail" method="post">

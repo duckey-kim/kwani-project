@@ -9,6 +9,8 @@ import com.kwani.domain.UserVO;
 
 public interface MyPageService {
 
+	public int addLikeTrack(Integer trackId, String email);
+	public int removeLikeTrack(Integer trackId, String email);
 	public void insertTrackList(Set<Integer> trackId, Integer plylstId, String email);
 	public void removePlaylistTrack(Set<Integer> trackList, Integer plylstId);
 	public boolean checkValidPlaylist(Integer plylstId, String email);

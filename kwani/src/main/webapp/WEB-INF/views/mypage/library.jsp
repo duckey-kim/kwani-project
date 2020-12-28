@@ -58,7 +58,7 @@
 					<div class="body-item bg-bl">
 						<div class="item-header">
 							<h3>
-								<a href="#">Recent Tracks</a>
+								<button class="button">Recent Tracks</button>
 							</h3>
 						</div>
 						<div class="item-body">
@@ -79,7 +79,8 @@
 										<td><a href="/detail/artist?gropId=${library.GROP_ID}"><c:out value="${library.NM}" /></a></td>
 										<td><c:out value="${library.PLAY_DT}" /></td>
 										<td onclick='popupPlayer("/player/track?trackId=${library.TRACK_ID}")'><img src="/resources/image/play-button.png" class="play"></td>
-										<td><img src="/resources/image/${library.heart}" class="play"></td>
+										<td><img class="heart" name="${library.TRACK_ID}" src="/resources/image/heart.png">
+										<img class="heart-empty" name="${library.TRACK_ID}" src="/resources/image/heart2.png"></td>
 									</tr>
 								</c:forEach>
 							</table>
@@ -91,12 +92,57 @@
 			<!--bodyContent-->
 			<div id="rightSideBar"></div>
 		</div>
+		<script type="text/javascript" src="/resources/js/like.js"></script>
 		<script>
 		      let popupPlayer = function(url){
 		          let moveTop=screen.height-440;
 		           let moveLeft=screen.width-537;
 		         window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
 		      }
+		</script>
+		
+		<script>
+			$(document).ready(function(){
+				likedTrack();
+				likeTrack();
+			});
+			
+			function likedTrack(){
+				$(".heart").hide();			
+				<c:forEach items="${likedTrackList}" var="track">
+					$("img[name='${track.TRACK_ID}'][class=heart]").show();
+					$("img[name='${track.TRACK_ID}'][class=heart-empty]").hide();
+				</c:forEach>
+			}
+			
+			function likeTrack(){
+				
+				let trackId = "";
+				let idx = "";
+				
+				// 빨간 하트 누르면 좋아요 테이블에 삭제
+			 	$(document).on("click", ".heart", function(){
+			 		idx = $(".heart").index(this);
+			 		$(".heart:eq(" + idx + ")").hide();
+					$(".heart-empty:eq(" + idx + ")").show();
+					trackId = $(".heart:eq(" + idx + ")").attr("name");
+					likeService.removeLikeTrack(trackId, function(obj){
+						alert(obj);
+					});
+			 	});
+				
+				// 빈 하트 누르면 좋아요 테이블에 추가
+			 	$(document).on("click", ".heart-empty", function(){
+			 		idx = $(".heart-empty").index(this);
+			 		$(".heart:eq(" + idx + ")").show();
+					$(".heart-empty:eq(" + idx + ")").hide();
+					trackId = $(".heart-empty:eq(" + idx + ")").attr("name");
+					likeService.addLikeTrack(trackId, function(obj){
+						alert(obj);
+					});
+			 	});
+				
+			}
 		</script>
 		<!--body-->
 <%@include file="../includes/footer.jsp" %>

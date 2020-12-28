@@ -11,11 +11,11 @@
 <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script defer src="/resources/js/indexNoVideo.js"></script>
-<link rel="stylesheet" href="/resources/css/mypage.css" />
 </head>
 
 <%@include file="../includes/header.jsp" %>
+<link rel="stylesheet" href="/resources/css/mypage.css" />
+
 		<div id="body">
 			<div id="leftSideBar"></div>
 			<div id="bodyContent">
@@ -77,12 +77,14 @@
 								</tr>
 								<c:forEach items="${libraryList}" var="library" begin="0" end="4">
 									<tr>
-										<td><a href="/detail/album?albumId=${library.ALBUM_ID}"><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"></a></td>
+										<td><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"
+											onclick='href="/detail/album?albumId=${library.ALBUM_ID}"'></td>
 										<td><a href="/detail/track?trackId=${library.TRACK_ID}"><c:out value="${library.TRACK_TTL}" /></a></td>
 										<td><a href="/detail/artist?gropId=${library.GROP_ID}"><c:out value="${library.NM}" /></a></td>
 										<td><c:out value="${library.PLAY_DT}" /></td>
 										<td onclick='popupPlayer("/player/track?trackId=${library.TRACK_ID}")'><img src="/resources/image/play-button.png" class="play"></td>
-										<td><img src="/resources/image/${library.heart}" class="play"></td>
+										<td><img class="heart" name="${library.TRACK_ID}" src="/resources/image/heart.png">
+										<img class="heart-empty" name="${library.TRACK_ID}" src="/resources/image/heart2.png"></td>
 									</tr>
 								</c:forEach>
 							</table>
@@ -96,17 +98,17 @@
 								</h3>
 							</form>
 						</div>
-							<div class="item-div">
-								<c:forEach items="${likedArtistList}" var="artist" begin="0" end="2">
+							<div class="item-div slide-wrapper">
+								<c:forEach items="${likedArtistList}" var="artist">
 									<table class="basicTable">
 										<tr>
 											<th class="th"></th>
 											<th class="th"></th>
 										</tr>
 										<tr>
-											<td class="td8" colspan="2"><a href="/detail/artist?gropId=${artist.GROP_ID}"><img class="myArtistImg" src="/resources/image/artist/${artist.GROP_IMG}"></a></td>
-										</tr>
-										
+											<td class="td8" colspan="2"><img class="myArtistImg" src="/resources/image/artist/${artist.GROP_IMG}"
+																		onclick= 'location.href="/detail/artist?gropId=${artist.GROP_ID}"'></td>
+										</tr>												
 										<tr>
 											<td><img src="/resources/image/heart.png" class="play"></td>
 											<td style="text-align:left"><a href="/detail/artist?gropId=${artist.GROP_ID}"><c:out value="${artist.NM}" /></a></td>
@@ -125,7 +127,6 @@
 							</form>
 						</div>
 						<div class="item-div">
-
 							<c:forEach items="${likedAlbumList}" var="album" begin="0" end="2">
 								<table class="table">
 									<tr>
@@ -151,7 +152,7 @@
 										<td><img src="/resources/image/heart.png" class="play"></td>
 									</tr>
 								</table>
-							</c:forEach>
+							</c:forEach>							
 						</div>
 					</div>
 
@@ -178,8 +179,12 @@
 									<td><a href="/detail/track?trackId=${track.TRACK_ID}"><c:out value="${track.TRACK_TTL}" /></a></td>
 									<td><a href="/detail/artist?gropId=${track.GROP_ID}"><c:out value="${track.NM}" /></a></td>
 									<td><a href="/detail/album?albumId=${track.ALBUM_ID}"><c:out value="${track.ALBUM_TTL}" /></a></td>
-									<td onclick='popupPlayer("/player/track?trackId=${track.TRACK_ID}")'><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
-									<td><a href="#"><img src="/resources/image/heart.png" class="play"></a></td>
+									<td onclick='popupPlayer("/player/track?trackId=${track.TRACK_ID}")'>
+									<img class="play" src="/resources/image/play-button.png"></td>
+									<td>
+									<img class="heart" name="${track.TRACK_ID}" src="/resources/image/heart.png">
+									<img class="heart-empty" name="${track.TRACK_ID}" src="/resources/image/heart2.png">
+									</td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -193,12 +198,57 @@
 		<div id="rightSideBar"></div>
 	</div>
 	<!--body-->
-	<script>
+	<script type="text/javascript" src="/resources/js/like.js"></script>
+	<script>	
 		let popupPlayer = function(url){
 	        let moveTop=screen.height-440;
 	         let moveLeft=screen.width-537;
 	       window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
 	    }
+
+		$(document).ready(function(){
+			showLikeTrack();
+			likeTrack();
+		});
+		
+		function showLikeTrack(){
+			$(".heart").hide();		
+			<c:forEach items="${likedTrackList}" var="track">
+				$("img[name='${track.TRACK_ID}'][class=heart]").show();
+				$("img[name='${track.TRACK_ID}'][class=heart-empty]").hide();
+			</c:forEach>
+		}
+		
+		function likeTrack(){
+			
+			let trackId = "";
+			let idx = "";
+			
+			// 빨간 하트 누르면 좋아요 테이블에 삭제
+		 	$(document).on("click", ".heart", function(){
+		 		idx = $(".heart").index(this);
+		 		$(".heart:eq(" + idx + ")").hide();
+				$(".heart-empty:eq(" + idx + ")").show();
+				trackId = $(".heart:eq(" + idx + ")").attr("name");
+				likeService.removeLikeTrack(trackId, function(obj){
+					alert(obj);
+				});
+		 	});
+			
+			// 빈 하트 누르면 좋아요 테이블에 추가
+		 	$(document).on("click", ".heart-empty", function(){
+		 		idx = $(".heart-empty").index(this);
+		 		$(".heart:eq(" + idx + ")").show();
+				$(".heart-empty:eq(" + idx + ")").hide();
+				trackId = $(".heart-empty:eq(" + idx + ")").attr("name");
+				likeService.addLikeTrack(trackId, function(obj){
+					alert(obj);
+				});
+		 	});
+			
+		}
+		
+		
 	</script>
 	
 	<%@include file="../includes/footer.jsp" %>
