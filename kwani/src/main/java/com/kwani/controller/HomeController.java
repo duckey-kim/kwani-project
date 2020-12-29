@@ -31,6 +31,8 @@ public class HomeController {
 
 		model.addAttribute("slideImg", HomeService.getSlideImg());
 		model.addAttribute("list", HomeService.getList());
+		
+		model.addAttribute("allPlist", HomeService.getAllList());
 
 		if (session.getAttribute("user") != null) {
 			
@@ -118,9 +120,5 @@ public class HomeController {
 			System.out.println(session.getAttribute("user"));
 		 }
 		
-	}	
-		
-		
-	
-
+	}
 }

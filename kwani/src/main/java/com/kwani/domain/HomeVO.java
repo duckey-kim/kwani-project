@@ -19,4 +19,8 @@ public class HomeVO {
 	
 	private String startDate;
 	private String finishDate;
+	
+	private Integer rcmdPlylstId;
+	private String rcmdPlylstNm;
+	private String rcmdPlylstImg;
 }
