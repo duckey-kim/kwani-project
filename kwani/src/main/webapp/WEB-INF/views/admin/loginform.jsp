@@ -7,8 +7,8 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-6">
-			<div class="paenl-default">
+		<div class="col-md-12">
+			<div class="login -panel paenl-default">
 				<h4>관리자 로그인</h4>
 				<form action="/admin/loginAction" method="POST"
 					onsubmit="return checkInput();">

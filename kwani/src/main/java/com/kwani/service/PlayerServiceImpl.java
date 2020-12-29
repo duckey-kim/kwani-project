@@ -83,7 +83,8 @@ public class PlayerServiceImpl implements PlayerService {
 	}
 	@Override
 	public int mergeHistory(String email, Integer trackId) {
-		
+		log.info("email : "+email);
+		log.info("trackId :"+trackId);
 		return playerMapper.mergeHistory(trackId, email);
 	}
 	
