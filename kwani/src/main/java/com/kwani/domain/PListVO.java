@@ -16,6 +16,7 @@ public class PListVO {
 	private Integer rcmdPlylstId;
 	private String rcmdPlylstNm;
 	private String rcmdPlylstImg;
+	private String rcmdPlylstExplain;
 	
 	private String type;
 	private String genreCd;

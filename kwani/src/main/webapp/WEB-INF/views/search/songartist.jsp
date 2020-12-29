@@ -108,17 +108,17 @@
   text-align: right;
 }    
     
-.dropbtn {
+.dropbtn2 {
   color: black;
   font-size: 16px;
 }
 
-.dropdown {
+.dropdown2 {
   position: relative;
   display: inline-block;
 }
 
-.dropdown-content {
+.dropdown-content2 {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
@@ -127,94 +127,54 @@
   z-index: 1;
 }
 
-.dropdown-content a {
+.dropdown-content2 a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content2 a:hover {background-color: #f1f1f1}
 
-.dropdown:hover .dropdown-content {
+.dropdown2:hover .dropdown-content2 {
   display: block;
 }
 
-.dropdown:hover .dropbtn {
+.dropdown2:hover .dropbtn {
   background-color: #3e8e41;
 }
 </style>
 </head>
-<body>
-    <div id="main">
-        <div id="header">
-            <div id="header_navbar">
-                <div id="musicPlayer">musicPlayer</div>
-                <div id="pageLogo">
-                    <a href="#">Last.fm</a>
-                </div>
-                <div id="navbarUtil"> 
-                    <button class="subnavbtn" onclick="openSearch()">
-                      <i class="fa fa-search"></i></button>
-                    <a href="/">Home</a>
-                    <a href="/recommend/common">Recommend</a>
-                    <a href="#">Find music</a>
-                    <a href="/user/register">Join</a>
-                </div>
-            </div>
-            <div id="myOverlay" class="overlay">
-                <div class="overlay-content">
-                  <form action="/search" method="get" name="searchForm" onsubmit="return checkTxt();">
-                    <input type="text" placeholder="Search.." name="searchTxt" value="">
-                    <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
-                  </form>
-                </div>
-            </div><!--myOverlay-->
-        </div><!--header-->
 
-        
+	<%@include file="../includes/header.jsp" %>
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
                 <div class="searchRst"><p><c:out value="${searchTxt}"/>에 대한 검색 결과</p></div>
                 <div class="rstTap"> 
-                    <%-- <form action="/search" method="get">
-                    	<input type="hidden" value="${searchTxt}" name="searchTxt">
-                        <button type="submit" class="entireBtn">통합검색</button>
-                    </form> --%>
-                    <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
-                    <%-- <form action="/search/artist" method="get">
-                    	<input type="hidden" value="${searchTxt}" name="searchTxt">
-                        <button type="submit" class="artistBtn">아티스트</button>
-                    </form> --%>
-                    <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
                     
-                    <%-- <form action="/search/song" method="get">
-                    	<input type="hidden" value="${searchTxt}" name="searchTxt"> --%>                    
-                     	<div class="dropdown">
-  							<span class="dropbtn">곡</span>
-  								<div class="dropdown-content">
+                    <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
+                
+                    <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
+                                      
+                     	<div class="dropdown2">
+  							<span class="dropbtn2">곡</span>
+  								<div class="dropdown-content2">
  									<a href="/search/songartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/songtitle?searchTxt=${searchTxt}">곡명으로</a>
  								</div>
 						</div>
                     <!-- </form> -->
-                  
-                    <%-- <form action="/search/album" method="get">
-                    	<input type="hidden" value="${searchTxt}" name="searchTxt"> --%>               	                    		
-                     	<div class="dropdown">
-  							<span class="dropbtn">앨범</span>
-  								<div class="dropdown-content">
+                           	                    		
+                     	<div class="dropdown2">
+  							<span class="dropbtn2">앨범</span>
+  								<div class="dropdown-content2">
  									<a href="/search/albumartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/albumtitle?searchTxt=${searchTxt}">앨범명으로</a>
  								</div>
 						</div>                    	
                     <!-- </form> -->
                     
-                    <%-- <form action="/search/lyrics" method="get">
-                    	<input type="hidden" value="${searchTxt}" name="searchTxt">
-                        <button type="submit" class="lyricsBtn">가사</button>
-                    </form> --%>
                     <a href="/search/lyrics?searchTxt=${searchTxt}">가사</a>	
                 </div>
                 
@@ -242,7 +202,8 @@
                         		<c:out value="${searchSong.trackTtl}" /></a></td>
                         	<td><a href="/detail/artist?gropId=<c:out value='${searchSong.gropId}'/>">          
                         		<c:out value="${searchSong.nm}" /></a></td>
-                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
+                        		onclick='popupPlayer("/player/track?trackId=${searchSong.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
                         	<img class="defaultHeartImg"src="/resources/image/heart2.png">
@@ -310,6 +271,13 @@
                     
                 <script>
                 console.log("sessionName : " + '${sessionName}');
+                
+
+                let popupPlayer = function(url){
+                    let moveTop=screen.height-440;
+                     let moveLeft=screen.width-537;
+                   window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+                }
                 
                 //로그인 안되어있을 때 
                 //좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
@@ -513,10 +481,4 @@
                     </div><!--bodyContent-->
             <div id="rightSideBar"></div>
         </div><!--body-->
-        <div id="footer"></div>
-    </div><!--main-->
-</body>
-</html>
-                
-                    
-           
+         <%@include file="../includes/footer.jsp" %>

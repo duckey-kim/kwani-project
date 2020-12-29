@@ -1,11 +1,13 @@
 package com.kwani.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
 import com.kwani.domain.Criteria;
 import com.kwani.domain.PListVO;
+import com.kwani.domain.UserVO;
 import com.kwani.mapper.ListMapper;
 
 import lombok.AllArgsConstructor;
@@ -53,6 +55,15 @@ private ListMapper mapper;
 		log.info("search result......" + searchTxt);
 		
 		return mapper.getSearchRst(searchTxt);
+	}
+	
+	//search 페이지 - 아티스트명으로 앨범 검색한 결과
+	@Override
+	public List<PListVO> getSearchAlbum(String searchTxt){
+		
+		log.info("search album...." + searchTxt);
+		
+		return mapper.getSearchAlbum(searchTxt);
 	}
 	
 	//search 페이지 - 곡명으로 검색한 결과
@@ -207,7 +218,7 @@ private ListMapper mapper;
 	@Override
 	public List<PListVO> getListPlylst(String email){
 		
-		log.info("plylst list......" + email);
+		log.info("plylst list......");
 		
 		return mapper.getListPlylst(email);
 	}
@@ -216,7 +227,7 @@ private ListMapper mapper;
 	@Override
 	public List<PListVO> getLikedTrack(String email){
 		
-		log.info("liked track....." + email);
+		log.info("liked track....." );
 		
 		return mapper.getLikedTrack(email);
 	}
@@ -225,10 +236,43 @@ private ListMapper mapper;
 	@Override
 	public List<PListVO> getLikedArtist(String email){
 			
-		log.info("liked artist....." + email);
+		log.info("liked artist.....");
 			
 		return mapper.getLikedArtist(email);
 	}
 
 	
+	//모달창 - 기존 플레이리스트에 곡 추가
+	@Override
+	public void insertTrackList(Set<Integer> checkedTrackList, Integer plylstId, String email) {
+		
+		Set<Integer> tmpList = checkedTrackList;
+		
+		//우선 중복 없다는 가정하에 플레이리스트에 추가하기
+		for(Integer trackId : tmpList) {
+			mapper.insertTrack(plylstId, trackId);
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

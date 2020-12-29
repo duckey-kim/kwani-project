@@ -26,6 +26,7 @@
  	<result property="rcmdPlylstId" column="rcmd_plylst_id" />
  	<result property="rcmdPlylstNm" column="rcmd_plylst_nm" />
  	<result property="rcmdPlylstImg" column="rcmd_plylst_img" />
+ 	<result property="rcmdPlylstExplain" column="rcmd_plylst_explain" />
  	<result property="rn" column="rn" />
  	<result property="trackCnt" column="track_cnt" />
  	
@@ -35,29 +36,30 @@
   <!-- 플레이리스트 상세 페이지 -->
   <select id="getListName" resultMap="PListResult">
   <![CDATA[
-  select rcmd_plylst_nm, rcmd_plylst_img from t_rcmd_plylst where rcmd_plylst_id = #{plylstId}
+  select rcmd_plylst_nm, rcmd_plylst_img, rcmd_plylst_explain from t_rcmd_plylst where rcmd_plylst_id = #{plylstId}
   ]]>
   </select>
   
   <select id="getListDtl" resultMap="PListResult">
-  select a.nm, t.track_ttl, t.track_id 
-  from t_rcmd_plylst_dtl dtl, t_tracks t, t_artist_tracks at, t_artist a
+  select a.nm, t.track_ttl, t.track_id, a.grop_id, al.album_img
+  from t_rcmd_plylst_dtl dtl, t_tracks t, t_artist_tracks at, t_artist a, t_album al
   where dtl.track_id = t.track_id
   and t.track_id = at.track_id
   and a.grop_id = at.grop_id
+  and t.album_id = al.album_id
   and dtl.plylst_type_id = #{plylstId}
   </select>
   
   <!-- 일반추천 페이지 관련 -->
-    <select id="getAllList" resultMap="PListResult">
+  <select id="getAllList" resultMap="PListResult">
   <![CDATA[
   select rcmd_plylst_id, rcmd_plylst_nm, rcmd_plylst_img from t_rcmd_plylst
   ]]>
-  </select  >
+  </select>
   
   <!-- search 페이지 (가수 이름으로 검색)-->
   <select id="getSearchRst" resultMap="PListResult">
-  	select a.grop_id, a.nm, a.sex, a.type, a.grop_img, al.album_id, al.album_img, al.album_ttl, t.track_id, t.track_ttl, to_char(a.debut_dt, 'yyyy-mm-dd') as debut_dt
+  	select distinct a.grop_id, a.nm, a.sex, a.type, a.grop_img, al.album_id, al.album_img, al.album_ttl, t.track_id, t.track_ttl, to_char(a.debut_dt, 'yyyy-mm-dd') as debut_dt
   	from t_tracks t, t_artist_tracks at, t_artist a, t_album al
 	where t.track_id = at.track_id
 	and at.grop_id = a.grop_id
@@ -77,12 +79,22 @@
   
   <!-- search 페이지 (앨범명으로 검색)-->
   <select id="getSearchRstWithAlbum" resultMap="PListResult">
-  	select a.nm, a.grop_img, al.album_id, al.album_img, al.album_ttl, t.track_ttl, t.track_id, a.grop_id
+  	select distinct a.nm, a.grop_img, al.album_id, al.album_img, al.album_ttl, t.track_ttl, t.track_id, a.grop_id
   	from t_tracks t, t_artist_tracks at, t_artist a, t_album al
 	where t.track_id = at.track_id
 	and at.grop_id = a.grop_id
 	and t.album_id = al.album_id
 	and al.album_ttl like '%'||#{searchTxt}||'%'
+  </select>
+  
+  <!-- search 페이지 (아티스트 이름으로 앨범 검색) -->
+  <select id="getSearchAlbum" resultMap="PListResult">
+  	select distinct a.grop_id, a.nm, al.album_id, al.album_img, al.album_ttl
+  	from t_tracks t, t_artist_tracks at, t_artist a, t_album al
+	where t.track_id = at.track_id
+	and at.grop_id = a.grop_id
+	and t.album_id = al.album_id
+	and a.nm like '%'||#{searchTxt}||'%'
   </select>
  
  <!-- 가사 검색 페이지 -->
@@ -163,7 +175,7 @@
  		from
  		(
  		select /*+index_desc(t_tracks track_id)*/
- 		  rownum rn, a.grop_id, al.album_ttl, al.album_id, al.album_img, a.nm
+ 		  distinct a.grop_id, al.album_ttl, al.album_id, al.album_img, a.nm
  	    from t_tracks t, t_artist_tracks at, t_artist a, t_album al
 		where t.track_id = at.track_id
 		and at.grop_id = a.grop_id
@@ -171,7 +183,7 @@
 		and a.nm like '%'||#{searchTxt}||'%'
  	 	and rownum <= #{cri.pageNum} * #{cri.amount} 
  	    )
- 	    where rn >  (#{cri.pageNum} -1) * #{cri.amount} 
+ 	    where rownum >  (#{cri.pageNum} -1) * #{cri.amount} 
  	]]>
  </select>
   
@@ -182,7 +194,7 @@
  		from
  		(
  		select /*+index_desc(t_tracks track_id)*/
- 		  rownum rn, a.grop_id, al.album_ttl, al.album_id, al.album_img, a.nm
+ 		  distinct a.grop_id, al.album_ttl, al.album_id, al.album_img, a.nm
  	    from t_tracks t, t_artist_tracks at, t_artist a, t_album al
 		where t.track_id = at.track_id
 		and at.grop_id = a.grop_id
@@ -190,7 +202,7 @@
 		and al.album_ttl like '%'||#{searchTxt}||'%'
  	 	and rownum <= #{cri.pageNum} * #{cri.amount} 
  	    )
- 	    where rn >  (#{cri.pageNum} -1) * #{cri.amount} 
+ 	    where rownum >  (#{cri.pageNum} -1) * #{cri.amount} 
  	]]>
  </select>
  
@@ -315,15 +327,7 @@
  </select> 
  
   
- <!-- 로그인 했을 때 필요한 쿼리문들 -->
- <!-- 회원의 플레이리스트 목록 가져오기 -->
- <select id="getListPlylst" resultMap="PListResult">
- 	select nm, plylst_id, plylst_img, track_cnt
-	from t_plylst
-	where email = #{email}
-	order by plylst_id asc
- </select>
-  
+ <!-- 로그인 했을 때 필요한 쿼리문들 -->  
  <!-- 회원이 좋아요 한 곡 가져오기 -->
  <select id="getLikedTrack" resultMap="PListResult">
  	select a.nm, t.track_id, t.track_ttl
@@ -342,6 +346,34 @@
 	and email = #{email}
  </select>
   
-  
+ 
+ <!-- 노래 담기 버튼 눌렀을 때 나오는 모달창 작업들 -->
+ <!-- 회원의 플레이리스트 목록 가져오기 -->
+ <select id="getListPlylst" resultMap="PListResult">
+ 	select nm, plylst_id, plylst_img, track_cnt
+	from t_plylst
+	where email = #{email}
+	order by plylst_id asc
+ </select>
+ 
+ <!-- 기존 플레이리스트에 곡 추가 -->
+ <insert id="insertTrack">
+ 	insert into t_plylst_dtl(plylst_id, track_id)
+ 	values(#{plylstId}, #{trackId})
+ </insert>
+ 
+ 
+ <!-- 새 플레이리스트 만들기 -->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   
   </mapper>

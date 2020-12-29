@@ -26,9 +26,7 @@
 					onclick="currentSlide(3)"></span> <span class="dot"
 					onclick="currentSlide(4)"></span> <span class="dot"
 					onclick="currentSlide(5)"></span> <span class="dot"
-					onclick="currentSlide(6)"></span> <span class="dot"
-					onclick="currentSlide(7)"></span> <span class="dot"
-					onclick="currentSlide(8)"></span>
+					onclick="currentSlide(6)"></span> 
 			</div>
 		</div>
 		<div class="topContentBox">
@@ -83,12 +81,13 @@
 				</div>
 			</div>
 			<div class="slideBox">
-				<c:forEach items="${slideImg}" var="getSlideImg">
+				<c:forEach items="${allPlist}" var="getAllList">
 					<div class="slides fade">
-						<img src="/resources/image/album/${getSlideImg.albumImg}"
+						<img src="/resources/image/rcmdplylst/${getAllList.rcmdPlylstImg}"
 							class="slideBoxImg"
-							onclick="location.href='/detail/album?albumId=${getSlideImg.albumId}'"
+							onclick="location.href='/recommend/plylst?plylstId=${getAllList.rcmdPlylstId}'"
 							alt="">
+						<p class="slidesTxt">${getAllList.rcmdPlylstNm}</p>
 					</div>
 				</c:forEach>
 				<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a
@@ -121,8 +120,10 @@
 								type="hidden" id="finishDate" name="finishDate">
 						</form>
 					</div>
+					<div style="width:10px;"></div>
+					
 					<div class="genreYearImg"
-						style="background-image: url(/resources/image/artist/소녀시대.jpg);">
+						style="background-image: url(/resources/image/artist/아이유.jpg);">
 						<div class="circle red">
 							<div class="year">
 								<div class="yearWrap"></div>
@@ -136,6 +137,7 @@
 							</div>
 						</div>
 					</div>
+					<div style="width:10px"></div>
 					<div class="genreCntBox">
 						<p id="genreName"></p>
 						<input type="hidden" id="inputGenre" name="genreName">
@@ -237,12 +239,17 @@
 <script type="text/javascript">
 	/*---------------------------------------------------------------------------------------------------------------- */
 
-	$("#yearCnt").text("1970s");
+	$("#yearCnt").text("2010s");
 
-	let startDate = "1970"
-	let finishDate = "1979";
-	let genreName = "힙합";
-
+	let startDate = "2010"
+	let finishDate = "2019";
+	let genreName = "댄스";
+	let gropId = "12";
+	
+	$(".genreYearImg").click(function() {
+			location.href = "/detail/artist?gropId=" +gropId
+	});
+	
 	$(".year").on(
 			'click',
 			function() {
@@ -253,44 +260,21 @@
 					let yearCnt = $(".year").css('top');
 					let yearCntPx = parseInt(yearCnt, 10);
 
-					if (yearCntPx >= 0 && yearCntPx <= 40) {
+					if (yearCntPx >= 0 && yearCntPx <= 140) {
 						$("#yearCnt").text("2020s");
 						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 40 && yearCntPx <= 80) {
+					} else if (yearCntPx > 140 && yearCntPx <= 300) {
 						$("#yearCnt").text("2010s");
 						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 80 && yearCntPx <= 120) {
+					} else if (yearCntPx > 300 && yearCntPx <= 440) {
 						$("#yearCnt").text("2000s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 120 && yearCntPx <= 160) {
-						$("#yearCnt").text("1990s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 160 && yearCntPx <= 200) {
-						$("#yearCnt").text("1980s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 200 && yearCntPx <= 240) {
-						$("#yearCnt").text("1970s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 240 && yearCntPx <= 280) {
-						$("#yearCnt").text("1960s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 280 && yearCntPx <= 320) {
-						$("#yearCnt").text("1950s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 320 && yearCntPx <= 360) {
-						$("#yearCnt").text("1940s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 360 && yearCntPx <= 390) {
-						$("#yearCnt").text("1930s");
-						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 390 && yearCntPx <= 440) {
-						$("#yearCnt").text("1920s");
 						$("#yearCnt").css("display", "show");
 					}
 
 				});
-
+				
 				console.log(startDate + "-" + finishDate + "-" + genreName)
+				
 				$.ajax({
 					type : "GET",
 					url : "/homeAjax/" + startDate + "/" + finishDate + "/"
@@ -308,9 +292,7 @@
 								"background-image",
 								"url(/resources/image/artist/"
 										+ data[0].gropImg + ")");
-						$(".genreYearImg").click(function() {
-							location.href = "/detail/artist?gropId=" + data[0].gropId
-						});
+						gropId = data[0].gropId;
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {
 						$(".genreYearImg").css("background-image",
@@ -332,7 +314,7 @@
 
 	/* ------------------------------------------------------------ */
 
-	$("#genreName").text("힙합");
+	$("#genreName").text("댄스");
 
 	$(".genre").on(
 			'click',
@@ -345,43 +327,27 @@
 					let genreCntPx = parseInt(genreCnt, 10);
 					genreName = $("#genreName").text();
 
-					if (genreCntPx >= 0 && genreCntPx <= 40) {
+					if (genreCntPx >= 0 && genreCntPx <= 60) {
 						$("#genreName").text("락");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 40 && genreCntPx <= 80) {
-						$("#genreName").text("메탈");
-						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 80 && genreCntPx <= 120) {
+					} else if (genreCntPx > 60 && genreCntPx <= 130) {
 						$("#genreName").text("발라드");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 120 && genreCntPx <= 160) {
-						$("#genreName").text("랩");
-						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 160 && genreCntPx <= 200) {
+					} else if (genreCntPx > 130 && genreCntPx <= 190) {
 						$("#genreName").text("힙합");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 200 && genreCntPx <= 240) {
+					} else if (genreCntPx > 190 && genreCntPx <= 250) {
 						$("#genreName").text("댄스");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 240 && genreCntPx <= 280) {
-						$("#genreName").text("인디");
-						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 280 && genreCntPx <= 310) {
+					} else if (genreCntPx > 250 && genreCntPx <= 310) {
 						$("#genreName").text("트로트");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 310 && genreCntPx <= 340) {
+					} else if (genreCntPx > 310 && genreCntPx <= 370) {
 						$("#genreName").text("R&B");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 340 && genreCntPx <= 370) {
-						$("#genreName").text("포크");
-						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 370 && genreCntPx <= 400) {
+					} else if (genreCntPx > 370 && genreCntPx <= 440) {
 						$("#genreName").text("OST");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 400 && genreCntPx <= 440) {
-						$("#genreName").text("soul");
-						$("#genreName").css("display", "show");
-						//classic, jazz, blues
 					}
 				});
 				console.log(startDate + "-" + finishDate + "-" + genreName)
@@ -401,15 +367,12 @@
 						console.log(data);
 
 						if (data[0].gropImg != undefined) {
-							/* 아이유 사진을 내가 가져온 사진으로 변경할거다 */
 							$(".genreYearImg").css(
 									"background-image",
 									"url(/resources/image/artist/"
 											+ data[0].gropImg + ")");
 							
-							$(".genreYearImg").click(function() {
-								location.href = "/detail/artist?gropId=" + data[0].gropId
-							});
+							gropId = data[0].gropId
 						}
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {
