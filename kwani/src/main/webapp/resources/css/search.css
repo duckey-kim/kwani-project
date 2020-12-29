@@ -102,12 +102,13 @@
     height: auto;
     overflow: hidden;
     background-color: white;    
-	justify-content: space-between;
+	justify-content: flex-start;
 	margin-bottom: 50px;
 }
 .eachAlbum{
 	width: 20%;
 	height: 300px;
+	margin-right: 15px;
 }
 .albumImg{
 	width: 100%;

@@ -29,15 +29,19 @@ public class PListAjaxController {
 
 	private PListService plistService;
 	
-	//회원 플레이리스트 목록 보여주기
-	@GetMapping(value = "/userList", 
-			produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity <List<PListVO>> getListPlylst(@PathVariable("email") String email){
-		System.out.println("email: " + email);
-		
-		return new ResponseEntity<>(plistService.getListPlylst(email), HttpStatus.OK);
-
-	}
+	/*
+	 * //회원 플레이리스트 목록 보여주기
+	 * 
+	 * @GetMapping(value = "/userList", produces = {MediaType.APPLICATION_XML_VALUE,
+	 * MediaType.APPLICATION_JSON_UTF8_VALUE}) public ResponseEntity <List<PListVO>>
+	 * getListPlylst(@PathVariable("email") String email){
+	 * System.out.println("email: " + email);
+	 * 
+	 * return new ResponseEntity<>(plistService.getListPlylst(email),
+	 * HttpStatus.OK);
+	 * 
+	 * }
+	 */
 	
 	/*
 	 * //플레이리스트 곡 추가
