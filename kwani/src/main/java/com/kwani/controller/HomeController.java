@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import com.kwani.domain.UserVO;
 import com.kwani.service.HomeService;
 import com.kwani.service.PListService;
 import com.kwani.service.UserService;
@@ -21,7 +22,6 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class HomeController {
 
-	private UserService service;
 	private PListService plservice;
 
 	private HomeService HomeService;
@@ -32,17 +32,18 @@ public class HomeController {
 		model.addAttribute("slideImg", HomeService.getSlideImg());
 		model.addAttribute("list", HomeService.getList());
 
-		if (session.getAttribute("userEmail") != null) {
-			String userNick = service.get((String) session.getAttribute("userEmail")).getNick();
-
-			System.out.println("userNick : " + userNick);
+		if (session.getAttribute("user") != null) {
+			
+			UserVO user = (UserVO) session.getAttribute("user");
+			System.out.println("userNick : " + user.getNick());
+			
 
 			// 1-1. 세션값과 회원의 닉네임을 home으로 전달한다.
-			model.addAttribute("sessionName", session.getAttribute("userEmail"));
-			model.addAttribute("userNick", userNick);
+			model.addAttribute("sessionName", session.getAttribute("user"));
+			model.addAttribute("userNick", user.getNick());
 		}
 
-		System.out.println("sessionName : " + session.getAttribute("userEmail"));
+		System.out.println("sessionName : " + session.getAttribute("user"));
 
 		Calendar calendar = Calendar.getInstance();
 

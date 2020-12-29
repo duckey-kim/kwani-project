@@ -22,25 +22,27 @@
 
    <select id="getList" resultMap="HomeResult">
       <![CDATA[
+      select * from (
       select distinct t_artist.nm, t_album.album_img,
       t_album.album_ttl, t_artist.grop_id, t_album.album_id
       from t_artist_tracks, t_artist, t_tracks, t_album
       where t_artist.grop_id = t_artist_tracks.grop_id
       and t_artist_tracks.track_id = t_tracks.track_id
       and t_album.album_id = t_tracks.album_id
-      and rownum <= 6
-      order by DBMS_RANDOM.VALUE
+      order by DBMS_RANDOM.RANDOM)
+      where rownum <= 6
       ]]>
    </select>
 
 
    <select id="getSlideImg" resultMap="HomeResult">
       <![CDATA[
+   	  select * from (
       select distinct al.album_img, al.album_id, a.debut_dt
-       from t_album al, t_artist a
-       where a.debut_dt >= to_date('2000-01-01', 'yyyy-mm-dd') and a.debut_dt < to_date('2010-12-31', 'yyyy-mm-dd')
-       and rownum <= 8
-        order by DBMS_RANDOM.VALUE
+      from t_album al, t_artist a
+      where a.debut_dt >= to_date('2000-01-01', 'yyyy-mm-dd') and a.debut_dt < to_date('2020-12-31', 'yyyy-mm-dd')
+      order by DBMS_RANDOM.RANDOM)
+      where rownum <= 6
       ]]>
    </select>
 
@@ -55,7 +57,7 @@
       and at.track_id = t.track_id
       and c.cd_no = t.genre_cd
       and c.cd_nm = #{genreName}
-      order by DBMS_RANDOM.VALUE
+      order by DBMS_RANDOM.RANDOM
       ]]>
    </select>
 

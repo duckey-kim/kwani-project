@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,15 +26,44 @@ import lombok.extern.log4j.Log4j;
 @RestController
 @Log4j
 @AllArgsConstructor
-public class MyPageAjaxController {
+public class MyPageRestController {
 
 	private MyPageService myPageService;
 
+	// 좋아요 곡 삭제
+	@PostMapping(value="/liketrack/remove", produces = {"text/plane"})
+	public String removeLikeTrack(@RequestBody String trackId, HttpSession session, Model model) {
+		
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+		
+		Integer trackIdValue = Integer.parseInt(trackId);
+		
+		int result = myPageService.removeLikeTrack(trackIdValue, email);
+		
+		return result == 1? "SUCCESS" : "FAIL";
+	}
+	
+	// 좋아요 곡 추가
+	@PostMapping(value="/addliketrack", produces = {"text/plane"})
+	public String addLikeTrack(@RequestBody String trackId, HttpSession session, Model model) {
+		
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+		
+		Integer trackIdValue = Integer.parseInt(trackId);
+		
+		int result = myPageService.addLikeTrack(trackIdValue, email);
+		
+		return result == 1? "SUCCESS" : "FAIL";
+	}
+	
 	// 최근들은 곡 목록 가져오기
 	@GetMapping(value = "/libraryList", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public String getLibraryList(HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 
 		Gson gson = new Gson();
 		String data = gson.toJson(myPageService.getListLibrary(email));
@@ -45,7 +75,8 @@ public class MyPageAjaxController {
 	@GetMapping(value = "/likeList", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public String getLikeTrackList(HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 
 		Gson gson = new Gson();
 		String data = gson.toJson(myPageService.getListLikedTrack(email));
@@ -57,11 +88,9 @@ public class MyPageAjaxController {
 	@PostMapping(value = "/playlist/inserttrack" , produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public String insertTrack(@RequestParam(value = "trackList[]") Set<Integer> trackList, @RequestParam Integer plylstId, HttpSession session) {
 		
-		System.out.println(trackList);
-		System.out.println(plylstId);
-		
-		String email = (String)session.getAttribute("userEmail");
-		
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+				
 		Gson gson = new Gson();
 		String result = gson.toJson("FAILED");
 		
@@ -69,6 +98,7 @@ public class MyPageAjaxController {
 			myPageService.insertTrackList(trackList, plylstId, email);
 			
 			List<Map<String,String>> playlist = myPageService.getListPlaylistDetail(plylstId, email);
+			//TODO: null check
 			String trackId = String.valueOf(playlist.get(0).get("TRACK_ID"));
 			myPageService.modifyPlaylistImg(plylstId, Integer.parseInt(trackId));
 			result = gson.toJson(playlist);
@@ -80,7 +110,8 @@ public class MyPageAjaxController {
 	@PostMapping(value = "/playlist/deletetrack", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public String deleteTrack(@RequestParam(value = "trackList[]") Set<Integer> trackList, @RequestParam(value = "plylstId") Integer plylstId, HttpSession session) {
 
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 		
 		Gson gson = new Gson();
 		String result = gson.toJson("FAIL");
@@ -94,6 +125,7 @@ public class MyPageAjaxController {
 					myPageService.modifyPlaylistBasicImg(plylstId);
 					return gson.toJson("EMPTY");
 				}
+				//TODO: null check
 				String firstTrackId = String.valueOf(playlist.get(0).get("TRACK_ID"));	
 				myPageService.modifyPlaylistImg(plylstId, Integer.parseInt(firstTrackId));
 					result = gson.toJson(playlist);

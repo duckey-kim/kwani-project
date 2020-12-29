@@ -47,7 +47,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void socialRegister(UserVO user) {
 		log.info("social API로 회원의 정보를 등록한다." + user);
-		System.out.println("@@@@@@@@@@@");
 		mapper.socialRegister(user);
 	}
 
@@ -131,7 +130,7 @@ public class UserServiceImpl implements UserService {
 	public boolean checkSession(HttpSession session, Model model) {
 		// 로그인하지 않은 사용자의 접근을 차단한다.
 
-		if (session.getAttribute("userEmail") != null)
+		if (session.getAttribute("user") != null)
 			return true;
 		else {
 			String msg = "로그인 후 이용하실 수 있습니다.";
@@ -184,12 +183,12 @@ public class UserServiceImpl implements UserService {
 	public void cookieSession(String email, String checked, HttpServletRequest request, HttpServletResponse response) {
 
 		Cookie ck = null;
-		String userEmail = mapper.get(email).getEmail();
+		UserVO user = mapper.get(email);
 		// 정보가 일치하면 쿠키를 생성한다.
 		// 만약 checked가 on이면,
 		if (("on").equals(checked)) {
 			// 쿠키를 추가한다.
-			ck = new Cookie("cookie", userEmail);
+			ck = new Cookie("cookie", user.getEmail());
 			response.addCookie(ck);
 			ck.setMaxAge(10);
 			System.out.println("cookieName : " + ck.getName());
@@ -197,8 +196,8 @@ public class UserServiceImpl implements UserService {
 		}
 		// 로그인을 성공하면 session을 생성한다.
 		HttpSession session = request.getSession();
-		session.setAttribute("userEmail", userEmail);
-		System.out.println("세션을 생성합니다 : " + session.getAttribute("userEmail"));
+		session.setAttribute("user", user);
+		System.out.println("user : " + user);
 		System.out.println("로그인 성공!!");
 
 	}

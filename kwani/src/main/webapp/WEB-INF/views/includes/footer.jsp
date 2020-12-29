@@ -42,12 +42,12 @@
 <script type="text/javascript">
 
 	//세션값이 잘 넘어왔는지 확인한다.
-	console.log('${sessionName}');
+	console.log('${user}');
 	console.log('${userNick}');
-	console.log('${list}');
-	console.log('${slideImg}');
-
-
+	console.log('${prevPath}');
+	
+	
+	let loginBtn = document.getElementById("loginBtn");
 	let logoutBtn = document.getElementById("logoutBtn");
 	let toMypageBtn = document.getElementById("toMypageBtn");
 	let joinBtn = document.getElementById("joinBtn");
@@ -55,8 +55,9 @@
 
 	//세션이 있으면 loginBtn을 없애고, logoutBtn, toMypageBtn, welcomeBtn을 보이게 한다.
 
-	if ('${sessionName}' != "") {
+	if ('${user}' != "") {
 		joinBtn.style.display = "none";
+		loginBtn.style.display = "none";
 		logoutBtn.style.display = "block";
 		toMypageBtn.style.display = "block";
 	}
