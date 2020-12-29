@@ -109,8 +109,8 @@
 	<!--입력 ALBUM -->
 	<insert id="insertAlbum">
 		insert into t_album
-		(album_id,album_ttl,rles_dt,album_img,up_user,up_date,stus_cd,in_user,in_date,up_user,up_date)
-		values(seq_album.nextval,#{album.albumTtl},#{album.rlesDt},#{album.albumImg},#{upUser},sysdate,#{album.stusCd},#{upUser},sysdate,#{upUser},sysdate)
+		(album_id,album_ttl,rles_dt,album_img,up_user,up_date,stus_cd,in_user,in_date)
+		values(seq_album.nextval,#{album.albumTtl},#{album.rlesDt},#{album.albumImg},#{upUser},sysdate,#{album.stusCd},#{upUser},sysdate)
 	</insert>
 
 

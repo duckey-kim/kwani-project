@@ -55,9 +55,13 @@ public class HomeController {
 	}
 
 	@GetMapping("/recommend")
-	public String moveToRcmd() {
-		
-		return "redirect:/recommend/common";
+	public String moveToRcmd(HttpSession session) {
+		UserVO user = (UserVO)session.getAttribute("user");
+		String path = "/common";
+		if(user!=null) {
+			path="/member";
+		}
+		return "redirect:/recommend"+path;
 	}
 
 	@GetMapping("/admin")

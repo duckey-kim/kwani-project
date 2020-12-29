@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>home</title>
+<title>Recommend User</title>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet"
@@ -21,6 +21,24 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/plylstDetail.css">
 <style type="text/css">
+a:link {
+  color: black;
+}
+
+/* visited link */
+a:visited {
+  color: black;
+}
+
+/* mouse over link */
+a:hover {
+  color: black;
+}
+
+/* selected link */
+a:active {
+  color: black;
+}
 .modal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
@@ -135,7 +153,7 @@
 	<div id="leftSideBar"></div>
 	<div id="bodyContent">
 		<div id="plylstInfo">
-			<h1>${user.nick}님이많이들은 장르 곡 추천</h1>
+			<h1>${user.nick} 장르 추천</h1>
 		</div>
 		<!--plylstInfo-->
 
@@ -143,14 +161,14 @@
 			<h2>Tracks</h2>
 		</div>
 		<div id="plylstBtn">
-			<button class="button"
-				onclick='popupPlayer("/player/track?trackId=${plistListDtl[0].trackId}")'>듣기</button>
-			<button class="button" id="plusPlylstBtn">담기</button>
+			<button class="button" id="playButton-one"
+				>듣기</button>
+			<button class="button" id="plusPlylstBtn-one">담기</button>
 		</div>
 		<div id="plylstTable">
 			<table>
 				<tr>
-					<th class="th0"><input type="checkbox" name="checkAll"
+					<th class="th0"><input type="checkbox" name="checkAll-one"
 						class="checkAll"></th>
 					<th class="th1">번호</th>
 					<th class="th2">가수</th>
@@ -162,11 +180,11 @@
 				<c:forEach items="${genreList}" var="genreList" varStatus="status"
 					begin="0" end="19">
 					<tr>
-						<th><input type="checkbox" name="checkRow"></th>
+						<th><input type="checkbox" name="checkRow-one" value="${genreList.TRACK_ID }"></th>
 						<td class="num">${status.index+1}</td>
-						<td><c:out value="${genreList.NM}" /></td>
-						<td><c:out value="${genreList.TRACK_TTL}" /></td>
-						<td class="btnParent"><img class="playBtn"
+						<td><a href="/detail/artist?gropId=${genreList.GROP_ID }"><c:out value="${genreList.NM}" /></a></td>
+						<td><a href="/detail/track?trackId=${genreList.TRACK_ID }"><c:out value="${genreList.TRACK_TTL}" /></a></td>
+						<td class="btnParent"><img class="playBtn"  onclick='popupPlayer("/player/track?trackId=${genreList.TRACK_ID}")'
 							src="/resources/image/play-button.png"></td>
 						<td>
 							<div class="heartParent">
@@ -185,21 +203,20 @@
 
 
 		<div id="plylstInfo">
-			<h1>${user.nick}님이많이 들은 테마장르 추천</h1>
+			<h1>${user.nick} 테마장르 추천</h1>
 		</div>
 
 		<div id="tracks">
 			<h2>Tracks</h2>
 		</div>
 		<div id="plylstBtn">
-			<button class="button"
-				onclick='popupPlayer("/player/track?trackId=${plistListDtl[0].trackId}")'>듣기</button>
-			<button class="button" id="plusPlylstBtn">담기</button>
+			<button class="button" id="playButton-two">듣기</button>
+			<button class="button" id="plusPlylstBtn-two">담기</button>
 		</div>
 		<div id="plylstTable">
 			<table>
 				<tr>
-					<th class="th0"><input type="checkbox" name="checkAll"
+					<th class="th0"><input type="checkbox" name="checkAll-two"
 						class="checkAll"></th>
 					<th class="th1">번호</th>
 					<th class="th2">가수</th>
@@ -211,11 +228,11 @@
 				<c:forEach items="${typeList}" var="typeList" varStatus="status"
 					begin="0" end="19">
 					<tr>
-						<th><input type="checkbox" name="checkRow"></th>
+						<th><input type="checkbox" name="checkRow-two" value="${typeList.TRACK_ID }"></th>
 						<td class="num">${status.index+1}</td>
-						<td><c:out value="${typeList.NM}" /></td>
-						<td><c:out value="${typeList.TRACK_TTL}" /></td>
-						<td class="btnParent"><img class="playBtn"
+						<td><a href="/detail/artist?gropId=${typeList.GROP_ID}"><c:out value="${typeList.NM}" /></a></td>
+						<td><a href="/detail/track?trackId=${typeList.TRACK_ID }"><c:out value="${typeList.TRACK_TTL}" /></a></td>
+						<td class="btnParent"><img class="playBtn" onclick='popupPlayer("/player/track?trackId=${typeList.TRACK_ID}")'
 							src="/resources/image/play-button.png"></td>
 						<td>
 							<div class="heartParent">
@@ -284,7 +301,7 @@
 
 
 		<script>
-                console.log("sessionName : " + '${sessionName}');
+                console.log("user : " + '${user}');
 
                 let popupPlayer = function(url){
                     let moveTop=screen.height-440;
@@ -294,33 +311,14 @@
 
                 //로그인 안되어있을 때
                 //좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
-                function sessionCheck(){
-
-                	console.log("sessionCheck 실행");
-                	console.log("sessionName : " + '${sessionName}');
-
-                	if('${sessionName}' == ''){
-
-                		console.log("로그인 안되어있어");
-                		moveToLogin();
-                		return
-
-                    }
-                	else{
-                		return true;
-                	}
-                }
-
-                function moveToLogin(){
-                	console.log("go login")
-                	window.location = "/user/login";
-                }
+                
 
 
                 //모달창 --------------------------------------------------------------------------
                 let modal = document.getElementById("myModal");
 
-                let btn = document.getElementById("plusPlylstBtn");
+                let btnOne = document.getElementById("plusPlylstBtn-one");
+                let btnTwo = document.getElementById("plusPlylstBtn-two");
 
                 let span = document.getElementsByClassName("close")[0];
 
@@ -329,9 +327,7 @@
                 	//doCheck()를 실행해서
                 	//체크박스에 체크가 하나도 안되어 있다면 경고창 나오게 하고
                 	//체크박스에 하나 이상 체크가 되어 있다면 모달창을 보여준다
-                	if(sessionCheck()){
-                		doCheck();
-                	};
+                	doCheck(one);
                 }
 
                 span.onclick = function(){
@@ -380,12 +376,12 @@
 				})
 
  				//체크박스에 하나도 체크 안되어 있으면 담기 버튼 눌렀을 때 경고창 나오게 하기--------------------------------
- 				function doCheck(){
+ 				function doCheck(str){
 
  					console.log("hi");
 
  					//체크된 체크박스 길이 가져오기
- 	                checkedLength = $("[name=checkRow]:checked").length;
+ 	                checkedLength = $("[name=checkRow-"+str+"]:checked").length;
 
  	                console.log(checkedLength);
 

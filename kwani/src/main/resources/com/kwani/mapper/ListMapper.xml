@@ -379,7 +379,7 @@
 
 	<select id="recommendGenre" resultMap="selectMap">
 		select * from(
-		select DISTINCT t.track_id,t.track_ttl,t.genre_cd,a.nm
+		select DISTINCT t.track_id,t.track_ttl,t.genre_cd,a.nm,a.grop_id
 		from t_tracks
 		t,t_artist_tracks at,t_artist a,t_code cd
 		where at.track_id=t.track_id
@@ -404,7 +404,7 @@
 
 	<select id="recommendType" resultMap="selectMap">
 		select * from(
-		select DISTINCT t.track_id,t.track_ttl,t.genre_cd,a.nm
+		select DISTINCT t.track_id,t.track_ttl,t.genre_cd,a.nm,a.grop_id
 		from t_tracks
 		t,t_artist_tracks at,t_artist a,t_code cd
 		where at.track_id=t.track_id

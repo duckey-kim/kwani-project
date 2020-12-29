@@ -317,7 +317,7 @@ public class AdminController {
 			try {
 				tableService.saveImgFile(ALBUM_PATH, fileName, imgFile);
 				if (tableService.updateAlbum(album, upUser, rttr)) {
-					path = "/modify";
+					path = "/home";
 				}
 			} catch (Exception e) {
 				rttr.addFlashAttribute("msg", e.getMessage());
