@@ -82,11 +82,11 @@ public interface PListService {
 
 	
 	//덕환
-	public int getUserLikeGenre(HttpSession session, int i);
+	public int getUserLikeGenre(String email, int i);
 
 	public List<Map<String, String>> recommendGenre(int genreCode);
 
-	public int getUserLikeType(HttpSession session, int i);
+	public int getUserLikeType(String email, int i);
 
 	public List<Map<String, String>> recommendType(int typeCode);
 	

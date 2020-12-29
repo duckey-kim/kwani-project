@@ -105,7 +105,7 @@ public interface TableService {
 
 	public void saveImgFile(String uploadFolder, String fileName, MultipartFile imgFile) throws IllegalStateException, IOException;
 
-	public List<Map<String, String>> getGenreCount();
+	public Map<Integer,Integer> getGenreCount();
 
 	public List<Map<String, String>> getPlayCount();
 

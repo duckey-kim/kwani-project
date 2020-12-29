@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kwani.domain.UserVO;
 import com.kwani.service.PListService;
 import com.kwani.service.UserService;
 
@@ -77,11 +78,14 @@ public class PListController {
 	
 	@GetMapping("/member")
 	public void memberRecommend(HttpSession session,Model model) {
-		int genreCode = plservice.getUserLikeGenre(session,100);
-		int typeCode = plservice.getUserLikeType(session,200);
+		UserVO user= (UserVO)session.getAttribute("user");
+		String email=user.getEmail();
+		int genreCode = plservice.getUserLikeGenre(email,100);
+		int typeCode = plservice.getUserLikeType(email,200);
+		System.out.println("genreCd  :"+genreCode);
+		System.out.println("typeCd  :"+typeCode);
 		List<Map<String,String>> listByGenre =plservice.recommendGenre(genreCode);
 		List<Map<String,String>> listByType = plservice.recommendType(typeCode);
-		
 		model.addAttribute("genreList",listByGenre);
 		model.addAttribute("typeList",listByType);
 	}

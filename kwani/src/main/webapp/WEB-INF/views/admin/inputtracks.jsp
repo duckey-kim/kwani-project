@@ -111,7 +111,7 @@
 								</td>
 
 								<td>
-											${Integer.parseInt(code.CODENO)}
+											${code.CODENO}
 
 								</td>
 							</tr>

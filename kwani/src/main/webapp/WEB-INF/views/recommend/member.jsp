@@ -16,7 +16,6 @@
 	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="https://icono-49d6.kxcdn.com/icono.min.css">
-<script defer src="/resources/js/index.js"></script>
 <script src="/resources/js/jquery-3.5.1.js" /></script>
 
 <link rel="stylesheet" type="text/css"
@@ -121,6 +120,11 @@
 	align-items: center;
 	text-align: right;
 }
+#plylstInfo{
+   
+    height: 100px;
+    margin-top: 50px;
+}
 </style>
 
 </head>
@@ -131,14 +135,9 @@
 	<div id="leftSideBar"></div>
 	<div id="bodyContent">
 		<div id="plylstInfo">
-			<h1>${user.nick}님이많이 들은 장르 곡 추천</h1>
-			<br>
-
-			<div id="plylstInfoContainer">
-				<div class="plylstInfoImg"></div>
-			</div>
-			<!--plylstInfo-->
+			<h1>${user.nick}님이많이들은 장르 곡 추천</h1>
 		</div>
+		<!--plylstInfo-->
 
 		<div id="tracks">
 			<h2>Tracks</h2>
@@ -185,49 +184,53 @@
 		</div>
 
 
-		<div id="plylstInfo"><h1>${user.nick}님이 많이 들은 장르 곡 추천</h1><br>
+		<div id="plylstInfo">
+			<h1>${user.nick}님이많이 들은 테마장르 추천</h1>
+		</div>
 
-            <div id="plylstInfoContainer">
-            	<div class="plylstInfoImg">
-            	</div>
-                </div><!--plylstInfo-->
-           </div>
+		<div id="tracks">
+			<h2>Tracks</h2>
+		</div>
+		<div id="plylstBtn">
+			<button class="button"
+				onclick='popupPlayer("/player/track?trackId=${plistListDtl[0].trackId}")'>듣기</button>
+			<button class="button" id="plusPlylstBtn">담기</button>
+		</div>
+		<div id="plylstTable">
+			<table>
+				<tr>
+					<th class="th0"><input type="checkbox" name="checkAll"
+						class="checkAll"></th>
+					<th class="th1">번호</th>
+					<th class="th2">가수</th>
+					<th class="th3">제목</th>
+					<th class="th4">듣기</th>
+					<th class="th4">좋아요</th>
+				</tr>
 
-                <div id="tracks"><h2>Tracks</h2></div>
-                <div id="plylstBtn">
-                    <button class="button" onclick='popupPlayer("/player/track?trackId=${plistListDtl[0].trackId}")'>듣기</button>
-                    <button class="button" id="plusPlylstBtn" >담기</button>
-                </div>
-                    <div id="plylstTable">
-                    <table>
-                        <tr>
-                        <th class="th0"><input type="checkbox" name="checkAll" class="checkAll"></th>
-                        <th class="th1">번호</th>
-                        <th class="th2">가수</th>
-                        <th class="th3">제목</th>
-                        <th class="th4">듣기</th>
-                        <th class="th4">좋아요</th>
-                        </tr>
+				<c:forEach items="${typeList}" var="typeList" varStatus="status"
+					begin="0" end="19">
+					<tr>
+						<th><input type="checkbox" name="checkRow"></th>
+						<td class="num">${status.index+1}</td>
+						<td><c:out value="${typeList.NM}" /></td>
+						<td><c:out value="${typeList.TRACK_TTL}" /></td>
+						<td class="btnParent"><img class="playBtn"
+							src="/resources/image/play-button.png"></td>
+						<td>
+							<div class="heartParent">
+								<img class="defaultHeartImg" name="${typeList.TRACK_ID}"
+									src="/resources/image/heart2.png" onclick="sessionCheck()">
+								<img class="redHeartImg" name="${typeList.TRACK_ID}"
+									src="/resources/image/heart.png">
+							</div>
+						</td>
 
-                        <c:forEach items="${genreList}" var="genreList" varStatus="status" begin="0" end="19">
-                        <tr>
-                        <th><input type="checkbox" name="checkRow"></th>
-                        <td class="num">${status.index+1}</td>
-                        <td><c:out value="${genreList.NM}" /></td>
-                        <td><c:out value="${genreList.TRACK_TTL}" /></td>
-                        <td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
-                        <td>
-                        <div class="heartParent">
-                        <img class="defaultHeartImg" name="${genreList.TRACK_ID}" src="/resources/image/heart2.png" onclick="sessionCheck()">
-                        <img class="redHeartImg" name="${genreList.TRACK_ID}" src="/resources/image/heart.png">
-                        </div>
-                        </td>
+					</tr>
+				</c:forEach>
 
-                        </tr>
-                        </c:forEach>
-
-                        </table>
-                    </div>
+			</table>
+		</div>
 
 
 

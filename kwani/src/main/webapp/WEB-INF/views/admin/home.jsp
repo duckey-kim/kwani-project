@@ -20,8 +20,14 @@
 	function drawChart() {
 
 		let genreData = google.visualization.arrayToDataTable([ [ '노래', '갯수' ],
-				[ '힙합', genreCountList[0].COUNT ],
-				[ '발라드', genreCountList[1].COUNT ], [ '락', 5 ], [ '댄스', 5 ] ]);
+				[ '락', genreCountList[1]],
+				[ '발라드', genreCountList[2]],
+				[ '힙합', genreCountList[4]],
+				[ '댄스', genreCountList[8]],
+				[ '트로트', genreCountList[16]],
+				[ 'R&B', genreCountList[32]],
+				[ 'OST', genreCountList[64]],
+				[ '발라드', genreCountList[2]]  ]);
 		let playData = google.visualization.arrayToDataTable([
 				[ '일자', '플레이 횟수', {
 					role : 'style'

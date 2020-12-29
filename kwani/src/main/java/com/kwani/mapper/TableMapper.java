@@ -86,6 +86,8 @@ public interface TableMapper {
 
 	public List<Map<String,String>> recommendType(Integer typeCd);
 	
+	public List<Integer> getTracksGenreCode();
+	
 	
 	
 	

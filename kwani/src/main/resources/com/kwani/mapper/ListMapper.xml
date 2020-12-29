@@ -2,108 +2,114 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.kwani.mapper.ListMapper">
-  
-   <resultMap type="com.kwani.domain.PListVO" id="PListResult">
- 	<result property="trackId" column="track_id" />
- 	<result property="nm" column="nm" />
- 	<result property="trackTtl" column="track_ttl" />
- 	<result property="plylstId" column="plylst_id" />
- 	<result property="plylstNm" column="plylst_nm" />
- 	<result property="plylstImg" column="plylst_img" />
- 	
- 	<result property="type" column="type" />
- 	<result property="genreCd" column="genre_cd" />
- 	<result property="debutDt" column="debut_dt" />
- 	<result property="albumTtl" column="album_ttl" />
- 	<result property="imgPath" column="img_path" />
- 	<result property="sex" column="sex" />
- 	<result property="albumId" column="album_id" />
- 	<result property="gropId" column="grop_id" />
- 	<result property="albumImg" column="album_img" />
- 	<result property="gropImg" column="grop_img" />
- 	<result property="trackLyrics" column="track_lyrics" />
- 	<result property="rcmdPlylstId" column="rcmd_plylst_id" />
- 	<result property="rcmdPlylstNm" column="rcmd_plylst_nm" />
- 	<result property="rcmdPlylstImg" column="rcmd_plylst_img" />
- 	<result property="rn" column="rn" />
- 	<result property="trackCnt" column="track_cnt" />
- 	
- </resultMap>
- 
- 
-  <!-- 플레이리스트 상세 페이지 -->
-  <select id="getListName" resultMap="PListResult">
+<mapper namespace="com.kwani.mapper.ListMapper">
+
+	<resultMap type="com.kwani.domain.PListVO" id="PListResult">
+		<result property="trackId" column="track_id" />
+		<result property="nm" column="nm" />
+		<result property="trackTtl" column="track_ttl" />
+		<result property="plylstId" column="plylst_id" />
+		<result property="plylstNm" column="plylst_nm" />
+		<result property="plylstImg" column="plylst_img" />
+
+		<result property="type" column="type" />
+		<result property="genreCd" column="genre_cd" />
+		<result property="debutDt" column="debut_dt" />
+		<result property="albumTtl" column="album_ttl" />
+		<result property="imgPath" column="img_path" />
+		<result property="sex" column="sex" />
+		<result property="albumId" column="album_id" />
+		<result property="gropId" column="grop_id" />
+		<result property="albumImg" column="album_img" />
+		<result property="gropImg" column="grop_img" />
+		<result property="trackLyrics" column="track_lyrics" />
+		<result property="rcmdPlylstId" column="rcmd_plylst_id" />
+		<result property="rcmdPlylstNm" column="rcmd_plylst_nm" />
+		<result property="rcmdPlylstImg" column="rcmd_plylst_img" />
+		<result property="rn" column="rn" />
+		<result property="trackCnt" column="track_cnt" />
+
+	</resultMap>
+
+
+	<!-- 플레이리스트 상세 페이지 -->
+	<select id="getListName" resultMap="PListResult">
   <![CDATA[
   select rcmd_plylst_nm, rcmd_plylst_img from t_rcmd_plylst where rcmd_plylst_id = #{plylstId}
   ]]>
-  </select>
-  
-  <select id="getListDtl" resultMap="PListResult">
-  select a.nm, t.track_ttl, t.track_id 
-  from t_rcmd_plylst_dtl dtl, t_tracks t, t_artist_tracks at, t_artist a
-  where dtl.track_id = t.track_id
-  and t.track_id = at.track_id
-  and a.grop_id = at.grop_id
-  and dtl.plylst_type_id = #{plylstId}
-  </select>
-  
-  <!-- 일반추천 페이지 관련 -->
-    <select id="getAllList" resultMap="PListResult">
+	</select>
+
+	<select id="getListDtl" resultMap="PListResult">
+		select a.nm, t.track_ttl, t.track_id
+		from t_rcmd_plylst_dtl dtl, t_tracks t, t_artist_tracks at, t_artist a
+		where dtl.track_id = t.track_id
+		and t.track_id = at.track_id
+		and a.grop_id = at.grop_id
+		and dtl.plylst_type_id = #{plylstId}
+	</select>
+
+	<!-- 일반추천 페이지 관련 -->
+	<select id="getAllList" resultMap="PListResult">
   <![CDATA[
   select rcmd_plylst_id, rcmd_plylst_nm, rcmd_plylst_img from t_rcmd_plylst
   ]]>
-  </select  >
-  
-  <!-- search 페이지 (가수 이름으로 검색)-->
-  <select id="getSearchRst" resultMap="PListResult">
-  	select a.grop_id, a.nm, a.sex, a.type, a.grop_img, al.album_id, al.album_img, al.album_ttl, t.track_id, t.track_ttl, to_char(a.debut_dt, 'yyyy-mm-dd') as debut_dt
-  	from t_tracks t, t_artist_tracks at, t_artist a, t_album al
-	where t.track_id = at.track_id
-	and at.grop_id = a.grop_id
-	and t.album_id = al.album_id
-	and a.nm like '%'||#{searchTxt}||'%'
-  </select>
-  
-  <!-- search 페이지 (곡명으로 검색)-->
-  <select id="getSearchRstWithSong" resultMap="PListResult">
-  	select a.grop_id, a.nm, a.grop_img, al.album_img, al.album_ttl, t.track_ttl, t.track_id, a.grop_id
-  	from t_tracks t, t_artist_tracks at, t_artist a, t_album al
-	where t.track_id = at.track_id
-	and at.grop_id = a.grop_id
-	and t.album_id = al.album_id
-	and t.track_ttl like '%'||#{searchTxt}||'%'
-  </select>
-  
-  <!-- search 페이지 (앨범명으로 검색)-->
-  <select id="getSearchRstWithAlbum" resultMap="PListResult">
-  	select a.nm, a.grop_img, al.album_id, al.album_img, al.album_ttl, t.track_ttl, t.track_id, a.grop_id
-  	from t_tracks t, t_artist_tracks at, t_artist a, t_album al
-	where t.track_id = at.track_id
-	and at.grop_id = a.grop_id
-	and t.album_id = al.album_id
-	and al.album_ttl like '%'||#{searchTxt}||'%'
-  </select>
- 
- <!-- 가사 검색 페이지 -->
- <select id="getSearchLyrics" resultMap="PListResult">
- 	select a.grop_id, a.nm, t.track_id, t.track_ttl, al.album_id, al.album_ttl, t.track_lyrics
-	from t_tracks t, t_artist_tracks at, t_artist a, t_album al
-	where t.track_id = at.track_id
-	and at.grop_id = a.grop_id
-	and t.album_id = al.album_id
-	and track_lyrics like '%'||#{searchTxt}||'%'
- </select>
-  
- <!-- 검색 페이지에서 아티스트 결과만 따로 보여주기 -->
- <select id="getSearchArtist" resultMap="PListResult">
- 	select grop_id, grop_img, nm, type, to_char(debut_dt, 'yyyy-mm-dd') as debut_dt
-	from t_artist
-	where nm like '%'||#{searchTxt}||'%'
- </select>
- 
- <!-- search/artist 페이지 -->
- <select id="getListWithPagingArtist" resultMap="PListResult">
+	</select>
+
+	<!-- search 페이지 (가수 이름으로 검색) -->
+	<select id="getSearchRst" resultMap="PListResult">
+		select a.grop_id, a.nm, a.sex, a.type, a.grop_img, al.album_id,
+		al.album_img, al.album_ttl, t.track_id, t.track_ttl,
+		to_char(a.debut_dt, 'yyyy-mm-dd') as debut_dt
+		from t_tracks t, t_artist_tracks at, t_artist a, t_album al
+		where t.track_id = at.track_id
+		and at.grop_id = a.grop_id
+		and t.album_id = al.album_id
+		and a.nm like '%'||#{searchTxt}||'%'
+	</select>
+
+	<!-- search 페이지 (곡명으로 검색) -->
+	<select id="getSearchRstWithSong" resultMap="PListResult">
+		select a.grop_id, a.nm, a.grop_img, al.album_img, al.album_ttl, t.track_ttl,
+		t.track_id, a.grop_id
+		from t_tracks t, t_artist_tracks at, t_artist a, t_album al
+		where t.track_id = at.track_id
+		and at.grop_id = a.grop_id
+		and t.album_id = al.album_id
+		and t.track_ttl like '%'||#{searchTxt}||'%'
+	</select>
+
+	<!-- search 페이지 (앨범명으로 검색) -->
+	<select id="getSearchRstWithAlbum" resultMap="PListResult">
+		select a.nm, a.grop_img, al.album_id, al.album_img, al.album_ttl,
+		t.track_ttl, t.track_id, a.grop_id
+		from t_tracks t, t_artist_tracks at, t_artist a, t_album al
+		where t.track_id = at.track_id
+		and at.grop_id = a.grop_id
+		and t.album_id = al.album_id
+		and al.album_ttl like '%'||#{searchTxt}||'%'
+	</select>
+
+	<!-- 가사 검색 페이지 -->
+	<select id="getSearchLyrics" resultMap="PListResult">
+		select a.grop_id, a.nm, t.track_id, t.track_ttl, al.album_id, al.album_ttl,
+		t.track_lyrics
+		from t_tracks t, t_artist_tracks at, t_artist a, t_album al
+		where t.track_id = at.track_id
+		and at.grop_id = a.grop_id
+		and t.album_id = al.album_id
+		and track_lyrics like '%'||#{searchTxt}||'%'
+	</select>
+
+	<!-- 검색 페이지에서 아티스트 결과만 따로 보여주기 -->
+	<select id="getSearchArtist" resultMap="PListResult">
+		select grop_id, grop_img, nm, type, to_char(debut_dt, 'yyyy-mm-dd') as
+		debut_dt
+		from t_artist
+		where nm like '%'||#{searchTxt}||'%'
+	</select>
+
+	<!-- search/artist 페이지 -->
+	<select id="getListWithPagingArtist" resultMap="PListResult">
  	<![CDATA[
  		select grop_id, grop_img, nm, type, debut_dt
  		from
@@ -116,10 +122,10 @@
  	    )
  	    where rn > (#{cri.pageNum} -1) * #{cri.amount}
  	]]>
- </select>
- 
- <!-- search/song 페이지의 '아티스트명'으로 검색 테이블 -->
- <select id="getListWithPagingSong1" resultMap="PListResult">
+	</select>
+
+	<!-- search/song 페이지의 '아티스트명'으로 검색 테이블 -->
+	<select id="getListWithPagingSong1" resultMap="PListResult">
  	<![CDATA[
  		select *
  		from
@@ -135,10 +141,10 @@
  	    )
  	    where rn >  (#{cri.pageNum} -1) * #{cri.amount} 
  	]]>
- </select>
- 
- <!-- search/song 페이지의 '곡명'으로 검색 테이블 -->
- <select id="getListWithPagingSong2" resultMap="PListResult">
+	</select>
+
+	<!-- search/song 페이지의 '곡명'으로 검색 테이블 -->
+	<select id="getListWithPagingSong2" resultMap="PListResult">
  	<![CDATA[
  		select *
  		from
@@ -154,10 +160,10 @@
  	    )
  	    where rn >  (#{cri.pageNum} -1) * #{cri.amount} 
  	]]>
- </select>
+	</select>
 
-  <!-- search/album 페이지에서 '아티스트명'으로 결과 나오게 한 것 -->
- <select id="getListWithPagingAlbum1" resultMap="PListResult">
+	<!-- search/album 페이지에서 '아티스트명'으로 결과 나오게 한 것 -->
+	<select id="getListWithPagingAlbum1" resultMap="PListResult">
  	<![CDATA[
  		select *
  		from
@@ -173,10 +179,10 @@
  	    )
  	    where rn >  (#{cri.pageNum} -1) * #{cri.amount} 
  	]]>
- </select>
-  
- <!-- search/album 페이지에서 '앨범명'으로 결과 나오게 한 것 -->
- <select id="getListWithPagingAlbum2" resultMap="PListResult">
+	</select>
+
+	<!-- search/album 페이지에서 '앨범명'으로 결과 나오게 한 것 -->
+	<select id="getListWithPagingAlbum2" resultMap="PListResult">
  	<![CDATA[
  		select *
  		from
@@ -192,10 +198,10 @@
  	    )
  	    where rn >  (#{cri.pageNum} -1) * #{cri.amount} 
  	]]>
- </select>
- 
- <!-- search/lyrics 페이지에서 가사 결과 나오게 한 것 -->
- <select id="getListWithPagingLyrics" resultMap="PListResult">
+	</select>
+
+	<!-- search/lyrics 페이지에서 가사 결과 나오게 한 것 -->
+	<select id="getListWithPagingLyrics" resultMap="PListResult">
  	<![CDATA[
  		select *
  		from
@@ -211,12 +217,12 @@
  	    )
  	    where rn >  (#{cri.pageNum} -1) * #{cri.amount} 
  	]]>
- </select>
- 
- 
- 
- <!-- search/lyrics 페이지에서 가사 검색 시 테이블 수 가져오기 -->
-   <select id="getTotalCountLyrics" resultType="Integer">
+	</select>
+
+
+
+	<!-- search/lyrics 페이지에서 가사 검색 시 테이블 수 가져오기 -->
+	<select id="getTotalCountLyrics" resultType="Integer">
  	<![CDATA[
  		select count(*)
  		from
@@ -230,10 +236,10 @@
 		and track_lyrics like '%'||#{searchTxt}||'%'
  	    )
  	]]>
- </select>
- 
- <!-- search/artist 페이지에서 결과 테이블 개수 가져오기 -->
- <select id="getTotalCountArtist" resultType="Integer">
+	</select>
+
+	<!-- search/artist 페이지에서 결과 테이블 개수 가져오기 -->
+	<select id="getTotalCountArtist" resultType="Integer">
  	<![CDATA[
  		select count(*)
  		from
@@ -244,10 +250,10 @@
  	    where nm like '%'||#{searchTxt}||'%'
  	    )
  	]]>
- </select>
-  
- <!-- search/song 페이지의 '아티스트명'으로 검색 테이블 개수 가져오기-->
- <select id="getTotalCountSongArtist" resultType="Integer">
+	</select>
+
+	<!-- search/song 페이지의 '아티스트명'으로 검색 테이블 개수 가져오기 -->
+	<select id="getTotalCountSongArtist" resultType="Integer">
  	<![CDATA[
  		select count(*)
  		from
@@ -261,10 +267,10 @@
 		and a.nm like '%'||#{searchTxt}||'%'
  	    )
  	]]>
- </select> 
-  
- <!-- search/song 페이지의 '곡명'으로 검색 테이블 개수 가져오기-->
- <select id="getTotalCountSongTitle" resultType="Integer">
+	</select>
+
+	<!-- search/song 페이지의 '곡명'으로 검색 테이블 개수 가져오기 -->
+	<select id="getTotalCountSongTitle" resultType="Integer">
  	<![CDATA[
  		select count(*)
  		from
@@ -278,10 +284,10 @@
 		and t.track_ttl like '%'||#{searchTxt}||'%'
  	    )
  	]]>
- </select>  
-  
- <!-- search/album 페이지에서 '아티스트명'으로 검색 테이블 개수 가져오기 -->
- <select id="getTotalCountAlbumArtist" resultType="Integer">
+	</select>
+
+	<!-- search/album 페이지에서 '아티스트명'으로 검색 테이블 개수 가져오기 -->
+	<select id="getTotalCountAlbumArtist" resultType="Integer">
  	<![CDATA[
  		select count(*)
  		from
@@ -295,10 +301,10 @@
 		and a.nm like '%'||#{searchTxt}||'%'
  	    )
  	]]>
- </select>
-  
- <!-- search/album 페이지에서 '앨범명'으로 검색 테이블 개수 가져오기-->
- <select id="getTotalCountAlbumTitle" resultType="Integer">
+	</select>
+
+	<!-- search/album 페이지에서 '앨범명'으로 검색 테이블 개수 가져오기 -->
+	<select id="getTotalCountAlbumTitle" resultType="Integer">
  	<![CDATA[
  		select count(*)
  		from
@@ -312,43 +318,43 @@
 		and al.album_ttl like '%'||#{searchTxt}||'%'
  	    )
  	]]>
- </select> 
- 
-  
- <!-- 로그인 했을 때 필요한 쿼리문들 -->
- <!-- 회원의 플레이리스트 목록 가져오기 -->
- <select id="getListPlylst" resultMap="PListResult">
- 	select nm, plylst_id, plylst_img, track_cnt
-	from t_plylst
-	where email = #{email}
-	order by plylst_id asc
- </select>
-  
- <!-- 회원이 좋아요 한 곡 가져오기 -->
- <select id="getLikedTrack" resultMap="PListResult">
- 	select a.nm, t.track_id, t.track_ttl
-	from t_artist a, t_tracks t, t_artist_tracks at, t_like_tracks lt
-	where at.grop_id=a.grop_id
-	and at.track_id=t.track_id
-	and t.track_id=lt.track_id
-	and email = #{email}
- </select>  
-  
- <!-- 회원이 좋아요 한 아티스트 목록 가져오기 -->
- <select id="getLikedArtist" resultMap="PListResult">
- 	select a.nm, a.grop_id
-	from t_artist a, t_like_artists la
-	where a.grop_id=la.grop_id
-	and email = #{email}
- </select>
-  
-  
-  
-  
-  
-  <!--덕환 추가부분  -->
-  <resultMap type="hashMap" id="selectMap"></resultMap>
-  <select id="getGenre" resultType="int">
+	</select>
+
+
+	<!-- 로그인 했을 때 필요한 쿼리문들 -->
+	<!-- 회원의 플레이리스트 목록 가져오기 -->
+	<select id="getListPlylst" resultMap="PListResult">
+		select nm, plylst_id, plylst_img, track_cnt
+		from t_plylst
+		where email = #{email}
+		order by plylst_id asc
+	</select>
+
+	<!-- 회원이 좋아요 한 곡 가져오기 -->
+	<select id="getLikedTrack" resultMap="PListResult">
+		select a.nm, t.track_id, t.track_ttl
+		from t_artist a, t_tracks t, t_artist_tracks at, t_like_tracks lt
+		where at.grop_id=a.grop_id
+		and at.track_id=t.track_id
+		and t.track_id=lt.track_id
+		and email = #{email}
+	</select>
+
+	<!-- 회원이 좋아요 한 아티스트 목록 가져오기 -->
+	<select id="getLikedArtist" resultMap="PListResult">
+		select a.nm, a.grop_id
+		from t_artist a, t_like_artists la
+		where a.grop_id=la.grop_id
+		and email = #{email}
+	</select>
+
+
+
+
+
+	<!--덕환 추가부분 -->
+	<resultMap type="hashMap" id="selectMap"></resultMap>
+	<select id="getGenre" resultType="int">
 		select genre_cd from
 		t_history
 		h, t_tracks t
@@ -372,38 +378,41 @@
 	</select>
 
 	<select id="recommendGenre" resultMap="selectMap">
-	select * from(
-select  DISTINCT t.track_id,t.track_ttl,t.genre_cd,a.nm
-		from t_tracks t,t_artist_tracks at,t_artist a,t_code cd
+		select * from(
+		select DISTINCT t.track_id,t.track_ttl,t.genre_cd,a.nm
+		from t_tracks
+		t,t_artist_tracks at,t_artist a,t_code cd
 		where at.track_id=t.track_id
-        and at.grop_id=a.grop_id
-        and bitand(genre_cd,#{genreCd})=#{genreCd}
-        order by dbms_random.value
-        )
-        where <![CDATA[rownum <10}]]>
+		and at.grop_id=a.grop_id
+		and bitand(genre_cd,#{genreCd})=#{genreCd}
+		order by dbms_random.value
+		)
+		where <![CDATA[rownum <10]]>
 
 	</select>
 
 	<select id="getTheme" resultType="int">
 		select mood_cd from
 		t_history
-		h, t_tracks t
+		h,
+		t_tracks t
 		where h.email =#{email}
 		and
 		h.track_id=t.track_id
 
 	</select>
-  
-  <select id="recommendType" resultMap="selectMap">
-  select * from(
-  select  DISTINCT t.track_id,t.track_ttl,t.genre_cd,a.nm
-		from t_tracks t,t_artist_tracks at,t_artist a,t_code cd
+
+	<select id="recommendType" resultMap="selectMap">
+		select * from(
+		select DISTINCT t.track_id,t.track_ttl,t.genre_cd,a.nm
+		from t_tracks
+		t,t_artist_tracks at,t_artist a,t_code cd
 		where at.track_id=t.track_id
-        and at.grop_id=a.grop_id
-        and bitand(mood_cd,#{typeCd})=#{typeCd}
-        order by dbms_random.value)
-          where <![CDATA[rownum <10}]]>
-        
-  </select>
-  
-  </mapper>
+		and at.grop_id=a.grop_id
+		and bitand(mood_cd,#{typeCd})=#{typeCd}
+		order by dbms_random.value)
+		where <![CDATA[rownum < 10]]>
+
+	</select>
+
+</mapper>

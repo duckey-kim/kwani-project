@@ -3,6 +3,7 @@ package com.kwani.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -36,9 +37,11 @@ public class AdminController {
 	@Setter(onMethod_ = @Autowired)
 	private TableService tableService;
 	
-	final static private String ALBUM_PATH = "C:\\upload\\album";
-	final static private String ARTIST_PATH = "C:\\upload\\artist";
-	final static private String USER_PATH = "C:\\upload\\user";
+	@Setter(onMethod_ =@Autowired )
+	ServletContext servletContext;
+	final static private String ALBUM_PATH = "C:\\Users\\cukik\\git\\kwani-project\\kwani\\src\\main\\webapp\\resources\\image\\album";
+	final static private String ARTIST_PATH = "C:\\Users\\cukik\\git\\kwani-project\\kwani\\src\\main\\webapp\\resources\\image\\artist";
+	final static private String USER_PATH = "C:\\Users\\cukik\\git\\kwani-project\\kwani\\src\\main\\webapp\\resources\\image\\userUpload";
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -54,8 +57,9 @@ public class AdminController {
 	@GetMapping({ "/", "/home" })
 	public String basic(Model model) {
 		//장르에 대한 곡
-		
-		List<Map<String,String>>getList =tableService.getGenreCount();
+	    String path = servletContext.getRealPath("webapp/resources/image");
+	    System.out.println("path is : "+path);
+		Map<Integer,Integer>getList =tableService.getGenreCount();
 		List<Map<String,String>>getCountList =tableService.getPlayCount();
 		
 		Gson gson = new Gson();

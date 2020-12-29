@@ -3,6 +3,7 @@ package com.kwani.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +24,10 @@ import com.kwani.domain.UserVO;
 import com.kwani.mapper.TableMapper;
 
 import lombok.Setter;
+import lombok.extern.log4j.Log4j;
 
 @Service
+@Log4j
 public class TableServiceImpl implements TableService {
 
 	@Setter(onMethod_ = @Autowired)
@@ -468,10 +471,25 @@ public class TableServiceImpl implements TableService {
 
 	}
 	@Override
-	public List<Map<String, String>> getGenreCount() {
-		List<Map<String,String>> getList = mapper.getGenreCount();
+	public Map<Integer,Integer> getGenreCount() {
+		List<Integer> list = mapper.getCodeNo(100);
+		Map<Integer,Integer> map = new LinkedHashMap<>();
+		list.forEach(a->{
+			map.put(a,0);
+		});
+		log.info(map);
+		List<Integer> genreList = mapper.getTracksGenreCode();
+		genreList.forEach(genre->{
+			for(Map.Entry<Integer, Integer> entry:map.entrySet()) {
+				if((entry.getKey()&genre)==entry.getKey()) {
+					log.info("장르코드는 : "+entry.getKey());;
+					map.put(entry.getKey(),entry.getValue()+1);
+				}
+			}
+		});
 		
-		return getList==null?Collections.emptyList():getList;
+		return map;
+		
 	}
 	@Override
 	public List<Map<String, String>> getPlayCount() {

@@ -234,10 +234,9 @@ public class PListServiceImpl implements PListService {
 
 	// 덕환부분
 	@Override
-	public int getUserLikeGenre(HttpSession session, int i) {
+	public int getUserLikeGenre(String email, int i) {
 		List<Integer> codeList = mapper.getCodeNo(i);
-		UserVO user = (UserVO) session.getAttribute("user");
-		String email = user.getEmail();
+
 		Map<Integer, Integer> map = new HashMap<>();
 		codeList.forEach(cd -> map.put(cd, 0));
 		List<Integer> list = mapper.getGenre(email);
@@ -251,21 +250,25 @@ public class PListServiceImpl implements PListService {
 				}
 			}
 		}
+		return map.entrySet().stream().max((o1, o2) -> o1.getValue() > o2.getValue() ? 1 : -1).get().getValue() == 0 ? 0
+				: map.entrySet().stream().max((o1, o2) -> o1.getValue() > o2.getValue() ? 1 : -1).get().getKey();
 
-		return map.entrySet().stream().max((o1, o2) -> o1.getValue() > o2.getValue() ? 1 : -1).get().getKey();
 	}
 
 	@Override
 	public List<Map<String, String>> recommendGenre(int genreCode) {
-		List<Map<String, String>> list = mapper.recommendGenre(genreCode);
-		return list == null ? Collections.emptyList() : list;
+		List<Map<String, String>> list = Collections.emptyList();
+		if (genreCode != 0) {
+
+			list = mapper.recommendGenre(genreCode);
+		}
+		return list;
 	}
-	
+
 	@Override
-	public int getUserLikeType(HttpSession session, int i) {
+	public int getUserLikeType(String email, int i) {
 		List<Integer> codeList = mapper.getCodeNo(i);
-		UserVO user = (UserVO) session.getAttribute("user");
-		String email = user.getEmail();
+
 		Map<Integer, Integer> map = new HashMap<>();
 		codeList.forEach(cd -> map.put(cd, 0));
 		List<Integer> list = mapper.getTheme(email);
@@ -279,14 +282,18 @@ public class PListServiceImpl implements PListService {
 				}
 			}
 		}
+		return map.entrySet().stream().max((o1, o2) -> o1.getValue() > o2.getValue() ? 1 : -1).get().getValue() == 0 ? 0
+				: map.entrySet().stream().max((o1, o2) -> o1.getValue() > o2.getValue() ? 1 : -1).get().getKey();
 
-		return map.entrySet().stream().max((o1, o2) -> o1.getValue() > o2.getValue() ? 1 : -1).get().getKey();
 	}
-	
-@Override
+
+	@Override
 	public List<Map<String, String>> recommendType(int typeCode) {
-	List<Map<String, String>> list = mapper.recommendType(typeCode);
-	return list == null ? Collections.emptyList() : list;
+		List<Map<String, String>> list = Collections.emptyList();
+		if (typeCode != 0) {
+			list = mapper.recommendType(typeCode);
+		}
+		return list;
 	}
 
 }

@@ -314,29 +314,40 @@
 
 	<select id="getCodeNo" resultType="Integer">
 		select t.cd_no
-		from t_code
+		from
+		t_code
 		t,t_code_type ty
 		where ty.type_id=#{typeCode}
-		and ty.type_id=t.type_id
+		and
+		ty.type_id=t.type_id
 	</select>
 
 	<select id="recommendGenre" resultMap="selectMap">
-	select  DISTINCT t.track_id,t.track_ttl,t.genre_cd,a.nm
-		from t_tracks t,t_artist_tracks at,t_artist a,t_code cd
+		select DISTINCT t.track_id,t.track_ttl,t.genre_cd,a.nm
+		from t_tracks
+		t,t_artist_tracks at,t_artist a,t_code cd
 		where at.track_id=t.track_id
-        and at.grop_id=a.grop_id
-        and bitand(genre_cd,#{genreCd})=#{genreCd}
+		and at.grop_id=a.grop_id
+		and bitand(genre_cd,#{genreCd})=#{genreCd}
 
 	</select>
 
 	<select id="getTheme" resultType="int">
 		select mood_cd from
 		t_history
-		h, t_tracks t
+		h,
+		t_tracks t
 		where h.email =#{email}
 		and
 		h.track_id=t.track_id
 
 	</select>
+
+	<select id="getTracksGenreCode" resultType="int">
+		select genre_cd from t_tracks
+		where genre_cd is not null
+
+	</select>
+
 
 </mapper>

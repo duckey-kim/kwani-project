@@ -1,7 +1,7 @@
 package com.kwani.mapper;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -118,60 +118,79 @@ public class TableMapperTests {
 
 	}
 
+//	@Test
+//	public void getGenre() {
+//		Map<Integer,Integer> map = new HashMap<Integer, Integer>();
+//		List<Integer> codeList = mapper.getCodeNo(100);
+//		codeList.forEach(i->map.put(i, 0));
+//		List<Integer> list = mapper.getGenre("b@naver.com");
+//		
+//		Iterator<Integer> it = list.iterator();
+//		while(it.hasNext()) {
+//			int value = it.next();
+//			log.info("장르코드 :"+value);
+//			for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
+//				if((entry.getKey()&value)==entry.getKey()) {
+//					log.info("들은 장르 코드 :"+entry.getKey());
+//					map.put(entry.getKey(), entry.getValue()+1);
+//				}
+//			}
+//		}
+//		log.info("update Map "+map);
+//		int genreCode =map.entrySet().stream().max((o1,o2) -> o1.getValue() > o2.getValue() ? 1 : -1).get().getKey();
+//		
+//		log.info("많이 들은 장르 :"+ mapper.getCodeName(100,genreCode));
+//		log.info("int is :"+mapper.recommendGenre(genreCode));
+//		
+//	}
+//	
+//	@Test
+//	public void test() {
+//		log.info("int is :"+mapper.recommendGenre(2));
+//	}
+//	
+//	@Test
+//	public void test2() {
+//		Map<Integer,Integer> map = new HashMap<Integer, Integer>();
+//		List<Integer> codeList = mapper.getCodeNo(200);
+//		codeList.forEach(i->map.put(i, 0));
+//		List<Integer> list = mapper.getTheme("a@naver.com");
+//		
+//		Iterator<Integer> it = list.iterator();
+//		while(it.hasNext()) {
+//			int value = it.next();
+//			log.info("type CODE :"+value);
+//			for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
+//				if((entry.getKey()&value)==entry.getKey()) {
+//					log.info("들은 type 코드 :"+entry.getKey());
+//					map.put(entry.getKey(), entry.getValue()+1);
+//				}
+//			}
+//		}
+//		log.info("update Map "+map);
+//		int typeCode =map.entrySet().stream().max((o1,o2) -> o1.getValue() > o2.getValue() ? 1 : -1).get().getKey();
+//		log.info("많이 들은 타입 Id :  "+typeCode);
+//		log.info("많이 들은 타입은 :"+mapper.getCodeName(200, typeCode));
+//		
+//	}
+//	
 	@Test
-	public void getGenre() {
-		Map<Integer,Integer> map = new HashMap<Integer, Integer>();
-		List<Integer> codeList = mapper.getCodeNo(100);
-		codeList.forEach(i->map.put(i, 0));
-		List<Integer> list = mapper.getGenre("a@naver.com");
-		
-		Iterator<Integer> it = list.iterator();
-		while(it.hasNext()) {
-			int value = it.next();
-			log.info("장르코드 :"+value);
-			for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
-				if((entry.getKey()&value)==entry.getKey()) {
-					log.info("들은 장르 코드 :"+entry.getKey());
-					map.put(entry.getKey(), entry.getValue()+1);
+	public void test3() {
+		List<Integer> list = mapper.getCodeNo(100);
+		Map<Integer,Integer> map = new LinkedHashMap<>();
+		list.forEach(a->{
+			map.put(a,0);
+		});
+		log.info(map);
+		List<Integer> genreList = mapper.getTracksGenreCode();
+		genreList.forEach(genre->{
+			for(Map.Entry<Integer, Integer> entry:map.entrySet()) {
+				if((entry.getKey()&genre)==entry.getKey()) {
+					log.info("장르코드는 : "+entry.getKey());;
+					map.put(entry.getKey(),entry.getValue()+1);
 				}
 			}
-		}
-		log.info("update Map "+map);
-		int genreCode =map.entrySet().stream().max((o1,o2) -> o1.getValue() > o2.getValue() ? 1 : -1).get().getKey();
-		
-		log.info("많이 들은 장르 :"+ mapper.getCodeName(100,genreCode));
-		log.info("int is :"+mapper.recommendGenre(genreCode));
-		
+		});
+		log.info(map);
 	}
-	
-	@Test
-	public void test() {
-		log.info("int is :"+mapper.recommendGenre(2));
-	}
-	
-	@Test
-	public void test2() {
-		Map<Integer,Integer> map = new HashMap<Integer, Integer>();
-		List<Integer> codeList = mapper.getCodeNo(200);
-		codeList.forEach(i->map.put(i, 0));
-		List<Integer> list = mapper.getTheme("a@naver.com");
-		
-		Iterator<Integer> it = list.iterator();
-		while(it.hasNext()) {
-			int value = it.next();
-			log.info("type CODE :"+value);
-			for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
-				if((entry.getKey()&value)==entry.getKey()) {
-					log.info("들은 type 코드 :"+entry.getKey());
-					map.put(entry.getKey(), entry.getValue()+1);
-				}
-			}
-		}
-		log.info("update Map "+map);
-		int typeCode =map.entrySet().stream().max((o1,o2) -> o1.getValue() > o2.getValue() ? 1 : -1).get().getKey();
-		log.info("많이 들은 타입 Id :  "+typeCode);
-		log.info("많이 들은 타입은 :"+mapper.getCodeName(200, typeCode));
-		
-	}
-
 }
