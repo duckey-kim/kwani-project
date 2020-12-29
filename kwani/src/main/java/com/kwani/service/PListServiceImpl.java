@@ -5,14 +5,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
 import com.kwani.domain.Criteria;
 import com.kwani.domain.PListVO;
-import com.kwani.domain.UserVO;
 import com.kwani.mapper.ListMapper;
 
 import lombok.AllArgsConstructor;
@@ -60,7 +58,18 @@ public class PListServiceImpl implements PListService {
 		return mapper.getSearchRst(searchTxt);
 	}
 
-	// search 페이지 - 곡명으로 검색한 결과
+	
+	//search 페이지 - 아티스트명으로 앨범 검색한 결과
+	@Override
+	public List<PListVO> getSearchAlbum(String searchTxt){
+		
+		log.info("search album...." + searchTxt);
+		
+		return mapper.getSearchAlbum(searchTxt);
+	}
+	
+	//search 페이지 - 곡명으로 검색한 결과
+
 	@Override
 	public List<PListVO> getSearchRstWithSong(String searchTxt) {
 
@@ -207,24 +216,29 @@ public class PListServiceImpl implements PListService {
 	// 로그인했을 때 필요한 것들
 	// 회원 플레이리스트 목록 가져오기
 	@Override
-	public List<PListVO> getListPlylst(String email) {
 
-		log.info("plylst list......" + email);
+	public List<PListVO> getListPlylst(String email){
+		
+		log.info("plylst list......");
+		
 
 		return mapper.getListPlylst(email);
 	}
 
 	// 회원이 좋아요한 곡 가져오기
 	@Override
-	public List<PListVO> getLikedTrack(String email) {
 
-		log.info("liked track....." + email);
+	public List<PListVO> getLikedTrack(String email){
+		
+		log.info("liked track....." );
+		
 
 		return mapper.getLikedTrack(email);
 	}
 
 	// 회원이 좋아요한 곡 가져오기
 	@Override
+
 	public List<PListVO> getLikedArtist(String email) {
 
 		log.info("liked artist....." + email);
@@ -296,4 +310,27 @@ public class PListServiceImpl implements PListService {
 		return list;
 	}
 
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,18 +15,18 @@
      <script src="/resources/js/jquery-3.5.1.js"/></script>
     <link rel="stylesheet" type = "text/css" href="/resources/css/searchLyrics.css">
     
-    <style>
-.dropbtn {
+<style>
+.dropbtn2 {
   color: black;
   font-size: 16px;
 }
 
-.dropdown {
+.dropdown2 {
   position: relative;
   display: inline-block;
 }
 
-.dropdown-content {
+.dropdown-content2 {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
@@ -35,53 +35,24 @@
   z-index: 1;
 }
 
-.dropdown-content a {
+.dropdown-content2 a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content2 a:hover {background-color: #f1f1f1}
 
-.dropdown:hover .dropdown-content {
+.dropdown2:hover .dropdown-content2 {
   display: block;
 }
 
-.dropdown:hover .dropbtn {
-  background-color: #3e8e41;
-}
 </style>      
     
 </head>
-<body>
-    <div id="main">
-        <div id="header">
-            <div id="header_navbar">
-                <div id="musicPlayer">musicPlayer</div>
-                <div id="pageLogo">
-                    <a href="#">Last.fm</a>
-                </div>
-                <div id="navbarUtil"> 
-                    <button class="subnavbtn" onclick="openSearch()">
-                      <i class="fa fa-search"></i></button>
-                    <a href="/">Home</a>
-                    <a href="/recommend/common">Recommend</a>
-                    <a href="#">Find music</a>
-                    <a href="/user/register">Join</a>
-                </div>
-            </div>
-            <div id="myOverlay" class="overlay">
-                <div class="overlay-content">
-                  <form action="/search" method="get" name="searchForm" onsubmit="return checkTxt();">
-                    <input type="text" placeholder="Search.." name="searchTxt" value="">
-                    <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
-                  </form>
-                </div>
-            </div><!--myOverlay-->
-        </div><!--header-->
 
-        
+        <%@include file="../includes/header.jsp" %>
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
@@ -91,17 +62,17 @@
 
                     <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
                   
-                     	<div class="dropdown">
-  							<span class="dropbtn">곡</span>
-  								<div class="dropdown-content">
+                     	<div class="dropdown2">
+  							<span class="dropbtn2">곡</span>
+  								<div class="dropdown-content2">
  									<a href="/search/songartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/songtitle?searchTxt=${searchTxt}">곡명으로</a>
  								</div>
 						</div>
                                	                    		
-                     	<div class="dropdown">
-  							<span class="dropbtn">앨범</span>
-  								<div class="dropdown-content">
+                     	<div class="dropdown2">
+  							<span class="dropbtn2">앨범</span>
+  								<div class="dropdown-content2">
  									<a href="/search/albumartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/albumtitle?searchTxt=${searchTxt}">앨범명으로</a>
  								</div>
@@ -118,21 +89,25 @@
                 	
                 	<div class="lyricsTtl">
                 		<p>
-                			<c:out value="${searchLyrics.trackTtl}" />
+                			<a href="/detail/track?trackId=<c:out value='${searchLyrics.trackId}'/>">
+                			<c:out value="${searchLyrics.trackTtl}" /></a>
                 		</p>
                 	</div><!-- lyricsTtl -->   
-                	<div class="lyricsContent">         	
-                		<c:out value="${searchLyrics.trackLyrics}" />
+                	<div class="lyricsContent">    
+                		<a href="/detail/track?trackId=<c:out value='${searchLyrics.trackId}'/>">     	
+                		<c:out value="${searchLyrics.trackLyrics}" /></a>
                 	</div><!-- lyricsContent --> 
                 	<div class="lyricsInfoContainer">
                 	<div class="lyricsArtist">
                 		<h6>
-                			<c:out value="${searchLyrics.nm}" />
+                			<a href="/detail/artist?gropId=<c:out value='${searchRst.gropId}'/>">
+                			<c:out value="${searchLyrics.nm}" /></a>
                 		</h6>
                 	</div><!-- lyricsArtist -->  
                 	<div class="lyricsAlbum">
                 		<h6>
-                			<c:out value="${searchLyrics.albumTtl}" />
+                			<a href="/detail/album?albumId=<c:out value='${searchRst.albumId}'/>">
+                			<c:out value="${searchLyrics.albumTtl}" /></a>
                 		</h6>
                 	</div><!-- lyricsAlbum --> 
                 	</div><!-- lyricsInfoContainer -->      	
@@ -394,10 +369,4 @@
                     </div><!--bodyContent-->
             <div id="rightSideBar"></div>
         </div><!--body-->
-        <div id="footer"></div>
-    </div><!--main-->
-</body>
-</html>
-                
-                    
-           
+      <%@include file="../includes/footer.jsp" %>

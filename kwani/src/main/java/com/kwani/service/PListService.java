@@ -3,8 +3,6 @@ package com.kwani.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import com.kwani.domain.Criteria;
 import com.kwani.domain.PListVO;
 
@@ -21,6 +19,9 @@ public interface PListService {
 	
 	//search 페이지 - 가수명으로 검색한 결과
 	public List<PListVO> getSearchRst(String searchTxt);
+	
+	//search 페이지 - 아티스트명으로 앨범 검색한 결과
+	public List<PListVO> getSearchAlbum(String searchTxt);
 	
 	//search 페이지 - 곡명으로 검색한 결과
 	public List<PListVO> getSearchRstWithSong(String searchTxt);
@@ -81,6 +82,7 @@ public interface PListService {
 	public List<PListVO> getLikedArtist(String email);
 
 	
+
 	//덕환
 	public int getUserLikeGenre(String email, int i);
 
@@ -90,4 +92,20 @@ public interface PListService {
 
 	public List<Map<String, String>> recommendType(int typeCode);
 	
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

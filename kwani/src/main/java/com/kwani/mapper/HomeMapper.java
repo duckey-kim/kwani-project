@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.kwani.domain.HomeVO;
+import com.kwani.domain.PListVO;
 
 public interface HomeMapper {
 
@@ -14,4 +15,6 @@ public interface HomeMapper {
 	
 	public List<HomeVO> getImg(@Param("startDate") String startDate, 
 			@Param("finishDate") String finishDate, @Param("genreName") String genreName);
+	
+	public List<HomeVO> getAllList();
 }

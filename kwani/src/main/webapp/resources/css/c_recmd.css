@@ -53,6 +53,7 @@
     height: 200px;
     background-color: white;
     display: flex;
+    margin-bottom: 50px;
 }
 .goLogin{
 	width: 90%;
@@ -85,7 +86,7 @@
     width: 100%;
     height: 340px;
     background-color: white;
-    padding-bottom: 50px;
+    margin-bottom: 100px;
 }
 
 .mv{

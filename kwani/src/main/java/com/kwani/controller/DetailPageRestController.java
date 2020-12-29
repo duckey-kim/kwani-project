@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kwani.domain.UserVO;
 import com.kwani.service.LikeAndPlaylistService;
 
 import lombok.AllArgsConstructor;
@@ -34,9 +35,10 @@ public class DetailPageRestController {
 
 		log.info("addLikeTrack");
 		
-		String sessionName = (String) session.getAttribute("userEmail");
+		UserVO user =  (UserVO)session.getAttribute("user");
+		String email = user.getEmail();
 
-		int result = likeAndPlaylistService.insertLikeTrack(sessionName, Integer.parseInt(trackId));
+		int result = likeAndPlaylistService.insertLikeTrack(email, Integer.parseInt(trackId));
 
 		return result == 1 ? "1" : "0";
 
@@ -48,9 +50,10 @@ public class DetailPageRestController {
 
 		log.info("removeLikeTrack");
 		
-		String sessionName = (String) session.getAttribute("userEmail");
+		UserVO user =  (UserVO)session.getAttribute("user");
+		String email = user.getEmail();
 
-		int result = likeAndPlaylistService.deleteLikeTrack(sessionName, Integer.parseInt(trackId));
+		int result = likeAndPlaylistService.deleteLikeTrack(email, Integer.parseInt(trackId));
 
 		return result == 1 ? "1" : "0";
 
@@ -62,9 +65,10 @@ public class DetailPageRestController {
 
 		log.info("addLikeAlbum");
 		
-		String sessionName = (String) session.getAttribute("userEmail");
+		UserVO user =  (UserVO)session.getAttribute("user");
+		String email = user.getEmail();
 
-		int result = likeAndPlaylistService.insertLikeAlbum(sessionName, Integer.parseInt(albumId));
+		int result = likeAndPlaylistService.insertLikeAlbum(email, Integer.parseInt(albumId));
 
 		return result == 1 ? "1" : "0";
 
@@ -76,9 +80,10 @@ public class DetailPageRestController {
 
 		log.info("removeLikeAlbum");
 
-		String sessionName = (String) session.getAttribute("userEmail");
+		UserVO user =  (UserVO)session.getAttribute("user");
+		String email = user.getEmail();
 
-		int result = likeAndPlaylistService.deleteLikeAlbum(sessionName, Integer.parseInt(albumId));
+		int result = likeAndPlaylistService.deleteLikeAlbum(email, Integer.parseInt(albumId));
 
 		return result == 1 ? "1" : "0";
 
@@ -90,9 +95,10 @@ public class DetailPageRestController {
 
 		log.info("addLikeArtist");
 		
-		String sessionName = (String) session.getAttribute("userEmail");
+		UserVO user =  (UserVO)session.getAttribute("user");
+		String email = user.getEmail();
 
-		int result = likeAndPlaylistService.insertLikeArtist(sessionName, Integer.parseInt(gropId));
+		int result = likeAndPlaylistService.insertLikeArtist(email, Integer.parseInt(gropId));
 
 		return result == 1 ? "1" : "0";
 
@@ -104,9 +110,10 @@ public class DetailPageRestController {
 
 		log.info("removeLikeArtist");
 
-		String sessionName = (String) session.getAttribute("userEmail");
+		UserVO user =  (UserVO)session.getAttribute("user");
+		String email = user.getEmail();
 
-		int result = likeAndPlaylistService.deleteLikeArtist(sessionName, Integer.parseInt(gropId));
+		int result = likeAndPlaylistService.deleteLikeArtist(email, Integer.parseInt(gropId));
 
 		return result == 1 ? "1" : "0";
 

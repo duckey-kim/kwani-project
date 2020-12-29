@@ -49,6 +49,14 @@ public class PListMapperTests {
 		log.info(pinfo);
 	}
 	
+	//search 페이지 - 아티스트명으로 앨범 검색
+	@Test
+	public void testGetSearchAlbum() {
+		List<PListVO> pinfo = mapper.getSearchAlbum("아");
+		
+		log.info(pinfo);
+	}
+	
 	//search 페이지 - 곡명으로 검색
 	@Test
 	public void testGetSearchRstWithSong() {
