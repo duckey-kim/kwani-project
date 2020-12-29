@@ -239,7 +239,7 @@
 
 	let startDate = "2010"
 	let finishDate = "2019";
-	let genreName = "트로트";
+	let genreName = "댄스";
 
 	$(".year").on(
 			'click',
@@ -251,13 +251,13 @@
 					let yearCnt = $(".year").css('top');
 					let yearCntPx = parseInt(yearCnt, 10);
 
-					if (yearCntPx >= 0 && yearCntPx <= 130) {
+					if (yearCntPx >= 0 && yearCntPx <= 140) {
 						$("#yearCnt").text("2020s");
 						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 130 && yearCntPx <= 270) {
+					} else if (yearCntPx > 140 && yearCntPx <= 300) {
 						$("#yearCnt").text("2010s");
 						$("#yearCnt").css("display", "show");
-					} else if (yearCntPx > 270 && yearCntPx <= 440) {
+					} else if (yearCntPx > 300 && yearCntPx <= 440) {
 						$("#yearCnt").text("2000s");
 						$("#yearCnt").css("display", "show");
 					}
@@ -306,7 +306,7 @@
 
 	/* ------------------------------------------------------------ */
 
-	$("#genreName").text("트로트");
+	$("#genreName").text("댄스");
 
 	$(".genre").on(
 			'click',
@@ -319,32 +319,26 @@
 					let genreCntPx = parseInt(genreCnt, 10);
 					genreName = $("#genreName").text();
 
-					if (genreCntPx >= 0 && genreCntPx <= 50) {
+					if (genreCntPx >= 0 && genreCntPx <= 60) {
 						$("#genreName").text("락");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 50 && genreCntPx <= 90) {
+					} else if (genreCntPx > 60 && genreCntPx <= 130) {
 						$("#genreName").text("발라드");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 90 && genreCntPx <= 140) {
-						$("#genreName").text("랩");
+					} else if (genreCntPx > 130 && genreCntPx <= 190) {
+						$("#genreName").text("힙합");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 140 && genreCntPx <= 200) {
+					} else if (genreCntPx > 190 && genreCntPx <= 250) {
 						$("#genreName").text("댄스");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 200 && genreCntPx <= 260) {
+					} else if (genreCntPx > 250 && genreCntPx <= 310) {
 						$("#genreName").text("트로트");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 260 && genreCntPx <= 300) {
+					} else if (genreCntPx > 310 && genreCntPx <= 370) {
 						$("#genreName").text("R&B");
 						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 300 && genreCntPx <= 340) {
+					} else if (genreCntPx > 370 && genreCntPx <= 440) {
 						$("#genreName").text("OST");
-						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 340 && genreCntPx <= 390) {
-						$("#genreName").text("메탈");
-						$("#genreName").css("display", "show");
-					} else if (genreCntPx > 390 && genreCntPx <= 440) {
-						$("#genreName").text("힙합");
 						$("#genreName").css("display", "show");
 					}
 				});
@@ -365,7 +359,6 @@
 						console.log(data);
 
 						if (data[0].gropImg != undefined) {
-							/* 아이유 사진을 내가 가져온 사진으로 변경할거다 */
 							$(".genreYearImg").css(
 									"background-image",
 									"url(/resources/image/artist/"

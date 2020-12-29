@@ -46,7 +46,8 @@
 	console.log('${userNick}');
 	console.log('${prevPath}');
 	
-
+	
+	let loginBtn = document.getElementById("loginBtn");
 	let logoutBtn = document.getElementById("logoutBtn");
 	let toMypageBtn = document.getElementById("toMypageBtn");
 	let joinBtn = document.getElementById("joinBtn");
@@ -56,6 +57,7 @@
 
 	if ('${user}' != "") {
 		joinBtn.style.display = "none";
+		loginBtn.style.display = "none";
 		logoutBtn.style.display = "block";
 		toMypageBtn.style.display = "block";
 	}
