@@ -2,6 +2,8 @@ package com.kwani.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +28,7 @@ public class SearchController {
 
 	//검색 결과에서 '아티스트' 탭 누른 결과 페이지
 	@GetMapping("/artist")
-	public void searchArtist(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri) {
+	public void searchArtist(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri, HttpSession session) {
 		
 		log.info("searchArtist" + cri);
 		List<PListVO> searchArtistList = plservice.getSearchArtistWithPaging(cri, searchTxt);
@@ -34,11 +36,27 @@ public class SearchController {
 		
 		int total = plservice.getTotalCountArtist(searchTxt);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+		if(session.getAttribute("userEmail") != null) {
+			
+			//트랙 정보를 가져온다 
+			model.addAttribute("getLikedTrack",plservice.getLikedTrack((String)session.getAttribute("userEmail")));
+		  
+			//아래 코드는 search.jsp 에서 쓰기! 
+			model.addAttribute("getLikedArtist",plservice.getLikedArtist((String)session.getAttribute("userEmail")));
+		  
+			//회원의 플레이리스트 목록을 가져온다 
+			model.addAttribute("getUserPlylst",plservice.getListPlylst((String)session.getAttribute("userEmail"))); 
+			
+			model.addAttribute("sessionName", session.getAttribute("userEmail"));
+			
+			System.out.println(session.getAttribute("userEmail"));
+		 }
 	}
 
 	//검색 결과에서 '곡' 탭 누른 결과 페이지 -> 아티스트명으로 검색
 	@GetMapping("/songartist")
-	public void searchSongArtist(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri) {
+	public void searchSongArtist(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri, HttpSession session) {
 		
 		log.info("searchSongArtist" + cri);		
 
@@ -47,11 +65,27 @@ public class SearchController {
 		
 		int total = plservice.getTotalCountSongArtist(searchTxt);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));	
+		
+		if(session.getAttribute("userEmail") != null) {
+			
+			//트랙 정보를 가져온다 
+			model.addAttribute("getLikedTrack",plservice.getLikedTrack((String)session.getAttribute("userEmail")));
+		  
+			//아래 코드는 search.jsp 에서 쓰기! 
+			model.addAttribute("getLikedArtist",plservice.getLikedArtist((String)session.getAttribute("userEmail")));
+		  
+			//회원의 플레이리스트 목록을 가져온다 
+			model.addAttribute("getUserPlylst",plservice.getListPlylst((String)session.getAttribute("userEmail"))); 
+			
+			model.addAttribute("sessionName", session.getAttribute("userEmail"));
+			
+			System.out.println(session.getAttribute("userEmail"));
+		 }
 	}
 	
 	//검색 결과에서 '곡' 탭 누른 결과 페이지 -> 곡명으로 검색
 	@GetMapping("/songtitle")
-	public void searchSongTitle(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri) {
+	public void searchSongTitle(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri, HttpSession session) {
 		
 		log.info("searchSongTitle" + cri);
 		
@@ -61,11 +95,27 @@ public class SearchController {
 		int total = plservice.getTotalCountSongTitle(searchTxt);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
+		if(session.getAttribute("userEmail") != null) {
+			
+			//트랙 정보를 가져온다 
+			model.addAttribute("getLikedTrack",plservice.getLikedTrack((String)session.getAttribute("userEmail")));
+		  
+			//아래 코드는 search.jsp 에서 쓰기! 
+			model.addAttribute("getLikedArtist",plservice.getLikedArtist((String)session.getAttribute("userEmail")));
+		  
+			//회원의 플레이리스트 목록을 가져온다 
+			model.addAttribute("getUserPlylst",plservice.getListPlylst((String)session.getAttribute("userEmail"))); 
+			
+			model.addAttribute("sessionName", session.getAttribute("userEmail"));
+			
+			System.out.println(session.getAttribute("userEmail"));
+		 }
+		
 	}
 	
 	//검색 결과에서 '앨범' 탭 누른 결과 페이지 -> 아티스트명으로 검색
 	@GetMapping("/albumartist")
-	public void searchAlbumArtist(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri) {
+	public void searchAlbumArtist(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri, HttpSession session) {
 		
 		log.info("searchAlbumArtist" + cri);
 		
@@ -74,12 +124,13 @@ public class SearchController {
 		
 		int total = plservice.getTotalCountAlbumArtist(searchTxt);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
-	   
+
+		model.addAttribute("sessionName", session.getAttribute("userEmail"));
 	}
 	
 	//검색 결과에서 '앨범' 탭 누른 결과 페이지 -> 앨범명으로 검색
 	@GetMapping("/albumtitle")
-	public void searchAlbumTitle(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri) {
+	public void searchAlbumTitle(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri, HttpSession session) {
 		
 		log.info("searchAlbumTitle" + cri);
 		
@@ -88,12 +139,14 @@ public class SearchController {
 		
 		int total = plservice.getTotalCountAlbumTitle(searchTxt);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+		model.addAttribute("sessionName", session.getAttribute("userEmail"));
 	}
 	
 	
 	//검색 결과에서 '가사' 탭 누른 결과 페이지
 	@GetMapping("/lyrics")
-	public void searchLyrics(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri) {
+	public void searchLyrics(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri, HttpSession session) {
 		
 		System.out.println("searchLyrics" + cri);
 		
@@ -102,6 +155,8 @@ public class SearchController {
 		
 		int total = plservice.getTotalCountLyrics(searchTxt);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+		model.addAttribute("sessionName", session.getAttribute("userEmail"));
 	}
 	
 	

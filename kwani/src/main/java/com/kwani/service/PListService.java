@@ -1,6 +1,7 @@
 package com.kwani.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.kwani.domain.Criteria;
 import com.kwani.domain.PListVO;
@@ -77,7 +78,23 @@ public interface PListService {
 	//회원이 좋아요한 아티스트 목록 가져오기
 	public List<PListVO> getLikedArtist(String email);
 	
-	
 
-	
+	//모달창 - 플레이리스트 추가 관련 
+	//기존 플레이리스트에 곡 추가
+	public void insertTrackList(Set<Integer> trackId, Integer plylstId, String email);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

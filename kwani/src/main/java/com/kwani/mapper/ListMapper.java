@@ -80,4 +80,34 @@ public interface ListMapper {
 		
 		//회원이 좋아요한 아티스트 목록 가져오기
 		public List<PListVO> getLikedArtist(String email);
+	
+		
+		//모달창 - 회원 플레이리스트 추가
+		public Integer insertTrack(@Param("plylstId")Integer plylstId, @Param("trackId")Integer trackId);
+		
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -48,10 +48,6 @@
   display: block;
 }
 
-.dropdown2:hover .dropbtn2 {
-  background-color: #3e8e41;
-}
-
 
 .modal {
   display: none; /* Hidden by default */
@@ -127,7 +123,10 @@
 }
 .userPlylstImg{
   height: 40px;
-  width: 20%;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 .userPlylstNm{
   height: 40px;
@@ -188,10 +187,9 @@
                             <c:forEach items="${searchArtist}" var="searchArtist" varStatus="status" begin="0" end="4">
                         	<tr>
                         	<td class="td1">
+                        		<a href='/detail/artist?gropId=${searchArtist.gropId}'>
                         		<div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);">
-                        		<%-- <img src="/resources/image/artist/<c:out value="${searchArtist.gropImg}" />" 
-                				style="max-height:50px"> --%>
-                				</div>         	
+                				</div></a>         	
                         	</td>
                         	<td class="td2"><a href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">
                         		<c:out value='${searchArtist.nm}' /></a></td>
@@ -229,7 +227,8 @@
                         		<c:out value="${searchRst.trackTtl}" /></a></td>
                         	<td><a href="/detail/artist?gropId=<c:out value='${searchRst.gropId}'/>">
                         		<c:out value="${searchRst.nm}" /></a></td>
-                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
+                        		onclick='popupPlayer("/player/track?trackId=${searchRst.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
                         	<img class="defaultHeartImg"src="/resources/image/heart2.png">
@@ -263,7 +262,8 @@
                         		<c:out value="${searchRstWithSong.trackTtl}" /></a></td>
                         	<td><a href="/detail/artist?gropId=<c:out value='${searchRstWithSong.gropId}'/>">    
                         		<c:out value="${searchRstWithSong.nm}" /></a></td>
-                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
+                        		onclick='popupPlayer("/player/track?trackId=${searchRstWithSong.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
                         	<img class="defaultHeartImg"src="/resources/image/heart2.png">
@@ -300,7 +300,8 @@
                         		<c:out value="${searchRstWithAlbum.nm}" /></a></td>
                         	<td><a href="/detail/album?albumId=<c:out value='${searchRstWithAlbum.albumId}'/>">      
                         		<c:out value="${searchRstWithAlbum.albumTtl}" /></a></td>
-                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
+                        		onclick='popupPlayer("/player/track?trackId=${searchRstWithAlbum.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
                         	<img class="defaultHeartImg"src="/resources/image/heart2.png">
@@ -320,8 +321,9 @@
                 	<c:forEach items="${searchRst}" var="searchRst" varStatus="status" begin="0" end="3">
                 	<div class="eachAlbum">
                 	
+                	<a href='/detail/album?albumId=${searchRst.albumId}'>
                 	<div class="albumImg" style="background-image:url(/resources/image/album/<c:out value='${searchRst.albumImg}'/>);">         	  	
-                	</div><!-- albumImg --> 
+                	</div><!-- albumImg --></a>
                 	<div class="albumArtist">
                 		<p>
                 			<a href="/detail/artist?gropId=<c:out value='${searchRst.gropId}'/>">
@@ -386,8 +388,7 @@
                     		</div>
                     		<c:forEach items="${getUserPlylst}" var="userPlylst">
                     		<div class="userPlylst">
-                    			<div class="userPlylstImg">
-                    				<img src="/resources/image/album/<c:out value="${userPlylst.plylstImg}" />" style="max-height:40px">
+                    			<div class="userPlylstImg" style="background-image:url(/resources/image/album/<c:out value='${userPlylst.plylstImg}'/>);">
                     			</div>
                     			<div class="userPlylstNm"><p style="padding-top: 10px"><c:out value="${userPlylst.nm}" /></p></div>         
                     			<div class="userPlylstTrackCnt"><p style="padding-top: 10px"><c:out value="${userPlylst.trackCnt}" />1 곡</p></div>           			
@@ -401,6 +402,12 @@
                 <script>
                 console.log("sessionName : " + '${sessionName}');
                 
+                //뮤직 플레이어----------------------------------------------------------------
+                let popupPlayer = function(url){
+                    let moveTop=screen.height-440;
+                     let moveLeft=screen.width-537;
+                   window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+                } 
               
                 //로그인 안되어있을 때 
                 //좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
@@ -430,6 +437,7 @@
                 //모달창 --------------------------------------------------------------------------
                 let modal = document.getElementById("myModal");
                 
+                //let btn = document.getElementsByClassName("plylstBtn");
                 let btn = document.getElementById("plusPlylstBtn");    
                 let btn2 = document.getElementById("plusPlylstBtn2"); 
                 let btn3 = document.getElementById("plusPlylstBtn3");
@@ -438,7 +446,7 @@
                 
                 //'담기' 버튼을 눌렀을 때
                 btn.onclick = function(){
-                	//doCheck()를 실행해서 
+                	//로그인이 되어 있다면 doCheck()를 실행해서 
                 	//체크박스에 체크가 하나도 안되어 있다면 경고창 나오게 하고
                 	//체크박스에 하나 이상 체크가 되어 있다면 모달창을 보여준다
                 	if(sessionCheck()){
@@ -519,15 +527,13 @@
  	                	alert("노래를 선택해주세요");
  	                	return;
  	                }else{
- 	                	//하나 이상이라도 체크박스에 체크가 되어 있다면 아무것도 하지 않는다
+ 	                	//하나 이상이라도 체크박스에 체크가 되어 있을 때 클릭하면
  	                	console.log("선택했어!");
+ 	                	//모달창을 보여준다
  	                	modal.style.display = "block";
  	                	return;
  	                }	                
- 	             }     
-                
-              
-                	
+ 	             }                 	
                 		
                 	//체크박스 설정 1--------------------------------------------------------------------	
                 	function allCheckFunc(obj){

@@ -1,6 +1,7 @@
 package com.kwani.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -231,4 +232,37 @@ private ListMapper mapper;
 	}
 
 	
+	//모달창 - 기존 플레이리스트에 곡 추가
+	@Override
+	public void insertTrackList(Set<Integer> checkedTrackList, Integer plylstId, String email) {
+		
+		Set<Integer> tmpList = checkedTrackList;
+		
+		//우선 중복 없다는 가정하에 플레이리스트에 추가하기
+		for(Integer trackId : tmpList) {
+			mapper.insertTrack(plylstId, trackId);
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

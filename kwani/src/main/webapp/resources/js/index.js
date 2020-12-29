@@ -10,6 +10,7 @@ function myFunction(){
     }
 }
 
+
 var result = $("input[name=searchTxt]");
 	
 function checkTxt(){
