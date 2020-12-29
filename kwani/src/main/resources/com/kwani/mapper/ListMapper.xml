@@ -55,11 +55,11 @@
   <![CDATA[
   select rcmd_plylst_id, rcmd_plylst_nm, rcmd_plylst_img from t_rcmd_plylst
   ]]>
-  </select  >
+  </select>
   
   <!-- search 페이지 (가수 이름으로 검색)-->
   <select id="getSearchRst" resultMap="PListResult">
-  	select a.grop_id, a.nm, a.sex, a.type, a.grop_img, al.album_id, al.album_img, al.album_ttl, t.track_id, t.track_ttl, to_char(a.debut_dt, 'yyyy-mm-dd') as debut_dt
+  	select distinct a.grop_id, a.nm, a.sex, a.type, a.grop_img, al.album_id, al.album_img, al.album_ttl, t.track_id, t.track_ttl, to_char(a.debut_dt, 'yyyy-mm-dd') as debut_dt
   	from t_tracks t, t_artist_tracks at, t_artist a, t_album al
 	where t.track_id = at.track_id
 	and at.grop_id = a.grop_id
@@ -79,12 +79,22 @@
   
   <!-- search 페이지 (앨범명으로 검색)-->
   <select id="getSearchRstWithAlbum" resultMap="PListResult">
-  	select a.nm, a.grop_img, al.album_id, al.album_img, al.album_ttl, t.track_ttl, t.track_id, a.grop_id
+  	select distinct a.nm, a.grop_img, al.album_id, al.album_img, al.album_ttl, t.track_ttl, t.track_id, a.grop_id
   	from t_tracks t, t_artist_tracks at, t_artist a, t_album al
 	where t.track_id = at.track_id
 	and at.grop_id = a.grop_id
 	and t.album_id = al.album_id
 	and al.album_ttl like '%'||#{searchTxt}||'%'
+  </select>
+  
+  <!-- search 페이지 (아티스트 이름으로 앨범 검색) -->
+  <select id="getSearchAlbum" resultMap="PListResult">
+  	select distinct a.grop_id, a.nm, al.album_id, al.album_img, al.album_ttl
+  	from t_tracks t, t_artist_tracks at, t_artist a, t_album al
+	where t.track_id = at.track_id
+	and at.grop_id = a.grop_id
+	and t.album_id = al.album_id
+	and a.nm like '%'||#{searchTxt}||'%'
   </select>
  
  <!-- 가사 검색 페이지 -->
@@ -165,7 +175,7 @@
  		from
  		(
  		select /*+index_desc(t_tracks track_id)*/
- 		  rownum rn, a.grop_id, al.album_ttl, al.album_id, al.album_img, a.nm
+ 		  distinct a.grop_id, al.album_ttl, al.album_id, al.album_img, a.nm
  	    from t_tracks t, t_artist_tracks at, t_artist a, t_album al
 		where t.track_id = at.track_id
 		and at.grop_id = a.grop_id
@@ -173,7 +183,7 @@
 		and a.nm like '%'||#{searchTxt}||'%'
  	 	and rownum <= #{cri.pageNum} * #{cri.amount} 
  	    )
- 	    where rn >  (#{cri.pageNum} -1) * #{cri.amount} 
+ 	    where rownum >  (#{cri.pageNum} -1) * #{cri.amount} 
  	]]>
  </select>
   
@@ -184,7 +194,7 @@
  		from
  		(
  		select /*+index_desc(t_tracks track_id)*/
- 		  rownum rn, a.grop_id, al.album_ttl, al.album_id, al.album_img, a.nm
+ 		  distinct a.grop_id, al.album_ttl, al.album_id, al.album_img, a.nm
  	    from t_tracks t, t_artist_tracks at, t_artist a, t_album al
 		where t.track_id = at.track_id
 		and at.grop_id = a.grop_id
@@ -192,7 +202,7 @@
 		and al.album_ttl like '%'||#{searchTxt}||'%'
  	 	and rownum <= #{cri.pageNum} * #{cri.amount} 
  	    )
- 	    where rn >  (#{cri.pageNum} -1) * #{cri.amount} 
+ 	    where rownum >  (#{cri.pageNum} -1) * #{cri.amount} 
  	]]>
  </select>
  

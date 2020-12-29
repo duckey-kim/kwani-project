@@ -107,9 +107,7 @@
                 		</p>
                 	</div><!-- albumTtl -->              	
                 	</div><!-- eachAlbum --> 
-                	</c:forEach>
-                	
-                	
+                	</c:forEach>        	
                 </div><!-- alblumImgContainer --> 
                    		
                    		<div class="pull-rightContainer">

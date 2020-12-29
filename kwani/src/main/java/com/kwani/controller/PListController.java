@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kwani.domain.UserVO;
 import com.kwani.service.PListService;
 import com.kwani.service.UserService;
 
@@ -30,7 +31,7 @@ public class PListController {
 		log.info("allplist...");
 		model.addAttribute("allplist", plservice.getAllList());
 		
-		model.addAttribute("sessionName", session.getAttribute("userEmail"));
+		model.addAttribute("sessionName", session.getAttribute("user"));
 	}
 
 	// 플레이리스트 상세 페이지
@@ -49,20 +50,23 @@ public class PListController {
 
 		
 		//세션 체크를 해서 세션이 있으면(로그인했다면) 
-		if(session.getAttribute("userEmail") != null) {
+		if(session.getAttribute("user") != null) {
+			
+			UserVO user = (UserVO)session.getAttribute("user");
+			String email = user.getEmail();
 		
 			//트랙 정보를 가져온다 
-			model.addAttribute("getLikedTrack",plservice.getLikedTrack((String)session.getAttribute("userEmail")));
+			model.addAttribute("getLikedTrack",plservice.getLikedTrack(email));
 		  
 			//아래 코드는 search.jsp 에서 쓰기! 
-			model.addAttribute("getLikedArtist",plservice.getLikedArtist((String)session.getAttribute("userEmail")));
+			model.addAttribute("getLikedArtist",plservice.getLikedArtist(email));
 		  
 			//회원의 플레이리스트 목록을 가져온다 
-			model.addAttribute("getUserPlylst",plservice.getListPlylst((String)session.getAttribute("userEmail"))); 
+			model.addAttribute("getUserPlylst",plservice.getListPlylst(email)); 
 			
-			model.addAttribute("sessionName", session.getAttribute("userEmail"));
+			model.addAttribute("sessionName", session.getAttribute("user"));
 			
-			System.out.println(session.getAttribute("userEmail"));
+			System.out.println(session.getAttribute("user"));
 		 }
 
 	}

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.kwani.domain.Criteria;
 import com.kwani.domain.PListVO;
+import com.kwani.domain.UserVO;
 
 public interface ListMapper {
 	//플레이리스트 상세 페이지
@@ -19,6 +20,9 @@ public interface ListMapper {
 		
 		//search 페이지 - 아티스트명으로 검색 	
 		public List<PListVO> getSearchRst(String searchTxt);
+		
+		//search 페이지 - 아티스트명으로 앨범 검색
+		public List<PListVO> getSearchAlbum(String searchTxt);
 		
 		//search 페이지 - 곡명으로 검색
 		public List<PListVO> getSearchRstWithSong(String searchTxt);

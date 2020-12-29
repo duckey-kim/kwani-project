@@ -56,6 +56,13 @@ public class PListServiceTests {
 		log.info(plservice.getSearchRst("태"));
 	}
 	
+	//search 페이지 - 아티스트명으로 앨범 검색
+	@Test
+	public void testGetSearchAlbum() {
+		
+		log.info(plservice.getSearchAlbum("아"));
+	}
+	
 	//search 페이지 - 곡명으로 검색
 	@Test
 	public void testGetSearchRstWithSong() {

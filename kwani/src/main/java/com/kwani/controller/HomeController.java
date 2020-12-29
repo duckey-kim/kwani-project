@@ -83,6 +83,9 @@ public class HomeController {
 		//검색  시 가수명으로 결과 나오게 하기
 		model.addAttribute("searchRst", plservice.getSearchRst(searchTxt));
 		
+		//검색 시 아티스트명으로 앨범 결과 나오게 하기
+		model.addAttribute("searchAlbum", plservice.getSearchAlbum(searchTxt));
+		
 		//검색 시  곡명으로 결과 나오게 하기(곡 목록만)
 		model.addAttribute("searchRstWithSong", plservice.getSearchRstWithSong(searchTxt));
 		
@@ -96,20 +99,23 @@ public class HomeController {
 		model.addAttribute("searchArtist", plservice.getSearchArtist(searchTxt)); 	
 		
 		
-		if(session.getAttribute("userEmail") != null) {
+		if(session.getAttribute("user") != null) {
 			
+			UserVO user = (UserVO)session.getAttribute("user");
+			String email = user.getEmail();
+		
 			//트랙 정보를 가져온다 
-			model.addAttribute("getLikedTrack",plservice.getLikedTrack((String)session.getAttribute("userEmail")));
+			model.addAttribute("getLikedTrack",plservice.getLikedTrack(email));
 		  
 			//아래 코드는 search.jsp 에서 쓰기! 
-			model.addAttribute("getLikedArtist",plservice.getLikedArtist((String)session.getAttribute("userEmail")));
+			model.addAttribute("getLikedArtist",plservice.getLikedArtist(email));
 		  
 			//회원의 플레이리스트 목록을 가져온다 
-			model.addAttribute("getUserPlylst",plservice.getListPlylst((String)session.getAttribute("userEmail"))); 
+			model.addAttribute("getUserPlylst",plservice.getListPlylst(email)); 
 			
-			model.addAttribute("sessionName", session.getAttribute("userEmail"));
+			model.addAttribute("sessionName", session.getAttribute("user"));
 			
-			System.out.println(session.getAttribute("userEmail"));
+			System.out.println(session.getAttribute("user"));
 		 }
 		
 	}	
