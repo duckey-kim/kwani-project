@@ -26,6 +26,7 @@
  	<result property="rcmdPlylstId" column="rcmd_plylst_id" />
  	<result property="rcmdPlylstNm" column="rcmd_plylst_nm" />
  	<result property="rcmdPlylstImg" column="rcmd_plylst_img" />
+ 	<result property="rcmdPlylstExplain" column="rcmd_plylst_explain" />
  	<result property="rn" column="rn" />
  	<result property="trackCnt" column="track_cnt" />
  	
@@ -35,7 +36,7 @@
   <!-- 플레이리스트 상세 페이지 -->
   <select id="getListName" resultMap="PListResult">
   <![CDATA[
-  select rcmd_plylst_nm, rcmd_plylst_img from t_rcmd_plylst where rcmd_plylst_id = #{plylstId}
+  select rcmd_plylst_nm, rcmd_plylst_img, rcmd_plylst_explain from t_rcmd_plylst where rcmd_plylst_id = #{plylstId}
   ]]>
   </select>
   
@@ -316,15 +317,7 @@
  </select> 
  
   
- <!-- 로그인 했을 때 필요한 쿼리문들 -->
- <!-- 회원의 플레이리스트 목록 가져오기 -->
- <select id="getListPlylst" resultMap="PListResult">
- 	select nm, plylst_id, plylst_img, track_cnt
-	from t_plylst
-	where email = #{email}
-	order by plylst_id asc
- </select>
-  
+ <!-- 로그인 했을 때 필요한 쿼리문들 -->  
  <!-- 회원이 좋아요 한 곡 가져오기 -->
  <select id="getLikedTrack" resultMap="PListResult">
  	select a.nm, t.track_id, t.track_ttl
@@ -343,6 +336,34 @@
 	and email = #{email}
  </select>
   
-  
+ 
+ <!-- 노래 담기 버튼 눌렀을 때 나오는 모달창 작업들 -->
+ <!-- 회원의 플레이리스트 목록 가져오기 -->
+ <select id="getListPlylst" resultMap="PListResult">
+ 	select nm, plylst_id, plylst_img, track_cnt
+	from t_plylst
+	where email = #{email}
+	order by plylst_id asc
+ </select>
+ 
+ <!-- 기존 플레이리스트에 곡 추가 -->
+ <insert id="insertTrack">
+ 	insert into t_plylst_dtl(plylst_id, track_id)
+ 	values(#{plylstId}, #{trackId})
+ </insert>
+ 
+ 
+ <!-- 새 플레이리스트 만들기 -->
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   
   </mapper>

@@ -123,7 +123,10 @@
 }
 .userPlylstImg{
   height: 40px;
-  width: 20%;
+  width: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 .userPlylstNm{
   height: 40px;
@@ -184,8 +187,9 @@
                             <c:forEach items="${searchArtist}" var="searchArtist" varStatus="status" begin="0" end="4">
                         	<tr>
                         	<td class="td1">
+                        		<a href='/detail/artist?gropId=${searchArtist.gropId}'>
                         		<div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);">
-                				</div>         	
+                				</div></a>         	
                         	</td>
                         	<td class="td2"><a href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">
                         		<c:out value='${searchArtist.nm}' /></a></td>
@@ -317,8 +321,9 @@
                 	<c:forEach items="${searchRst}" var="searchRst" varStatus="status" begin="0" end="3">
                 	<div class="eachAlbum">
                 	
+                	<a href='/detail/album?albumId=${searchRst.albumId}'>
                 	<div class="albumImg" style="background-image:url(/resources/image/album/<c:out value='${searchRst.albumImg}'/>);">         	  	
-                	</div><!-- albumImg --> 
+                	</div><!-- albumImg --></a>
                 	<div class="albumArtist">
                 		<p>
                 			<a href="/detail/artist?gropId=<c:out value='${searchRst.gropId}'/>">
@@ -383,8 +388,7 @@
                     		</div>
                     		<c:forEach items="${getUserPlylst}" var="userPlylst">
                     		<div class="userPlylst">
-                    			<div class="userPlylstImg">
-                    				<img src="/resources/image/album/<c:out value="${userPlylst.plylstImg}" />" style="max-height:40px">
+                    			<div class="userPlylstImg" style="background-image:url(/resources/image/album/<c:out value='${userPlylst.plylstImg}'/>);">
                     			</div>
                     			<div class="userPlylstNm"><p style="padding-top: 10px"><c:out value="${userPlylst.nm}" /></p></div>         
                     			<div class="userPlylstTrackCnt"><p style="padding-top: 10px"><c:out value="${userPlylst.trackCnt}" />1 곡</p></div>           			
@@ -433,6 +437,7 @@
                 //모달창 --------------------------------------------------------------------------
                 let modal = document.getElementById("myModal");
                 
+                //let btn = document.getElementsByClassName("plylstBtn");
                 let btn = document.getElementById("plusPlylstBtn");    
                 let btn2 = document.getElementById("plusPlylstBtn2"); 
                 let btn3 = document.getElementById("plusPlylstBtn3");

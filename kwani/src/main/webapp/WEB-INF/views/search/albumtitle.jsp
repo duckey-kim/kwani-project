@@ -90,9 +90,10 @@
                 	<c:forEach items="${searchAlbum2}" var="searchAlbum2" varStatus="status" begin="0" end="4">
                 	<div class="eachAlbum">
                 	
-                	<div class="albumImg">         	
+                	<div class="albumImg">    
+                		<a href='/detail/album?albumId=${searchAlbum2.albumId}'>       	
                 		<img src="/resources/image/album/<c:out value="${searchAlbum2.albumImg}" />" 
-                		style="max-height:200px">          	
+                		style="max-height:200px"></a>          	
                 	</div><!-- albumImg --> 
                 	<div class="albumArtist">
                 		<p>

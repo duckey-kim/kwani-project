@@ -97,11 +97,9 @@
                             <c:forEach items="${searchArtist}" var="searchArtist" >
                         	<tr>
                         	<td class="td1">
-                        		<div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);"></div>
-                        		<%-- <div class="artistSmallImg">
-                        		<img src="/resources/image/artist/<c:out value="${searchArtist.gropImg}" />" 
-                				style="max-height:50px"></div> --%>  
-                				   	
+                        		<a href='/detail/artist?gropId=${searchArtist.gropId}'>
+                        		<div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);">
+                        		</div></a>              				   	
                         	</td>
                         	<td class="td2"><a href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">     
                         		<c:out value="${searchArtist.nm}" /></a></td>

@@ -128,8 +128,23 @@
             		<img class="plylstImg" src="/resources/image/rcmdplylst/<c:out value="${plistName.rcmdPlylstImg}" />">
             	</div>
             	<div class="plylstInfoDetail">
-            		<div class="plylstTxt"><h3>${plistName.rcmdPlylstNm}</h3></div>
-                    <div class="plylstCovers"></div>
+            		<div class="plylstTxt"><h2>${plistName.rcmdPlylstNm}</h2></div>
+                    <div class="plylstCovers">
+                    	<div class="plylstExplain">
+                    		<h4><c:out value="${plistName.rcmdPlylstExplain}"></c:out></h4><br><br>
+                    		<h5>2021.01.03 수정</h5>
+                    	</div>
+                    	<div class="plylstBtns">
+                    		<div class="shareBtn">
+                    			<button class="button" id="shareBtn">공유하기</button>
+                    		</div>
+                    		<div class="likeBtn">
+                    			<p>좋아요</p>
+                    			<img class="defaultHeartImg" name="${plstdtl.trackId}" src="/resources/image/heart2.png" onclick="sessionCheck()">
+                        		<img class="redHeartImg" name="${plstdtl.trackId}" src="/resources/image/heart.png">
+                    		</div>
+                    	</div>
+                    </div>
                 </div>
             </div><!-- plylstInfoContainer -->
            </div><!--plylstInfo-->     

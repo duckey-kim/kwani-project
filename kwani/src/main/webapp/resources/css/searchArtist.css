@@ -167,6 +167,7 @@ th, td{
 	height: 66px;
 	text-align: center;	 
 	margin-top: 20px;
+	margin-bottom: 100px;
 }
 .pagination{
 	display: inline-block;
