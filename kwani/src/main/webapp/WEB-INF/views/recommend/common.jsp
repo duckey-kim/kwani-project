@@ -41,8 +41,8 @@
                   <c:forEach items="${allplist}" var="plist" varStatus="status" begin="0" end="3">               	                                                                                                                                                      
                     <div id="recmd">
                     <div id="rec_img">
-                    	<img class="plylstImg" src="/resources/image/rcmdplylst/<c:out value="${plist.rcmdPlylstImg}" />"
-                    	stlye = "max-height:350px">
+                    	<a href='/recommend/plylst?plylstId=${plist.rcmdPlylstId}'><img class="plylstImg" src="/resources/image/rcmdplylst/<c:out value="${plist.rcmdPlylstImg}" />"
+                    	stlye = "max-height:350px"></a>
                      
                     </div>
                     <div id="rec_txt">

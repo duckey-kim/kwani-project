@@ -19,17 +19,18 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class PListController {
 
-	private UserService userService;
 	private PListService plservice;
 
 	// 일반 사용자 추천 페이지
 	@GetMapping("/common")
-	public void list(Model model) {
+	public void list(Model model, HttpSession session) {
 
 		// 장르별 플레이리스트 id와 이름을 보여준다
 		// 플레이리스트 번호와 이름만 보여주기
 		log.info("allplist...");
 		model.addAttribute("allplist", plservice.getAllList());
+		
+		model.addAttribute("sessionName", session.getAttribute("userEmail"));
 	}
 
 	// 플레이리스트 상세 페이지

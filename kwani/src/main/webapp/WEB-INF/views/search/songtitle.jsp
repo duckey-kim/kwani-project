@@ -15,17 +15,17 @@
      <script src="/resources/js/jquery-3.5.1.js"/></script>
     <link rel="stylesheet" type = "text/css" href="/resources/css/searchSongTitle.css">
     <style>
-.dropbtn {
+.dropbtn2 {
   color: black;
   font-size: 16px;
 }
 
-.dropdown {
+.dropdown2 {
   position: relative;
   display: inline-block;
 }
 
-.dropdown-content {
+.dropdown-content2 {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
@@ -34,21 +34,17 @@
   z-index: 1;
 }
 
-.dropdown-content a {
+.dropdown-content2 a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content2 a:hover {background-color: #f1f1f1}
 
-.dropdown:hover .dropdown-content {
+.dropdown2:hover .dropdown-content2 {
   display: block;
-}
-
-.dropdown:hover .dropbtn {
-  background-color: #3e8e41;
 }
 
 .modal {
@@ -130,7 +126,6 @@
 .userPlylstNm{
   height: 40px;
   width: 60%;
-  /* display: flex; */
   display: block;
   align-items: center;
   overflow: hidden;
@@ -145,34 +140,8 @@
 }
 </style>
 </head>
-<body>
-    <div id="main">
-        <div id="header">
-            <div id="header_navbar">
-                <div id="musicPlayer">musicPlayer</div>
-                <div id="pageLogo">
-                    <a href="#">Last.fm</a>
-                </div>
-                <div id="navbarUtil"> 
-                    <button class="subnavbtn" onclick="openSearch()">
-                      <i class="fa fa-search"></i></button>
-                    <a href="/">Home</a>
-                    <a href="/recommend/common">Recommend</a>
-                    <a href="#">Find music</a>
-                    <a href="/user/register">Join</a>
-                </div>
-            </div>
-            <div id="myOverlay" class="overlay">
-                <div class="overlay-content">
-                  <form action="/search" method="get" name="searchForm" onsubmit="return checkTxt();">
-                    <input type="text" placeholder="Search.." name="searchTxt" value="">
-                    <button type="submit" id="searchBtn"><i class="fa fa-search"></i></button>
-                  </form>
-                </div>
-            </div><!--myOverlay-->
-        </div><!--header-->
-
         
+        <%@include file="../includes/header.jsp" %>
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
@@ -182,17 +151,17 @@
 
                     <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
                   
-                     	<div class="dropdown">
-  							<span class="dropbtn">곡</span>
-  								<div class="dropdown-content">
+                     	<div class="dropdown2">
+  							<span class="dropbtn2">곡</span>
+  								<div class="dropdown-content2">
  									<a href="/search/songartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/songtitle?searchTxt=${searchTxt}">곡명으로</a>
  								</div>
 						</div>
                                	                    		
-                     	<div class="dropdown">
-  							<span class="dropbtn">앨범</span>
-  								<div class="dropdown-content">
+                     	<div class="dropdown2">
+  							<span class="dropbtn2">앨범</span>
+  								<div class="dropdown-content2">
  									<a href="/search/albumartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/albumtitle?searchTxt=${searchTxt}">앨범명으로</a>
  								</div>
@@ -223,7 +192,8 @@
                         		<c:out value="${searchSong2.trackTtl}" /></a></td>
                         	<td><a href="/detail/artist?gropId=<c:out value='${searchSong2.gropId}'/>">      
                         		<c:out value="${searchSong2.nm}" /></a></td>
-                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"></td>
+                        	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
+                        		onclick='popupPlayer("/player/track?trackId=${searchSong2.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
                         	<img class="defaultHeartImg"src="/resources/image/heart2.png">
@@ -291,7 +261,12 @@
                 <script>
                 
                 console.log("sessionName : " + '${sessionName}');
-                
+
+                let popupPlayer = function(url){
+                    let moveTop=screen.height-440;
+                     let moveLeft=screen.width-537;
+                   window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+                }
                 
                 //로그인 안되어있을 때 
                 //좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
@@ -455,17 +430,17 @@
                    
                 	//서치바에 입력된 값 없을 때의 설정-------------------------------------------------------
                 	
-                	var result = $("input[name=searchTxt]");
+                	var result2 = $("input[name=searchTxt]");
                 		
                 	function checkTxt(){
-                		console.log(result[0].value);
-                		if(result[0].value.length != 0){
-                			console.log(result+"있어");
+                		console.log(result2[0].value);
+                		if(result2[0].value.length != 0){
+                			console.log(result2+"있어");
                 			console.log("모달창 필요 없어!");
                 			return true; 
                 		}
                 		else{  
-                			console.log(result+"없어");
+                			console.log(result2+"없어");
                 			console.log("모달창 나와라!");
                 			alert("검색어를 입력하세요");
                 			return false;
@@ -529,10 +504,4 @@
                     </div><!--bodyContent-->
             <div id="rightSideBar"></div>
         </div><!--body-->
-        <div id="footer"></div>
-    </div><!--main-->
-</body>
-</html>
-                
-                    
-           
+   <%@include file="../includes/footer.jsp" %>     
