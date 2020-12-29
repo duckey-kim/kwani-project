@@ -51,7 +51,7 @@
   </select>
   
   <!-- 일반추천 페이지 관련 -->
-    <select id="getAllList" resultMap="PListResult">
+  <select id="getAllList" resultMap="PListResult">
   <![CDATA[
   select rcmd_plylst_id, rcmd_plylst_nm, rcmd_plylst_img from t_rcmd_plylst
   ]]>

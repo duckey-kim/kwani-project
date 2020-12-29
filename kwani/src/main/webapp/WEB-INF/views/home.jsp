@@ -81,12 +81,13 @@
 				</div>
 			</div>
 			<div class="slideBox">
-				<c:forEach items="${slideImg}" var="getSlideImg">
+				<c:forEach items="${allPlist}" var="getAllList">
 					<div class="slides fade">
-						<img src="/resources/image/album/${getSlideImg.albumImg}"
+						<img src="/resources/image/rcmdplylst/${getAllList.rcmdPlylstImg}"
 							class="slideBoxImg"
-							onclick="location.href='/detail/album?albumId=${getSlideImg.albumId}'"
+							onclick="location.href='/recommend/plylst?plylstId=${getAllList.rcmdPlylstId}'"
 							alt="">
+						<p class="slidesTxt">${getAllList.rcmdPlylstNm}</p>
 					</div>
 				</c:forEach>
 				<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a

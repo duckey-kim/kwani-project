@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.kwani.domain.HomeVO;
+import com.kwani.domain.PListVO;
 import com.kwani.mapper.HomeMapper;
 
 import lombok.AllArgsConstructor;
@@ -39,5 +40,14 @@ public class HomeServiceImpl implements HomeService {
 		
 		return mapper.getImg(startDate, finishDate, genreName);
 	}
+	
+	@Override
+	public List<HomeVO> getAllList(){
+		
+		log.info("getAllList........리스트정보만!");
+		
+		return mapper.getAllList();
+	}
+	
 
 }
