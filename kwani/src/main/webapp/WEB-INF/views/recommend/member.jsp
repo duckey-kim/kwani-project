@@ -22,23 +22,24 @@
 	href="/resources/css/plylstDetail.css">
 <style type="text/css">
 a:link {
-  color: black;
+	color: black;
 }
 
 /* visited link */
 a:visited {
-  color: black;
+	color: black;
 }
 
 /* mouse over link */
 a:hover {
-  color: black;
+	color: black;
 }
 
 /* selected link */
 a:active {
-  color: black;
+	color: black;
 }
+
 .modal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
@@ -138,10 +139,10 @@ a:active {
 	align-items: center;
 	text-align: right;
 }
-#plylstInfo{
-   
-    height: 100px;
-    margin-top: 50px;
+
+#plylstInfo {
+	height: 100px;
+	margin-top: 50px;
 }
 </style>
 
@@ -153,7 +154,7 @@ a:active {
 	<div id="leftSideBar"></div>
 	<div id="bodyContent">
 		<div id="plylstInfo">
-			<h1>${user.nick} 장르 추천</h1>
+			<h1>${user.nick}을위한 장르 추천</h1>
 		</div>
 		<!--plylstInfo-->
 
@@ -161,15 +162,14 @@ a:active {
 			<h2>Tracks</h2>
 		</div>
 		<div id="plylstBtn">
-			<button class="button" id="playButton-one"
-				>듣기</button>
+			<button class="button" id="playButton-one" onclick='setUrlTrack("one")'>듣기</button>
 			<button class="button" id="plusPlylstBtn-one">담기</button>
 		</div>
 		<div id="plylstTable">
 			<table>
 				<tr>
-					<th class="th0"><input type="checkbox" name="checkAll-one"
-						class="checkAll"></th>
+					<th class="th0"><input type="checkbox" name="checkAll-one" onclick='checkAll("one")'
+						class="checkAll-one"></th>
 					<th class="th1">번호</th>
 					<th class="th2">가수</th>
 					<th class="th3">제목</th>
@@ -180,11 +180,15 @@ a:active {
 				<c:forEach items="${genreList}" var="genreList" varStatus="status"
 					begin="0" end="19">
 					<tr>
-						<th><input type="checkbox" name="checkRow-one" value="${genreList.TRACK_ID }"></th>
+						<th><input type="checkbox" name="checkRow-one"
+							value="${genreList.TRACK_ID }"></th>
 						<td class="num">${status.index+1}</td>
-						<td><a href="/detail/artist?gropId=${genreList.GROP_ID }"><c:out value="${genreList.NM}" /></a></td>
-						<td><a href="/detail/track?trackId=${genreList.TRACK_ID }"><c:out value="${genreList.TRACK_TTL}" /></a></td>
-						<td class="btnParent"><img class="playBtn"  onclick='popupPlayer("/player/track?trackId=${genreList.TRACK_ID}")'
+						<td><a href="/detail/artist?gropId=${genreList.GROP_ID }"><c:out
+									value="${genreList.NM}" /></a></td>
+						<td><a href="/detail/track?trackId=${genreList.TRACK_ID }"><c:out
+									value="${genreList.TRACK_TTL}" /></a></td>
+						<td class="btnParent"><img class="playBtn"
+							onclick='popupPlayer("/player/track?trackId=${genreList.TRACK_ID}")'
 							src="/resources/image/play-button.png"></td>
 						<td>
 							<div class="heartParent">
@@ -203,21 +207,21 @@ a:active {
 
 
 		<div id="plylstInfo">
-			<h1>${user.nick} 테마장르 추천</h1>
+			<h1>${user.nick}을위한 테마 추천</h1>
 		</div>
 
 		<div id="tracks">
 			<h2>Tracks</h2>
 		</div>
 		<div id="plylstBtn">
-			<button class="button" id="playButton-two">듣기</button>
+			<button class="button" id="playButton-two" onclick='setUrlTrack("two")'>듣기</button>
 			<button class="button" id="plusPlylstBtn-two">담기</button>
 		</div>
 		<div id="plylstTable">
 			<table>
 				<tr>
-					<th class="th0"><input type="checkbox" name="checkAll-two"
-						class="checkAll"></th>
+					<th class="th0"><input type="checkbox" name="checkAll-two" onclick='checkAll("two")'
+						class="checkAll-two"></th>
 					<th class="th1">번호</th>
 					<th class="th2">가수</th>
 					<th class="th3">제목</th>
@@ -228,11 +232,15 @@ a:active {
 				<c:forEach items="${typeList}" var="typeList" varStatus="status"
 					begin="0" end="19">
 					<tr>
-						<th><input type="checkbox" name="checkRow-two" value="${typeList.TRACK_ID }"></th>
+						<th><input type="checkbox" name="checkRow-two"
+							value="${typeList.TRACK_ID }"></th>
 						<td class="num">${status.index+1}</td>
-						<td><a href="/detail/artist?gropId=${typeList.GROP_ID}"><c:out value="${typeList.NM}" /></a></td>
-						<td><a href="/detail/track?trackId=${typeList.TRACK_ID }"><c:out value="${typeList.TRACK_TTL}" /></a></td>
-						<td class="btnParent"><img class="playBtn" onclick='popupPlayer("/player/track?trackId=${typeList.TRACK_ID}")'
+						<td><a href="/detail/artist?gropId=${typeList.GROP_ID}"><c:out
+									value="${typeList.NM}" /></a></td>
+						<td><a href="/detail/track?trackId=${typeList.TRACK_ID }"><c:out
+									value="${typeList.TRACK_TTL}" /></a></td>
+						<td class="btnParent"><img class="playBtn"
+							onclick='popupPlayer("/player/track?trackId=${typeList.TRACK_ID}")'
 							src="/resources/image/play-button.png"></td>
 						<td>
 							<div class="heartParent">
@@ -301,161 +309,178 @@ a:active {
 
 
 		<script>
-                console.log("user : " + '${user}');
+			console.log("user : " + '${user}');
 
-                let popupPlayer = function(url){
-                    let moveTop=screen.height-440;
-                     let moveLeft=screen.width-537;
-                   window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
-                }
+			let popupPlayer = function(url) {
+				let moveTop = screen.height - 440;
+				let moveLeft = screen.width - 537;
+				window
+						.open(
+								url,
+								'player',
+								'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='
+										+ moveTop + ',left=' + moveLeft);
+			}
+			function checkAll(str){
+				//만약 전체 선택 체크박스가 체크된상태일경우 
+				if($(".checkAll-"+str).prop("checked")) { 
+					//해당화면에 전체 checkbox들을 체크해준다 
+					$("input[name=checkRow-"+str+"]").prop("checked",true); 
+					// 전체선택 체크박스가 해제된 경우 
+				} else { 
+					//해당화면에 모든 checkbox들의 체크를해제시킨다. 
+					$("input[name=checkRow-"+str+"]").prop("checked",false); 
+					}
+			}
 
-                //로그인 안되어있을 때
-                //좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
-                
+			//로그인 안되어있을 때
+			//좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
 
+			//모달창 --------------------------------------------------------------------------
+			let modal = document.getElementById("myModal");
 
-                //모달창 --------------------------------------------------------------------------
-                let modal = document.getElementById("myModal");
+			let btnOne = document.getElementById("plusPlylstBtn-one");
+			let btnTwo = document.getElementById("plusPlylstBtn-two");
 
-                let btnOne = document.getElementById("plusPlylstBtn-one");
-                let btnTwo = document.getElementById("plusPlylstBtn-two");
+			let span = document.getElementsByClassName("close")[0];
 
-                let span = document.getElementsByClassName("close")[0];
+			//'담기' 버튼을 눌렀을 때
+			btnOne.onclick = function() {
+				//doCheck()를 실행해서
+				//체크박스에 체크가 하나도 안되어 있다면 경고창 나오게 하고
+				//체크박스에 하나 이상 체크가 되어 있다면 모달창을 보여준다
+				doCheck('one');
+			}
+			btnTwo.onclick = function() {
+				//doCheck()를 실행해서
+				//체크박스에 체크가 하나도 안되어 있다면 경고창 나오게 하고
+				//체크박스에 하나 이상 체크가 되어 있다면 모달창을 보여준다
+				doCheck('two');
+			}
 
-                //'담기' 버튼을 눌렀을 때
-                btn.onclick = function(){
-                	//doCheck()를 실행해서
-                	//체크박스에 체크가 하나도 안되어 있다면 경고창 나오게 하고
-                	//체크박스에 하나 이상 체크가 되어 있다면 모달창을 보여준다
-                	doCheck(one);
-                }
+			span.onclick = function() {
+				modal.style.display = "none";
+			}
 
-                span.onclick = function(){
-                	modal.style.display = "none";
-                }
+			window.onclick = function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
 
-                window.onclick = function(event){
-                	if(event.target == modal){
-                		modal.style.display = "none";
-                	}
-                }
+			//좋아요 클릭하면 하트 색깔 바뀌게 설정(클릭한 곡의 track_id 값을 설정해놓음)--------------------------------------------------------
+			$(document)
+					.ready(
+							function() {
 
+								// 처음엔 모든 수록곡의 빨간하트를 숨기고 빈하트만 보여준다.
+								$(".redHeartImg").hide();
 
-                //좋아요 클릭하면 하트 색깔 바뀌게 설정(클릭한 곡의 track_id 값을 설정해놓음)--------------------------------------------------------
-                $(document).ready(function(){
+								// 좋아요한 노래에 해당하는 노래들은 빈하트를 숨기고 빨간 하트를 보여준다.(track_id 값을 설정해놓음)
+								<c:forEach items="${getLikedTrack}" var="getLikedTrack">
+								$(
+										"img[name='${getLikedTrack.trackId}'][class=defaultHeartImg]")
+										.hide();
+								$(
+										"img[name='${getLikedTrack.trackId}'][class=redHeartImg]")
+										.show();
+								</c:forEach>
 
-                	 // 처음엔 모든 수록곡의 빨간하트를 숨기고 빈하트만 보여준다.
-                    $(".redHeartImg").hide();
+								//빈 하트 클릭할 때
+								$(".defaultHeartImg").on(
+										"click",
+										function() {
+											sessionCheck();
 
-                    // 좋아요한 노래에 해당하는 노래들은 빈하트를 숨기고 빨간 하트를 보여준다.(track_id 값을 설정해놓음)
-                    <c:forEach items="${getLikedTrack}" var="getLikedTrack">
-                       $("img[name='${getLikedTrack.trackId}'][class=defaultHeartImg]").hide();
-                       $("img[name='${getLikedTrack.trackId}'][class=redHeartImg]").show();
-                    </c:forEach>
+											let index = $(".defaultHeartImg")
+													.index(this); //누른 하트의 인덱스 저장
 
-                    //빈 하트 클릭할 때
-                    $(".defaultHeartImg").on("click", function(){
-                    	sessionCheck();
+											$(
+													".defaultHeartImg:eq("
+															+ index + ")")
+													.hide(); //누른 하트를 숨기기
+											$(".redHeartImg:eq(" + index + ")")
+													.show(); //누른 곳에 빨간 하트를 표시
+											console.log("좋아요할 노래아이디 : "
+													+ $(
+															".defaultHeartImg:eq("
+																	+ index
+																	+ ")")
+															.attr("name"));
+										});
 
-                       let index = $(".defaultHeartImg").index(this);   //누른 하트의 인덱스 저장
+								//빨간 하트 클릭할때
+								$(".redHeartImg").on(
+										"click",
+										function() {
 
-                       $(".defaultHeartImg:eq(" + index + ")").hide();   //누른 하트를 숨기기
-                       $(".redHeartImg:eq(" + index + ")").show();   //누른 곳에 빨간 하트를 표시
-                       console.log("좋아요할 노래아이디 : " + $(".defaultHeartImg:eq(" + index + ")").attr("name"));
-                    });
+											let index = $(".redHeartImg")
+													.index(this); //누른 하트의 인덱스 저장
 
-                    //빨간 하트 클릭할때
-                    $(".redHeartImg").on("click", function(){
+											$(".redHeartImg:eq(" + index + ")")
+													.hide(); //누른 하트를 숨기기
+											$(
+													".defaultHeartImg:eq("
+															+ index + ")")
+													.show(); //누른 곳에 빈 하트를 표시
+											console.log("좋아요 취소할 노래아이디 : "
+													+ $(
+															".redHeartImg:eq("
+																	+ index
+																	+ ")")
+															.attr("name"));
+										});
+							})
 
-                       let index = $(".redHeartImg").index(this);      //누른 하트의 인덱스 저장
-
-                       $(".redHeartImg:eq(" + index + ")").hide();   //누른 하트를 숨기기
-                       $(".defaultHeartImg:eq(" + index + ")").show();   //누른 곳에 빈 하트를 표시
-                       console.log("좋아요 취소할 노래아이디 : " + $(".redHeartImg:eq(" + index + ")").attr("name"));
-                    });
+			function setUrlTrack(str){
+				let trackArr =[];
+				$("input[name=checkRow-"+str+"]:checked").each(function(){
+					trackArr.push($(this).val());
 				})
+				let url = '';
+				let trackStr = 'trackId=';
+				if(trackArr.length==1){
+					url =trackStr+trackArr[0];
+				}else{
+					for(let i=0;i<trackArr.length;){
+						url +='trackId='+trackArr[i];
+						if(i!=trackArr.length-1){
+							url+='&'
+						}
+						i+=1;
+					}
+				}
+				popupPlayer("/player/track?"+url);
+			}			
+			
+			
+			
+			
+			
+			function doCheck(str) {
 
- 				//체크박스에 하나도 체크 안되어 있으면 담기 버튼 눌렀을 때 경고창 나오게 하기--------------------------------
- 				function doCheck(str){
+				console.log("hi");
 
- 					console.log("hi");
+				//체크된 체크박스 길이 가져오기
+				checkedLength = $("[name=checkRow-" + str + "]:checked").length;
 
- 					//체크된 체크박스 길이 가져오기
- 	                checkedLength = $("[name=checkRow-"+str+"]:checked").length;
+				console.log(checkedLength);
 
- 	                console.log(checkedLength);
+				//체크된 체크박스가 하나도 없다면
+				if (checkedLength == 0) {
 
- 	                //체크된 체크박스가 하나도 없다면
- 	                if(checkedLength == 0){
-
- 	                	console.log("선택 안함...");
- 	                	//경고창을 띄워준다
- 	                	alert("노래를 선택해주세요");
- 	                	return;
- 	                }else{
- 	                	//하나 이상이라도 체크박스에 체크가 되어 있다면 아무것도 하지 않는다
- 	                	console.log("선택했어!");
- 	                	modal.style.display = "block";
- 	                	return;
- 	                }
- 	             }
-
-
-
-
-                //체크박스 설정-------------------------------------------------------------------------
-                	function allCheckFunc(obj){
-                		//모든 checkRow의 속성이 checked가 되게 한다
-                		$("[name=checkRow]").prop("checked", $(obj).prop("checked"));
-                	}
-
-                	function oneCheckFunc(obj){
-
-                		//checkAll이란 name값을 가진 요소를 allObj에 저장한다
-                		let allObj = $("[name=checkAll]");
-                		//obj의 name이란 속성(attribute)값을 objName에 저장한다
-                		let objName = $(obj).attr("name");
-
-                		//obj의 속성값이 checked라면
-                		if($(obj).prop("checked")){
-
-                			//모든 체크박스의 길이를 변수로 지정
-                			checkBoxLength = $("[name=" + objName + "]").length;
-                			//체크된 체크박스의 길이를 변수로 지정
-                			checkedLength = $("[name=" + objName + "]:checked").length;
-
-                			//전체 체크박스의 개수와 체크된 체크박스의 개수가 일치하면
-                			if(checkBoxLength == checkedLength){
-                				//checkAll 이름의 체크박스를 체크한다
-                				allObj.prop("checked", true);
-                			}else{
-                				//하나라도 체크가 안된 경우에는 checkAll 체크박스를 해제한다
-                				allObj.prop("checked", false);
-                			}
-                		}
-                		else{//obj가 checked된 것이 아니라면
-                			//checkAll이 체크를 해제한다
-                			allObj.prop("checked", false);
-                			console.log("선택 해제!!!");
-                		}
-                	}
-
-                	$(function(){
-
-                		$("[name=checkAll]").click(function(){
-                			//checkAll 이름의 체크박스를 클릭하면 전체가 선택되게 한다
-                			allCheckFunc(this);
-                		});
-                		$("[name=checkRow]").each(function(){
-                			//checkRow라는 이름의 체크박스 하나하나에 oneCheckFunc 메서드를 적용시킨다
-                			//checkRow 체크박스 하나하나 모두 체크되면 checkAll 체크박스도 체크된다
-                			$(this).click(function(){
-                				oneCheckFunc($(this));
-                			});
-                		});
-                	});
-
-                </script>
+					console.log("선택 안함...");
+					//경고창을 띄워준다
+					alert("노래를 선택해주세요");
+					return;
+				} else {
+					//하나 이상이라도 체크박스에 체크가 되어 있다면 아무것도 하지 않는다
+					console.log("선택했어!");
+					modal.style.display = "block";
+					return;
+				}
+			}
+		</script>
 
 
 	</div>
