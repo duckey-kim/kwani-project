@@ -27,6 +27,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="plylstId" column="plylst_id" /> <result property="trackId" 
 		column="track_id" /> <result property="plyNo" column="ply_no" /> </resultMap> -->
 
+	<delete id="deleteLikeTrack">
+		DELETE FROM T_LIKE_TRACKS
+		WHERE TRACK_ID = #{trackId}
+		AND EMAIL = #{email}
+	</delete>
+
+	<insert id="insertLikeTrack">
+		INSERT INTO T_LIKE_TRACKS(TRACK_ID, EMAIL)
+		VALUES(#{trackId}, #{email})
+	</insert>
+
 	<insert id="updatePlaylistImg">
 		UPDATE T_PLYLST
 		SET PLYLST_IMG = (SELECT A.ALBUM_IMG
@@ -85,9 +96,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="getPlaylistDetail" resultMap="selectMap">
-		SELECT PD.PLYLST_ID,
-		T.TRACK_TTL, A.NM AS ANM, AL.ALBUM_TTL, AL.ALBUM_IMG AS ALBUM_IMG,
-		PD.PLY_NO, PD.TRACK_ID AS TRACK_ID, A.GROP_ID
+		SELECT PD.PLYLST_ID,T.TRACK_TTL, A.NM AS ANM, AL.ALBUM_TTL, AL.ALBUM_IMG AS ALBUM_IMG,PD.PLY_NO, PD.TRACK_ID AS TRACK_ID, A.GROP_ID, P.NM, P.DESCP
 		FROM T_PLYLST P, T_PLYLST_DTL PD,
 		T_TRACKS T, T_ARTIST A, T_ARTIST_TRACKS AT, T_ALBUM AL
 		WHERE

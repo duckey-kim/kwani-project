@@ -27,21 +27,18 @@ import lombok.extern.log4j.Log4j;
 public class MyPageController {
 
 	private MyPageService myPageService;
-	private UserService userService;
 
 	// 전체보기 (플레이리스트, 좋아요, 최근들은 곡 요약)
 	@RequestMapping(value = "/overview", method = { RequestMethod.POST, RequestMethod.GET })
 	public String overview(HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
-		UserVO userVO = userService.get(email);
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 
 		model.addAttribute("libraryList", myPageService.getListLibrary(email));
 		model.addAttribute("likedArtistList", myPageService.getListLikedArtist(email));
 		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
 		model.addAttribute("likedAlbumList", myPageService.getListLikedAlbum(email));
-
-		session.setAttribute("user", userVO);
 		
 		return "/mypage/overview";
 	}
@@ -50,10 +47,10 @@ public class MyPageController {
 	@PostMapping("/like")
 	public String like(HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 
 		model.addAttribute("likedArtistList", myPageService.getListLikedArtist(email));
-		System.out.println(myPageService.getListLikedArtist(email));
 		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
 		model.addAttribute("likedAlbumList", myPageService.getListLikedAlbum(email));
 
@@ -64,9 +61,11 @@ public class MyPageController {
 	@PostMapping("/library")
 	public void trackList(HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 		
 		model.addAttribute("libraryList", myPageService.getListLibrary(email));
+		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
 
 	}
 
@@ -74,7 +73,8 @@ public class MyPageController {
 	@RequestMapping(value = "/playlist", method = { RequestMethod.POST, RequestMethod.GET })
 	public String playlist(HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 
 		model.addAttribute("playlistVO", myPageService.getListPlaylist(email));
 		model.addAttribute("playlistCount", myPageService.countPlaylist(email));
@@ -86,7 +86,8 @@ public class MyPageController {
 	@PostMapping("/playlistDetail")
 	public String playlistDetail(@ModelAttribute("plylstId") Integer plylstId, HttpSession session, Model model) {
 
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 
 		model.addAttribute("playlistDetail", myPageService.getListPlaylistDetail(plylstId, email));
 		model.addAttribute("trackCount", myPageService.countPlaylistTrack(plylstId));
@@ -99,7 +100,8 @@ public class MyPageController {
 	@PostMapping("/playlist/create")
 	public String createPlaylist(@ModelAttribute("playlistVO") PlaylistVO playlistVO, HttpSession session , Model model) {
 			
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 			
 		myPageService.createPlaylist(playlistVO);
 		model.addAttribute("playlistVO", playlistVO);
@@ -111,7 +113,8 @@ public class MyPageController {
 	@GetMapping("/playlist/{plylstId}")
 	public String showPlaylist(@PathVariable("plylstId")Integer plylstId, HttpSession session , Model model) {
 		
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 
 		PlaylistVO playlistVO =  myPageService.getOnePlaylistVO(plylstId, email);
 		
@@ -130,7 +133,8 @@ public class MyPageController {
 	@PostMapping("/playlist/delete")
 	public String deletePlaylist(Integer plylstId, HttpSession session, RedirectAttributes rttr) {
 
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 		
 		boolean result = myPageService.removePlaylist(plylstId, email);	
 		rttr.addFlashAttribute("successDel", result ? "SUCCESS" : "FAIL");
@@ -144,7 +148,8 @@ public class MyPageController {
 	public String getPlaylistEdit(@ModelAttribute("playlistVO") PlaylistVO playlistVO, HttpSession session, RedirectAttributes rttr) {
 		
 		//유효성체크.. 본인만 수정할 수 있도록
-		String email = (String)session.getAttribute("userEmail");
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 		
 		boolean result = myPageService.modifyPlaylist(playlistVO, email);		
 		rttr.addFlashAttribute("result", result ? playlistVO.getNm() : "FAIL");
