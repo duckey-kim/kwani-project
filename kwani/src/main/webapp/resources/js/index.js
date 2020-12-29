@@ -10,19 +10,6 @@ function myFunction(){
     }
 }
 
-function openSearch() {
-    document.getElementById("myOverlay").style.display = "block";
-}
-
-let overlay = document.getElementById('myOverlay');
-
-window.onclick = function(event){
-    if(event.target == overlay){
-        overlay.style.display = "none";
-    }
-}
-
-
 var result = $("input[name=searchTxt]");
 	
 function checkTxt(){

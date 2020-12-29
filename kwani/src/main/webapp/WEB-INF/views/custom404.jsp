@@ -4,9 +4,31 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-<title>Insert title here</title>
+<title>404 ERROR</title>
+<link rel="stylesheet" type = "text/css" href="/resources/css/custom404.css">
 </head>
 <body>
-	<h1>해당 URL은 존재하지 않습니다.</h1>
+	<div id="main">
+        <div class="header"></div>
+            <div class="container">
+                <div class="imgContainer">
+                    <img src="/resources/image/error404.jpg" id="img"alt="">
+                </div>
+                <div class="msgContainer">
+                    <div class="msg pageMsg">
+                        404 PAGE NOT FOUND
+                    </div>
+                    <div class="msg pageMsg2">
+                        <h2>요청하신 페이지를 찾을 수 없습니다.</h2>
+                    </div>
+                    <div class="msg pageMsg3">
+                        <h3>서비스 이용에 불편을 드려 죄송합니다.</h3>
+                    </div>
+                    <div class="msg toHome">
+                        <a href="/" class="backToHome">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+    </div>
 </body>
 </html>
