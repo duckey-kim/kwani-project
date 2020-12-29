@@ -1,11 +1,6 @@
-* {
-    left: 0;
-    top: 0;
-}
-
 a {
-    text-decoration: none;
-    color:black;
+	text-decoration: none;
+	color: black;
 }
 
 p{
@@ -33,6 +28,7 @@ th, td {
 	padding: 5px;
 	text-align: center;
 	width: auto;
+	height: auto;
 	border-bottom: 1px solid #ddd;
 }
 
@@ -44,6 +40,52 @@ tr:hover {background-color:#f5f5f5;}
 
 li {
 	list-style-type: none;
+}
+
+li:hover {
+	background-color:#f5f5f5;
+	border-radius: 6px;	
+}
+
+.myArtistImg {
+	width: 220px;
+	height: 220px;
+	opacity: 1;
+  	transition: .5s ease;
+}
+
+.artist-td {
+	position: relative;
+}
+
+.img-background{
+	background-color: black;
+	width: 220px;
+	height: 220px;
+	margin: 0 0.8vw 0 0.8vw;
+}
+
+.text{
+	color: white;
+}
+
+.middle {
+	transition: .5s ease;
+	opacity: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.artist-td:hover .myArtistImg {
+	opacity: 0.3;
+}
+
+.artist-td:hover .middle {
+	opacity: 1;
 }
 
 #addModal{
@@ -121,38 +163,39 @@ li {
 	text-align: center;
 }
 
-.img-td {
+.img-container{
 	position: relative;
+	width: 220px;
+	height: 220px;
 }
 
-.img-div img {
+.img-container .myPlaylistImg{
 	position: absolute;
+	transform: translate(-50%);
 }
 
-.img-div .myArtistImg {
-	left: 50%;
-	transform: translateX(-50%);
+.img-container .moreImg{
+	position: absolute;
+	left: 85%;
+	top: 4%;
 }
 
-.img-div .moreImg {
-	left: 80%;
-	margin-top: 4%;
-}
-
-.img-div ul {
-	left: 73%;
-	top: -1.5em;
-	width: 5em;
-	height: 3.5em;
+.img-container ul {
+	left: 78%;
+	top: 40px;
+	width: 80px;
+	height: auto;
 	text-align: center;
 }
 
-.img-div ul li {
-	transform: translateY(55%);
+.img-container ul li {
+	height: auto;
+	text-align: center;
 }
 
-
 .item-div {
+	width: 90%;
+	margin: 0 0 0 5%;
 	position: relative;
 	display: flex;
 	justify-content: left;
@@ -164,11 +207,11 @@ li {
 }
 
 .item-div .table {
-	width: 18vw;
-	margin: 0 1.5vw 0 1.5vw;
+	width: 220px;
+	margin: 0 1vw 0 1vw;
 }
 
-.item-div .basicTable {
+.item-div .basicTable{
 	width: 17vw;
 	margin: 0 1vw 0 1vw;
 }
@@ -188,23 +231,50 @@ li {
 	font-size: 14px;
 	font-weight: bold;
 	cursor: pointer;
-	border-bottom: 2px solid #fff;
+	border-bottom: 3px solid #fff;
 }
 
 .button:hover{
-	border-bottom: 2px solid #b90000;
+	border-bottom: 3px solid #b90000;
 }
 
 .button2 {
-	background-color: plum;
-	border: none;
-	color: white;
+	background-color: white;
+	color: #b90000;
 	padding: 10px 28px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 12px;
-	margin: 4px 2px;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	border-bottom: 3px solid #b90000;
+}
+
+.button3 {
+	background-color: white;
+	color: black;
+	padding: 10px 28px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+	font-weight: bold;
+	cursor: pointer;
+	width: 220px;
+	height: 40px;
+	text-overflow: ellipsis;
+	overflow: hidden; 
+	white-space: nowrap;
+}
+
+.button4 {
+	background-color: white;
+	color: black;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
 	cursor: pointer;
 }
 
@@ -225,11 +295,6 @@ li {
 .td8 {
 	height: 13em;
 	width: 13em;
-}
-
-.td9 {
-	height: 220px;
-	width: 220px;
 }
 
 .tdsmall {
@@ -278,17 +343,12 @@ li {
 	height: 20px;
 }
 
-.moreImg {
-	z-index: 1;
-	width: 1.6em;
-	height: 1.6em;
-}
-
 .dd-plylst-content {
+	background-color: white;
 	display: none;
 	position: relative;
-	background-color: white;
 	border-radius: 6px;
+	border: 1px solid lightgray;
 }
 
 .show {display: block;}
@@ -298,14 +358,26 @@ li {
 	height: 30px;
 }
 
-.myAlbumImg {
+.editImg{
+	width: 15px;
+	height: 15px;
+}
+
+.myPlaylistImg{
 	width: 220px;
 	height: 220px;
 }
 
-.myArtistImg {
-	width:220px;
-	height:220px;
+.moreImg{
+	width: 25px;
+	height: 25px;
+	z-index: 1;
+	display:none;
+}
+
+.myAlbumImg {
+	width: 220px;
+	height: 220px;
 }
 
 .mypage-header {

@@ -12,10 +12,10 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="/resources/js/jquery-3.5.1.js"/></script>
-<link rel="stylesheet" href="/resources/css/mypage.css" />
 </head>
 
 <%@include file="../includes/header.jsp" %>
+<link rel="stylesheet" href="/resources/css/mypage.css" />
 		<div id="body">
 			<div id="leftSideBar"></div>
 			<div id="bodyContent">
@@ -38,7 +38,7 @@
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/playlist" method="post">
-								<button class="button">Playlist</button>
+								<button class="button2">Playlist</button>
 							</form>
 						</div>
 						<div class="nav-item">
@@ -78,31 +78,30 @@
 						<div class="item-body">
 							<div class="item-div">
 								<c:forEach items="${playlistVO}" var="plylst">
-									<table class="basicTable">
+									<table class="table">
 										<tr>
 											<th></th><th></th>
 										</tr>
 										<tr>
-											<td class="td9 img-td" colspan="2">
+											<td colspan="2">
 												<div class="img-container">
-													<div class="img-div">
-														<a class="ddBtn"><img class="moreImg" src="/resources/image/more.png"></a>
-															<img class="myArtistImg" src="/resources/image/album/${plylst.plylstImg}">
-															<div class="dropdown-playlist">
-																	<ul class="dd-plylst-content">
-																			<li><button class="mod">수정</button></li>
-																			<li><button class="del">삭제</button></li>
-																	</ul>
-															</div>
+													<a class="ddBtn"><img class="moreImg" src="/resources/image/more.png"></a>
+													<img class="myPlaylistImg" src="/resources/image/album/${plylst.plylstImg}">
+													
+													<div class="dropdown-playlist">
+														<ul class="dd-plylst-content">
+															<li><img class="editImg" src="/resources/image/edit.png"><button class="mod button4">수정</button></li>
+															<li><img class="editImg" src="/resources/image/close.png"><button class="del button4">삭제</button></li>
+														</ul>
 													</div>
 												</div>
 											</td>
 										</tr>
 										<tr>
-											<td>
+											<td colspan="2">
 												<form action="/mypage/playlistDetail" method="post">
 													<input class="plylstValue" type="hidden" value="${plylst.plylstId}" name="plylstId">
-													<button class="button">
+													<button class="button3">
 														<c:out value="${plylst.nm}"/>
 													</button>
 												</form>
@@ -156,6 +155,17 @@
 	
 	});
 	
+	// 플레이리스트 수정 삭제
+	$(".myPlaylistImg").mouseover(function(){
+		let idx = $(".myPlaylistImg").index(this);
+	    $(".moreImg:eq(" + idx + ")").css("display", "block");
+	});
+	
+	$(".myPlaylistImg").mouseout(function(){
+		let idx = $(".myPlaylistImg").index(this);
+		$(".moreImg:eq(" + idx + ")").css("display", "none");
+	});
+
 	// 플레이리스트 개수 제한
 	$("#createBtn").click(function(e){
 		e.preventDefault();

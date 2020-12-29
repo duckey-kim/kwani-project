@@ -49,7 +49,7 @@
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/library" method="post">
-								<button class="button">Library</button>
+								<button class="button2">Library</button>
 							</form>
 						</div>
 					</div>
