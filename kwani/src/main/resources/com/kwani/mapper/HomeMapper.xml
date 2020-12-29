@@ -55,8 +55,8 @@
       to_date(#{finishDate}, 'yyyy')
       and at.grop_id = a.grop_id
       and at.track_id = t.track_id
-      and c.cd_no = t.genre_cd
       and c.cd_nm = #{genreName}
+      and bitand(t.genre_cd,c.cd_no)=c.cd_no
       order by DBMS_RANDOM.RANDOM
       ]]>
    </select>
