@@ -119,8 +119,10 @@
 								type="hidden" id="finishDate" name="finishDate">
 						</form>
 					</div>
+					<div style="width:10px;"></div>
+					
 					<div class="genreYearImg"
-						style="background-image: url(/resources/image/artist/소녀시대.jpg);">
+						style="background-image: url(/resources/image/artist/아이유.jpg);">
 						<div class="circle red">
 							<div class="year">
 								<div class="yearWrap"></div>
@@ -134,6 +136,7 @@
 							</div>
 						</div>
 					</div>
+					<div style="width:10px"></div>
 					<div class="genreCntBox">
 						<p id="genreName"></p>
 						<input type="hidden" id="inputGenre" name="genreName">
@@ -240,7 +243,12 @@
 	let startDate = "2010"
 	let finishDate = "2019";
 	let genreName = "댄스";
-
+	let gropId = "12";
+	
+	$(".genreYearImg").click(function() {
+			location.href = "/detail/artist?gropId=" +gropId
+	});
+	
 	$(".year").on(
 			'click',
 			function() {
@@ -263,8 +271,9 @@
 					}
 
 				});
-
+				
 				console.log(startDate + "-" + finishDate + "-" + genreName)
+				
 				$.ajax({
 					type : "GET",
 					url : "/homeAjax/" + startDate + "/" + finishDate + "/"
@@ -282,9 +291,7 @@
 								"background-image",
 								"url(/resources/image/artist/"
 										+ data[0].gropImg + ")");
-						$(".genreYearImg").click(function() {
-							location.href = "/detail/artist?gropId=" + data[0].gropId
-						});
+						gropId = data[0].gropId;
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {
 						$(".genreYearImg").css("background-image",
@@ -364,9 +371,7 @@
 									"url(/resources/image/artist/"
 											+ data[0].gropImg + ")");
 							
-							$(".genreYearImg").click(function() {
-								location.href = "/detail/artist?gropId=" + data[0].gropId
-							});
+							gropId = data[0].gropId
 						}
 					},
 					error : function(XMLHttpRequest, textStatus, errorThrown) {
