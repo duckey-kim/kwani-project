@@ -50,8 +50,8 @@ public class EmailController {
 		String realEmail = email;
 		System.out.println("사용자가 비밀번호를 받을 이메일 : " + realEmail);
 		
-		if (service.checkWithdrawUser(IdEmail)) {
-			System.out.println(service.checkWithdrawUser(IdEmail));
+		if (service.checkWithdrawUser(IdEmail, rttr)) {
+			System.out.println(service.checkWithdrawUser(IdEmail, rttr));
 			rttr.addFlashAttribute("msg", "입력하신 이메일은 유효하지 않습니다. 다른 이메일을 입력하세요.");
 			mav = new ModelAndView("redirect:/search/findUserPwd1");
 			

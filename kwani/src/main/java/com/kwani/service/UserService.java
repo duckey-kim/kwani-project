@@ -50,7 +50,7 @@ public interface UserService {
 	public boolean isSocialIdValid(String kakaoEmail, RedirectAttributes rttr);
 	
 	// 탈퇴한 회원인지 확인한다.
-	public boolean checkWithdrawUser(String IdEmail);
+	public boolean checkWithdrawUser(String IdEmail, RedirectAttributes rttr);
 
 	// 서버에 저장된 비밀번호를 이메일로 전송된 번호로 변경한다.
 	public void modifyPwd(String IdEmail, String uuid);
@@ -71,5 +71,6 @@ public interface UserService {
 
 	// 회원가입시, 사용자의 가입여부를 확인.
 	public boolean checkRegister(UserVO user, String email, RedirectAttributes rttr, Model model);
+
 
 }

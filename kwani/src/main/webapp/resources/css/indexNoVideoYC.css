@@ -166,12 +166,8 @@ a {
     background-color: black;
 }
 
-/* button {
-	color: #fff;
-} */
-button:hover {
+button:hover, .btn:hover {
 	background-color: black;
 	color: red;
-	
 }
 

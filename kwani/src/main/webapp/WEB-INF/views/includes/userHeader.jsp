@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="/resources/css/header.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/userHeader.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/footer.css">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"
@@ -23,10 +23,6 @@
 <body>
 	<div id="main">
 		<div id="header">
-			<div id="header_cover">
-				<video id="video" src="/resources/video/AudioWave.mp4"
-					type="video/mp4" autoplay muted loop></video>
-			</div>
 			<div id="header_navbar">
 				<div id="musicPlayer"></div>
 				<div id="pageLogo">
@@ -43,9 +39,11 @@
 							<i class="fas fa-user-circle"></i>
 						</div>
 						<div id="myDropdown" class="dropdown-content">
-							<a href="/mypage/overview" id="toMypageBtn" style="display: none">My
-								Page</a> <a href="/user/checkUserInfo">Settings</a> <a
-								href="/user/logoutAction" id="logoutBtn" style="display: none">Logout</a>
+							<a href="/mypage/overview" id="toMypageBtn"
+								style="display: none">My Page</a>
+								<a href="/user/login" id="loginBtn">Login</a>
+								<a href="/user/checkUserInfo">Settings</a>
+							<a href="/user/logoutAction" id="logoutBtn" style="display: none">Logout</a>
 						</div>
 					</div>
 				</div>
@@ -63,6 +61,6 @@
 					</form>
 				</div>
 			</div>
-			<!-- myOverlay -->
+			<!--myOverlay-->
 		</div>
-		<!-- header -->
+		<!--header-->

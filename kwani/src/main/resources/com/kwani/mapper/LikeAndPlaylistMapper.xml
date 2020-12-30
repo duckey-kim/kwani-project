@@ -35,7 +35,6 @@ and grop_id = #{gropId}
 select plylst_id, nm, plylst_img, track_cnt 
 from t_plylst
 where email = #{sessionName}
-and plylst_type = 1
 order by plylst_no desc
 ]]>
 </select>
