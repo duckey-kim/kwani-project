@@ -77,8 +77,7 @@
 								</tr>
 								<c:forEach items="${libraryList}" var="library" begin="0" end="4">
 									<tr>
-										<td><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"
-											onclick='href="/detail/album?albumId=${library.ALBUM_ID}"'></td>
+										<td><a href="/detail/album?albumId=${library.ALBUM_ID}"><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"></a></td>
 										<td><a href="/detail/track?trackId=${library.TRACK_ID}"><c:out value="${library.TRACK_TTL}" /></a></td>
 										<td><a href="/detail/artist?gropId=${library.GROP_ID}"><c:out value="${library.NM}" /></a></td>
 										<td><c:out value="${library.PLAY_DT}" /></td>
