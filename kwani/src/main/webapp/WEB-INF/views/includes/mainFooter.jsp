@@ -47,6 +47,7 @@
 	console.log('${list}');
 	console.log('${slideImg}');
 	console.log('${allPlist}');
+	
 
 
 	let logoutBtn = document.getElementById("logoutBtn");

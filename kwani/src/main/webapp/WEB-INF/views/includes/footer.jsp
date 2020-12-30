@@ -46,14 +46,13 @@
 	console.log('${userNick}');
 	console.log('${prevPath}');
 	
-	
+	let joinBtn = document.getElementById("joinBtn");
 	let loginBtn = document.getElementById("loginBtn");
 	let logoutBtn = document.getElementById("logoutBtn");
 	let toMypageBtn = document.getElementById("toMypageBtn");
-	let joinBtn = document.getElementById("joinBtn");
 	
 
-	//세션이 있으면 loginBtn을 없애고, logoutBtn, toMypageBtn, welcomeBtn을 보이게 한다.
+	//세션이 있으면 loginBtn을 없애고, logoutBtn, toMypageBtn을 보이게 한다.
 
 	if ('${user}' != "") {
 		joinBtn.style.display = "none";
