@@ -47,7 +47,6 @@
 		</div>
 	</div>
 </div>
-<a href="/admin/home">HOME</a>
 <script type="text/javascript">
 	$(document).ready(function() {
 

@@ -1,6 +1,7 @@
 package com.kwani.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -66,6 +67,31 @@ public interface TableMapper {
 	public int updateTracks(@Param("upUser")String upUser,@Param("track")TracksVO track);
 	
 	public int updateUser(@Param("upUser")String upUser,@Param("user")UserVO user);
+	
+	public List<Map<String,String>> getGenreCount();
+	
+	public List<Map<String,String>> getCountPlay();
+	
+	public List<Map<String,String>> getCodeTable(Integer typeCode);
+	
+	public List<Integer> getGenre(String email);
+	
+	public String getCodeName(@Param("typeId")Integer typeId,@Param("cdNo")Integer cdNo);
+	
+	public List<Integer> getCodeNo(Integer typeCode);
+	
+	public List<Integer> getTheme(String email);
+	
+	public List<Map<String,String>> recommendGenre(Integer genreCd);
+
+	public List<Map<String,String>> recommendType(Integer typeCd);
+	
+	public List<Integer> getTracksGenreCode();
+	
+	
+	
+	
+	
 	
 
 }
