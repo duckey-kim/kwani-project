@@ -1,7 +1,7 @@
 package com.kwani.service;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import com.kwani.domain.Criteria;
 import com.kwani.domain.PListVO;
@@ -19,6 +19,9 @@ public interface PListService {
 	
 	//search 페이지 - 가수명으로 검색한 결과
 	public List<PListVO> getSearchRst(String searchTxt);
+	
+	//search 페이지 - 아티스트명으로 앨범 검색한 결과
+	public List<PListVO> getSearchAlbum(String searchTxt);
 	
 	//search 페이지 - 곡명으로 검색한 결과
 	public List<PListVO> getSearchRstWithSong(String searchTxt);
@@ -77,11 +80,19 @@ public interface PListService {
 	
 	//회원이 좋아요한 아티스트 목록 가져오기
 	public List<PListVO> getLikedArtist(String email);
+
 	
 
-	//모달창 - 플레이리스트 추가 관련 
-	//기존 플레이리스트에 곡 추가
-	public void insertTrackList(Set<Integer> trackId, Integer plylstId, String email);
+	//덕환
+	public int getUserLikeGenre(String email, int i);
+
+	public List<Map<String, String>> recommendGenre(int genreCode);
+
+	public int getUserLikeType(String email, int i);
+
+	public List<Map<String, String>> recommendType(int typeCode);
+	
+
 }
 
 

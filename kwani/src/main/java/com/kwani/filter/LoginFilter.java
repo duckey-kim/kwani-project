@@ -33,10 +33,10 @@ public class LoginFilter implements Filter {
 		HttpSession session = httpRequest.getSession(true);
 		String requestURI =httpRequest.getRequestURI();
 		System.out.println(requestURI);
-		request.setAttribute("prevPath", requestURI);
+	
 		if (!isLogIn(session) && !httpRequest.getRequestURI().contains("/user/login")) {
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/user/login");
+			RequestDispatcher rd = request.getRequestDispatcher("/user/login?prevPath="+requestURI);
 			rd.forward(request, response);
 			return;
 			

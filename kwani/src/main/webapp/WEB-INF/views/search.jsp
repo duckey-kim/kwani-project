@@ -318,22 +318,22 @@
                 
                 <div class="albumTxt"><p class="textInfo">앨범</p></div>
                 <div class="albumImgContainer">
-                	<c:forEach items="${searchRst}" var="searchRst" varStatus="status" begin="0" end="3">
+                	<c:forEach items="${searchAlbum}" var="searchAlbum" varStatus="status" begin="0" end="3">
                 	<div class="eachAlbum">
                 	
-                	<a href='/detail/album?albumId=${searchRst.albumId}'>
-                	<div class="albumImg" style="background-image:url(/resources/image/album/<c:out value='${searchRst.albumImg}'/>);">         	  	
+                	<a href='/detail/album?albumId=${searchAlbum.albumId}'>
+                	<div class="albumImg" style="background-image:url(/resources/image/album/<c:out value='${searchAlbum.albumImg}'/>);">         	  	
                 	</div><!-- albumImg --></a>
                 	<div class="albumArtist">
                 		<p>
-                			<a href="/detail/artist?gropId=<c:out value='${searchRst.gropId}'/>">
-                			<c:out value="${searchRst.nm}" /></a>
+                			<a href="/detail/artist?gropId=<c:out value='${searchAlbum.gropId}'/>">
+                			<c:out value="${searchAlbum.nm}" /></a>
                 		</p>
                 	</div><!-- albumArtist -->   
                 	<div class="albumTtl">
                 		<p>
-                			<a href="/detail/album?albumId=<c:out value='${searchRst.albumId}'/>">
-                			<c:out value="${searchRst.albumTtl}" /></a>
+                			<a href="/detail/album?albumId=<c:out value='${searchAlbum.albumId}'/>">
+                			<c:out value="${searchAlbum.albumTtl}" /></a>
                 		</p>
                 	</div><!-- albumTtl -->              	
                 	</div><!-- eachAlbum --> 
