@@ -136,7 +136,9 @@
                     	</div>
                     	<div class="plylstBtns">
                     		<div class="shareBtn">
-                    			<button class="button" id="shareBtn">공유하기</button>
+                    			 
+                    			<input type="button" value="공유하기" onclick="copyURL()">
+								<textarea id="address" style="display: none"></textarea>
                     		</div>
                     		<div class="likeBtn">
                     			<p>좋아요</p>
@@ -227,6 +229,19 @@
                    window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
                 }
          
+                
+                //공유하기 버튼
+                function copyURL() {
+					var address = document.getElementById("address");
+					address.innerHTML = location.href; //textarea 안에 주소를 집어 넣는다.
+					address.style.display = 'block'; //textarea의 display를 block으로 변경
+					address.select(); //textarea의 내용 전체 선택
+					document.execCommand("copy"); //복사
+					address.style.display = 'none'; //textarea의 display를 none으로 변경
+					//obj.setSelectionRange(0, 0); //커서 위치 초기화
+					alert("주소가 복사되었습니다.")
+				}
+                
                 //로그인 안되어있을 때 
                 //좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
                 function sessionCheck(){
@@ -393,6 +408,8 @@
                 			});
                 		});
                 	});
+                	
+                
                 
                 </script>
                 

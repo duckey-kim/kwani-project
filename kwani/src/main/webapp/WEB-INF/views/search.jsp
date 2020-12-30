@@ -184,17 +184,25 @@
                 <div class="artistRstContainer">
                 	<div class="artistTable">
                 	  <table>
-                            <c:forEach items="${searchArtist}" var="searchArtist" varStatus="status" begin="0" end="4">
+                            <tr>                            
+                            <th class="th1">이미지</th>
+                        	<th class="th2">가수</th>
+                        	<th class="th3">데뷔일</th>
+                        	<th class="th3">솔로/그룹</th>
+                        	<th class="th4">좋아요</th>
+                            </tr> 
+                            <c:forEach items="${searchArtist}" var="searchArtist" >
                         	<tr>
                         	<td class="td1">
                         		<a href='/detail/artist?gropId=${searchArtist.gropId}'>
                         		<div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);">
-                				</div></a>         	
+                        		</div></a>              				   	
                         	</td>
-                        	<td class="td2"><a href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">
-                        		<c:out value='${searchArtist.nm}' /></a></td>
-                        	<td class="td3" ><c:out value="${searchArtist.type}" /></td>
-                        	<td class="td4">
+                        	<td class="td2"><a href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">     
+                        		<c:out value="${searchArtist.nm}" /></a></td>
+                        	<td class="td3"><c:out value="${searchArtist.debutDt}" /></td>
+                        	<td class="td4"><c:out value="${searchArtist.type}" /></td>
+                        	<td class="td5">
                         	<div class="heartParent">
                         	<img class="defaultHeartImg"src="/resources/image/heart2.png">
                         	<img class="redHeartImg" src="/resources/image/heart.png">
@@ -455,12 +463,12 @@
                 }
                 btn2.onclick = function(){
                 	if(sessionCheck()){
-                		doCheck();           		
+                		doCheck2();           		
                 	};              	
                 }
                 btn3.onclick = function(){
                 	if(sessionCheck()){
-                		doCheck();           		
+                		doCheck3();           		
                 	};              	
                 }
                 
@@ -516,6 +524,57 @@
  					
  					//체크된 체크박스 길이 가져오기
  	                checkedLength = $("[name=checkRow]:checked").length;
+ 	                	
+ 	                console.log(checkedLength);
+ 	                	
+ 	                //체크된 체크박스가 하나도 없다면
+ 	                if(checkedLength == 0){
+ 	                		
+ 	                	console.log("선택 안함...");
+ 	                	//경고창을 띄워준다
+ 	                	alert("노래를 선택해주세요");
+ 	                	return;
+ 	                }else{
+ 	                	//하나 이상이라도 체크박스에 체크가 되어 있을 때 클릭하면
+ 	                	console.log("선택했어!");
+ 	                	//모달창을 보여준다
+ 	                	modal.style.display = "block";
+ 	                	return;
+ 	                }	                
+ 	             }
+                //두 번째 체크박스에서 사용할 메서드
+				function doCheck2(){
+                	
+ 					console.log("hi");
+ 					
+ 					//체크된 체크박스 길이 가져오기
+ 	                checkedLength = $("[name=checkRow2]:checked").length;
+ 	                	
+ 	                console.log(checkedLength);
+ 	                	
+ 	                //체크된 체크박스가 하나도 없다면
+ 	                if(checkedLength == 0){
+ 	                		
+ 	                	console.log("선택 안함...");
+ 	                	//경고창을 띄워준다
+ 	                	alert("노래를 선택해주세요");
+ 	                	return;
+ 	                }else{
+ 	                	//하나 이상이라도 체크박스에 체크가 되어 있을 때 클릭하면
+ 	                	console.log("선택했어!");
+ 	                	//모달창을 보여준다
+ 	                	modal.style.display = "block";
+ 	                	return;
+ 	                }	                
+ 	             }         
+                
+                //세 번째 체크박스에서 사용할 메서드
+				function doCheck3(){
+                	
+ 					console.log("hi");
+ 					
+ 					//체크된 체크박스 길이 가져오기
+ 	                checkedLength = $("[name=checkRow3]:checked").length;
  	                	
  	                console.log(checkedLength);
  	                	
@@ -690,6 +749,9 @@
                 			});
                 		});
                 	});
+                	
+                	
+		
                 
                 </script>
                     </div><!--bodyContent-->
