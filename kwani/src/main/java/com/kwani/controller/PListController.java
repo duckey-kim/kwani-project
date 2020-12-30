@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kwani.domain.UserVO;
+import com.kwani.service.LikeAndPlaylistService;
 import com.kwani.service.PListService;
 import com.kwani.service.UserService;
 
@@ -24,6 +25,7 @@ import lombok.extern.log4j.Log4j;
 public class PListController {
 
 	private PListService plservice;
+	private LikeAndPlaylistService likeAndPlaylistService;
 
 	// 일반 사용자 추천 페이지
 	@GetMapping("/common")
@@ -90,6 +92,8 @@ public class PListController {
 		System.out.println("typeCd  :"+typeCode);
 		List<Map<String,String>> listByGenre =plservice.recommendGenre(genreCode);
 		List<Map<String,String>> listByType = plservice.recommendType(typeCode);
+		
+		model.addAttribute("getPlaylists", likeAndPlaylistService.getPlaylists(email));
 		model.addAttribute("genreList",listByGenre);
 		model.addAttribute("typeList",listByType);
 	}
