@@ -125,8 +125,9 @@ public class UserController {
 
 		System.out.println("/display - fileName : " + fileName);
 
+		// 여기도 각자 폴더경로에 맞게 변경해줘야 할 듯.
 		File userUploadImg = new File(
-				"/Users/hoya/eclipse/Spring/kwani2/src/main/webapp/resources/image/userUpload/" + fileName);
+				"/Users/hoya/git/kwani-project/kwani/src/main/webapp/resources/image/userUpload" + fileName);
 
 		System.out.println("/display - file : " + userUploadImg);
 
@@ -155,7 +156,8 @@ public class UserController {
 		AttachFileDTO userImg = new AttachFileDTO();
 
 		// 이미지가 저장될 폴더.
-		String uploadFolder = "/Users/hoya/eclipse/Spring/kwani2/src/main/webapp/resources/image/userUpload/";
+		// 이 부분 각자 컴퓨터의 폴더위치에 맞게 변경해줘야 할 듯.
+		String uploadFolder = "/Users/hoya/git/kwani-project/kwani/src/main/webapp/resources/image/userUpload";
 
 		// 저장될 폴더와 폴더경로를 받아서 업로드될 경로를 생성?
 		File uploadPath = new File(uploadFolder);
@@ -171,9 +173,15 @@ public class UserController {
 
 		String uploadFileName = uploadFile.getOriginalFilename();
 
+		System.out.println("@@@@@@@@@@@@@@@@@ : " + uploadFileName);
 		// 파일의 이름을 사용자의 이메일로 변경한다.
-		uploadFileName = session.getAttribute("userEmail") + "."
+		UserVO user = (UserVO) session.getAttribute("user");
+		
+		uploadFileName = user.getEmail() + "."
 				+ uploadFileName.substring(uploadFileName.lastIndexOf(".") + 1);
+		
+		System.out.println("################# : " + uploadFileName);
+		
 
 		attachDTO.setFileName(uploadFileName);
 
