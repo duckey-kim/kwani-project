@@ -26,8 +26,7 @@
 				[ '댄스', genreCountList[8]],
 				[ '트로트', genreCountList[16]],
 				[ 'R&B', genreCountList[32]],
-				[ 'OST', genreCountList[64]],
-				[ '발라드', genreCountList[2]]  ]);
+				[ 'OST', genreCountList[64]]]);
 		let playData = google.visualization.arrayToDataTable([
 				[ '일자', '플레이 횟수', {
 					role : 'style'
@@ -44,17 +43,13 @@
 		let genreOptions = {
 			width :500,
 			height:375,
-			chartArea: {
-				width : '80%'
-			},
+			
 			is3D:true
 		};
 		let playOptions = {
 				width :500,
 				height:375,
-			chartArea : {
-				width : '100%'
-			},
+			
 			hAxis : {
 				title : '일일 플레이 수',
 				minValue : 0
