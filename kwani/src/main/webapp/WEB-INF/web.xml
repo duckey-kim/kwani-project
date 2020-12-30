@@ -81,6 +81,7 @@
 		<url-pattern>/player/like</url-pattern>
 		<url-pattern>/player/list</url-pattern>
 		<url-pattern>/player/library</url-pattern>
+		<url-pattern>/recommend/member</url-pattern>
 	</filter-mapping>
 
 

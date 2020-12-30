@@ -32,7 +32,7 @@
 					<button class="subnavbtn" onclick="openSearch()">
 						<i class="fa fa-search"></i>
 					</button>
-					<a href="/">Home</a> <a href="/recommend/common">Recommend</a> <a
+					<a href="/">Home</a> <a href="/recommend">Recommend</a> <a
 						href="/user/register" id="joinBtn">Join</a>
 					<div class="dropdown">
 						<div class="dropbtn">
@@ -40,7 +40,9 @@
 						</div>
 						<div id="myDropdown" class="dropdown-content">
 							<a href="/mypage/overview" id="toMypageBtn"
-								style="display: none">My Page</a> <a href="/user/checkUserInfo">Settings</a>
+								style="display: none">My Page</a>
+								<a href="/user/login" id="loginBtn">Login</a>
+								<a href="/user/checkUserInfo">Settings</a>
 							<a href="/user/logoutAction" id="logoutBtn" style="display: none">Logout</a>
 						</div>
 					</div>

@@ -25,6 +25,13 @@
 	vertical-align: middle;
 }
 
+.slidesTxt {
+	color: whitesmoke;
+	font-weight: bolder;
+	display: flex;
+	justify-content: center;
+}
+
 .btnDotContainer {
 	display: flex;
 	background-color: black;
@@ -42,7 +49,7 @@
 
 .dotContainer {
 	padding-top: 2vh;
-	margin-left: 2.5rem;
+	margin-left: 4rem;
 }
 
 .topContentBox {

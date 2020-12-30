@@ -5,47 +5,58 @@
 
 <mapper namespace="com.kwani.mapper.HomeMapper">
 
-   <resultMap type="com.kwani.domain.HomeVO" id="HomeResult">
-      <result property="gropId" column="grop_id" />
-      <result property="albumId" column="album_id" />
-      <result property="albumTtl" column="album_ttl" />
-      <result property="albumImg" column="album_img" />
-      <result property="name" column="nm" />
+	<resultMap type="com.kwani.domain.HomeVO" id="HomeResult">
+		<result property="gropId" column="grop_id" />
+		<result property="albumId" column="album_id" />
+		<result property="albumTtl" column="album_ttl" />
+		<result property="albumImg" column="album_img" />
+		<result property="name" column="nm" />
 
-      <result property="debutDt" column="debut_dt" />
-      <result property="gropImg" column="grop_img" />
-      <result property="cdNm" column="cd_nm" />
-      <result property="cdNo" column="cd_no" />
-      <result property="genreCd" column="genre_cd" />
+		<result property="debutDt" column="debut_dt" />
+		<result property="gropImg" column="grop_img" />
+		<result property="cdNm" column="cd_nm" />
+		<result property="cdNo" column="cd_no" />
+		<result property="genreCd" column="genre_cd" />
+		
+		<result property="rcmdPlylstId" column="rcmd_plylst_id" />
+ 		<result property="rcmdPlylstNm" column="rcmd_plylst_nm" />
+ 		<result property="rcmdPlylstImg" column="rcmd_plylst_img" />
+	</resultMap>
 
-   </resultMap>
-
-   <select id="getList" resultMap="HomeResult">
+	<select id="getList" resultMap="HomeResult">
       <![CDATA[
+      select * from (
       select distinct t_artist.nm, t_album.album_img,
       t_album.album_ttl, t_artist.grop_id, t_album.album_id
       from t_artist_tracks, t_artist, t_tracks, t_album
       where t_artist.grop_id = t_artist_tracks.grop_id
       and t_artist_tracks.track_id = t_tracks.track_id
       and t_album.album_id = t_tracks.album_id
-      and rownum <= 6
-      order by DBMS_RANDOM.VALUE
+      order by DBMS_RANDOM.RANDOM)
+      where rownum <= 6
       ]]>
-   </select>
+	</select>
 
 
-   <select id="getSlideImg" resultMap="HomeResult">
+	<select id="getSlideImg" resultMap="HomeResult">
       <![CDATA[
+   	  select * from (
       select distinct al.album_img, al.album_id, a.debut_dt
       from t_album al, t_artist a
-      where a.debut_dt >= to_date('1980-01-01', 'yyyy-mm-dd') and a.debut_dt < to_date('2021-12-31', 'yyyy-mm-dd')
-      and rownum <= 6
-      order by DBMS_RANDOM.VALUE
+      where a.debut_dt >= to_date('2000-01-01', 'yyyy-mm-dd') and a.debut_dt < to_date('2020-12-31', 'yyyy-mm-dd')
+      order by DBMS_RANDOM.RANDOM)
+      where rownum <= 6
       ]]>
-   </select>
+	</select>
+
+	<select id="getAllList" resultMap="HomeResult">
+  	<![CDATA[
+ 	select rcmd_plylst_id, rcmd_plylst_nm, rcmd_plylst_img from t_rcmd_plylst
+  	]]>
+	</select>
 
 
-   <select id="getImg" resultMap="HomeResult">
+	<select id="getImg" resultMap="HomeResult">
       <![CDATA[   
       select a.debut_dt, a.grop_img, c.cd_nm, a.grop_id
       from t_artist a, t_artist_tracks at, t_tracks t, t_code c
@@ -53,10 +64,10 @@
       to_date(#{finishDate}, 'yyyy')
       and at.grop_id = a.grop_id
       and at.track_id = t.track_id
-      and c.cd_no = t.genre_cd
       and c.cd_nm = #{genreName}
-      order by DBMS_RANDOM.VALUE
+      and bitand(t.genre_cd,c.cd_no)=c.cd_no
+      order by DBMS_RANDOM.RANDOM
       ]]>
-   </select>
+	</select>
 
 </mapper>
