@@ -198,3 +198,7 @@ body {
 	height: auto;
 	background-color: white;
 }
+
+.emptyHeart:hover, .redHeart:hover, .emptyHeart1:hover, .redHeart1:hover, .emptyHeart2:hover, .redHeart2:hover, .playbuttonImg:hover  {
+	cursor: pointer;
+}
