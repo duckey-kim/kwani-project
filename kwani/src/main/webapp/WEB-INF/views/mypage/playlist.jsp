@@ -62,7 +62,7 @@
 								<input type="hidden" value="내용을 입력하세요" name="desc">
 								<input type="hidden" value="noplaylist.png" name="plylstImg">
 								<input type="hidden" value="${user.email}" name="email">
-								<button id="createBtn" class="button">새로운플레이리스트 만들기</button>
+								<button id="createBtn" class="button5">새로운플레이리스트 만들기</button>
 							</form>
 						</div>
 					</div>
@@ -85,13 +85,13 @@
 										<tr>
 											<td colspan="2">
 												<div class="img-container">
-													<a class="ddBtn"><img class="moreImg" src="/resources/image/more.png"></a>
+													<a class="ddBtn"><span class="dot"><img class="moreImg" src="/resources/image/more.png"></span></a>
 													<img class="myPlaylistImg" src="/resources/image/album/${plylst.plylstImg}">
 													
 													<div class="dropdown-playlist">
 														<ul class="dd-plylst-content">
-															<li><img class="editImg" src="/resources/image/edit.png"><button class="mod button4">수정</button></li>
-															<li><img class="editImg" src="/resources/image/close.png"><button class="del button4">삭제</button></li>
+															<li><div class="edit-div"><img class="editImg" src="/resources/image/edit.png"><span class="mod editmodal">&nbsp&nbsp&nbspEDIT&nbsp&nbsp</span></div></li>
+															<li><div class="edit-div"><img class="delImg" src="/resources/image/close.png"><span class="del delmodal">&nbspDELETE</span></div></li>
 														</ul>
 													</div>
 												</div>
@@ -156,14 +156,16 @@
 	});
 	
 	// 플레이리스트 수정 삭제
-	$(".myPlaylistImg").mouseover(function(){
-		let idx = $(".myPlaylistImg").index(this);
+	$(".img-container").mouseenter(function(){
+		let idx = $(".img-container").index(this);
 	    $(".moreImg:eq(" + idx + ")").css("display", "block");
+	    $(".dot:eq(" + idx + ")").css("display", "block");
 	});
 	
-	$(".myPlaylistImg").mouseout(function(){
-		let idx = $(".myPlaylistImg").index(this);
+	$(".img-container").mouseleave(function(){
+		let idx = $(".img-container").index(this);
 		$(".moreImg:eq(" + idx + ")").css("display", "none");
+	    $(".dot:eq(" + idx + ")").css("display", "none");
 	});
 
 	// 플레이리스트 개수 제한

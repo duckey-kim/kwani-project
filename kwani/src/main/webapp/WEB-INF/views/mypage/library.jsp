@@ -71,8 +71,7 @@
 								<th class="th1"></th>
 								<th class="th1"></th>
 								</tr>
-								<c:forEach items="${libraryList}" var="library" begin="0"
-									end="4">
+								<c:forEach items="${libraryList}" var="library">
 									<tr>
 										<td><a href="/detail/album?albumId=${library.ALBUM_ID}"><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"></a></td>
 										<td><a href="/detail/track?trackId=${library.TRACK_ID}"><c:out value="${library.TRACK_TTL}" /></a></td>

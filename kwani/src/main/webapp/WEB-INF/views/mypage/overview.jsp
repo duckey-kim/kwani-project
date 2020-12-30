@@ -129,7 +129,7 @@
 									<img class="myArtistImg" src="/resources/image/album/${album.ALBUM_IMG}" onclick= 'location.href="/detail/album?albumId=${album.ALBUM_ID}"'>
 									</div>
 										<div class="middle">
-											<a class="text" href="/detail/artist?gropId=${album.GROP_ID}">${album.ALBUM_TTL}</a><br>
+											<a class="text" href="/detail/album?albumId=${album.ALBUM_ID}">${album.ALBUM_TTL}</a><br>
 											<img class="heart" name="${album.ALBUM_ID}" src="/resources/image/heart.png">
 											<img class="heart-empty" name="${album.ALBUM_ID}" src="/resources/image/whiteheart.png">
 										</div>
