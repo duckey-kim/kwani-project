@@ -109,7 +109,7 @@
 								<button class="button">Liked Track</button>
 							</h3>
 						</div>
-						<table style="width: 100%">
+						<table class="table">
 							<tr>
 								<th class="th1"></th>
 								<th class="th4"></th>

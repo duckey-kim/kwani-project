@@ -56,7 +56,7 @@
 
 				<div class="mypage-body">
 					<div class="body-item bg-bl">
-						<div class="item-body">
+
 							<form id="create-playlist" action="/mypage/playlist/create" method="post">
 								<input type="hidden" value="제목을 입력하세요" name="nm">
 								<input type="hidden" value="내용을 입력하세요" name="desc">
@@ -64,7 +64,7 @@
 								<input type="hidden" value="${user.email}" name="email">
 								<button id="createBtn" class="button5">새로운플레이리스트 만들기</button>
 							</form>
-						</div>
+
 					</div>
 				</div>
 
@@ -76,9 +76,9 @@
 							</h3>
 						</div>
 						<div class="item-body">
-							<div class="item-div">
+							<div class="item-div-basic">
 								<c:forEach items="${playlistVO}" var="plylst">
-									<table class="table">
+									<table class="p-table">
 										<tr>
 											<th></th><th></th>
 										</tr>
@@ -101,9 +101,11 @@
 											<td colspan="2">
 												<form action="/mypage/playlistDetail" method="post">
 													<input class="plylstValue" type="hidden" value="${plylst.plylstId}" name="plylstId">
-													<button class="button3">
-														<c:out value="${plylst.nm}"/>
-													</button>
+													<div class="btn-div">
+														<button class="button4">
+															<c:out value="${plylst.nm}"/>
+														</button>
+													</div>
 												</form>
 											</td>
 										</tr>
@@ -216,8 +218,8 @@
 		
 		if(result === 'FAIL'){
 			basicModalContent("플레이리스트 수정에 실패했습니다.");
-			setTimeout(hideBasicModal, 1100);
-			setTimeout(changeLoc, 1100);
+			setTimeout(hideBasicModal, 800);
+			setTimeout(changeLoc, 800);
 			return;
 		}
 		
@@ -228,15 +230,15 @@
 		basicModalContent("플레이리스트 [" + result + "] 등록이 완료되었습니다.");
 		
 		history.replaceState({}, null, null);
-		setTimeout(hideBasicModal, 1100);
+		setTimeout(hideBasicModal, 800);
 	}
 	
 	//삭제모달 : 플레이리스트 삭제 완료
 	function deleteModal(result) {
 		if (result === 'FAIL') {
 			basicModalContent("플레이리스트 삭제에 실패했습니다.");
-			setTimeout(hideBasicModal, 1100);
-			setTimeout(changeLoc, 1100);
+			setTimeout(hideBasicModal, 800);
+			setTimeout(changeLoc, 800);
 			return;
 		}
 		
@@ -247,7 +249,7 @@
 		basicModalContent("플레이리스트 삭제가 완료되었습니다.");
 		
 		history.replaceState({}, null, null);
-		setTimeout(hideBasicModal, 1100);
+		setTimeout(hideBasicModal, 800);
 	}
 	
 	function hideAllModal(){

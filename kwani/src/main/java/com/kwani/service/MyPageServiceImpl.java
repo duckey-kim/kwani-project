@@ -197,8 +197,8 @@ public class MyPageServiceImpl implements MyPageService {
 			return false;
 		}
 		
-		myPageMapper.deletePlaylist(plylstId, email);
 		myPageMapper.deletePlaylistDetail(plylstId);
+		myPageMapper.deletePlaylist(plylstId, email);
 		
 		return true;
 	}

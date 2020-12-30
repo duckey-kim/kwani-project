@@ -11,8 +11,6 @@
 <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script defer src="/resources/js/indexNoVideo.js"></script>
-
 <link rel="stylesheet" href="/resources/css/mypage.css" />
 </head>
 
@@ -62,7 +60,7 @@
 							</h3>
 						</div>
 						<div class="item-body">
-							<table>
+							<table class="table">
 								<tr>
 								<th class="th1"></th>
 								<th class="th4"></th>
