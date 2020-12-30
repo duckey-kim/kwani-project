@@ -44,7 +44,7 @@ public class HomeController {
 			model.addAttribute("userNick", user.getNick());
 		}
 
-		System.out.println("sessionName : " + session.getAttribute("user"));
+		System.out.println("user : " + session.getAttribute("user"));
 
 		Calendar calendar = Calendar.getInstance();
 

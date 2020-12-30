@@ -116,7 +116,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isSocialIdValid(String kakaoEmail, RedirectAttributes rttr) {
 		
-		System.out.println("@@@@@@@ : " + kakaoEmail);
 		// 만약 저장된 정보가 있으면,
 		if (mapper.isSocialIdValid(kakaoEmail) == 1) {
 			

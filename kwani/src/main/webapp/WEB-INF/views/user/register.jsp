@@ -48,7 +48,7 @@
 							class="input" type="hidden" name="targetUrl" value=""> 
 							
 							
-							<input type="hidden" name="userImg" value="default.png"> 
+							<input type="hidden" name="userImg" value="default.png">
 							
 							
 							<input type="hidden"

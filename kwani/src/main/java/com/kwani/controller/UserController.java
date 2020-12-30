@@ -254,13 +254,11 @@ public class UserController {
 			// 회원상태가 활동중이면
 		} else if (!(service.checkWithdrawUser(email, rttr))) {
 			// 아래 if문이 실행된다.
-			System.out.println("#########");
 			if (service.checkUserIdPwd(email, pwd, rttr)) {
 				service.cookieSession(email, checked, request, response);
 				service.setSysdate(email);
 			} else {
 				// 정보가 일치하지 않을 때 //
-				System.out.println("@@@@@");
 				path = "/user/login";
 				rttr.addFlashAttribute("prevPath", path);
 			}
