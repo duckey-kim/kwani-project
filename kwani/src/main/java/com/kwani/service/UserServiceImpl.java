@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean checkWithdrawUser(String IdEmail) {
+	public boolean checkWithdrawUser(String IdEmail, RedirectAttributes rttr) {
 		log.info("탈퇴한 회원인지 확인한다.");
 		System.out.println("탈퇴한 회원인지 확인한다.");
 		System.out.println(IdEmail);
@@ -78,6 +78,9 @@ public class UserServiceImpl implements UserService {
 		// 2를 반환하면 탈퇴한 회원.
 		if (mapper.checkWithdrawUser(IdEmail) == 2) {
 			System.out.println(mapper.checkWithdrawUser(IdEmail));
+			String msg = "";
+			msg = "탈퇴한 회원입니다";
+			rttr.addFlashAttribute("msg", msg);
 			return true;
 			// 2가 아니면 활동중인 회원.
 		} else
@@ -113,7 +116,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isSocialIdValid(String kakaoEmail, RedirectAttributes rttr) {
 		
-		System.out.println("@@@@@@@ : " + kakaoEmail);
 		// 만약 저장된 정보가 있으면,
 		if (mapper.isSocialIdValid(kakaoEmail) == 1) {
 			

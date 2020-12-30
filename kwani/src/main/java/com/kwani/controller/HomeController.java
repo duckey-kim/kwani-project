@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.kwani.domain.UserVO;
 import com.kwani.service.HomeService;
 import com.kwani.service.PListService;
-import com.kwani.service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -45,7 +44,7 @@ public class HomeController {
 			model.addAttribute("userNick", user.getNick());
 		}
 
-		System.out.println("sessionName : " + session.getAttribute("user"));
+		System.out.println("user : " + session.getAttribute("user"));
 
 		Calendar calendar = Calendar.getInstance();
 

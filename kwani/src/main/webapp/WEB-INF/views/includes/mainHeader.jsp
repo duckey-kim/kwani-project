@@ -43,9 +43,9 @@
 							<i class="fas fa-user-circle"></i>
 						</div>
 						<div id="myDropdown" class="dropdown-content">
-							<a href="/mypage/overview" id="toMypageBtn"
-								style="display: none">My Page</a> <a href="/user/checkUserInfo">Settings</a>
-							<a href="/user/logoutAction" id="logoutBtn" style="display: none">Logout</a>
+							<a href="/mypage/overview" id="toMypageBtn" style="display: none">My
+								Page</a> <a href="/user/checkUserInfo">Settings</a> <a
+								href="/user/logoutAction" id="logoutBtn" style="display: none">Logout</a>
 						</div>
 					</div>
 				</div>

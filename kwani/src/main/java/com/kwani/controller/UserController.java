@@ -58,14 +58,14 @@ public class UserController {
 
 	@GetMapping("/withdrawal")
 	public String remove(HttpSession session, Model model) {
-		System.out.println("sessionName : " + session.getAttribute("user"));
+		System.out.println("user : " + session.getAttribute("user"));
 
 		return "user/withdrawal";
 	}
 
 	@GetMapping("/checkUserInfo")
 	public String checkUserInfo(HttpSession session, RedirectAttributes rttr, Model model) {
-		System.out.println("sessionName : " + session.getAttribute("user"));
+		System.out.println("user : " + session.getAttribute("user"));
 
 		if (!(service.checkSession(session, model))) {
 			return "redirect:/user/login";
@@ -97,7 +97,7 @@ public class UserController {
 
 		}
 
-		System.out.println("sessionName : " + session.getAttribute("user"));
+		System.out.println("user : " + session.getAttribute("user"));
 
 		return "/user/modifyUserInfo";
 	}
@@ -243,34 +243,39 @@ public class UserController {
 			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr, String prevPath) {
 		// 회원 로그인.
 		// checkUserIdPwd가 true면(즉, 사용자가 입력한 정보가 서버에 없으면)
-		String path = "";     
+		String path = "";
 		if ("".equals(prevPath)) {
 			path = "/home";
-		} else {
+		} else 
 			path = prevPath;
-		}
+		
 		if (!(service.isUserIdValid(email, rttr))) {
-			// login.jsp로 이동한다.
-		} else if (service.checkUserIdPwd(email, pwd, rttr)) {
 
-			service.cookieSession(email, checked, request, response);
-			service.setSysdate(email);
-
+			// 회원상태가 활동중이면
+		} else if (!(service.checkWithdrawUser(email, rttr))) {
+			// 아래 if문이 실행된다.
+			if (service.checkUserIdPwd(email, pwd, rttr)) {
+				service.cookieSession(email, checked, request, response);
+				service.setSysdate(email);
+			} else {
+				// 정보가 일치하지 않을 때 //
+				path = "/user/login";
+				rttr.addFlashAttribute("prevPath", path);
+			}
 		} else {
 			// login실패
 			// prevpath를 loginform으로 보낸다
-			// rttr에 담으면 될듯? 그리고 loginform으로 가
+			System.out.println("AAAAA");
 			path = "/user/login";
 			rttr.addFlashAttribute("prevPath", path);
 		}
-
 		return "redirect:" + path;
 	}
 
 	@RequestMapping(value = "/logoutAction", method = { RequestMethod.GET, RequestMethod.POST })
 	public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 
-		System.out.println("sessionName : " + session.getAttribute("user"));
+		System.out.println("user : " + session.getAttribute("user"));
 		session.invalidate();
 
 		return "redirect:/home";
@@ -282,7 +287,7 @@ public class UserController {
 
 		System.out.println(btnValue);
 
-		System.out.println("sessionName : " + session.getAttribute("user"));
+		System.out.println("user : " + session.getAttribute("user"));
 		// 정보가 일치하면 userInfoModify로 이동하고,
 		if (service.checkUserIdPwd(email, pwd, rttr)) {
 
@@ -300,7 +305,7 @@ public class UserController {
 	public String modifyUserInfoAction(HttpSession session, UserVO user, RedirectAttributes rttr, Model model,
 			MultipartFile uploadFile) {
 
-		System.out.println("sessionName : " + session.getAttribute("user"));
+		System.out.println("user : " + session.getAttribute("user"));
 
 		// 회원의 정보를 수정한다.
 		if (service.modifyUserInfo(user)) {
@@ -313,7 +318,7 @@ public class UserController {
 	@PostMapping("/withdrawalAction")
 	public String withdrawalAction(UserVO user, String email, HttpSession session, RedirectAttributes rttr) {
 
-		System.out.println("sessionName : " + session.getAttribute("user"));
+		System.out.println("user : " + session.getAttribute("user"));
 
 		if (service.withdrawal(user)) {
 			rttr.addFlashAttribute("result", "success");

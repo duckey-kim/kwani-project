@@ -81,6 +81,9 @@
 <!-- ---------------------------------------------------------------------------------------- -->
 
 <script type="text/javascript">
+	
+	console.log('${msg}');
+
 	let email = document.getElementById("email").value;
 	let pwd = document.getElementById("password").value;
 
