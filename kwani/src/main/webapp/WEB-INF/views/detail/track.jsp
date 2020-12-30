@@ -25,7 +25,7 @@
 	<div id="bodyContent">
 		<div class="emptybox"></div>
 		<div>
-			<h2>곡 정보</h2>
+			<h2>곡 정보 ></h2>
 		</div>
 
 		<div class="music-header">
@@ -80,7 +80,7 @@
 						onclick='popupPlayer("/player/track?trackId=${trackId}")'>⯈ 듣기</button>
 					<button type="button" id="addPlayer" style="display: none">플레이어에 추가</button>
 					<button type="button" id="addMyPlaylist">내 재생목록 추가</button>
-					<input type="button" value="공유하기" onclick="copyURL()">
+					<input class="btn" type="button" value="공유하기" onclick="copyURL()">
 					<textarea id="address" style="display: none"></textarea>
 					<img class="emptyHeart" id="likeTrack" src="/resources/image/heart2.png"> <img class="redHeart" id="likeTrack" src="/resources/image/heart.png">
 				</div>
@@ -114,7 +114,7 @@
 		<div class="emptybox"></div>
 
 		<div class="subtitle">
-			<h2>관련 아티스트 앨범></h2>
+			<h2>관련 아티스트 앨범 ></h2>
 		</div>
 		<div class="related">
 			<div class="items">
@@ -136,7 +136,7 @@
 
 		<div class="related" style="display:none">
 			<div class="subtitle">
-				<h2>관련 플레이리스트></h2>
+				<h2>관련 플레이리스트 ></h2>
 			</div>
 			<div class="items">
 				<div class="item">
@@ -169,17 +169,22 @@
 <!-- 모달창 -->
 <div id="modal">
 	<div class="modal-content">
-		<h2>${user.nick }님의플레이리스트</h2>
+		<h2>${user.nick }님의 플레이리스트 ></h2>
 
 		<div id="playlists">
 			<table>
+				<tr style="background-color: #f5f5f5">
+					<th></th>
+					<th>플레이리스트 이름</th>
+					<th></th>
+				</tr>
 				<c:forEach items="${getPlaylists }" var="Playlists">
 					<tr>
 						<td><img style="width: 50px" class="playlistImage"
 							src="/resources/image/album/<c:out value="${Playlists.PLYLST_IMG }" />" />
 						</td>
 						<td><c:out value='${Playlists.NM }' /></td>
-						<td><c:out value='${Playlists.TRACK_CNT }' />곡</td>
+						<%-- <td><c:out value='${Playlists.TRACK_CNT }' />곡</td> --%>
 						<td>
 							<button value='${Playlists.PLYLST_ID }' class="selectPlaylist">선택</button>
 						</td>
@@ -194,6 +199,16 @@
 	<div class="modal-layer"></div>
 </div>
 <!-- 모달창 끝 -->
+
+	<!-- 알림용 모달창 -->
+	<div id="noticeModal">
+		<div class="modal-content">
+			<h3>알림 ></h3>
+			<div id="notice" style="text-align:center"></div>
+		</div>
+		<div class="modal-layer"></div>
+	</div>
+	<!-- 알림용 모달창 끝 -->
 
 <script>
 	if ('${user.email}' == "") { // 세션이 없을경우 로그인이 필요한 기능들은 로그인 페이지로 이동시킨다.
@@ -304,7 +319,13 @@
 		document.execCommand("copy"); //복사
 		address.style.display = 'none'; //textarea의 display를 none으로 변경
 		//obj.setSelectionRange(0, 0); //커서 위치 초기화
-		alert("주소가 복사되었습니다.")
+		noticeModal("주소가 복사되었습니다.");
+	}
+	
+	function noticeModal(notice){
+		$("#notice").html(notice);
+		$("#noticeModal").attr('style', 'display:block');
+		setTimeout(function(){$("#noticeModal").attr('style', 'display:none')}, 800);
 	}
 
 	// 좋아요한 노래 Ajax로 보내기
@@ -318,9 +339,9 @@
 			success : function(data) {
 				console.log("data : " + data);
 				if (data == 1) {
-					alert("이 노래를 좋아합니다.");
+					noticeModal("이 노래를 좋아합니다.");
 				} else {
-					alert("좋아요 리스트 추가에 실패했습니다.")
+					noticeModal("좋아요 리스트 추가에 실패했습니다.")
 				}
 			},
 			error : function() {
@@ -340,9 +361,9 @@
 			success : function(data) {
 				console.log("data : " + data);
 				if (data == 1) {
-					alert("좋아요를 취소하셨습니다.");
+					noticeModal("좋아요를 취소하셨습니다.");
 				} else {
-					alert("좋아요 취소를 실패했습니다.")
+					noticeModal("좋아요 취소를 실패했습니다.")
 				}
 			},
 			error : function() {
@@ -370,9 +391,9 @@
 			success : function(data) {
 				console.log("data : " + data);
 				if (data == 1) {
-					alert("중복곡을 제외하고 플레이리스트에 추가했습니다.");
+					noticeModal("중복곡을 제외하고 플레이리스트에 추가했습니다.");
 				} else {
-					alert("존재하지 않는 플레이리스트 입니다. 새로고침 후 다시 시도해주세요.")
+					noticeModal("존재하지 않는 플레이리스트 입니다. 새로고침 후 다시 시도해주세요.")
 				}
 			},
 			error : function() {
