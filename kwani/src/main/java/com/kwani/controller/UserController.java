@@ -173,16 +173,12 @@ public class UserController {
 
 		String uploadFileName = uploadFile.getOriginalFilename();
 
-		System.out.println("@@@@@@@@@@@@@@@@@ : " + uploadFileName);
 		// 파일의 이름을 사용자의 이메일로 변경한다.
 		UserVO user = (UserVO) session.getAttribute("user");
 		
 		uploadFileName = user.getEmail() + "."
 				+ uploadFileName.substring(uploadFileName.lastIndexOf(".") + 1);
 		
-		System.out.println("################# : " + uploadFileName);
-		
-
 		attachDTO.setFileName(uploadFileName);
 
 		System.out.println("change ImgFileName to userEmail : " + uploadFileName);
