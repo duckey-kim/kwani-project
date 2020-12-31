@@ -198,9 +198,9 @@
                         	<tr>
                         	<th><input type="checkbox" name="checkRow"></th>
                         	<td>${status.index+1}</td>
-                        	<td><a href="/detail/track?trackId=<c:out value='${searchSong.trackId}'/>">          
+                        	<td><a style="color:black; font-weight:bold;" href="/detail/track?trackId=<c:out value='${searchSong.trackId}'/>">          
                         		<c:out value="${searchSong.trackTtl}" /></a></td>
-                        	<td><a href="/detail/artist?gropId=<c:out value='${searchSong.gropId}'/>">          
+                        	<td><a style="color:grey" href="/detail/artist?gropId=<c:out value='${searchSong.gropId}'/>">          
                         		<c:out value="${searchSong.nm}" /></a></td>
                         	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
                         		onclick='popupPlayer("/player/track?trackId=${searchSong.trackId}")'></td>

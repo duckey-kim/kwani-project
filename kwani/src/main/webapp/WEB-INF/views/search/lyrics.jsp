@@ -100,13 +100,13 @@
                 	<div class="lyricsInfoContainer">
                 	<div class="lyricsArtist">
                 		<h6>
-                			<a href="/detail/artist?gropId=<c:out value='${searchLyrics.gropId}'/>">
+                			<a style="color:grey" href="/detail/artist?gropId=<c:out value='${searchLyrics.gropId}'/>">
                 			<c:out value="${searchLyrics.nm}" /></a>
                 		</h6>
                 	</div><!-- lyricsArtist -->  
                 	<div class="lyricsAlbum">
                 		<h6>
-                			<a href="/detail/album?albumId=<c:out value='${searchLyrics.albumId}'/>">
+                			<a style="color:grey" href="/detail/album?albumId=<c:out value='${searchLyrics.albumId}'/>">
                 			<c:out value="${searchLyrics.albumTtl}" /></a>
                 		</h6>
                 	</div><!-- lyricsAlbum --> 

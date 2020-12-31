@@ -137,7 +137,7 @@
                     	<div class="plylstBtns">
                     		<div class="shareBtn">
                     			 
-                    			<input type="button" value="공유하기" onclick="copyURL()">
+                    			<input class="btn" type="button" value="공유하기" onclick="copyURL()">
 								<textarea id="address" style="display: none"></textarea>
                     		</div>
                     		<div class="likeBtn">
@@ -176,9 +176,9 @@
                         	<div class="artistSmallImg" style="background-image:url(/resources/image/album/<c:out value='${plstdtl.albumImg}'/>);">
                         </div></td>
                         
-                        <td><a href="/detail/track?trackId=<c:out value='${plstdtl.trackId}'/>">     
+                        <td><a style="color:black; font-weight:bold;" href="/detail/track?trackId=<c:out value='${plstdtl.trackId}'/>">     
                         	<c:out value="${plstdtl.trackTtl}" /></td>
-                        <td><a href="/detail/artist?gropId=<c:out value='${plstdtl.gropId}'/>">      
+                        <td><a style="color:grey" href="/detail/artist?gropId=<c:out value='${plstdtl.gropId}'/>">      
                         	<c:out value="${plstdtl.nm}" /></td>
                         <td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
                         	onclick='popupPlayer("/player/track?trackId=${plstdtl.trackId}")'></td>

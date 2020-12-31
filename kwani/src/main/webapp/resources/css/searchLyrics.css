@@ -84,9 +84,7 @@ a{
 	text-decoration: none;
 	color: inherit;
 }
-a:hover{
-	text-decoration: underline gray;
-}
+
 .lyricsTxt{
     width: 100%;
     height: 50px;
@@ -123,6 +121,9 @@ a:hover{
 	-webkit-box-orient: vertical;
 	text-overflow: ellipsis;
 	font-size: 0.7em;
+}
+.lyricsContent:hover{
+	color: grey;
 }
 .lyricsInfoContainer{
 	width: 100%;

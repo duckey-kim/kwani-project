@@ -101,7 +101,7 @@
                         		<div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);">
                         		</div></a>              				   	
                         	</td>
-                        	<td class="td2"><a href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">     
+                        	<td class="td2"><a style="color:grey" href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">     
                         		<c:out value="${searchArtist.nm}" /></a></td>
                         	<td class="td3"><c:out value="${searchArtist.type}" /></td>
                         	<td class="td4"><c:out value="${searchArtist.debutDt}" /></td>
