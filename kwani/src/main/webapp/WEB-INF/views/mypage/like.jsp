@@ -24,7 +24,7 @@
 
 				<div class="mypage-header">
 					<div class="header-item">
-						<img class="userImg" src="/resources/image/${user.userImg}" />
+						<img class="userImg" src="/resources/image/userUpload/${user.userImg}" />
 					</div>
 
 					<div>
@@ -109,6 +109,7 @@
 								<button class="button">Liked Track</button>
 							</h3>
 						</div>
+						<div class="item-body">
 						<table class="table">
 							<tr>
 								<th class="th1"></th>
@@ -130,7 +131,7 @@
 								</tr>
 							</c:forEach>
 						</table>
-						
+						</div>
 						<!-- 페이징처리 -->
 <%-- 						<div class='pull-right'>
 							<ul class="pagination">
