@@ -361,7 +361,8 @@
                 		</p>
                 	</div><!-- lyricsTtl -->   
                 	<div class="lyricsContent">         	
-                		<c:out value="${searchLyrics.trackLyrics}" />
+                		<a href="/detail/track?trackId=<c:out value='${searchLyrics.trackId}'/>">
+                		<c:out value="${searchLyrics.trackLyrics}" /></a>
                 	</div><!-- lyricsContent --> 
                 	<div class="lyricsInfoContainer">
                 	<div class="lyricsArtist">
