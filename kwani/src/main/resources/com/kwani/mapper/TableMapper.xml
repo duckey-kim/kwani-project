@@ -125,8 +125,8 @@
 	<!--입력 USER -->
 	<insert id="insertUser">
 		insert into t_user
-		(email,nick,pwd,in_date,in_user,up_date,up_user,user_img)
-		values(#{user.email},#{user.nick},#{user.pwd},sysdate,#{upUser},sysdate,#{upUser},#{user.userImg})
+		(email,nick,pwd,in_date,in_user,up_date,up_user,user_img,stus_cd)
+		values(#{user.email},#{user.nick},#{user.pwd},sysdate,#{upUser},sysdate,#{upUser},#{user.userImg},1)
 	</insert>
 
 	<!--입력 ARTIST AND TRACK -->
