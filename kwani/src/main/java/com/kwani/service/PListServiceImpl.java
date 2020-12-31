@@ -254,7 +254,7 @@ public class PListServiceImpl implements PListService {
 		Map<Integer, Integer> map = new HashMap<>();
 		codeList.forEach(cd -> map.put(cd, 0));
 		List<Integer> list = mapper.getGenre(email);
-
+		log.info("likeGenre : "+list);
 		Iterator<Integer> it = list.iterator();
 		while (it.hasNext()) {
 			int value = it.next();
@@ -286,7 +286,7 @@ public class PListServiceImpl implements PListService {
 		Map<Integer, Integer> map = new HashMap<>();
 		codeList.forEach(cd -> map.put(cd, 0));
 		List<Integer> list = mapper.getTheme(email);
-
+		log.info("likeTypeList :"+list);
 		Iterator<Integer> it = list.iterator();
 		while (it.hasNext()) {
 			int value = it.next();

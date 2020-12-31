@@ -57,8 +57,6 @@ public class AdminController {
 	@GetMapping({ "/", "/home" })
 	public String basic(Model model) {
 		//장르에 대한 곡
-	    String path = servletContext.getRealPath("webapp/resources/image");
-	    System.out.println("path is : "+path);
 		Map<Integer,Integer>getList =tableService.getGenreCount();
 		List<Map<String,String>>getCountList =tableService.getPlayCount();
 		
