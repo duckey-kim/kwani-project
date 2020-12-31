@@ -22,7 +22,7 @@
 			<div id="bodyContent">
 				<div class="mypage-header">
 					<div class="header-item">
-						<img class="userImg" src="/resources/image/${user.userImg}" />
+						<img class="userImg" src="/resources/image/userUpload/${user.userImg}" />
 					</div>
 
 					<div>
@@ -70,7 +70,7 @@
 							<p>플레이리스트 곡 개수 : ${trackCount}</div>
 							<div class="item-div">
 								<br>
-									<table style="width: 100%">
+									<table class="table">
 										<tr>
 											<th class="th1"></th>
 											<th class="th4"></th>

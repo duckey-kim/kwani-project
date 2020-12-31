@@ -1,6 +1,7 @@
 package com.kwani.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -84,10 +85,21 @@ public interface ListMapper {
 		
 		//회원이 좋아요한 아티스트 목록 가져오기
 		public List<PListVO> getLikedArtist(String email);
-	
+
 		
-		//모달창 - 회원 플레이리스트 추가
-		public Integer insertTrack(@Param("plylstId")Integer plylstId, @Param("trackId")Integer trackId);
+		//덕환부분
+		public List<Integer> getGenre(String email);
+		
+		public String getCodeName(@Param("typeId")Integer typeId,@Param("cdNo")Integer cdNo);
+		
+		public List<Integer> getCodeNo(Integer typeCode);
+		
+		public List<Integer> getTheme(String email);
+		
+		public List<Map<String,String>> recommendGenre(Integer genreCd);
+		
+		public List<Map<String,String>> recommendType(Integer typeCd);
+
 		
 }
 

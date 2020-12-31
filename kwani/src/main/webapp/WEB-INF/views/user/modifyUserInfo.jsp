@@ -17,7 +17,7 @@
 	href="/resources/css/modifyUserInfo.css">
 </head>
 
-<%@include file="../includes/mainHeader.jsp"%>
+<%@include file="../includes/userHeader.jsp"%>
 
 <div id="body">
 	<div id="leftSideBar"></div>
@@ -122,9 +122,6 @@
 			alert("비밀번호는 영어+특수문자+숫자를 섞어서 (8~16)자리만 가능합니다.");
 			return false;
 		}
-		alert("정보가 수정되었습니다!");
-		return true;
-
 	}
 
 	$(document)

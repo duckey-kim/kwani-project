@@ -92,9 +92,13 @@ public class kakaoController {
 		System.out.println(kakaoEmail);
 		
 		// 서버에 정보가 있으면 쿠키와 세션을 발급한다.
-		service.cookieSession(kakaoEmail, checked, request, response);
-		service.setSysdateForSocial(kakaoEmail);
-		
+		if (!(service.checkWithdrawUser(kakaoEmail, rttr))) {
+			service.cookieSession(kakaoEmail, checked, request, response);
+			service.setSysdateForSocial(kakaoEmail);
+		} else {
+			System.out.println("!!!!!!!!!!!!!!!!!");
+			return "redirect:/user/login";
+		}
 		return "redirect:/home";
 	}
 }

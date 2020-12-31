@@ -1,11 +1,6 @@
-* {
-    left: 0;
-    top: 0;
-}
-
 a {
-    text-decoration: none;
-    color:black;
+	text-decoration: none;
+	color: black;
 }
 
 p{
@@ -15,7 +10,7 @@ p{
 #body{
 	display: flex;
 	width: 100%;
-	height: auto;
+	min-height: 500px;
 }
 
 #bodyContent{
@@ -23,27 +18,89 @@ p{
 	height: auto;
 }
 
-table {
+.table {
 	border-collapse: collapse;
 	width: 100%;
 	font-size: 13px;
 }
 
-th, td {
+.table td {
 	padding: 5px;
 	text-align: center;
 	width: auto;
+	height: auto;
 	border-bottom: 1px solid #ddd;
 }
 
-tr {
+.table tr {
 	margin-bottom: 5vw;
 }
 
-tr:hover {background-color:#f5f5f5;}
+.table tr:hover {background-color:#f5f5f5;}
+
+.p-table{
+	margin: 0 10px 0 10px;
+}
+
+.p-table td{
+	padding: 2px;
+	border-bottom: 1px solid white;
+}
 
 li {
 	list-style-type: none;
+}
+
+li:hover {
+	background-color:#f5f5f5;
+}
+
+.edit-div{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.myArtistImg{
+	width: 220px;
+	height: 220px;
+	object-fit: cover;
+}
+
+.artist-td {
+	position: relative;
+}
+
+.img-background{
+	background-color: black;
+	width: 220px;
+	height: 220px;
+	overflow: hidden;
+	margin: 0 10px 0 10px;
+	cursor: pointer;
+}
+
+.text{
+	color: white;
+}
+
+.middle {
+	transition: .5s ease;
+	opacity: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.artist-td:hover .myArtistImg {
+	opacity: 0.3;
+}
+
+.artist-td:hover .middle {
+	opacity: 1;
 }
 
 #addModal{
@@ -51,8 +108,9 @@ li {
 }
 
 #addModal .modal-content{
-	width: 70%;
-	height: auto;
+	max-width: 800px;
+	max-height: 500px;
+	overflow-y: scroll;
 }
 
 #myModal{
@@ -61,6 +119,10 @@ li {
 
 #myModal .modal-content{
 	width: 40%;
+}
+
+.modal-body{
+	margin: 5px;
 }
 
 .modal {
@@ -72,6 +134,7 @@ li {
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.3);
+	font-size: 13px;
 }
 
 .modal .modal-content{
@@ -121,54 +184,89 @@ li {
 	text-align: center;
 }
 
-.img-td {
+.img-container{
 	position: relative;
+	width: 220px;
+	height: 220px;
 }
 
-.img-div img {
+.img-container .myPlaylistImg{
 	position: absolute;
 }
 
-.img-div .myArtistImg {
-	left: 50%;
-	transform: translateX(-50%);
+.img-container .moreImg{
+	position: absolute;
+	transform: translate(50%,50%);
 }
 
-.img-div .moreImg {
-	left: 80%;
-	margin-top: 4%;
+.img-container .dot{
+	position: absolute;
+	left: 82%;
+	top: 4%;
 }
 
-.img-div ul {
-	left: 73%;
-	top: -1.5em;
-	width: 5em;
-	height: 3.5em;
+.img-container ul {
+	left: 63%;
+	top: 40px;
+	width: 80px;
+	height: auto;
 	text-align: center;
+	z-index: 2;
 }
 
-.img-div ul li {
-	transform: translateY(55%);
+.img-container ul li {
+	height: auto;
+	text-align: center;
+	padding: 5px;
 }
 
+.editmodal, .delmodal{
+	cursor: pointer;
+	font-size: 11px;
+}
+
+.delmodal{
+	color: #b90000;
+}
 
 .item-div {
+	width: 960px;
+	min-height: 150px;
+	margin: 0 0 0 5%;
 	position: relative;
 	display: flex;
 	justify-content: left;
 	overflow-x: scroll;
 }
 
+.item-div-basic {
+	width: 100%;
+	min-height: 200px;
+	position: relative;
+	display: flex;
+	justify-content: left;
+	flex-wrap: wrap;
+}
+
 .item-div::-webkit-scrollbar {
     display: none;
 }
 
-.item-div .table {
-	width: 18vw;
-	margin: 0 1.5vw 0 1.5vw;
+.item-div-basic::-webkit-scrollbar {
+    display: none;
 }
 
-.item-div .basicTable {
+.item-div .table {
+	width: 220px;
+	margin: 0 1vw 0 1vw;
+}
+
+.item-div-basic .table {
+	width: 220px;
+	margin: 0 1vw 0 1vw;
+}
+
+.item-div .basicTable{
 	width: 17vw;
 	margin: 0 1vw 0 1vw;
 }
@@ -178,7 +276,20 @@ li {
 	height:100%;
 }
 
-.button {
+.modalBtn{
+	background-color: #b90000;
+	color: white;
+	padding: 5px 10px;
+	margin-top: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	cursor: pointer;
+	border-radius: 2px;
+}
+
+.button{
 	background-color: white;
 	color: black;
 	padding: 10px 28px;
@@ -188,24 +299,70 @@ li {
 	font-size: 14px;
 	font-weight: bold;
 	cursor: pointer;
-	border-bottom: 2px solid #fff;
+	border-bottom: 3px solid #fff;
 }
 
 .button:hover{
-	border-bottom: 2px solid #b90000;
+	border-bottom: 3px solid #b90000;
 }
 
 .button2 {
-	background-color: plum;
-	border: none;
-	color: white;
+	background-color: white;
+	color: #b90000;
 	padding: 10px 28px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 12px;
-	margin: 4px 2px;
+	font-size: 14px;
+	font-weight: bold;
 	cursor: pointer;
+	border-bottom: 3px solid #b90000;
+}
+
+.button3 {
+	background-color: white;
+	color: black;
+	padding: 10px 28px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+	cursor: pointer;
+	width: 220px;
+	height: 40px;
+	text-overflow: ellipsis;
+	overflow: hidden; 
+	white-space: nowrap;
+}
+
+.btn-div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.button4 {
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+	cursor: pointer;
+	width: auto;
+}
+
+.button5 {
+	background-color: #b90000;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+	cursor: pointer;
+	padding: 10px;
+	border-radius: 3px;
 }
 
 .userImg {
@@ -225,11 +382,6 @@ li {
 .td8 {
 	height: 13em;
 	width: 13em;
-}
-
-.td9 {
-	height: 220px;
-	width: 220px;
 }
 
 .tdsmall {
@@ -276,19 +428,14 @@ li {
 .play {
 	width: 20px;
 	height: 20px;
-}
-
-.moreImg {
-	z-index: 1;
-	width: 1.6em;
-	height: 1.6em;
+	cursor: pointer;
 }
 
 .dd-plylst-content {
+	background-color: white;
 	display: none;
 	position: relative;
-	background-color: white;
-	border-radius: 6px;
+	border-radius: 2px;
 }
 
 .show {display: block;}
@@ -296,16 +443,46 @@ li {
 .myImg {
 	width: 30px;
 	height: 30px;
+	cursor: pointer;
+}
+
+.editImg{
+	margin: 2px;
+	width: 12px;
+	height: 12px;
+}
+
+.delImg{
+	margin: 2px;
+	width: 11px;
+	height: 11px;
+}
+
+.myPlaylistImg{
+	width: 220px;
+	height: 220px;
+}
+
+.moreImg{
+	width: 15px;
+	height: 15px;
+	z-index: 1;
+	display: none;
+	cursor: pointer; 
+}
+
+.dot{
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background-color: rgba(255,255,255,0.9);
+	z-index: 1;
+	display: none;
 }
 
 .myAlbumImg {
 	width: 220px;
 	height: 220px;
-}
-
-.myArtistImg {
-	width:220px;
-	height:220px;
 }
 
 .mypage-header {
@@ -315,6 +492,7 @@ li {
 	align-items: center;
 	background-color: white;
 	color: white;
+	margin: 10px 0 10px 0;
 }
 
 .mypage-header .header-item {
@@ -357,6 +535,10 @@ li {
 
 .item a {
 	display: block;
+}
+
+.item-body{
+	min-height: 150px;
 }
 
 .item-body .item {

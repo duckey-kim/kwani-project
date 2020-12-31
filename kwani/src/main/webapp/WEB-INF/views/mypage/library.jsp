@@ -11,8 +11,6 @@
 <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script defer src="/resources/js/indexNoVideo.js"></script>
-
 <link rel="stylesheet" href="/resources/css/mypage.css" />
 </head>
 
@@ -22,7 +20,7 @@
 			<div id="bodyContent">
 				<div class="mypage-header">
 					<div class="header-item">
-						<img class="userImg" src="/resources/image/${user.userImg}" />
+						<img class="userImg" src="/resources/image/userUpload/${user.userImg}" />
 					</div>
 					<div>
 						<div>
@@ -49,7 +47,7 @@
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/library" method="post">
-								<button class="button">Library</button>
+								<button class="button2">Library</button>
 							</form>
 						</div>
 					</div>
@@ -62,7 +60,7 @@
 							</h3>
 						</div>
 						<div class="item-body">
-							<table>
+							<table class="table">
 								<tr>
 								<th class="th1"></th>
 								<th class="th4"></th>
@@ -71,8 +69,7 @@
 								<th class="th1"></th>
 								<th class="th1"></th>
 								</tr>
-								<c:forEach items="${libraryList}" var="library" begin="0"
-									end="4">
+								<c:forEach items="${libraryList}" var="library">
 									<tr>
 										<td><a href="/detail/album?albumId=${library.ALBUM_ID}"><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"></a></td>
 										<td><a href="/detail/track?trackId=${library.TRACK_ID}"><c:out value="${library.TRACK_TTL}" /></a></td>

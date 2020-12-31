@@ -23,7 +23,7 @@
 
 				<div class="mypage-header">
 					<div class="header-item">
-						<img class="userImg" src="/resources/image/${user.userImg}" />
+						<img class="userImg" src="/resources/image/userUpload/${user.userImg}" />
 					</div>
 
 					<div>
@@ -36,7 +36,7 @@
 					<div class='nav-left'>
 						<div class="nav-item">
 							<form action="/mypage/overview" method="post">
-								<button class="button">Overview</button>
+								<button class="button2">Overview</button>
 							</form>
 						</div>
 						<div class="nav-item">
@@ -66,7 +66,7 @@
 							</form>
 						</div>
 						<div class="item-body">
-							<table>
+							<table class="table">
 								<tr>
 								<th class="th1"></th>
 								<th class="th4"></th>
@@ -77,8 +77,7 @@
 								</tr>
 								<c:forEach items="${libraryList}" var="library" begin="0" end="4">
 									<tr>
-										<td><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"
-											onclick='href="/detail/album?albumId=${library.ALBUM_ID}"'></td>
+										<td><a href="/detail/album?albumId=${library.ALBUM_ID}"><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"></a></td>
 										<td><a href="/detail/track?trackId=${library.TRACK_ID}"><c:out value="${library.TRACK_TTL}" /></a></td>
 										<td><a href="/detail/artist?gropId=${library.GROP_ID}"><c:out value="${library.NM}" /></a></td>
 										<td><c:out value="${library.PLAY_DT}" /></td>
@@ -98,22 +97,18 @@
 								</h3>
 							</form>
 						</div>
-							<div class="item-div slide-wrapper">
+							<div class="item-div">
 								<c:forEach items="${likedArtistList}" var="artist">
-									<table class="basicTable">
-										<tr>
-											<th class="th"></th>
-											<th class="th"></th>
-										</tr>
-										<tr>
-											<td class="td8" colspan="2"><img class="myArtistImg" src="/resources/image/artist/${artist.GROP_IMG}"
-																		onclick= 'location.href="/detail/artist?gropId=${artist.GROP_ID}"'></td>
-										</tr>												
-										<tr>
-											<td><img src="/resources/image/heart.png" class="play"></td>
-											<td style="text-align:left"><a href="/detail/artist?gropId=${artist.GROP_ID}"><c:out value="${artist.NM}" /></a></td>
-										</tr>
-									</table>
+									<div class="artist-td">
+									<div class="img-background">
+										<img class="myArtistImg" src="/resources/image/artist/${artist.GROP_IMG}" onclick= 'location.href="/detail/artist?gropId=${artist.GROP_ID}"'>
+									</div>
+											<div class="middle">
+												<a class="text" href="/detail/artist?gropId=${artist.GROP_ID}">${artist.NM}</a><br>
+											<img class="heart" name="${artist.GROP_ID}" src="/resources/image/heart.png">
+											<img class="heart-empty" name="${artist.GROP_ID}" src="/resources/image/whiteheart.png">												
+											</div>
+									</div>
 								</c:forEach>
 							</div>
 					</div>
@@ -127,31 +122,17 @@
 							</form>
 						</div>
 						<div class="item-div">
-							<c:forEach items="${likedAlbumList}" var="album" begin="0" end="2">
-								<table class="table">
-									<tr>
-										<th></th>
-										<th class="th"></th>
-										<th class="th"></th>
-										<th class="th"></th>
-									</tr>
-
-									<tr>
-										<td class="td7" rowspan="4"><a href="/detail/album?albumId=${album.ALBUM_ID}"><img class="myAlbumImg" src="/resources/image/album/${album.ALBUM_IMG}"></a></td>
-										<td colspan="3"><a href="/detail/album?albumId=${album.ALBUM_ID}"><c:out value="${album.ALBUM_TTL}" /></a></td>
-									</tr>
-									<tr>
-										<td colspan="3"><a href="/detail/artist?gropId=${album.GROP_ID}"><c:out value="${album.NM}" /></a></td>
-									</tr>
-									<tr>
-										<td colspan="3">10</td>
-									</tr>
-									<tr>
-										<td><img src="/resources/image/list.png" class="play"></td>
-										<td><img src="/resources/image/folder.png" class="play"></td>
-										<td><img src="/resources/image/heart.png" class="play"></td>
-									</tr>
-								</table>
+							<c:forEach items="${likedAlbumList}" var="album">
+								<div class="artist-td">
+									<div class="img-background">
+									<img class="myArtistImg" src="/resources/image/album/${album.ALBUM_IMG}" onclick= 'location.href="/detail/album?albumId=${album.ALBUM_ID}"'>
+									</div>
+										<div class="middle">
+											<a class="text" href="/detail/album?albumId=${album.ALBUM_ID}">${album.ALBUM_TTL}</a><br>
+											<img class="heart" name="${album.ALBUM_ID}" src="/resources/image/heart.png">
+											<img class="heart-empty" name="${album.ALBUM_ID}" src="/resources/image/whiteheart.png">
+										</div>
+								</div>
 							</c:forEach>							
 						</div>
 					</div>
@@ -164,7 +145,8 @@
 								</h3>
 							</form>
 						</div>
-						<table style="width: 100%">
+						<div class="item-body">
+						<table class="table">
 							<tr>
 								<th class="th1"></th>
 								<th class="th4"></th>
@@ -188,7 +170,7 @@
 								</tr>
 							</c:forEach>
 						</table>
-
+						</div>
 					</div>
 				</div>
 			</div>

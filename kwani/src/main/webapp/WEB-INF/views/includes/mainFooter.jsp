@@ -43,10 +43,10 @@
 
 	//세션값이 잘 넘어왔는지 확인한다.
 	console.log('${user}');
-	console.log('${userNick}');
 	console.log('${list}');
 	console.log('${slideImg}');
 	console.log('${allPlist}');
+	
 
 
 	let logoutBtn = document.getElementById("logoutBtn");

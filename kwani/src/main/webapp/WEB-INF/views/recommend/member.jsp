@@ -1,105 +1,473 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
-    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script defer src="/resources/js/index.js"></script>
-    <link rel="stylesheet" type = "text/css" href="/resources/css/userRecmd.css">
-</head>
-<body>
-    <div id="main">
-        <div id="header">
-            <div id="header_navbar">
-                <div id="musicPlayer">musicPlayer</div>
-                <div id="pageLogo">
-                    <a href="#">Last.fm</a>
-                </div>
-                <div id="navbarUtil"> 
-                    <button class="subnavbtn" onclick="openSearch()">
-                      <i class="fa fa-search"></i></button>
-                    <a href="#">Home</a>
-                    <a href="#">Recommend</a>
-                    <a href="#">Find music</a>
-                    <a href="#">Join</a>
-                </div>
-            </div>
-            <div id="myOverlay" class="overlay">
-                <div class="overlay-content">
-                  <form action="/recommend/search" method="get" name="searchForm">
-                    <input type="text" placeholder="Search.." name="searchTxt" value="">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                  </form>
-                </div>
-            </div><!--myOverlay-->
-        </div><!--header-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recommend User</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+	integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="https://icono-49d6.kxcdn.com/icono.min.css">
+<script src="/resources/js/jquery-3.5.1.js" /></script>
 
-         <div id="body">
-            <div id="leftSideBar"></div>
-            <div id="bodyContent">  
-                <div id="bodyContentIn">
-                    <div class="userInfo"></div>
-                    <div class="contentBox1">
-                        <div class="contentText1">멍이나물님이 좋아하는 하드록</div>
-                        <div class="recmdBox1">
-                            <div class="recmd1_1">
-                                <div class="rec_img">이미지</div>
-                                <div class="rec_txt"></div>
-                            </div>
-                            <div class="recmd1_2">
-                                <div class="rec_img">이미지</div>
-                                <div class="rec_txt"></div>
-                            </div>
-                            <div class="recmd1_3">
-                                <div class="rec_img">이미지</div>
-                                <div class="rec_txt"></div>
-                            </div>
-                            <div class="recmd1_4">
-                                <div class="rec_img">이미지</div>
-                                <div class="rec_txt"></div>
-                            </div>
-                            <div class="recmd1_5">
-                                <div class="rec_img">이미지</div>
-                                <div class="rec_txt"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contentBox2">
-                        <div class="contentText2">멍이나물님이 즐겨듣는 오마이걸 노래와 비슷한 노래</div>
-                        <div class="recmdBox2">
-                            <div class="recmd2_1"></div>
-                            <div class="recmd2_2"></div>
-                            <div class="recmd2_3"></div>
-                            <div class="recmd2_4"></div>
-                            <div class="recmd2_5"></div>
-                        </div>
-                    </div>
-                    <div class="contentBox3">
-                        <div class="contentText3">Artist For U</div>
-                        <div class="recmdBox3">
-                            <div class="recmd3_1"></div>
-                            <div class="recmd3_2"></div>
-                            <div class="recmd3_3"></div>
-                            <div class="recmd3_4"></div>
-                            <div class="recmd3_5"></div>
-                        </div>
-                    </div>
-                    <div class="contentBox4">
-                        <div class="contentText4">쌀쌀한 날씨에 멍이나물님을 위한 따스한 선곡</div>
-                        <div class="recmdBox4">
-                            <div class="recmd4_1"></div>
-                            <div class="recmd4_2"></div>
-                            <div class="recmd4_3"></div>
-                            <div class="recmd4_4"></div>
-                            <div class="recmd4_5"></div>
-                        </div>
-                    </div>
-                </div><!--bodyContentIn-->             
-                    
-            <%@include file="../includes/footer.jsp" %>
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/plylstDetail.css">
+<style type="text/css">
+a:link {
+	color: black;
+}
+
+/* visited link */
+a:visited {
+	color: black;
+}
+
+/* mouse over link */
+a:hover {
+	color: black;
+}
+
+/* selected link */
+a:active {
+	color: black;
+}
+
+#modal2 {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 30px;
+	border: 1px solid #888;
+	width: 30%;
+}
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modalTitle {
+	text-align: center;
+	font-weight: bold;
+	padding-bottom: 20px;
+}
+
+.plylstListWrap {
+	display: flex;
+	flex-direction: column;
+}
+
+.plusNew {
+	height: 50px;
+	width: 90%;
+	justify-content: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.plusImg {
+	height: 40px;
+	width: 20%;
+}
+
+.plusTxt {
+	height: 40px;
+	width: 70%;
+	display: flex;
+	align-items: center;
+}
+
+.userPlylst {
+	height: 50px;
+	width: 100%;
+	justify-content: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.userPlylstImg {
+	height: 40px;
+	width: 20%;
+}
+
+.userPlylstNm {
+	height: 40px;
+	width: 60%;
+	/* display: flex; */
+	display: block;
+	align-items: center;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.userPlylstTrackCnt {
+	height: 40px;
+	width: 20%;
+	align-items: center;
+	text-align: right;
+}
+
+#plylstInfo {
+	height: 100px;
+	margin-top: 50px;
+}
+</style>
+
+</head>
+
+<%@include file="../includes/header.jsp"%>
+
+<div id="body">
+	<div id="leftSideBar"></div>
+	<div id="bodyContent">
+		<div id="plylstInfo">
+			<h1>${user.nick}을위한장르 추천</h1>
+		</div>
+		<!--plylstInfo-->
+
+		<div id="tracks">
+			<h2>Tracks</h2>
+		</div>
+		<div id="plylstBtn">
+			<button class="button" id="playButton-one"
+				onclick='setUrlTrack("one")'>듣기</button>
+			<button class="button" id="plusPlylstBtn-one">담기</button>
+		</div>
+		<div id="plylstTable">
+			<table>
+				<tr>
+					<th class="th0"><input type="checkbox" name="checkAll-one"
+						onclick='checkAll("one")' class="checkAll-one"></th>
+					<th class="th1">번호</th>
+					<th class="th2">가수</th>
+					<th class="th3">제목</th>
+					<th class="th4">듣기</th>
+				</tr>
+
+				<c:forEach items="${genreList}" var="genreList" varStatus="status"
+					begin="0" end="19">
+					<tr>
+						<th><input type="checkbox" name="checkRow-one"
+							value="${genreList.TRACK_ID }"></th>
+						<td class="num">${status.index+1}</td>
+						<td><a href="/detail/artist?gropId=${genreList.GROP_ID }"><c:out
+									value="${genreList.NM}" /></a></td>
+						<td><a href="/detail/track?trackId=${genreList.TRACK_ID }"><c:out
+									value="${genreList.TRACK_TTL}" /></a></td>
+						<td class="btnParent"><img class="playBtn"
+							onclick='popupPlayer("/player/track?trackId=${genreList.TRACK_ID}")'
+							src="/resources/image/play-button.png"></td>
+						<%-- <td>
+							<div class="heartParent">
+								<img class="defaultHeartImg" title="${genreList.TRACK_ID}"name="likeTrack-one"
+									src="/resources/image/heart2.png">
+								<img class="redHeartImg" title="${genreList.TRACK_ID}" name="likeTrack-one"
+									src="/resources/image/heart.png">
+							</div>
+						</td> --%>
+
+					</tr>
+				</c:forEach>
+
+			</table>
+		</div>
+
+
+		<div id="plylstInfo">
+			<h1>${user.nick}을위한테마 추천</h1>
+		</div>
+
+		<div id="tracks">
+			<h2>Tracks</h2>
+		</div>
+		<div id="plylstBtn">
+			<button class="button" id="playButton-two"
+				onclick='setUrlTrack("two")'>듣기</button>
+			<button class="button" id="plusPlylstBtn-two">담기</button>
+		</div>
+		<div id="plylstTable">
+			<table>
+				<tr>
+					<th class="th0"><input type="checkbox" name="checkAll-two"
+						onclick='checkAll("two")' class="checkAll-two"></th>
+					<th class="th1">번호</th>
+					<th class="th2">가수</th>
+					<th class="th3">제목</th>
+					<th class="th4">듣기</th>
+
+				</tr>
+
+				<c:forEach items="${typeList}" var="typeList" varStatus="status"
+					begin="0" end="19">
+					<tr>
+						<th><input type="checkbox" name="checkRow-two"
+							value="${typeList.TRACK_ID }"></th>
+						<td class="num">${status.index+1}</td>
+						<td><a href="/detail/artist?gropId=${typeList.GROP_ID}"><c:out
+									value="${typeList.NM}" /></a></td>
+						<td><a href="/detail/track?trackId=${typeList.TRACK_ID }"><c:out
+									value="${typeList.TRACK_TTL}" /></a></td>
+						<td class="btnParent"><img class="playBtn"
+							onclick='popupPlayer("/player/track?trackId=${typeList.TRACK_ID}")'
+							src="/resources/image/play-button.png"></td>
+						<%-- <td>
+							<div class="heartParent">
+								<img class="defaultHeartImg" title="${typeList.TRACK_ID}" name="likeTrack-two"
+									src="/resources/image/heart2.png">
+								<img class="redHeartImg" title="${typeList.TRACK_ID}" name="likeTrack-two"
+									src="/resources/image/heart.png">
+							</div>
+						</td> --%>
+
+					</tr>
+				</c:forEach>
+
+			</table>
+		</div>
+
+
+
+
+
+
+
+		<!-- 체크된 곡을 위한 모달창 -->
+		<div id="modal2">
+			<div class="modal-content">
+				<h2>${user.nick }님의플레이리스트</h2>
+
+				<div id="playlists">
+					<table>
+						<c:forEach items="${getPlaylists }" var="Playlists">
+							<tr>
+								<td><img style="width: 50px" class="playlistImage"
+									src="/resources/image/album/<c:out value="${Playlists.PLYLST_IMG }" />" />
+								</td>
+								<td><c:out value='${Playlists.NM }' /></td>
+								<td><c:out value='${Playlists.TRACK_CNT }' />곡</td>
+								<td>
+									<button value='${Playlists.PLYLST_ID }' class="selectPlaylist2">선택</button>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+				<div id="modal-buttons">
+					<button type="button" id="modalCloseBtn2">취소</button>
+				</div>
+			</div>
+			<div class="modal-layer"></div>
+		</div>
+
+
+		<script>
+			console.log("user : " + '${user}');
+			let popupPlayer = function(url) {
+				let moveTop = screen.height - 440;
+				let moveLeft = screen.width - 537;
+				window
+						.open(
+								url,
+								'player',
+								'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='
+										+ moveTop + ',left=' + moveLeft);
+			}
+			function checkAll(str) {
+				//만약 전체 선택 체크박스가 체크된상태일경우 
+				if ($(".checkAll-" + str).prop("checked")) {
+					//해당화면에 전체 checkbox들을 체크해준다 
+					$("input[name=checkRow-" + str + "]").prop("checked", true);
+					// 전체선택 체크박스가 해제된 경우 
+				} else {
+					//해당화면에 모든 checkbox들의 체크를해제시킨다. 
+					$("input[name=checkRow-" + str + "]")
+							.prop("checked", false);
+				}
+			}
+
+			//로그인 안되어있을 때
+			//좋아요 버튼, 플레이리스트 담기 버튼 누르면 로그인 페이지로 이동하게 하기--------------------------
+
+			//모달창 --------------------------------------------------------------------------
+			let modal = document.getElementById("myModal");
+			let btnOne = document.getElementById("plusPlylstBtn-one");
+			let btnTwo = document.getElementById("plusPlylstBtn-two");
+
+			countCheckboxLength("one");
+			countCheckboxLength("two");
+			selectPlaylist2("one");
+			selectPlaylist2("two");
+
+			window.onclick = function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
+
+			function countCheckboxLength(str) {
+				$("#plusPlylstBtn-" + str)
+						.on(
+								"click",
+								function() {
+									console.log(str);
+									/* doCheck(str); */
+
+									let checkedTracks = [];
+									$("input[name=checkRow-" + str + "]:checked").each(
+											function() {
+												checkedTracks.push($(this)
+														.val());
+											});
+									console.log(checkedTracks);
+									if (checkedTracks.length == 0) {
+										alert("체크된 항목이 없습니다.");
+									} else {
+										$("#modal2").attr("style",
+												"display:block");
+									}
+
+									$("#modalCloseBtn2").click(
+											function() {
+												$("#modal2").attr("style",
+														"display:none");
+											});
+								});
+
+			}
+			function setUrlTrack(str) {
+				if(doCheck(str)){
+					let trackArr = [];
+					$("input[name=checkRow-" + str + "]:checked").each(function() {
+						trackArr.push($(this).val());
+					})
+					let url = '';
+					let trackStr = 'trackId=';
+					if (trackArr.length == 1) {
+						url = trackStr + trackArr[0];
+					} else {
+						for (let i = 0; i < trackArr.length;) {
+							url += 'trackId=' + trackArr[i];
+							if (i != trackArr.length - 1) {
+								url += '&'
+							}
+							i += 1;
+						}
+					}
+					popupPlayer("/player/track?" + url);
+				}
+				return;
+			}
+
+			function doCheck(str) {
+
+				console.log("hi");
+
+				//체크된 체크박스 길이 가져오기
+				let checkedLength = $("input[name=checkRow-"+str+"]:checked").length;
+
+				console.log(checkedLength);
+
+				//체크된 체크박스가 하나도 없다면
+				if (checkedLength == 0) {
+
+					console.log("선택 안함...");
+					//경고창을 띄워준다
+					alert("노래를 선택해주세요");
+					return false;
+				} else {
+					//하나 이상이라도 체크박스에 체크가 되어 있다면 아무것도 하지 않는다
+					console.log("선택했어!");
+					return true;
+				}
+			}
+			
+			
+			function selectPlaylist2(str) {
+				$(".selectPlaylist2").on("click", function() {
+					let index = $(".selectPlaylist2").index(this);
+					console.log("누른 버튼의 플레이리스트 아이디 : " + $(".selectPlaylist2:eq(" + index + ")").val());
+
+					$("#modal2").attr("style", "display:none");
+
+					// 넣을 플레이리스트ID
+					let plylstId = $(".selectPlaylist2:eq(" + index + ")").val();
+
+					// 재생목록에 추가할 체크된 트랙ID들을 담는 배열
+					let checkedTracks = [];
+					$("input[name=checkRow-" + str + "]:checked").each(function () {
+						checkedTracks.push($(this).val());
+					});
+					
+					addToPlaylist(checkedTracks, plylstId);
+				});
+			}
+			
+			function addToPlaylist(trackIdArr, plylstId) {
+				console.log("플레이리스트ID : " + plylstId);
+
+				var objParams = {
+					"plylstId" : plylstId,
+					"trackIdArr" : trackIdArr
+				};
+
+				$.ajax({
+					type : 'post',
+					url : '/detail/addTracksInPlaylist',
+					data : objParams,
+					contentType : 'application/x-www-form-urlencoded; charset=utf-8;', // 서버로 보내는 데이터 타입
+					dataType : 'json', // 서버로부터 받는 데이터 타입
+
+					success : function(data) {
+						console.log("data : " + data);
+						if (data == 1) {
+							alert("중복곡을 제외하고 플레이리스트에 추가했습니다.");
+						} else {
+							alert("존재하지 않는 플레이리스트 입니다. 새로고침 후 다시 시도해주세요.")
+						}
+					}, error : function() {
+
+					}
+				});
+			}
+		</script>
+
+
+	</div>
+	<!--bodyContent-->
+	<div id="rightSideBar"></div>
+</div>
+<!--body-->
+<%@include file="../includes/footer.jsp"%>

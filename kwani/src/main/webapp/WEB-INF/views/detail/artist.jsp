@@ -26,7 +26,7 @@
 			<div id="bodyContent">
 				<div class="emptybox"></div>
 				<div>
-					<h2>가수 정보</h2>
+					<h2>가수 정보 ></h2>
 				</div>
 
 				<div class="music-header">
@@ -53,7 +53,7 @@
 						<div class="emptybox2"></div>
 
 						<div class="header-buttons">
-							<input type="button" value="공유하기" onclick="copyURL()">
+							<input class="btn" type="button" value="공유하기" onclick="copyURL()">
 							<textarea id="address" style="display: none"></textarea>
 							<img class="emptyHeart1" id="likeArtist" src="/resources/image/heart2.png"> 
 							<img class="redHeart1" id="likeArtist" src="/resources/image/heart.png">
@@ -68,8 +68,10 @@
 
 				<div class="related">
 					<div class="subtitle">
-						<h2>노래></h2>
-						<button> 듣기 </button>
+						<h2>노래 ></h2>
+					</div>
+					<div class="subtitle" style="text-align:right">
+						<button id="addPlayer" onclick="addPlayer()"> 듣기 </button>
 						<button id="addCheckedTrackMyPlaylist"> 내 재생목록에 담기 </button>
 					</div>
 					<div class="items">
@@ -88,10 +90,10 @@
 									<td><input type="checkbox" id="checkRow" name="trackId" value="${ArtistTrack.TRACK_ID }"></td>
 									<td><img
 										src="/resources/image/album/<c:out value='${ArtistTrack.ALBUM_IMG }' />"
-										style="max-height: 50px"></td>
+										style="max-height: 60px"></td>
 									<td><a style="color: black"
-										href="/detail/track?trackId=<c:out value='${ArtistTrack.TRACK_ID }' />"><c:out
-												value="${ArtistTrack.TRACK_TTL }" /></a></td>
+										href="/detail/track?trackId=<c:out value='${ArtistTrack.TRACK_ID }' />"><b><c:out
+												value="${ArtistTrack.TRACK_TTL }" /></b></a></td>
 									<td><a style="color: grey"
 										href="/detail/album?albumId=<c:out value='${ArtistTrack.ALBUM_ID }'/>"><c:out
 												value="${ArtistTrack.ALBUM_TTL }" /></a></td>
@@ -118,7 +120,7 @@
 				<div class="emptybox"></div>
 
 				<div class="subtitle">
-					<h2>앨범></h2>
+					<h2>앨범 ></h2>
 				</div>
 				<div class="related" style="height: 270px">
 					<div class="items">
@@ -151,17 +153,22 @@
 	<!-- 모달창 -->
 	<div id="modal">
 		<div class="modal-content">
-			<h2>${user.nick }님의플레이리스트</h2>
+			<h2>${user.nick }님의 플레이리스트 ></h2>
 
 			<div id="playlists">
 				<table>
+					<tr style="background-color: #f5f5f5">
+						<th></th>
+						<th>플레이리스트 이름</th>
+						<th></th>
+					</tr>
 					<c:forEach items="${getPlaylists }" var="Playlists">
 						<tr>
 							<td><img style="width: 50px" class="playlistImage"
 								src="/resources/image/album/<c:out value="${Playlists.PLYLST_IMG }" />" />
 							</td>
 							<td><c:out value='${Playlists.NM }' /></td>
-							<td><c:out value='${Playlists.TRACK_CNT }' />곡</td>
+							<%-- <td><c:out value='${Playlists.TRACK_CNT }' />곡</td> --%>
 							<td>
 								<button value='${Playlists.PLYLST_ID }' class="selectPlaylist">선택</button>
 							</td>
@@ -180,17 +187,22 @@
 	<!-- 체크된 곡을 위한 모달창 -->
 	<div id="modal1">
 		<div class="modal-content">
-			<h2>${user.nick }님의플레이리스트</h2>
+			<h2>${user.nick }님의 플레이리스트 ></h2>
 
 			<div id="playlists">
 				<table>
+					<tr style="background-color: #f5f5f5">
+						<th></th>
+						<th>플레이리스트 이름</th>
+						<th></th>
+					</tr>
 					<c:forEach items="${getPlaylists }" var="Playlists">
 						<tr>
 							<td><img style="width: 50px" class="playlistImage"
 								src="/resources/image/album/<c:out value="${Playlists.PLYLST_IMG }" />" />
 							</td>
 							<td><c:out value='${Playlists.NM }' /></td>
-							<td><c:out value='${Playlists.TRACK_CNT }' />곡</td>
+							<%-- <td><c:out value='${Playlists.TRACK_CNT }' />곡</td> --%>
 							<td>
 								<button value='${Playlists.PLYLST_ID }' class="selectPlaylist1">선택</button>
 							</td>
@@ -205,6 +217,16 @@
 		<div class="modal-layer"></div>
 	</div>
 	<!-- 체크된 곡을 위한 모달창 끝 -->
+	
+	<!-- 알림용 모달창 -->
+	<div id="noticeModal">
+		<div class="modal-content">
+			<h3>알림 ></h3>
+			<div id="notice" style="text-align:center"></div>
+		</div>
+		<div class="modal-layer"></div>
+	</div>
+	<!-- 알림용 모달창 끝 -->
 
 	<script>
 		let tmpTrackId;
@@ -245,7 +267,28 @@
 		}
 
 		function addPlayer() {
-
+							
+			let checkedTracks = [];
+			$('input:checkbox[id=checkRow]:checked').each(function () {
+				checkedTracks.push($(this).val());
+			});
+			
+			if(checkedTracks.length == 0){
+				noticeModal("체크된 항목이 없습니다.");
+			}else if(checkedTracks.length == 1){
+				let trackId = checkedTracks[0];
+				popupPlayer("/player/track?trackId="+trackId);
+			}else{
+				let url = "/player/track?trackId=" ;
+				for (let i in checkedTracks){
+					if(i != checkedTracks.length-1){
+						url += checkedTracks[i] + "&trackId=";
+					}else{
+						url += checkedTracks[i];
+					}
+				}
+				popupPlayer(url);
+			}
 		}
 
 		// 가수 좋아요 버튼
@@ -348,7 +391,7 @@
 				});
 				console.log(checkedTracks);
 				if(checkedTracks.length == 0){
-					alert("체크된 항목이 없습니다.");
+					noticeModal("체크된 항목이 없습니다.");
 				}else{
 					$("#modal1").attr("style", "display:block");
 				}
@@ -426,7 +469,13 @@
 			document.execCommand("copy"); //복사
 			address.style.display = 'none'; //textarea의 display를 none으로 변경
 			//obj.setSelectionRange(0, 0); //커서 위치 초기화
-			alert("주소가 복사되었습니다.");
+			noticeModal("주소가 복사되었습니다.");
+		}
+		
+		function noticeModal(notice){
+			$("#notice").html(notice);
+			$("#noticeModal").attr('style', 'display:block');
+			setTimeout(function(){$("#noticeModal").attr('style', 'display:none')}, 800);
 		}
 
 		function addLikeArtist(gropId) {
@@ -439,9 +488,9 @@
 				success : function(data) {
 					console.log("data : " + data);
 					if (data == 1) {
-						alert("이 가수를 좋아합니다.");
+						noticeModal("이 가수를 좋아합니다.");
 					} else {
-						alert("좋아요 리스트 추가에 실패했습니다.")
+						noticeModal("좋아요 리스트 추가에 실패했습니다.")
 					}
 				}, error : function() {
 				}
@@ -458,9 +507,9 @@
 				success : function(data) {
 					console.log("data : " + data);
 					if (data == 1) {
-						alert("좋아요를 취소하셨습니다.");
+						noticeModal("좋아요를 취소하셨습니다.");
 					} else {
-						alert("좋아요 취소를 실패했습니다.")
+						noticeModal("좋아요 취소를 실패했습니다.")
 					}
 				}, error : function() {
 
@@ -478,9 +527,9 @@
 				success : function(data) {
 					console.log("data : " + data);
 					if (data == 1) {
-						alert("이 노래를 좋아합니다.");
+						noticeModal("이 노래를 좋아합니다.");
 					} else {
-						alert("좋아요 리스트 추가에 실패했습니다.")
+						noticeModal("좋아요 리스트 추가에 실패했습니다.")
 					}
 				}, error : function() {
 
@@ -498,9 +547,9 @@
 				success : function(data) {
 					console.log("data : " + data);
 					if (data == 1) {
-						alert("좋아요를 취소하셨습니다.");
+						noticeModal("좋아요를 취소하셨습니다.");
 					} else {
-						alert("좋아요 취소를 실패했습니다.")
+						noticeModal("좋아요 취소를 실패했습니다.")
 					}
 				}, error : function() {
 
@@ -526,9 +575,9 @@
 				success : function(data) {
 					console.log("data : " + data);
 					if (data == 1) {
-						alert("중복곡을 제외하고 플레이리스트에 추가했습니다.");
+						noticeModal("중복곡을 제외하고 플레이리스트에 추가했습니다.");
 					} else {
-						alert("존재하지 않는 플레이리스트 입니다. 새로고침 후 다시 시도해주세요.")
+						noticeModal("존재하지 않는 플레이리스트 입니다. 새로고침 후 다시 시도해주세요.")
 					}
 				},
 				error : function() {

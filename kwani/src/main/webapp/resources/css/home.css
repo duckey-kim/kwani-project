@@ -28,6 +28,8 @@
 .slidesTxt {
 	color: whitesmoke;
 	font-weight: bolder;
+	display: flex;
+	justify-content: center;
 }
 
 .btnDotContainer {

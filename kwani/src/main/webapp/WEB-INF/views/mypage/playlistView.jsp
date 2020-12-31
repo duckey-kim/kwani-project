@@ -23,7 +23,7 @@
 			<div id="bodyContent">
 				<div class="mypage-header">
 					<div class="header-item">
-						<img class="userImg" src="/resources/image/${user.userImg}" />
+						<img class="userImg" src="/resources/image/userUpload/${user.userImg}" />
 					</div>
 
 					<div>
@@ -93,7 +93,7 @@
 								<button id="addBtn">Add Track</button>
 
 								<div class="item-body">
-									<table id="change-plylstDtl" style="width: 100%">
+									<table id="change-plylstDtl" class="table">
 										<thead>
 										<tr>
 											<th class="th1"></th>
@@ -160,7 +160,7 @@
 						</div>
 							<!-- 모달 -->
 							<div class="modal-bbody">
-								<table class="changetr" style="width: 100%">
+								<table class="changetr table" style="width: 100%">
 									<tr>
 										<th class='th1'><input type='checkbox' id='checkAll'></th><th></th><th></th><th></th><th></th><th></th>
 									</tr>
@@ -210,7 +210,7 @@
 				
 				if(obj === "FAILED"){
 					basicModalContent("플레이리스트가 존재하지 않습니다.");
-					setTimeout(changeLoc, 1100);
+					setTimeout(changeLoc, 800);
 					return;
 				}
 				
@@ -218,7 +218,7 @@
 				
 				basicModalContent("중복을 제외한 곡 추가를 완료했습니다.");
 				checkReset();
-				setTimeout(hideBasicModal, 1000);
+				setTimeout(hideBasicModal, 800);
 				
 		})
 	})
@@ -251,7 +251,7 @@
 				
 				if(obj === "FAILED"){
 					basicModalContent("플레이리스트가 존재하지 않습니다.");
-					setTimeout(changeLoc, 1100);
+					setTimeout(changeLoc, 800);
 					return;
 				}
 				
@@ -291,7 +291,7 @@
 					
 					if(obj === "FAIL"){
 						basicModalContent("플레이리스트에 해당 곡이 존재하지 않습니다.");
-						setTimeout(changeLoc, 1100);
+						setTimeout(changeLoc, 800);
 						return;
 					}
 										
@@ -314,12 +314,12 @@
 	
 		if (nmValue.length == 0) {
 			basicModalContent("플레이리스트 제목을 입력하세요.");
-			setTimeout(hideBasicModal, 1100);
+			setTimeout(hideBasicModal, 800);
 			return false;
 		}
 		if (descValue.length == 0) {
 			basicModalContent("플레이리스트 설명을 입력하세요.");
-			setTimeout(hideBasicModal, 1100);
+			setTimeout(hideBasicModal, 800);
 			return false;
 		}
 		return true;
