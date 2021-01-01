@@ -11,7 +11,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Settings</title>
-
 <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/withdrawal.css">
@@ -26,7 +25,7 @@
 			<div class="h1">
 				<h1>Settings</h1>
 			</div>
-			<form action="/user/withdrawalAction" method="POST"> 
+			<form action="/user/withdrawalAction" method="POST">
 				<div class="utilBtnContainer">
 					<input type="button" class="delete" value="회원탈퇴">
 				</div>
@@ -50,24 +49,18 @@
 	<div id="rightSideBar"></div>
 </div>
 <!-- body -->
-
-<!-- ----------------------------- JavaScript------------------------------- -->
-<!-- ---------------------------------------------------------------------------------------- -->
-
 <script type="text/javascript">
-	function checkInput() {
+function checkInput() {
 
-		let email = document.getElementById("email").value;
+	let email = document.getElementById("email").value;
 
-		if (email.length == 0) {
-			alert('이메일을 입력하세요');
-			return false;
-		}
-
-		return true;
+	if (email.length == 0) {
+		alert('이메일을 입력하세요');
+		return false;
 	}
 
+	return true;
+}
 </script>
-
 
 <%@include file="../includes/footer.jsp"%>

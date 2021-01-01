@@ -26,7 +26,7 @@
 					onclick="currentSlide(3)"></span> <span class="dot"
 					onclick="currentSlide(4)"></span> <span class="dot"
 					onclick="currentSlide(5)"></span> <span class="dot"
-					onclick="currentSlide(6)"></span> 
+					onclick="currentSlide(6)"></span>
 			</div>
 		</div>
 		<div class="topContentBox">
@@ -97,9 +97,11 @@
 
 			<div class="loginFormBox">
 				<div class="loginBtnWrap">
-					<button class="loginBtn" id="loginBtn" onclick="location.href='/user/login'">Login</button>
+					<button class="loginBtn" id="loginBtn"
+						onclick="location.href='/user/login'">Login</button>
 				</div>
-				<div id="welcomeBtn" class="loginBtn" style="display: none" onclick="location.href='/mypage/overview'">
+				<div id="welcomeBtn" class="loginBtn" style="display: none"
+					onclick="location.href='/mypage/overview'">
 					<p>환영합니다!</p>
 					<p>${userNick}님</p>
 				</div>
@@ -120,8 +122,8 @@
 								type="hidden" id="finishDate" name="finishDate">
 						</form>
 					</div>
-					<div style="width:10px;"></div>
-					
+					<div style="width: 10px;"></div>
+
 					<div class="genreYearImg"
 						style="background-image: url(/resources/image/artist/아이유.jpg);">
 						<div class="circle red">
@@ -137,7 +139,7 @@
 							</div>
 						</div>
 					</div>
-					<div style="width:10px"></div>
+					<div style="width: 10px"></div>
 					<div class="genreCntBox">
 						<p id="genreName"></p>
 						<input type="hidden" id="inputGenre" name="genreName">
@@ -153,15 +155,10 @@
 </div>
 <!--body-->
 
-<!-- ----------------------------- JavaScript------------------------------- -->
-<!-- ---------------------------------------------------------------------------------------- -->
-
-
 <script type="text/javascript">
-
 	console.log('${result}')
 	console.log('${userNick}');
-	
+
 	/*-------------------------------------------- searchBox ----------------------------------------------------- */
 
 	window.onclick = function(event) {
@@ -177,14 +174,11 @@
 					openDropdown.classList.remove('show');
 				}
 			}
+
 		}
 	}
-</script>
 
-
-<script type="text/javascript">
 	/*---------------------------------------------------------------------------------------------------------------- */
-	/*-------------------------------------------- slideshow ----------------------------------------------------- */
 	let slideCount = 1;
 	countSlides(slideCount);
 
@@ -237,10 +231,7 @@
 		dots[slideIndex - 1].className += " active";
 		setTimeout(showSlides, 3000);
 	}
-</script>
 
-
-<script type="text/javascript">
 	/*---------------------------------------------------------------------------------------------------------------- */
 
 	$("#yearCnt").text("2010s");
@@ -249,11 +240,11 @@
 	let finishDate = "2019";
 	let genreName = "댄스";
 	let gropId = "12";
-	
+
 	$(".genreYearImg").click(function() {
-			location.href = "/detail/artist?gropId=" +gropId
+		location.href = "/detail/artist?gropId=" + gropId
 	});
-	
+
 	$(".year").on(
 			'click',
 			function() {
@@ -276,9 +267,9 @@
 					}
 
 				});
-				
+
 				console.log(startDate + "-" + finishDate + "-" + genreName)
-				
+
 				$.ajax({
 					type : "GET",
 					url : "/homeAjax/" + startDate + "/" + finishDate + "/"
@@ -375,7 +366,7 @@
 									"background-image",
 									"url(/resources/image/artist/"
 											+ data[0].gropImg + ")");
-							
+
 							gropId = data[0].gropId
 						}
 					},
@@ -391,9 +382,7 @@
 	function genre() {
 		genreName = genreName.val();
 	}
-</script>
 
-<script type="text/javascript">
 	$(function() {
 		$(".year").draggable({
 			yearWrap : ".yearWrap",

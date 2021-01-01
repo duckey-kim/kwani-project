@@ -1,7 +1,7 @@
 console.log("module");
 
-let likeService = (function(){
-	
+let likeService = (function() {
+
 	function removeLikeTrack(trackId, callback, error) {
 
 		console.log("Remove Like Track");
@@ -21,7 +21,7 @@ let likeService = (function(){
 		});
 
 	}
-	
+
 	function addLikeTrack(trackId, callback, error) {
 
 		console.log("Add Like Track");
@@ -42,9 +42,9 @@ let likeService = (function(){
 
 	}
 
-	return{
+	return {
 		addLikeTrack : addLikeTrack,
 		removeLikeTrack : removeLikeTrack
 	};
-	
+
 })();
