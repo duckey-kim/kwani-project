@@ -77,7 +77,7 @@ tr:nth-child(even) {
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script  type="text/javascript" src="/resources/js/player.js"></script>
+	<script type="text/javascript" src="/resources/js/player.js"></script>
 	<script>
 		// 2. This code loads the IFrame Player API code asynchronously.
 		let tag = document.createElement('script');
@@ -89,39 +89,52 @@ tr:nth-child(even) {
 		// 3. This function creates an <iframe> (and YouTube player)
 		//    after the API code downloads.
 		var player;
+		var index = sessionStorage.getItem("index");
+		var time = sessionStorage.getItem("time");
 
 		let videoMap = ${
-			videoMap};
+			videoMap
+		};
 		let playList = ${
 			playList
 		};
-		console.log("videoMap :"+videoMap)
+		console.log("videoMap :" + videoMap)
 		let playListIndex = playList.length - 1;
 		console.log(playListIndex);
 
 		function onYouTubeIframeAPIReady() {
-				player = new YT.Player('player', {
-					height : '285',
-					width : '380',
-					playerVars : {
-						'autoplay' : 1,
-						'rel' : 0,
-						'disablekb' : 1,
-						'modestbranding' : 1,
-						'loop' : 1
-					},
-					events : {
-						'onReady' : onPlayerReady,
-						'onStateChange' : onPlayerStateChange
-					}
-				});
+			
+				
+			player = new YT.Player('player', {
+				height : '285',
+				width : '380',
+				playerVars : {
+					'autoplay' : 1,
+					'rel' : 0,
+					'disablekb' : 1,
+					'modestbranding' : 1,
+					'loop' : 1
+				},
+				videoId : playList[0],
+				events : {
+					'onReady' : onPlayerReady,
+					'onStateChange' : onPlayerStateChange
+				}
+			});
+			
 
 		}
 
 		// 4. The API will call this function when the video player is ready.
 		function onPlayerReady(event) {
-			event.target.loadPlaylist(playList);
-			event.target.playVideo();
+			if (time == null || index == null) {
+				event.target.loadPlaylist(playList);
+				event.target.playVideo();
+			} else {
+
+				event.target.loadPlaylist(playList, index, time);
+			}
+
 		}
 
 		// 5. The API calls this function when the player's state changes.
@@ -131,7 +144,8 @@ tr:nth-child(even) {
 			console.log("event is :" + event);
 			if (event.data == YT.PlayerState.PLAYING) {
 				console.log(player.getVideoData().video_id);
-				playerService.insertUserCurrent(videoMap[player.getVideoData().video_id], function(
+				playerService.insertUserCurrent(
+						videoMap[player.getVideoData().video_id], function(
 								result) {
 							console.log("현재곡 최신곡으로 update");
 						});
@@ -144,6 +158,17 @@ tr:nth-child(even) {
 		function stopVideo() {
 			player.stopVideo();
 		}
+
+		window.onbeforeunload = function(e) {
+			index = player.getPlaylistIndex();
+			sessionStorage.setItem("index", index);
+			time = player.getCurrentTime();
+			sessionStorage.setItem("time", time);
+			console.log("MUSIC_PAYER LOADING");
+			console.log("index : " + index);
+			console.log("time :" + time);
+
+		};
 	</script>
 </body>
 </html>
