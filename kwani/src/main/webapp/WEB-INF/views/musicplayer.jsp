@@ -73,29 +73,8 @@ tr:nth-child(even) {
 <body>
 
 	<div class="list-nm">${listNm }</div>
-	<%-- ${videoMap } --%>
 	<div id="player"></div>
 
-	<%-- 	<div class="list-wrapper">
-			<h2 style="font-family: fantasy;">${listNm }</h2>
-			<table class="list-table">
-				<thead>
-					<tr class="tb-header">
-						<th>제목</th>
-						<th>가수</th>
-						<th>X</th>
-					</tr>
-
-				</thead>
-				<c:forEach var="list" items="${list}">
-					<tr>
-						<td>${list.TRACK_TTL }</td>
-						<td>${list.NM }</td>
-						<td>X</td>
-					</tr>
-				</c:forEach>
-			</table>
-		</div> --%>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script  type="text/javascript" src="/resources/js/player.js"></script>
@@ -121,7 +100,6 @@ tr:nth-child(even) {
 		console.log(playListIndex);
 
 		function onYouTubeIframeAPIReady() {
-			if (player == null) {
 				player = new YT.Player('player', {
 					height : '285',
 					width : '380',
@@ -130,23 +108,20 @@ tr:nth-child(even) {
 						'rel' : 0,
 						'disablekb' : 1,
 						'modestbranding' : 1,
-						'playlist' : playList,
 						'loop' : 1
 					},
-					videoId : playList[0],
 					events : {
 						'onReady' : onPlayerReady,
 						'onStateChange' : onPlayerStateChange
 					}
 				});
 
-			}
 		}
 
 		// 4. The API will call this function when the video player is ready.
 		function onPlayerReady(event) {
-			event.target.playVideo();
 			event.target.loadPlaylist(playList);
+			event.target.playVideo();
 		}
 
 		// 5. The API calls this function when the player's state changes.
