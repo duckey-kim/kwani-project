@@ -29,31 +29,32 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Override
 	public int addLikeAlbum(Integer albumId, String email) {
-		return myPageMapper.insertLikeAlbum(albumId, email);
+		return myPageMapper.insertLikeAlbums(albumId, email);
 	}
+	
 	@Override
 	public int removeLikeAlbum(Integer albumId, String email) {
-		return myPageMapper.deleteLikeAlbum(albumId, email);
+		return myPageMapper.deleteLikeAlbums(albumId, email);
 	}
 	
 	@Override
 	public int addLikeArtist(Integer artistId, String email) {
-		return myPageMapper.insertLikeArtist(artistId, email);
+		return myPageMapper.insertLikeArtists(artistId, email);
 	}
 	
 	@Override
 	public int removeLikeArtist(Integer artistId, String email) {
-		return myPageMapper.deleteLikeArtist(artistId, email);
+		return myPageMapper.deleteLikeArtists(artistId, email);
 	}
 	
 	@Override
 	public int removeLikeTrack(Integer trackId, String email) {
-		return myPageMapper.deleteLikeTrack(trackId, email);
+		return myPageMapper.deleteLikeTracks(trackId, email);
 	}
 	
 	@Override
 	public int addLikeTrack(Integer trackId, String email) {
-		return myPageMapper.insertLikeTrack(trackId, email);
+		return myPageMapper.insertLikeTracks(trackId, email);
 	}
 	
 	// 트랙에 곡 삽입

@@ -40,7 +40,7 @@ public class MyPageRestController {
 		Integer albumIdValue = Integer.parseInt(albumId);
 		System.out.println("***********" + albumIdValue);
 		
-		int result = myPageService.removeLikeArtist(albumIdValue, email);
+		int result = myPageService.removeLikeAlbum(albumIdValue, email);
 		
 		return result == 1? "SUCCESS" : "FAIL";
 	}
@@ -54,7 +54,7 @@ public class MyPageRestController {
 		
 		Integer albumIdValue = Integer.parseInt(albumId);
 		
-		int result = myPageService.addLikeArtist(albumIdValue, email);
+		int result = myPageService.addLikeAlbum(albumIdValue, email);
 		
 		return result == 1? "SUCCESS" : "FAIL";
 	}

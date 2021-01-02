@@ -27,35 +27,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="plylstId" column="plylst_id" /> <result property="trackId" 
 		column="track_id" /> <result property="plyNo" column="ply_no" /> </resultMap> -->
 
-	<delete id="deleteLikeAlbum">
+	<delete id="deleteLikeAlbums">
 		DELETE FROM T_LIKE_ALBUMS
 		WHERE ALBUM_ID = #{albumId}
 		AND EMAIL = #{email}
 	</delete>
 
-	<insert id="insertLikeAlbum">
+	<insert id="insertLikeAlbums">
 		INSERT INTO T_LIKE_ALBUMS(ALBUM_ID, EMAIL)
 		VALUES(#{albumId}, #{email})
 	</insert>
 
-	<delete id="deleteLikeArtist">
+	<delete id="deleteLikeArtists">
 		DELETE FROM T_LIKE_ARTISTS
 		WHERE GROP_ID = #{artistId}
 		AND EMAIL = #{email}
 	</delete>
 
-	<insert id="insertLikeArtist">
+	<insert id="insertLikeArtists">
 		INSERT INTO T_LIKE_ARTISTS(GROP_ID, EMAIL)
 		VALUES(#{artistId}, #{email})
 	</insert>
 
-	<delete id="deleteLikeTrack">
+	<delete id="deleteLikeTracks">
 		DELETE FROM T_LIKE_TRACKS
 		WHERE TRACK_ID = #{trackId}
 		AND EMAIL = #{email}
 	</delete>
 
-	<insert id="insertLikeTrack">
+	<insert id="insertLikeTracks">
 		INSERT INTO T_LIKE_TRACKS(TRACK_ID, EMAIL)
 		VALUES(#{trackId}, #{email})
 	</insert>

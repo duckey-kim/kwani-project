@@ -56,7 +56,6 @@
 						</div>
 					</div>
 				</div>
-				<hr style="border-bottom: 1px solid black">
 				<div class="mypage-body">
 					<div class="body-item bg-bl">
 						<div class="item-header">
@@ -80,10 +79,9 @@
 									<div class="playlist-title">
 									<label for="title"><b>Playlist Title</b></label><br> <input
 										type="text" id="change-title" name="nm"
-										placeholder="${playlistVO.nm}"><br></a><label
+										value="${playlistVO.nm}"><br><label
 										for="desc"><b>Playlist Description</b></label><br>
-									<textarea id="change-desc" class="form-control" name="desc"
-										placeholder="${playlistVO.desc}"></textarea>
+									<textarea id="change-desc" class="form-control" name="desc">${playlistVO.desc}</textarea>
 									</div>
 									<br>
 								</form>
@@ -95,12 +93,12 @@
 									<table id="change-plylstDtl" class="table">
 										<thead>
 										<tr>
-											<th class="th1"></th>
-											<th class="th5"></th>
-											<th class="th5"></th>
-											<th class="th6"></th>
-											<th class="th1"></th>
-											<th class="th1"></th>
+											<th style="width:5%"></th>
+											<th style="width:5%"></th>
+											<th style="width:40%"></th>
+											<th style="width:10%"></th>
+											<th></th>
+											<th style="width:5%"></th>
 										</tr>
 										</thead>
 										<tbody>
@@ -108,8 +106,8 @@
 											<tr>
 												<td>${status.count}</td>
 												<td><img class="myImg" src="/resources/image/album/${playlistDetail.ALBUM_IMG}" /></td>
-												<td><c:out value="${playlistDetail.ANM}" /></td>
 												<td><c:out value="${playlistDetail.TRACK_TTL}" /></td>
+												<td><c:out value="${playlistDetail.ANM}" /></td>
 												<td><c:out value="${playlistDetail.ALBUM_TTL}" /></td>
 												<td>
 													<input class="trackIdValue" type="hidden" value="${playlistDetail.TRACK_ID}" name="trackIdValue">
@@ -160,7 +158,8 @@
 							<div class="modal-bbody">
 								<table class="changetr table" style="width: 100%">
 									<tr>
-										<th class='th1'><input type='checkbox' id='checkAll'></th><th></th><th></th><th></th><th></th><th></th>
+										<th><input type='checkbox' id='checkAll'></th>
+										<th style="width:10%"></th><th style="width:40%"></th><th style="width:10%"></th><th></th><th style="width:5%"></th>
 									</tr>
 									<c:forEach items="${likedTrackList}" var="track">
 										<tr class="tr-check">

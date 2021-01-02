@@ -62,19 +62,19 @@
 						<div class="item-body">
 							<table class="table">
 								<tr>
-								<th class="th1"></th>
-								<th class="th4"></th>
-								<th class="th3"></th>
-								<th class="th3"></th>
-								<th class="th1"></th>
-								<th class="th1"></th>
+								<th style="width:10%"></th>
+								<th style="width:40%"></th>
+								<th style="width:10%"></th>
+								<th></th>
+								<th style="width:5%"></th>
+								<th style="width:5%"></th>
 								</tr>
 								<c:forEach items="${libraryList}" var="library">
 									<tr>
 										<td><a href="/detail/album?albumId=${library.ALBUM_ID}"><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"></a></td>
-										<td><a href="/detail/track?trackId=${library.TRACK_ID}"><c:out value="${library.TRACK_TTL}" /></a></td>
-										<td><a href="/detail/artist?gropId=${library.GROP_ID}"><c:out value="${library.NM}" /></a></td>
-										<td><c:out value="${library.PLAY_DT}" /></td>
+										<td><a class="track-title" href="/detail/track?trackId=${library.TRACK_ID}"><c:out value="${library.TRACK_TTL}" /></a></td>
+										<td><a class="artist-name" href="/detail/artist?gropId=${library.GROP_ID}"><c:out value="${library.NM}" /></a></td>
+										<td class="play-date"><c:out value="${library.PLAY_DT}" /></td>
 										<td onclick='popupPlayer("/player/track?trackId=${library.TRACK_ID}")'><img src="/resources/image/play-button.png" class="play"></td>
 										<td><img class="track-heart" name="${library.TRACK_ID}" src="/resources/image/heart.png">
 										<img class="track-heart-empty" name="${library.TRACK_ID}" src="/resources/image/heart2.png"></td>

@@ -3,7 +3,6 @@ console.log("module");
 let likeService = (function(){
 	
 	function removeLikeArtist(artistId, callback, error) {
-
 		console.log("Remove Like Artist");
 
 		$.ajax({
@@ -21,7 +20,6 @@ let likeService = (function(){
 				alert("에러");
 			}
 		});
-
 	}
 	
 	function addLikeArtist(artistId, callback, error) {
@@ -87,7 +85,6 @@ let likeService = (function(){
 				alert("에러");
 			}
 		});
-
 	}
 	
 	function removeLikeTrack(trackId, callback, error) {

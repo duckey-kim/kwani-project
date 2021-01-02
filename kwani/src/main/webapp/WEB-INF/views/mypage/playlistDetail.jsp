@@ -59,13 +59,13 @@
 				<div class="mypage-body">
 					<div class="body-item bg-bl">
 						<div class="item-header">
-							<img class="myArtistImg" src="/resources/image/album/${playlistDetail[0].PLYLST_IMG}" />
+							<img class="myArtistImg" src="/resources/image/album/${playlistVO.plylstImg}" />
 							<div class="title-div">
 								<h2>
-									<c:out value="${playlistDetail[0].NM}" />
+									<c:out value="${playlistVO.nm}" />
 								</h2>
 								<h3>
-									<c:out value="${playlistDetail[0].DESCP}" />
+									<c:out value="${playlistVO.desc}" />
 								</h3>
 								<p>플레이리스트 곡 개수 : ${trackCount}</div>
 							</div>
@@ -74,21 +74,21 @@
 								<br>
 									<table class="table">
 										<tr>
-											<th class="th1"></th>
-											<th class="th4"></th>
-											<th class="th5"></th>
-											<th class="th5"></th>
-											<th class="th6"></th>
-											<th class="th1"></th>
-											<th class="th1"></th>
+											<th style="width:5%"></th>
+											<th style="width:10%"></th>
+											<th style="width:40%"></th>
+											<th style="width:10%"></th>
+											<th ></th>
+											<th style="width:5%"></th>
+											<th style="width:5%"></th>
 										</tr>
 									<c:forEach items="${playlistDetail}" var="playlistDetail" varStatus="status">
 										<tr>
 											<td>${status.count}</td>											
 											<td><a href="/detail/album?albumId=${playlistDetail.ALBUM_ID}"><img src="/resources/image/album/${playlistDetail.ALBUM_IMG}" class="myImg"></a></td>
-											<td><a href="/detail/track?trackId=${playlistDetail.TRACK_ID}"><c:out value="${playlistDetail.TRACK_TTL}" /></a></td>
-											<td><a href="/detail/artist?gropId=${playlistDetail.GROP_ID}"><c:out value="${playlistDetail.ANM}" /></a></td>
-											<td><a href="/detail/album?albumId=${playlistDetail.ALBUM_ID}"><c:out value="${playlistDetail.ALBUM_TTL}" /></a></td>
+											<td><a class="track-title" href="/detail/track?trackId=${playlistDetail.TRACK_ID}"><c:out value="${playlistDetail.TRACK_TTL}" /></a></td>
+											<td><a class="artist-name" href="/detail/artist?gropId=${playlistDetail.GROP_ID}"><c:out value="${playlistDetail.ANM}" /></a></td>
+											<td><a class="album-title" href="/detail/album?albumId=${playlistDetail.ALBUM_ID}"><c:out value="${playlistDetail.ALBUM_TTL}" /></a></td>
 											<td onclick='popupPlayer("/player/track?trackId=${playlistDetail.TRACK_ID}")'><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
 											<td>
 											<img class="track-heart" name="${playlistDetail.TRACK_ID}" src="/resources/image/heart.png">
@@ -131,12 +131,14 @@
 	<script type="text/javascript" src="/resources/js/like.js"></script>
 	<div id="rightSideBar"></div>
 	<script>
-	      let popupPlayer = function(url){
-	          let moveTop=screen.height-440;
-	           let moveLeft=screen.width-537;
-	         window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
-	      }
-	      
+		let popupPlayer = function(url){
+			let moveTop=screen.height-440;
+			let moveLeft=screen.width-537;
+			window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+	    }
+	    
+		
+		
 		$(document).ready(function(){
 			showLike();
 			likeTrack();

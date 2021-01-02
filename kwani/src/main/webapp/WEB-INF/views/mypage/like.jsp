@@ -92,6 +92,7 @@
 								<div class="artist-td">
 									<div class="img-background">
 									<img class="myArtistImg" src="/resources/image/album/${album.ALBUM_IMG}" onclick= 'location.href="/detail/album?albumId=${album.ALBUM_ID}"'>
+									<img class="play-png" src="/resources/image/play.png" onclick='popupPlayer("/player/album?albumId=${album.ALBUM_ID}")'>
 									</div>
 										<div class="middle">
 											<a class="text" href="/detail/artist?gropId=${album.GROP_ID}">${album.ALBUM_TTL}</a><br>
@@ -112,19 +113,19 @@
 						<div class="item-body">
 						<table class="table">
 							<tr>
-								<th class="th1"></th>
-								<th class="th4"></th>
+								<th style="width:10%"></th>
+								<th style="width:40%"></th>
+								<th style="width:10%"></th>
 								<th class="th3"></th>
-								<th class="th3"></th>
-								<th class="th1"></th>
-								<th class="th1"></th>
+								<th style="width:5%"></th>
+								<th style="width:5%"></th>
 							</tr>
 							<c:forEach items="${likedTrackList}" var="track" begin="0" end="4">
 								<tr>
 									<td><a href="/detail/album?albumId=${track.ALBUM_ID}"><img src="/resources/image/album/${track.ALBUM_IMG}" class="myImg"></a></td>
-									<td><a href="/detail/track?trackId=${track.TRACK_ID}"><c:out value="${track.TRACK_TTL}" /></a></td>
-									<td><a href="/detail/artist?gropId=${track.GROP_ID}"><c:out value="${track.NM}" /></a></td>
-									<td><a href="/detail/album?albumId=${track.ALBUM_ID}"><c:out value="${track.ALBUM_TTL}" /></a></td>
+									<td><a class="track-title" href="/detail/track?trackId=${track.TRACK_ID}"><c:out value="${track.TRACK_TTL}" /></a></td>
+									<td><a class="artist-name" href="/detail/artist?gropId=${track.GROP_ID}"><c:out value="${track.NM}" /></a></td>
+									<td><a class="album-title" href="/detail/album?albumId=${track.ALBUM_ID}"><c:out value="${track.ALBUM_TTL}" /></a></td>
 									<td onclick='popupPlayer("/player/track?trackId=${track.TRACK_ID}")'><img src="/resources/image/play-button.png" class="play"></td>
 									<td><img class="track-heart" name="${track.TRACK_ID}" src="/resources/image/heart.png">
 										<img class="track-heart-empty" name="${track.TRACK_ID}" src="/resources/image/heart2.png"></td>

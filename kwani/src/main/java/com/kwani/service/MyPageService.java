@@ -11,10 +11,13 @@ public interface MyPageService {
 
 	public int addLikeAlbum(Integer albumId, String email);
 	public int removeLikeAlbum(Integer albumId, String email);
+	
 	public int addLikeArtist(Integer artistId, String email);
 	public int removeLikeArtist(Integer artistId, String email);
+	
 	public int addLikeTrack(Integer trackId, String email);
 	public int removeLikeTrack(Integer trackId, String email);
+	
 	public void insertTrackList(Set<Integer> trackId, Integer plylstId, String email);
 	public void removePlaylistTrack(Set<Integer> trackList, Integer plylstId);
 	public boolean checkValidPlaylist(Integer plylstId, String email);

@@ -61,7 +61,6 @@
 								<input type="hidden" value="제목을 입력하세요" name="nm">
 								<input type="hidden" value="내용을 입력하세요" name="desc">
 								<input type="hidden" value="noplaylist.png" name="plylstImg">
-								<input type="hidden" value="${user.email}" name="email">
 								<button id="createBtn" class="button5">새로운플레이리스트 만들기</button>
 							</form>
 
@@ -86,7 +85,10 @@
 											<td colspan="2">
 												<div class="img-container">
 													<a class="ddBtn"><span class="dot"><img class="moreImg" src="/resources/image/more.png"></span></a>
-													<img class="myPlaylistImg" src="/resources/image/album/${plylst.plylstImg}">
+													<div class="play-background">
+														<img class="myPlaylistImg" src="/resources/image/album/${plylst.plylstImg}">
+														<img class="play-png" src="/resources/image/play.png" onclick='popupPlayer("/player/list?listId=${plylst.plylstId}")'>
+													</div>
 													
 													<div class="dropdown-playlist">
 														<ul class="dd-plylst-content">
@@ -98,7 +100,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td colspan="2">
+											<td class="playlist-td" colspan="2">
 												<form action="/mypage/playlistDetail" method="post">
 													<input class="plylstValue" type="hidden" value="${plylst.plylstId}" name="plylstId">
 													<div class="btn-div">
@@ -146,6 +148,13 @@
 	</div>
 
 	<script>
+		      let popupPlayer = function(url){
+		          let moveTop=screen.height-440;
+		           let moveLeft=screen.width-537;
+		         window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+		      }
+	</script>
+	<script>
 
 	$(document).ready(function() {
 	
@@ -177,7 +186,7 @@
 		let countPlaylist = '<c:out value="${playlistCount}"/>';
 		
 		if(countPlaylist >= 8){
-			basicModalContent("플레이리스트를 만들 수 없습니다.(최대 생성 개수 : 8개)");
+			basicModalContent("플레이리스트를 만들 수 없습니다 (최대 생성 개수 : 8개)");
 			return;
 		}
 		
