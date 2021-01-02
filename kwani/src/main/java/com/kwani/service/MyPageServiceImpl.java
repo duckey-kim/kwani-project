@@ -28,6 +28,25 @@ public class MyPageServiceImpl implements MyPageService {
 	private MyPageMapper myPageMapper;
 
 	@Override
+	public int addLikeAlbum(Integer albumId, String email) {
+		return myPageMapper.insertLikeAlbum(albumId, email);
+	}
+	@Override
+	public int removeLikeAlbum(Integer albumId, String email) {
+		return myPageMapper.deleteLikeAlbum(albumId, email);
+	}
+	
+	@Override
+	public int addLikeArtist(Integer artistId, String email) {
+		return myPageMapper.insertLikeArtist(artistId, email);
+	}
+	
+	@Override
+	public int removeLikeArtist(Integer artistId, String email) {
+		return myPageMapper.deleteLikeArtist(artistId, email);
+	}
+	
+	@Override
 	public int removeLikeTrack(Integer trackId, String email) {
 		return myPageMapper.deleteLikeTrack(trackId, email);
 	}

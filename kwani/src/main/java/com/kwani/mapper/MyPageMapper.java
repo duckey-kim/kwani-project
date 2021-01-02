@@ -12,13 +12,20 @@ public interface MyPageMapper {
 
 	public Integer insertSelectKeyPlaylist(PlaylistVO playlistVO);
 	public Integer insertLikeTrack(@Param("trackId")Integer trackId, @Param("email")String email);
+	public Integer insertLikeArtist(@Param("artistId")Integer artistId, @Param("email")String email);
+	public Integer insertLikeAlbum(@Param("albumId")Integer albumId, @Param("email")String email);
+	
 	public Integer updatePlaylist(@Param("plylst")PlaylistVO plyalistVO, @Param("email")String email);
 	public Integer updatePlaylistImg(@Param("plylstId")Integer plylstId, @Param("trackId")Integer trackId);
 	public Integer updatePlaylistBasicImg(@Param("plylstId")Integer plylstId);
 	public Integer countPlaylist(String email);
 	public Integer countPlaylistTrack(Integer plylstId);
 	public Integer insertTrack(@Param("plylstId")Integer plylstId, @Param("trackId")Integer trackId);
+	
 	public Integer deleteLikeTrack(@Param("trackId")Integer trackId, @Param("email")String email);
+	public Integer deleteLikeArtist(@Param("artistId")Integer artistId, @Param("email")String email);
+	public Integer deleteLikeAlbum(@Param("albumId")Integer albumId, @Param("email")String email);
+	
 	public Integer deletePlaylist(@Param("plylstId")Integer plylstId, @Param("email")String email);
 	public Integer deletePlaylistDetail(@Param("plylstId")Integer plylstId);
 	public Integer deletePlaylistTrack(@Param("trackId")Integer trackId, @Param("plylstId")Integer plylstId);

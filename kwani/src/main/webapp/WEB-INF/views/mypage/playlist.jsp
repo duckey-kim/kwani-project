@@ -178,7 +178,6 @@
 		
 		if(countPlaylist >= 8){
 			basicModalContent("플레이리스트를 만들 수 없습니다.(최대 생성 개수 : 8개)");
-			setTimeout(hideBasicModal, 1000);
 			return;
 		}
 		
@@ -210,7 +209,7 @@
 	});
 	
 	// 모달 x, 바 누르면 닫힘
-	$(document).on("click", ".modal-close, .modal-overlay", hideAllModal);
+	$(document).on("click", ".modal-close, .modal-overlay", function(){$(".modal").attr("style", "display:none");});
 	
 	// 등록모달 : 제목 등록 완료
 	function checkModal(result) {
@@ -218,7 +217,6 @@
 		
 		if(result === 'FAIL'){
 			basicModalContent("플레이리스트 수정에 실패했습니다.");
-			setTimeout(hideBasicModal, 800);
 			setTimeout(changeLoc, 800);
 			return;
 		}
@@ -228,16 +226,14 @@
 		}
 
 		basicModalContent("플레이리스트 [" + result + "] 등록이 완료되었습니다.");
-		
 		history.replaceState({}, null, null);
-		setTimeout(hideBasicModal, 800);
+
 	}
 	
 	//삭제모달 : 플레이리스트 삭제 완료
 	function deleteModal(result) {
 		if (result === 'FAIL') {
 			basicModalContent("플레이리스트 삭제에 실패했습니다.");
-			setTimeout(hideBasicModal, 800);
 			setTimeout(changeLoc, 800);
 			return;
 		}
@@ -247,19 +243,9 @@
 		}
 		
 		basicModalContent("플레이리스트 삭제가 완료되었습니다.");
-		
 		history.replaceState({}, null, null);
-		setTimeout(hideBasicModal, 800);
 	}
-	
-	function hideAllModal(){
-		$(".modal").attr("style", "display:none");
-	}
-	
-	function hideBasicModal(){
-		$("#myModal").attr("style", "display:none");
-	}
-	
+
 	function changeLoc(){
 		window.location.href = "/mypage/playlist";
 	}
@@ -270,6 +256,7 @@
 		$(".modalBtn").hide();
 		$(".modal-close").hide();
 		$("#myModal").attr("style", "display:block");
+		setTimeout(function(){$("#myModal").attr("style", "display:none");}, 800);
 	}
 	
 	// 닫기 모달 내용 변경 함수

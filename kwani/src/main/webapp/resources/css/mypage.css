@@ -18,7 +18,38 @@ p{
 	height: auto;
 }
 
-.table {
+input[type=text], textarea{
+  width: 350px;
+  padding: 10px 10px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+#change-img{
+	margin: 15px;
+}
+
+.playlist-title{
+	display: flex;
+	flex-direction: column;
+	margin: 65px 0 0 3%;
+}
+
+.playlist-div{
+	position: relative;
+	display: flex;
+	margin: 2% 0 2% 0;
+}
+
+.playlist-div #plylst-save{
+	position: absolute;
+	left: 88%;
+}
+
+.table, .basicTable {
 	border-collapse: collapse;
 	width: 100%;
 	font-size: 13px;
@@ -154,6 +185,11 @@ li:hover {
 	text-align: center;
 }
 
+.modal-content::-webkit-scrollbar-thumb {
+  background: #b90000; 
+  border-radius: 10px;
+}
+
 .modal-footer{
 	text-align: center;
 }
@@ -175,7 +211,7 @@ li:hover {
 
 .modal-close:hover,
 .modal-close:focus {
-	color: #000;
+	color: #b90000;
 	text-decoration: none;
 	cursor: pointer;
 }
@@ -207,9 +243,10 @@ li:hover {
 
 .img-container ul {
 	left: 63%;
-	top: 40px;
+	top: 50px;
 	width: 80px;
 	height: auto;
+	padding: 2px;
 	text-align: center;
 	z-index: 2;
 }
@@ -230,9 +267,9 @@ li:hover {
 }
 
 .item-div {
-	width: 960px;
+	width: 90%;
+	margin: 0 5% 0 5%;
 	min-height: 150px;
-	margin: 0 0 0 5%;
 	position: relative;
 	display: flex;
 	justify-content: left;
@@ -246,6 +283,10 @@ li:hover {
 	display: flex;
 	justify-content: left;
 	flex-wrap: wrap;
+}
+
+.item-div-detail{
+	margin-bottom: 5%;
 }
 
 .item-div::-webkit-scrollbar {
@@ -263,11 +304,6 @@ li:hover {
 
 .item-div-basic .table {
 	width: 220px;
-	margin: 0 1vw 0 1vw;
-}
-
-.item-div .basicTable{
-	width: 17vw;
 	margin: 0 1vw 0 1vw;
 }
 
@@ -355,14 +391,49 @@ li:hover {
 
 .button5 {
 	background-color: #b90000;
-	color: white;
+	color: whitesmoke;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 13px;
+	font-size: 12px;
 	cursor: pointer;
-	padding: 10px;
+	padding: 10px 20px;
+	height: 36px;
+	margin: 5px;
 	border-radius: 3px;
+}
+
+.button6 {
+    background-color: #e7e7e7;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 3px;
+}
+
+.button7 {
+    background-color: #e7e7e7;
+    color: black;
+    border: none;
+    padding: 5px 9px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 3px;
+}
+
+.button6:hover, .button5:hover {
+	background-color: black;
+	color: red;
 }
 
 .userImg {
@@ -420,7 +491,7 @@ li:hover {
 	width: 6vw;
 }
 
-.heart, .heart-empty{
+.track-heart, .track-heart-empty, .artist-heart, .artist-heart-empty, .album-heart, .album-heart-empty{
 	width: 20px;
 	height: 20px;
 }
@@ -526,6 +597,7 @@ li:hover {
 }
 
 .body-item{
+	width: 100%;
 	margin: 2vw 2vw 3vw 2vw;
 }
 

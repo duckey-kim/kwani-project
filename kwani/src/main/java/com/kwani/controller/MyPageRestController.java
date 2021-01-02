@@ -30,6 +30,63 @@ public class MyPageRestController {
 
 	private MyPageService myPageService;
 
+	// 좋아요 앨범 삭제
+	@PostMapping(value="/likealbum/remove", produces = {"text/plane"})
+	public String removeLikeAlbum(@RequestBody String albumId, HttpSession session, Model model) {
+		
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+		
+		Integer albumIdValue = Integer.parseInt(albumId);
+		System.out.println("***********" + albumIdValue);
+		
+		int result = myPageService.removeLikeArtist(albumIdValue, email);
+		
+		return result == 1? "SUCCESS" : "FAIL";
+	}
+		
+	// 좋아요 앨범 추가
+	@PostMapping(value="/likealbum/add", produces = {"text/plane"})
+	public String addLikeAlbum(@RequestBody String albumId, HttpSession session, Model model) {
+		
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+		
+		Integer albumIdValue = Integer.parseInt(albumId);
+		
+		int result = myPageService.addLikeArtist(albumIdValue, email);
+		
+		return result == 1? "SUCCESS" : "FAIL";
+	}
+	
+	// 좋아요 가수 삭제
+	@PostMapping(value="/likeartist/remove", produces = {"text/plane"})
+	public String removeLikeArtist(@RequestBody String artistId, HttpSession session, Model model) {
+		
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+		
+		Integer artistIdValue = Integer.parseInt(artistId);
+		
+		int result = myPageService.removeLikeArtist(artistIdValue, email);
+		
+		return result == 1? "SUCCESS" : "FAIL";
+	}
+		
+	// 좋아요 가수 추가
+	@PostMapping(value="/likeartist/add", produces = {"text/plane"})
+	public String addLikeArtist(@RequestBody String artistId, HttpSession session, Model model) {
+		
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+		
+		Integer artistIdValue = Integer.parseInt(artistId);
+		
+		int result = myPageService.addLikeArtist(artistIdValue, email);
+		
+		return result == 1? "SUCCESS" : "FAIL";
+	}
+	
 	// 좋아요 곡 삭제
 	@PostMapping(value="/liketrack/remove", produces = {"text/plane"})
 	public String removeLikeTrack(@RequestBody String trackId, HttpSession session, Model model) {
@@ -45,7 +102,7 @@ public class MyPageRestController {
 	}
 	
 	// 좋아요 곡 추가
-	@PostMapping(value="/addliketrack", produces = {"text/plane"})
+	@PostMapping(value="/liketrack/add", produces = {"text/plane"})
 	public String addLikeTrack(@RequestBody String trackId, HttpSession session, Model model) {
 		
 		UserVO user = (UserVO) session.getAttribute("user");
