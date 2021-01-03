@@ -112,14 +112,6 @@ a:active {
 						<td class="btnParent"><img class="playBtn"
 							onclick='popupPlayer("/player/track?trackId=${genreList.TRACK_ID}")'
 							src="/resources/image/play-button.png"></td>
-						<%-- <td>
-							<div class="heartParent">
-								<img class="defaultHeartImg" title="${genreList.TRACK_ID}"name="likeTrack-one"
-									src="/resources/image/heart2.png">
-								<img class="redHeartImg" title="${genreList.TRACK_ID}" name="likeTrack-one"
-									src="/resources/image/heart.png">
-							</div>
-						</td> --%>
 
 					</tr>
 				</c:forEach>
@@ -165,14 +157,6 @@ a:active {
 						<td class="btnParent"><img class="playBtn"
 							onclick='popupPlayer("/player/track?trackId=${typeList.TRACK_ID}")'
 							src="/resources/image/play-button.png"></td>
-						<%-- <td>
-							<div class="heartParent">
-								<img class="defaultHeartImg" title="${typeList.TRACK_ID}" name="likeTrack-two"
-									src="/resources/image/heart2.png">
-								<img class="redHeartImg" title="${typeList.TRACK_ID}" name="likeTrack-two"
-									src="/resources/image/heart.png">
-							</div>
-						</td> --%>
 
 					</tr>
 				</c:forEach>
