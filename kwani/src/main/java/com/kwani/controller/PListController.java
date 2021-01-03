@@ -87,7 +87,9 @@ public class PListController {
 		UserVO user= (UserVO)session.getAttribute("user");
 		String email=user.getEmail();
 		int genreCode = plservice.getUserLikeGenre(email,100);
+		log.info("genreCode :"+genreCode);
 		int typeCode = plservice.getUserLikeType(email,200);
+		log.info("typeCode : "+typeCode);
 		System.out.println("genreCd  :"+genreCode);
 		System.out.println("typeCd  :"+typeCode);
 		List<Map<String,String>> listByGenre =plservice.recommendGenre(genreCode);

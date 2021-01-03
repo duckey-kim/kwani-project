@@ -14,7 +14,7 @@ let playerService = (function() {
 			contentType : 'text/plain; charset=utf-8',
 			success : function(result) {
 				if (callback) {
-					callback(result);
+					console.log(result);
 				}
 			}
 		})

@@ -4,13 +4,13 @@ a {
 }
 
 p{
-	font-size: 13px;
+	font-size: 15px;
 }
 
 #body{
 	display: flex;
 	width: 100%;
-	min-height: 500px;
+	min-height: 650px;
 }
 
 #bodyContent{
@@ -18,9 +18,78 @@ p{
 	height: auto;
 }
 
-.table {
+input[type=text], textarea{
+  width: 350px;
+  padding: 10px 10px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+#change-img{
+	margin: 15px;
+}
+
+.play-png{
+	position: absolute;
+	z-index: 1;
+	width: 40px;
+	height: 40px;
+	top: 79%;
+	left: 82%;
+	opacity: 0;
+}
+
+.head{
+	width: 96%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.more-track{
+	font-size: 14px;
+	background-color: white;
+	color: grey;
+	cursor: pointer;
+}
+
+.more-track:hover{
+	text-decoration: underline;
+}
+
+.track-title{
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.artist-name, .album-title, .play-date{
+	font-size: 14px;
+	color: grey;
+}
+
+.playlist-title{
+	display: flex;
+	flex-direction: column;
+	margin: 65px 0 0 3%;
+}
+
+.playlist-div{
+	position: relative;
+	display: flex;
+	margin: 2% 0 2% 0;
+}
+
+.playlist-div #plylst-save{
+	position: absolute;
+	left: 88%;
+}
+
+.table, .basicTable {
 	border-collapse: collapse;
-	width: 100%;
+	width: 95%;
+	margin-left: 2.5%;
 	font-size: 13px;
 }
 
@@ -39,11 +108,12 @@ p{
 .table tr:hover {background-color:#f5f5f5;}
 
 .p-table{
-	margin: 0 10px 0 10px;
 }
 
 .p-table td{
-	padding: 2px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
 	border-bottom: 1px solid white;
 }
 
@@ -62,8 +132,8 @@ li:hover {
 }
 
 .myArtistImg{
-	width: 220px;
-	height: 220px;
+	width: 260px;
+	height: 260px;
 	object-fit: cover;
 }
 
@@ -73,10 +143,11 @@ li:hover {
 
 .img-background{
 	background-color: black;
-	width: 220px;
-	height: 220px;
+	position: relative;
+	width: 260px;
+	height: 260px;
 	overflow: hidden;
-	margin: 0 10px 0 10px;
+	margin: 0 15px 0 15px;
 	cursor: pointer;
 }
 
@@ -99,8 +170,20 @@ li:hover {
 	opacity: 0.3;
 }
 
+.artist-td:hover .play-png {
+	opacity: 0.95;
+}
+
 .artist-td:hover .middle {
 	opacity: 1;
+}
+
+.p-table:hover .myPlaylistImg{
+	opacity: 0.7;
+}
+
+.p-table:hover .play-png {
+	opacity: 0.95;
 }
 
 #addModal{
@@ -134,7 +217,7 @@ li:hover {
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.3);
-	font-size: 13px;
+	font-size: 15px;
 }
 
 .modal .modal-content{
@@ -154,6 +237,11 @@ li:hover {
 	text-align: center;
 }
 
+.modal-content::-webkit-scrollbar-thumb {
+  background: #b90000; 
+  border-radius: 10px;
+}
+
 .modal-footer{
 	text-align: center;
 }
@@ -169,13 +257,13 @@ li:hover {
 	position: absolute;
 	top: 5%;
 	left: 94%;
-	font-size: 20px;
+	font-size: 25px;
 	color: grey;
 }
 
 .modal-close:hover,
 .modal-close:focus {
-	color: #000;
+	color: #b90000;
 	text-decoration: none;
 	cursor: pointer;
 }
@@ -186,11 +274,15 @@ li:hover {
 
 .img-container{
 	position: relative;
-	width: 220px;
-	height: 220px;
+	width: 270px;
+	height: 270px;
 }
 
 .img-container .myPlaylistImg{
+	position: absolute;
+}
+
+.img-container .play-background{
 	position: absolute;
 }
 
@@ -201,15 +293,16 @@ li:hover {
 
 .img-container .dot{
 	position: absolute;
-	left: 82%;
+	left: 84%;
 	top: 4%;
 }
 
 .img-container ul {
-	left: 63%;
-	top: 40px;
+	left: 69%;
+	top: 50px;
 	width: 80px;
 	height: auto;
+	padding: 2px;
 	text-align: center;
 	z-index: 2;
 }
@@ -222,7 +315,7 @@ li:hover {
 
 .editmodal, .delmodal{
 	cursor: pointer;
-	font-size: 11px;
+	font-size: 13px;
 }
 
 .delmodal{
@@ -230,9 +323,9 @@ li:hover {
 }
 
 .item-div {
-	width: 960px;
+	width: 90%;
+	margin: 0 5% 0 5%;
 	min-height: 150px;
-	margin: 0 0 0 5%;
 	position: relative;
 	display: flex;
 	justify-content: left;
@@ -240,12 +333,17 @@ li:hover {
 }
 
 .item-div-basic {
-	width: 100%;
+	width: 95%;
 	min-height: 200px;
 	position: relative;
 	display: flex;
 	justify-content: left;
 	flex-wrap: wrap;
+	margin: 0 2.5%;
+}
+
+.item-div-detail{
+	margin-bottom: 5%;
 }
 
 .item-div::-webkit-scrollbar {
@@ -257,18 +355,18 @@ li:hover {
 }
 
 .item-div .table {
-	width: 220px;
+	width: 260px;
 	margin: 0 1vw 0 1vw;
 }
 
 .item-div-basic .table {
-	width: 220px;
+	width: 260px;
 	margin: 0 1vw 0 1vw;
 }
 
-.item-div .basicTable{
-	width: 17vw;
-	margin: 0 1vw 0 1vw;
+.item-div-basic .p-table {
+	width: 23%;
+	margin: 1%;
 }
 
 .basicTable{
@@ -284,7 +382,7 @@ li:hover {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 12px;
+	font-size: 14px;
 	cursor: pointer;
 	border-radius: 2px;
 }
@@ -296,14 +394,14 @@ li:hover {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 14px;
+	font-size: 17px;
 	font-weight: bold;
 	cursor: pointer;
-	border-bottom: 3px solid #fff;
+	border-bottom: 4px solid #fff;
 }
 
 .button:hover{
-	border-bottom: 3px solid #b90000;
+	border-bottom: 4px solid #b90000;
 }
 
 .button2 {
@@ -313,10 +411,10 @@ li:hover {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 14px;
+	font-size: 17px;
 	font-weight: bold;
 	cursor: pointer;
-	border-bottom: 3px solid #b90000;
+	border-bottom: 4px solid #b90000;
 }
 
 .button3 {
@@ -343,26 +441,96 @@ li:hover {
 
 .button4 {
 	background-color: white;
-	color: black;
-	font-weight: bold;
+	color: rgb(50,50,50);
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 13px;
+	font-size: 15px;
+	font-weight: bold;
 	cursor: pointer;
 	width: auto;
+	padding: 10px 20px;
+	width: 270px;
+	overflow: hidden; 
+  	text-overflow: ellipsis;
+ 	white-space: nowrap; 
 }
 
 .button5 {
 	background-color: #b90000;
-	color: white;
+	color: whitesmoke;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 13px;
+	font-size: 12px;
 	cursor: pointer;
-	padding: 10px;
+	padding: 10px 25px 10px 25px;
+	height: 40px;
+	margin: 5px 0 0 20px;
 	border-radius: 3px;
+}
+
+.button6 {
+    background-color: #e7e7e7;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 3px;
+}
+
+.button7 {
+    background-color: #e7e7e7;
+    color: black;
+    border: none;
+    padding: 5px 9px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 3px;
+}
+
+#addBtn{
+	margin-bottom: 3%;
+}
+
+.button6:hover, .button5:hover, .modalBtn:hover {
+	background-color: black;
+	color: red;
+}
+
+.etc-background{
+	width: 100%;
+	max-height: 260px;
+	background-color: black;
+	position:relative;
+	display:flex;
+	justify-content:row;
+	margin: 0 0 0 10px;
+}
+
+.etc{
+	font-size: 25px;
+	color: #b90000;
+	transition: .5s ease;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.etc-background:hover{
+	transition: .5s ease;
 }
 
 .userImg {
@@ -388,39 +556,31 @@ li:hover {
 	height: 2em;
 }
 
-.th {
-	width: 2em;
-}
-
-.th1, .th2, .th3 {
-	width: 4em;
-}
-
 .th1{
-	width: 1vw;
+	width: 10%;
 }
 
 .th2{
-	width: 2vw;
+	width: 20%;
 }
 
 .th3{
-	width: 3vw;
+	width: 30%;
 }
 
 .th4{
-	width: 4vw;
+	width: 40%;
 }
 
 .th5{
-	width : 5vw;
+	width : 50%;
 }
 
 .th6 {
-	width: 6vw;
+	width: 60%;
 }
 
-.heart, .heart-empty{
+.track-heart, .track-heart-empty, .artist-heart, .artist-heart-empty, .album-heart, .album-heart-empty{
 	width: 20px;
 	height: 20px;
 }
@@ -459,8 +619,16 @@ li:hover {
 }
 
 .myPlaylistImg{
-	width: 220px;
-	height: 220px;
+	width: 270px;
+	height: 270px;
+}
+
+.play-background{
+	background-color: black;
+	width: 270px;
+	height: 270px;
+	overflow: hidden;
+	cursor: pointer;
 }
 
 .moreImg{
@@ -526,7 +694,8 @@ li:hover {
 }
 
 .body-item{
-	margin: 2vw 2vw 3vw 2vw;
+	width: 100%;
+	margin: 2vw 0 3vw 0;
 }
 
 .container {

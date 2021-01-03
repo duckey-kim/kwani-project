@@ -62,84 +62,6 @@ a:active {
 	width: 30%;
 }
 
-/* The Close Button */
-.close {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover, .close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-.modalTitle {
-	text-align: center;
-	font-weight: bold;
-	padding-bottom: 20px;
-}
-
-.plylstListWrap {
-	display: flex;
-	flex-direction: column;
-}
-
-.plusNew {
-	height: 50px;
-	width: 90%;
-	justify-content: center;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.plusImg {
-	height: 40px;
-	width: 20%;
-}
-
-.plusTxt {
-	height: 40px;
-	width: 70%;
-	display: flex;
-	align-items: center;
-}
-
-.userPlylst {
-	height: 50px;
-	width: 100%;
-	justify-content: center;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.userPlylstImg {
-	height: 40px;
-	width: 20%;
-}
-
-.userPlylstNm {
-	height: 40px;
-	width: 60%;
-	/* display: flex; */
-	display: block;
-	align-items: center;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
-
-.userPlylstTrackCnt {
-	height: 40px;
-	width: 20%;
-	align-items: center;
-	text-align: right;
-}
-
 #plylstInfo {
 	height: 100px;
 	margin-top: 50px;
@@ -190,14 +112,6 @@ a:active {
 						<td class="btnParent"><img class="playBtn"
 							onclick='popupPlayer("/player/track?trackId=${genreList.TRACK_ID}")'
 							src="/resources/image/play-button.png"></td>
-						<%-- <td>
-							<div class="heartParent">
-								<img class="defaultHeartImg" title="${genreList.TRACK_ID}"name="likeTrack-one"
-									src="/resources/image/heart2.png">
-								<img class="redHeartImg" title="${genreList.TRACK_ID}" name="likeTrack-one"
-									src="/resources/image/heart.png">
-							</div>
-						</td> --%>
 
 					</tr>
 				</c:forEach>
@@ -243,14 +157,6 @@ a:active {
 						<td class="btnParent"><img class="playBtn"
 							onclick='popupPlayer("/player/track?trackId=${typeList.TRACK_ID}")'
 							src="/resources/image/play-button.png"></td>
-						<%-- <td>
-							<div class="heartParent">
-								<img class="defaultHeartImg" title="${typeList.TRACK_ID}" name="likeTrack-two"
-									src="/resources/image/heart2.png">
-								<img class="redHeartImg" title="${typeList.TRACK_ID}" name="likeTrack-two"
-									src="/resources/image/heart.png">
-							</div>
-						</td> --%>
 
 					</tr>
 				</c:forEach>

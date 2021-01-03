@@ -89,6 +89,7 @@ public class MyPageController {
 		UserVO user = (UserVO) session.getAttribute("user");
 		String email = user.getEmail();
 
+		model.addAttribute("playlistVO", myPageService.getOnePlaylistVO(plylstId, email));
 		model.addAttribute("playlistDetail", myPageService.getListPlaylistDetail(plylstId, email));
 		model.addAttribute("trackCount", myPageService.countPlaylistTrack(plylstId));
 
@@ -98,10 +99,12 @@ public class MyPageController {
 	// TODO : Null check
 	// 새 플레이리스트 생성
 	@PostMapping("/playlist/create")
-	public String createPlaylist(@ModelAttribute("playlistVO") PlaylistVO playlistVO, HttpSession session , Model model) {
+	public String createPlaylist(@ModelAttribute("playlistVO")PlaylistVO playlistVO, HttpSession session , Model model) {
 			
 		UserVO user = (UserVO) session.getAttribute("user");
 		String email = user.getEmail();
+		
+		playlistVO.setEmail(email);
 			
 		myPageService.createPlaylist(playlistVO);
 		model.addAttribute("playlistVO", playlistVO);
