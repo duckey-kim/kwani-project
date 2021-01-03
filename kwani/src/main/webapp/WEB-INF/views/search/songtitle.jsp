@@ -188,9 +188,9 @@
                         	<tr>
                         	<th><input type="checkbox" name="checkRow"></th>
                         	<td>${status.index+1}</td>
-                        	<td><a href="/detail/track?trackId=<c:out value='${searchSong2.trackId}'/>">      
+                        	<td><a style="color:black; font-weight:bold;" href="/detail/track?trackId=<c:out value='${searchSong2.trackId}'/>">      
                         		<c:out value="${searchSong2.trackTtl}" /></a></td>
-                        	<td><a href="/detail/artist?gropId=<c:out value='${searchSong2.gropId}'/>">      
+                        	<td><a style="color:grey" href="/detail/artist?gropId=<c:out value='${searchSong2.gropId}'/>">      
                         		<c:out value="${searchSong2.nm}" /></a></td>
                         	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
                         		onclick='popupPlayer("/player/track?trackId=${searchSong2.trackId}")'></td>
@@ -249,8 +249,12 @@
                     			<div class="userPlylstImg">
                     				<img src="/resources/image/album/<c:out value="${userPlylst.plylstImg}" />" style="max-height:40px">
                     			</div>
-                    			<div class="userPlylstNm"><p style="padding-top: 10px"><c:out value="${userPlylst.nm}" /></p></div>         
-                    			<div class="userPlylstTrackCnt"><p style="padding-top: 10px"><c:out value="${userPlylst.trackCnt}" />1 곡</p></div>           			
+                    			<div class="userPlylstNm">
+                    				<p style="padding-top: 10px"><c:out value="${userPlylst.nm}" /></p>
+                    			</div>         
+                    			<div class="userPlylstTrackCnt">
+                    				<p style="padding-top: 10px"><c:out value="${userPlylst.trackCnt}" />1 곡</p>
+                    			</div>           			
                     		</div>  
                     		</c:forEach>  
                     		</div><!-- plylstListWrap -->      	

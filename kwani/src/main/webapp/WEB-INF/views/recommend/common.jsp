@@ -35,7 +35,7 @@
             <div id="leftSideBar"></div>
             <div id="bodyContent">   
 
-                <div class="recmd_text">오늘의 추천곡</div>  
+                <div class="recmd_text">오늘의 추천 플레이리스트</div>  
             
                 <div class="todayRecmd">     
                   <c:forEach items="${allplist}" var="plist" varStatus="status" begin="0" end="3">               	                                                                                                                                                      
