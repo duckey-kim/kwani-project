@@ -12,16 +12,16 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="/resources/js/jquery-3.5.1.js"/></script>
-<link rel="stylesheet" href="/resources/css/mypage.css" />
 </head>
 
 <%@include file="../includes/header.jsp" %>
+<link rel="stylesheet" href="/resources/css/mypage.css" />
 		<div id="body">
 			<div id="leftSideBar"></div>
 			<div id="bodyContent">
 				<div class="mypage-header">
 					<div class="header-item">
-						<img class="userImg" src="/resources/image/${user.userImg}" />
+						<img class="userImg" src="/resources/image/userUpload/${user.userImg}" />
 					</div>
 					<div>
 						<div>
@@ -38,7 +38,7 @@
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/playlist" method="post">
-								<button class="button">Playlist</button>
+								<button class="button2">Playlist</button>
 							</form>
 						</div>
 						<div class="nav-item">
@@ -56,15 +56,14 @@
 
 				<div class="mypage-body">
 					<div class="body-item bg-bl">
-						<div class="item-body">
+
 							<form id="create-playlist" action="/mypage/playlist/create" method="post">
 								<input type="hidden" value="제목을 입력하세요" name="nm">
 								<input type="hidden" value="내용을 입력하세요" name="desc">
 								<input type="hidden" value="noplaylist.png" name="plylstImg">
-								<input type="hidden" value="${user.email}" name="email">
-								<button id="createBtn" class="button">새로운플레이리스트 만들기</button>
+								<button id="createBtn" class="button5">새로운플레이리스트 만들기</button>
 							</form>
-						</div>
+
 					</div>
 				</div>
 
@@ -76,35 +75,39 @@
 							</h3>
 						</div>
 						<div class="item-body">
-							<div class="item-div">
+							<div class="item-div-basic">
 								<c:forEach items="${playlistVO}" var="plylst">
-									<table class="basicTable">
+									<table class="p-table">
 										<tr>
 											<th></th><th></th>
 										</tr>
 										<tr>
-											<td class="td9 img-td" colspan="2">
+											<td colspan="2">
 												<div class="img-container">
-													<div class="img-div">
-														<a class="ddBtn"><img class="moreImg" src="/resources/image/more.png"></a>
-															<img class="myArtistImg" src="/resources/image/album/${plylst.plylstImg}">
-															<div class="dropdown-playlist">
-																	<ul class="dd-plylst-content">
-																			<li><button class="mod">수정</button></li>
-																			<li><button class="del">삭제</button></li>
-																	</ul>
-															</div>
+													<a class="ddBtn"><span class="dot"><img class="moreImg" src="/resources/image/more.png"></span></a>
+													<div class="play-background">
+														<img class="myPlaylistImg" src="/resources/image/album/${plylst.plylstImg}">
+														<img class="play-png" src="/resources/image/play.png" onclick='popupPlayer("/player/list?listId=${plylst.plylstId}")'>
+													</div>
+													
+													<div class="dropdown-playlist">
+														<ul class="dd-plylst-content">
+															<li><div class="edit-div"><img class="editImg" src="/resources/image/edit.png"><span class="mod editmodal">&nbsp&nbsp&nbspEDIT&nbsp&nbsp</span></div></li>
+															<li><div class="edit-div"><img class="delImg" src="/resources/image/close.png"><span class="del delmodal">&nbspDELETE</span></div></li>
+														</ul>
 													</div>
 												</div>
 											</td>
 										</tr>
 										<tr>
-											<td>
+											<td class="playlist-td" colspan="2">
 												<form action="/mypage/playlistDetail" method="post">
 													<input class="plylstValue" type="hidden" value="${plylst.plylstId}" name="plylstId">
-													<button class="button">
-														<c:out value="${plylst.nm}"/>
-													</button>
+													<div class="btn-div">
+														<button class="button4">
+															<c:out value="${plylst.nm}"/>
+														</button>
+													</div>
 												</form>
 											</td>
 										</tr>
@@ -145,6 +148,13 @@
 	</div>
 
 	<script>
+		      let popupPlayer = function(url){
+		          let moveTop=screen.height-440;
+		           let moveLeft=screen.width-537;
+		         window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+		      }
+	</script>
+	<script>
 
 	$(document).ready(function() {
 	
@@ -156,6 +166,19 @@
 	
 	});
 	
+	// 플레이리스트 수정 삭제
+	$(".img-container").mouseenter(function(){
+		let idx = $(".img-container").index(this);
+	    $(".moreImg:eq(" + idx + ")").css("display", "block");
+	    $(".dot:eq(" + idx + ")").css("display", "block");
+	});
+	
+	$(".img-container").mouseleave(function(){
+		let idx = $(".img-container").index(this);
+		$(".moreImg:eq(" + idx + ")").css("display", "none");
+	    $(".dot:eq(" + idx + ")").css("display", "none");
+	});
+
 	// 플레이리스트 개수 제한
 	$("#createBtn").click(function(e){
 		e.preventDefault();
@@ -163,8 +186,7 @@
 		let countPlaylist = '<c:out value="${playlistCount}"/>';
 		
 		if(countPlaylist >= 8){
-			basicModalContent("플레이리스트를 만들 수 없습니다.(최대 생성 개수 : 8개)");
-			setTimeout(hideBasicModal, 1000);
+			basicModalContent("플레이리스트를 만들 수 없습니다 (최대 생성 개수 : 8개)");
 			return;
 		}
 		
@@ -196,7 +218,7 @@
 	});
 	
 	// 모달 x, 바 누르면 닫힘
-	$(document).on("click", ".modal-close, .modal-overlay", hideAllModal);
+	$(document).on("click", ".modal-close, .modal-overlay", function(){$(".modal").attr("style", "display:none");});
 	
 	// 등록모달 : 제목 등록 완료
 	function checkModal(result) {
@@ -204,8 +226,7 @@
 		
 		if(result === 'FAIL'){
 			basicModalContent("플레이리스트 수정에 실패했습니다.");
-			setTimeout(hideBasicModal, 1100);
-			setTimeout(changeLoc, 1100);
+			setTimeout(changeLoc, 800);
 			return;
 		}
 		
@@ -214,17 +235,15 @@
 		}
 
 		basicModalContent("플레이리스트 [" + result + "] 등록이 완료되었습니다.");
-		
 		history.replaceState({}, null, null);
-		setTimeout(hideBasicModal, 1100);
+
 	}
 	
 	//삭제모달 : 플레이리스트 삭제 완료
 	function deleteModal(result) {
 		if (result === 'FAIL') {
 			basicModalContent("플레이리스트 삭제에 실패했습니다.");
-			setTimeout(hideBasicModal, 1100);
-			setTimeout(changeLoc, 1100);
+			setTimeout(changeLoc, 800);
 			return;
 		}
 		
@@ -233,19 +252,9 @@
 		}
 		
 		basicModalContent("플레이리스트 삭제가 완료되었습니다.");
-		
 		history.replaceState({}, null, null);
-		setTimeout(hideBasicModal, 1100);
 	}
-	
-	function hideAllModal(){
-		$(".modal").attr("style", "display:none");
-	}
-	
-	function hideBasicModal(){
-		$("#myModal").attr("style", "display:none");
-	}
-	
+
 	function changeLoc(){
 		window.location.href = "/mypage/playlist";
 	}
@@ -256,6 +265,7 @@
 		$(".modalBtn").hide();
 		$(".modal-close").hide();
 		$("#myModal").attr("style", "display:block");
+		setTimeout(function(){$("#myModal").attr("style", "display:none");}, 800);
 	}
 	
 	// 닫기 모달 내용 변경 함수

@@ -28,7 +28,7 @@ public class PlayerAjaxController {
 		
 		log.info("user is :"+user);
 		Integer intTrackId = Integer.valueOf(trackId);
-		String resultStr ="실패";
+		String resultStr ="no login";
 		//테스트용 email
 		
 		if(user!=null) {
@@ -36,7 +36,7 @@ public class PlayerAjaxController {
 			System.out.println(email +"의 최신 들은곡 update");
 			int result=playerService.mergeHistory(email, intTrackId);
 			if(result==1) {
-				resultStr="성공";
+				resultStr="update success";
 			}
 		}
 		System.out.println("----");

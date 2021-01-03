@@ -23,7 +23,7 @@
 			<div id="bodyContent">
 				<div class="mypage-header">
 					<div class="header-item">
-						<img class="userImg" src="/resources/image/${user.userImg}" />
+						<img class="userImg" src="/resources/image/userUpload/${user.userImg}" />
 					</div>
 
 					<div>
@@ -56,66 +56,62 @@
 						</div>
 					</div>
 				</div>
-				<hr style="border-bottom: 1px solid black">
 				<div class="mypage-body">
 					<div class="body-item bg-bl">
 						<div class="item-header">
-							<h3>
-								<a href="#">Playlist Create</a>
+							<h3>Playlist
 							</h3>
-							<h2>playlistId : ${playlistVO.plylstId}</h2>
 						</div>
 						<div class="item-body">
 							<div>
+								<div class="playlist-div">
 								<form action="/mypage/playlist/delete" method="post">
 									<input type="hidden" value="${playlistVO.plylstId}" name="plylstId">
-									<input type="hidden" value="${user.email}" name="email">
-									<button>삭제하기</button>
+									<button class="plylst-del button6"><b>DELETE</b></button>
+									<div id="change-img"><img class="myArtistImg" src="/resources/image/album/${playlistVO.plylstImg}">
+									</div>
 								</form>
-								<form action="/mypage/playlist/modify" method="post"
-									onsubmit="return checkInput()">
+								<form class="plylst-form" action="/mypage/playlist/modify" method="post" onsubmit="return checkInput()">
+								
 									<input type="hidden" value="${playlistVO.plylstId}"
 										name="plylstId">
-									<button>저장 후 나가기</button>
-									<br> <br> <div id="change-img"><img class="myArtistImg"
-										src="/resources/image/album/${playlistVO.plylstImg}">
-										</div>
-										<br>
-									<label for="title">Playlist Title :</label><br> <input
+									<button id="plylst-save" class="button6"><b>SAVE AND EXIT</b></button>
+									<div class="playlist-title">
+									<label for="title"><b>Playlist Title</b></label><br> <input
 										type="text" id="change-title" name="nm"
-										placeholder="${playlistVO.nm}"><br> <label
-										for="desc">Playlist Description : </label><br>
-									<textarea id="change-desc" class="form-control" name="desc"
-										placeholder="${playlistVO.desc}"></textarea>
+										value="${playlistVO.nm}"><br><label
+										for="desc"><b>Playlist Description</b></label><br>
+									<textarea id="change-desc" class="form-control" name="desc">${playlistVO.desc}</textarea>
+									</div>
 									<br>
 								</form>
+								</div>
 
-								<button id="addBtn">Add Track</button>
+								<button id="addBtn" class="button5"><b>Add Track</b></button>
 
 								<div class="item-body">
-									<table id="change-plylstDtl" style="width: 100%">
+									<table id="change-plylstDtl" class="table">
 										<thead>
 										<tr>
-											<th class="th1"></th>
-											<th class="th5"></th>
-											<th class="th5"></th>
-											<th class="th6"></th>
-											<th class="th1"></th>
-											<th class="th1"></th>
+											<th style="width:5%"></th>
+											<th style="width:5%"></th>
+											<th style="width:40%"></th>
+											<th style="width:10%"></th>
+											<th></th>
+											<th style="width:5%"></th>
 										</tr>
 										</thead>
 										<tbody>
 										<c:forEach items="${playlistDetail}" var="playlistDetail" varStatus="status">
 											<tr>
 												<td>${status.count}</td>
-												<td><img class="myImg"
-													src="/resources/image/album/${playlistDetail.ALBUM_IMG}" /></td>
-												<td><c:out value="${playlistDetail.ANM}" /></td>
+												<td><img class="myImg" src="/resources/image/album/${playlistDetail.ALBUM_IMG}" /></td>
 												<td><c:out value="${playlistDetail.TRACK_TTL}" /></td>
+												<td><c:out value="${playlistDetail.ANM}" /></td>
 												<td><c:out value="${playlistDetail.ALBUM_TTL}" /></td>
 												<td>
 													<input class="trackIdValue" type="hidden" value="${playlistDetail.TRACK_ID}" name="trackIdValue">
-													<button class="delBtn">삭제</button>
+													<button class="delBtn button6">DELETE</button>
 												</td>
 											</tr>
 										</c:forEach>
@@ -155,14 +151,15 @@
 					<div class="modal-content">
 						<div class="modal-close">&times;</div>
 						<div class="modal-header">
-							<button class="likeBtn">좋아요한곡</button>
-							<button class="libraryBtn">최근들은곡</button>
+							<button class="likeBtn button6">LikedTrack</button>
+							<button class="libraryBtn button6">Library</button>
 						</div>
 							<!-- 모달 -->
 							<div class="modal-bbody">
-								<table class="changetr" style="width: 100%">
+								<table class="changetr table" style="width: 100%">
 									<tr>
-										<th class='th1'><input type='checkbox' id='checkAll'></th><th></th><th></th><th></th><th></th><th></th>
+										<th><input type='checkbox' id='checkAll'></th>
+										<th style="width:10%"></th><th style="width:40%"></th><th style="width:10%"></th><th></th><th style="width:5%"></th>
 									</tr>
 									<c:forEach items="${likedTrackList}" var="track">
 										<tr class="tr-check">
@@ -173,14 +170,14 @@
 											<td><c:out value="${track.NM}" /></td>
 											<td><c:out value="${track.ALBUM_TTL}" /></td>
 											<td>
-												<button class="addSelectedOneTrack"> + </button>
+												<button class="addSelectedOneTrack button7"> + </button>
 											</td>
 										</tr>
 									</c:forEach>
 								</table>
 							</div>
 							<div class="modal-footer">
-									<button class="addSelectedTrack">담기</button>
+									<button class="addSelectedTrack button6">담기</button>
 							</div>
 					</div>
 				</div>
@@ -210,7 +207,7 @@
 				
 				if(obj === "FAILED"){
 					basicModalContent("플레이리스트가 존재하지 않습니다.");
-					setTimeout(changeLoc, 1100);
+					setTimeout(changeLoc, 800);
 					return;
 				}
 				
@@ -218,7 +215,6 @@
 				
 				basicModalContent("중복을 제외한 곡 추가를 완료했습니다.");
 				checkReset();
-				setTimeout(hideBasicModal, 1000);
 				
 		})
 	})
@@ -233,7 +229,6 @@
 		// 아무 곡도 체크되어있지 않은 경우 모달창
 		if($(".checkbox:checked").length == 0){
 			basicModalContent("담을 곡을 선택하세요.");
-			setTimeout(hideBasicModal, 1000);
 			return;
 		}
 		
@@ -251,16 +246,13 @@
 				
 				if(obj === "FAILED"){
 					basicModalContent("플레이리스트가 존재하지 않습니다.");
-					setTimeout(changeLoc, 1100);
 					return;
 				}
 				
 				showPlaylistTrack(obj);
 				
 				basicModalContent("중복을 제외한 곡 추가를 완료했습니다.");
-				checkReset();
-				setTimeout(hideBasicModal, 1000);
-				
+				checkReset();				
 			})
 	
 	});
@@ -285,13 +277,12 @@
 						$("#change-img").append(str);
 						$("#change-plylstDtl").empty();
 						basicModalContent("곡 삭제를 완료했습니다.");
-						setTimeout(hideBasicModal, 1000);
 						return;
 					}
 					
 					if(obj === "FAIL"){
 						basicModalContent("플레이리스트에 해당 곡이 존재하지 않습니다.");
-						setTimeout(changeLoc, 1100);
+						setTimeout(changeLoc, 800);
 						return;
 					}
 										
@@ -299,7 +290,6 @@
 					
 					basicModalContent("곡 삭제를 완료했습니다.");
 					checkReset();
-					setTimeout(hideBasicModal, 1000);
 				})
 		
 	});
@@ -314,12 +304,10 @@
 	
 		if (nmValue.length == 0) {
 			basicModalContent("플레이리스트 제목을 입력하세요.");
-			setTimeout(hideBasicModal, 1100);
 			return false;
 		}
 		if (descValue.length == 0) {
 			basicModalContent("플레이리스트 설명을 입력하세요.");
-			setTimeout(hideBasicModal, 1100);
 			return false;
 		}
 		return true;
@@ -352,10 +340,10 @@
 	}
 	
 	// 담기 버튼을 누르면 곡 추가 모달 나옴
-	$(document).on("click", "#addBtn", showAddModal);
+	$(document).on("click", "#addBtn", function(){$("#addModal").attr("style", "display:block");});
 	
 	// 모달 x, 바 누르면 닫힘
-	$(document).on("click", ".modal-close, .modal-overlay", hideAllModal);
+	$(document).on("click", ".modal-close, .modal-overlay", function(){$(".modal").attr("style", "display:none");});
 			
 	// 최근들은곡 ajax
 	$(document).on("click", ".libraryBtn", function() {
@@ -379,6 +367,7 @@
 		$(".modalBtn").hide();
 		$(".modal-close").hide();
 		$("#myModal").attr("style", "display:block");
+		setTimeout(function(){$("#myModal").attr("style", "display:none");}, 800);
 	}
 	
 	// 닫기 모달 내용 변경 함수
@@ -387,18 +376,6 @@
 		$(".modalBtn").show();
 		$(".modal-close").show();
 		$("#myModal").attr("style", "display:block");
-	}
-	
-	function hideAllModal(){
-		$(".modal").attr("style", "display:none");
-	}
-	
-	function showAddModal(){
-		$("#addModal").attr("style", "display:block");
-	}
-	
-	function hideBasicModal(){
-		$("#myModal").attr("style", "display:none");
 	}
 	
 	function changeLoc(){
@@ -426,7 +403,7 @@
 			str += '<td>' + obj[i].ANM + '</td>';
 			str += '<td>' + obj[i].ALBUM_TTL+ '</td>';
 			str += '<td><input class="trackIdValue" type="hidden" value="' + obj[i].TRACK_ID + '" name="trackIdValue">';
-			str += "<td><button class='delBtn'>삭제</button></td>";
+			str += "<td><button class='delBtn button6'>DELETE</button></td>";
 			str += "</tr>";
 		})
 		$("#change-plylstDtl").append(str);
@@ -447,7 +424,7 @@
 			str += '<td>'+ obj[i].TRACK_TTL+ '</td>';
 			str += '<td>'+ obj[i].NM+ '</td>';
 			str += '<td>'+ obj[i].ALBUM_TTL+ '</td>';
-			str += "<td><button class='addSelectedTrack'>+</button></td>";
+			str += "<td><button class='addSelectedTrack button7'>+</button></td>";
 			str += "</tr>";
 		})
 		$(".changetr").append(str);	
