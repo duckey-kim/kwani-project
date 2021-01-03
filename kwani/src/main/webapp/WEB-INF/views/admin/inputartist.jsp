@@ -44,7 +44,7 @@
 						</div>
 						<div class="form-group">
 							<label>상태</label> <input class="form-control" placeholder="상태코드"
-								type="text" name="stusCd" value="${artist.statusCode }"
+								type="text" name="stusCd" value="${artist.stusCd }"
 								id="stusCd">
 						</div>
 
