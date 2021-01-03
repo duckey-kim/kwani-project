@@ -118,8 +118,7 @@
 		a.nm, al.album_id, al.album_img, al.album_ttl
 		from t_tracks t,
 		t_artist_tracks at, t_artist a, t_album al
-		where t.track_id =
-		at.track_id
+		where t.track_id = at.track_id
 		and at.grop_id = a.grop_id
 		and t.album_id = al.album_id
 		and
