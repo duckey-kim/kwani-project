@@ -17,6 +17,11 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/footer.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/noVideoHeader.css">
 
+<link rel="stylesheet" href="/resources/css/swiper.css">
+<!-- Swiper JS -->
+<script src="/resources/js/swiper.js"></script>
+  
+  
 </head>
 
 <%@ include file="/WEB-INF/views/includes/header.jsp"%>
@@ -119,7 +124,7 @@
 
 				<div class="emptybox"></div>
 
-				<div class="subtitle">
+				<%-- <div class="subtitle">
 					<h2>앨범 ></h2>
 				</div>
 				<div class="related" style="height: 270px">
@@ -140,8 +145,35 @@
 					</div>
 				</div>
 
-				<div class="emptybox"></div>
+				<div class="emptybox"></div> --%>
 
+				<!-- Swiper -->
+				<div class="subtitle">
+					<h2>앨범 ></h2>
+				</div>
+				<div class="swiper-container" id="related">
+				  <div class="swiper-wrapper" id="items">
+				    <c:forEach items="${getArtistAlbumList }" var="AlbumList">
+						<div class="swiper-slide" id="item">
+							<a
+								href="/detail/album?albumId=<c:out value="${AlbumList.ALBUM_ID }"/>">
+								<img
+								src="/resources/image/album/<c:out value="${AlbumList.ALBUM_IMG }" />"
+								style="max-height: 200px">
+							</a> <a style="color: black"
+								href="/detail/album?albumId=<c:out value="${AlbumList.ALBUM_ID }"/>"><c:out
+									value="${AlbumList.ALBUM_TTL }" /></a>
+						</div>
+					</c:forEach>
+				  </div>
+				  <!-- Add Pagination -->
+				<!-- <div class="swiper-pagination"></div> -->
+				<!-- Add Arrows -->
+				  <div class="swiper-button-next"></div>
+				  <div class="swiper-button-prev"></div>
+				</div>
+
+			<div class="emptybox"></div>
 			</div>
 			<!--bodyContent-->
 			<div id="rightSideBar"></div>
@@ -227,7 +259,7 @@
 		<div class="modal-layer"></div>
 	</div>
 	<!-- 알림용 모달창 끝 -->
-
+	
 	<script>
 		let tmpTrackId;
 
@@ -608,6 +640,24 @@
 				}
 		}
 		
+		
+		
+		
+		var swiper = new Swiper('.swiper-container', {
+		      slidesPerView: 4,
+		      spaceBetween: 5,
+		      slidesPerGroup: 4,
+		      loop: true,
+		      loopFillGroupWithBlank: true,
+		      pagination: {
+		        el: '.swiper-pagination',
+		        clickable: true,
+		      },
+		      navigation: {
+		        nextEl: '.swiper-button-next',
+		        prevEl: '.swiper-button-prev',
+		      },
+		    });
 	</script>
 
 </body>
