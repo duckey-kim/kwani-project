@@ -126,7 +126,7 @@ public class MyPageServiceImpl implements MyPageService {
 		LocalDateTime timeNow = LocalDateTime.now();
 
 		DateTimeFormatter myFormat1 = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-		DateTimeFormatter myFormat2 = DateTimeFormatter.ofPattern("yyyy년MM월dd일");
+		DateTimeFormatter myFormat2 = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
 
 		for (Map<String, String> map : libraryList) {
 
