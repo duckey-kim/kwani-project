@@ -19,8 +19,8 @@
 	<div id="bodyContent">
 		<div class="sysdate">${year}.${month}.${date}</div>
 		<div class="btnDotContainer">
-			<div class="contentBtn">오늘의 추천곡</div>
-			<div style="text-align: center" class="dotContainer">
+			<div class="contentBtn">오늘은 뭘 듣지?</div>
+			<div class="dotContainer">
 				<span class="dot" onclick="currentSlide(1)"></span> <span
 					class="dot" onclick="currentSlide(2)"></span> <span class="dot"
 					onclick="currentSlide(3)"></span> <span class="dot"
@@ -28,6 +28,7 @@
 					onclick="currentSlide(5)"></span> <span class="dot"
 					onclick="currentSlide(6)"></span>
 			</div>
+			<div class="etc"></div>
 		</div>
 		<div class="topContentBox">
 			<div class="todayRecmd">
