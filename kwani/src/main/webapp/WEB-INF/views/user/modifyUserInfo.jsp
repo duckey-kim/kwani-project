@@ -11,7 +11,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Settings</title>
-
 <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/modifyUserInfo.css">
@@ -70,10 +69,6 @@
 	<div id="rightSideBar"></div>
 </div>
 <!-- body -->
-
-<!-- ----------------------------- JavaScript------------------------------- -->
-<!-- ---------------------------------------------------------------------------------------- -->
-
 <script type="text/javascript">
 	console.log('${sessionName}');
 	console.log('${userImg}');
@@ -225,6 +220,5 @@
 							}
 						};
 					});
-
 </script>
 <%@include file="../includes/footer.jsp"%>

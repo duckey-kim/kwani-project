@@ -11,7 +11,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login</title>
-
 <link rel="stylesheet" type="text/css" href="/resources/css/header.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/login.css">
 </head>
@@ -76,12 +75,7 @@
 	<div id="rightSideBar"></div>
 </div>
 <!-- body -->
-
-<!-- ----------------------------- JavaScript------------------------------- -->
-<!-- ---------------------------------------------------------------------------------------- -->
-
 <script type="text/javascript">
-	
 	console.log('${msg}');
 
 	let email = document.getElementById("email").value;
@@ -126,9 +120,7 @@
 			text.style.display = "none";
 		}
 	}
-</script>
 
-<script>
 	function on() {
 		document.getElementById("clickOverlay").style.display = "block";
 	}
@@ -169,5 +161,3 @@
 </script>
 
 <%@include file="../includes/footer.jsp"%>
-
-
