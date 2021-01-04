@@ -59,7 +59,7 @@
 				<div class="mypage-body">
 					<div class="body-item bg-bl">
 						<div class="item-header">
-						<div class="playlist-div">
+						<div class="playlist-div-basic">
 							<img class="myArtistImg" src="/resources/image/album/${playlistVO.plylstImg}" />
 							<div class="title-div">
 								<h2><c:out value="${playlistVO.nm}" /></h2>
@@ -72,7 +72,7 @@
 							<div class="item-div-detail">
 									<div class="play-btn-div">
 										<button class="button6">듣기</button>
-										<button class="button6">전체 듣기</button>
+										<button class="button6" onclick='popupPlayer("/player/list?listId=${playlistVO.plylstId}")'>전체 듣기</button>
 									</div>
 									<table class="table">
 										<tr>
