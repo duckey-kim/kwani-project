@@ -212,3 +212,8 @@ th, td{
 .pagination button{
 	background-color: white;
 }
+button:hover, .btn:hover {
+	background-color: black;
+	color: red;
+}
+ 

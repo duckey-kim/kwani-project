@@ -97,13 +97,13 @@
                 	</div><!-- albumImg --> 
                 	<div class="albumArtist">
                 		<p>
-                			<a href="/detail/artist?gropId=<c:out value='${searchAlbum2.gropId}'/>">
+                			<a style="color:grey" href="/detail/artist?gropId=<c:out value='${searchAlbum2.gropId}'/>">
                 			<c:out value="${searchAlbum2.nm}" /></a>
                 		</p>
                 	</div><!-- albumArtist -->   
                 	<div class="albumTtl">
                 		<p>
-                			<a href="/detail/album?albumId=<c:out value='${searchAlbum2.albumId}'/>">
+                			<a style="color:grey" href="/detail/album?albumId=<c:out value='${searchAlbum2.albumId}'/>">
                 			<c:out value="${searchAlbum2.albumTtl}" /></a>
                 		</p>
                 	</div><!-- albumTtl -->              	

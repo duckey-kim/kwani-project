@@ -135,7 +135,7 @@ hr.one{
 }
 a{
 	text-decoration: none;
-	color: inherit;
+	color: inherit; 
 }
 a:hover{
 	text-decoration: underline gray;
@@ -211,4 +211,11 @@ th, td{
 .pagination button{
 	background-color: white;
 }
-
+.paginate_button{
+	color: white;
+}
+button:hover, .btn:hover {
+	background-color: black;
+	color: red;
+}
+ 
