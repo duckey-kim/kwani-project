@@ -82,10 +82,10 @@
 						<div class="emptybox2"></div>
 
 						<div class="header-buttons">
-							<button type="button" id="playNow"
+							<button type="button" id="playNow" class="btn"
 								onclick='popupPlayer("/player/album?albumId=${albumId}")'>⯈앨범듣기</button>
 							<button type="button" id="addPlayer" style="display: none">플레이어에 추가</button>
-							<button type="button" id="addAlbumMyPlaylist">내 재생목록에 담기</button>
+							<button class="btn" type="button" id="addAlbumMyPlaylist">내 재생목록에 담기</button>
 							<input class="btn" type="button" value="공유하기" onclick="copyURL()">
 							<textarea id="address" style="display: none"></textarea>
 							<img class="emptyHeart1" id="likeAlbum" src="/resources/image/heart2.png"> 
@@ -103,8 +103,8 @@
 						<h2>앨범 수록곡 ></h2>
 					</div>
 					<div class="subtitle" style="text-align:right">
-						<button onclick="addPlayer()"> 듣기 </button>
-						<button id="addCheckedTrackMyPlaylist"> 내 재생목록에 담기 </button>
+						<button class="btn" onclick="addPlayer()"> 듣기 </button>
+						<button class="btn" id="addCheckedTrackMyPlaylist"> 내 재생목록에 담기 </button>
 					</div>
 					<div class="items">
 						<table>
@@ -128,7 +128,7 @@
 										href="/detail/artist?gropId=<c:out value="${AlbumInfo.GROP_ID }" />"><c:out
 												value="${AlbumInfo.NM }" /> </a></td>
 									<td>
-										<button value='${AlbumInfo.TRACK_ID }'
+										<button class="btn" value='${AlbumInfo.TRACK_ID }'
 											name="addTrackMyPlaylist">내 재생목록에 담기</button>
 									</td>
 									<td>

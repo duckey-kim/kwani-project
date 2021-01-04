@@ -80,10 +80,10 @@
 				<div class="emptybox2"></div>
 
 				<div class="header-buttons">
-					<button type="button" id="playNow"
+					<button type="button" id="playNow" class="btn"
 						onclick='popupPlayer("/player/track?trackId=${trackId}")'>⯈ 듣기</button>
 					<button type="button" id="addPlayer" style="display: none">플레이어에 추가</button>
-					<button type="button" id="addMyPlaylist">내 재생목록 추가</button>
+					<button class="btn" type="button" id="addMyPlaylist">내 재생목록 추가</button>
 					<input class="btn" type="button" value="공유하기" onclick="copyURL()">
 					<textarea id="address" style="display: none"></textarea>
 					<img class="emptyHeart" id="likeTrack" src="/resources/image/heart2.png"> <img class="redHeart" id="likeTrack" src="/resources/image/heart.png">
