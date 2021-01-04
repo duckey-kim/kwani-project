@@ -59,32 +59,36 @@
 				<div class="mypage-body">
 					<div class="body-item bg-bl">
 						<div class="item-header">
+						<div class="playlist-div-basic">
 							<img class="myArtistImg" src="/resources/image/album/${playlistVO.plylstImg}" />
 							<div class="title-div">
-								<h2>
-									<c:out value="${playlistVO.nm}" />
-								</h2>
-								<h3>
-									<c:out value="${playlistVO.desc}" />
-								</h3>
-								<p>플레이리스트 곡 개수 : ${trackCount}</div>
+								<h2><c:out value="${playlistVO.nm}" /></h2>
+								<h3><c:out value="${playlistVO.desc}" /></h3>
+								<p style="font-size:13px; color:grey;">플레이리스트 곡 개수 : ${trackCount}</p>
+								</div>
 							</div>
 						</div>
+					</div>
 							<div class="item-div-detail">
-								<br>
+									<div class="play-btn-div">
+										<button class="button6">듣기</button>
+										<button class="button6" onclick='popupPlayer("/player/list?listId=${playlistVO.plylstId}")'>전체 듣기</button>
+									</div>
 									<table class="table">
 										<tr>
+											<th style="width:5%"><input type='checkbox' id='checkAll'></th>
 											<th style="width:5%"></th>
+											<th style="width:5%"></th>
+											<th></th>
 											<th style="width:10%"></th>
-											<th style="width:40%"></th>
-											<th style="width:10%"></th>
-											<th ></th>
+											<th style="width:25%"></th>
 											<th style="width:5%"></th>
 											<th style="width:5%"></th>
 										</tr>
 									<c:forEach items="${playlistDetail}" var="playlistDetail" varStatus="status">
 										<tr>
-											<td>${status.count}</td>											
+											<td><input class="checkbox" type="checkbox" id="checkbox" name="trackId" value="${playlistDetail.TRACK_ID}"></td>										
+											<td>${status.count}</td>	
 											<td><a href="/detail/album?albumId=${playlistDetail.ALBUM_ID}"><img src="/resources/image/album/${playlistDetail.ALBUM_IMG}" class="myImg"></a></td>
 											<td><a class="track-title" href="/detail/track?trackId=${playlistDetail.TRACK_ID}"><c:out value="${playlistDetail.TRACK_TTL}" /></a></td>
 											<td><a class="artist-name" href="/detail/artist?gropId=${playlistDetail.GROP_ID}"><c:out value="${playlistDetail.ANM}" /></a></td>
@@ -136,8 +140,6 @@
 			let moveLeft=screen.width-537;
 			window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
 	    }
-	    
-		
 		
 		$(document).ready(function(){
 			showLike();
@@ -200,6 +202,26 @@
 			$("#myModal").attr("style", "display:block");
 			setTimeout(function(){$("#myModal").attr("style", "display:none");}, 800);
 		}
+		
+		// 전체 선택 - 모든 체크박스 선택
+		// 전체 해제 - 모든 체크박스 해제
+		$(document).on("click", "#checkAll", function(){
+			if($("#checkAll").prop("checked")){
+				$(".checkbox").prop("checked", true);
+				return;
+			}
+			$(".checkbox").prop("checked", false);
+		});
+				
+		// 하나라도 선택이 없을 경우 - 전체선택 해제	
+		// 모두 선택되었을 경우 - 전체선택 체크
+		$(document).on("click", ".checkbox", function(){
+			if($("#checkAll:checked").length == $(".checkbox").length){
+				$(".checkbox").prop("checked", true);
+				return;
+			}
+			$("#checkAll").prop("checked", false);
+		});
 	</script>
 	<!--body-->
 <%@include file="../includes/footer.jsp" %>

@@ -32,13 +32,19 @@ input[type=text], textarea{
 	margin: 15px;
 }
 
+.play-btn-div{
+	text-align: right;
+	width: 95%;
+	margin-left:2%;
+}
+
 .play-png{
 	position: absolute;
 	z-index: 1;
 	width: 40px;
 	height: 40px;
-	top: 79%;
-	left: 82%;
+	top: 77%;
+	left: 81%;
 	opacity: 0;
 }
 
@@ -69,6 +75,14 @@ input[type=text], textarea{
 	color: grey;
 }
 
+.title-div{
+	margin: 2% 0 0 3%;
+}
+
+.title-div *{
+	margin-bottom: 2%;
+}
+
 .playlist-title{
 	display: flex;
 	flex-direction: column;
@@ -78,7 +92,13 @@ input[type=text], textarea{
 .playlist-div{
 	position: relative;
 	display: flex;
-	margin: 2% 0 2% 0;
+	margin: 4% 0 1% 0;
+}
+
+.playlist-div-basic{
+	position: relative;
+	display: flex;
+	margin: 4% 0 1% 4%;
 }
 
 .playlist-div #plylst-save{
@@ -132,8 +152,8 @@ li:hover {
 }
 
 .myArtistImg{
-	width: 260px;
-	height: 260px;
+	width: 230px;
+	height: 230px;
 	object-fit: cover;
 }
 
@@ -144,8 +164,8 @@ li:hover {
 .img-background{
 	background-color: black;
 	position: relative;
-	width: 260px;
-	height: 260px;
+	width: 230px;
+	height: 230px;
 	overflow: hidden;
 	margin: 0 15px 0 15px;
 	cursor: pointer;
@@ -274,8 +294,8 @@ li:hover {
 
 .img-container{
 	position: relative;
-	width: 270px;
-	height: 270px;
+	width: 240px;
+	height: 240px;
 }
 
 .img-container .myPlaylistImg{
@@ -298,7 +318,7 @@ li:hover {
 }
 
 .img-container ul {
-	left: 69%;
+	left: 65%;
 	top: 50px;
 	width: 80px;
 	height: auto;
@@ -329,7 +349,7 @@ li:hover {
 	position: relative;
 	display: flex;
 	justify-content: left;
-	overflow-x: scroll;
+	overflow: hidden;
 }
 
 .item-div-basic {
@@ -355,12 +375,12 @@ li:hover {
 }
 
 .item-div .table {
-	width: 260px;
+	width: 230px;
 	margin: 0 1vw 0 1vw;
 }
 
 .item-div-basic .table {
-	width: 260px;
+	width: 230px;
 	margin: 0 1vw 0 1vw;
 }
 
@@ -426,7 +446,7 @@ li:hover {
 	display: inline-block;
 	font-size: 13px;
 	cursor: pointer;
-	width: 220px;
+	width: 230px;
 	height: 40px;
 	text-overflow: ellipsis;
 	overflow: hidden; 
@@ -450,7 +470,7 @@ li:hover {
 	cursor: pointer;
 	width: auto;
 	padding: 10px 20px;
-	width: 270px;
+	width: 240px;
 	overflow: hidden; 
   	text-overflow: ellipsis;
  	white-space: nowrap; 
@@ -492,7 +512,7 @@ li:hover {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
+    font-size: 12px;
     cursor: pointer;
     margin: 5px;
     border-radius: 3px;
@@ -509,7 +529,7 @@ li:hover {
 
 .etc-background{
 	width: 100%;
-	max-height: 260px;
+	max-height: 230px;
 	background-color: black;
 	position:relative;
 	display:flex;
@@ -619,14 +639,14 @@ li:hover {
 }
 
 .myPlaylistImg{
-	width: 270px;
-	height: 270px;
+	width: 240px;
+	height: 240px;
 }
 
 .play-background{
 	background-color: black;
-	width: 270px;
-	height: 270px;
+	width: 240px;
+	height: 240px;
 	overflow: hidden;
 	cursor: pointer;
 }
@@ -649,8 +669,8 @@ li:hover {
 }
 
 .myAlbumImg {
-	width: 220px;
-	height: 220px;
+	width: 230px;
+	height: 230px;
 }
 
 .mypage-header {
