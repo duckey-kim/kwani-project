@@ -76,8 +76,8 @@
 						<h2>노래 ></h2>
 					</div>
 					<div class="subtitle" style="text-align:right">
-						<button id="addPlayer" onclick="addPlayer()"> 듣기 </button>
-						<button id="addCheckedTrackMyPlaylist"> 내 재생목록에 담기 </button>
+						<button class="btn" id="addPlayer" onclick="addPlayer()"> 듣기 </button>
+						<button class="btn" id="addCheckedTrackMyPlaylist"> 내 재생목록에 담기 </button>
 					</div>
 					<div class="items">
 						<table>
@@ -103,7 +103,7 @@
 										href="/detail/album?albumId=<c:out value='${ArtistTrack.ALBUM_ID }'/>"><c:out
 												value="${ArtistTrack.ALBUM_TTL }" /></a></td>
 									<td>
-										<button value="<c:out value='${ArtistTrack.TRACK_ID }' />"
+										<button class="btn" value="<c:out value='${ArtistTrack.TRACK_ID }' />"
 											name="addTrackMyPlaylist">내 재생목록에 담기</button>
 									</td>
 									<td>
