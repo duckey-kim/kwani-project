@@ -275,6 +275,8 @@
 		$(".modal-close").show();
 		$("#myModal").attr("style", "display:block");
 	}
+	
+	
 	</script>
 <%@include file="../includes/footer.jsp" %>
 
