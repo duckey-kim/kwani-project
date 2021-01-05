@@ -109,8 +109,25 @@
 }    
     
 .dropbtn2 {
-  color: black;
-  font-size: 16px;
+  	font-size: 16px;
+  	background-color: white;
+	color: #b90000;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-weight: bold;
+	cursor: pointer;
+	border-bottom: 4px solid #b90000;
+}
+
+.dropbtn3 {
+  	color: black;
+  	font-size: 16px;
+  	padding: 10px 20px;
+	text-align: center;
+	cursor: pointer;
+	border-bottom: 4px solid #fff;
 }
 
 .dropdown2 {
@@ -150,12 +167,11 @@
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
-                <div class="searchRst"><p><c:out value="${searchTxt}"/>에 대한 검색 결과</p></div>
-                <div class="rstTap"> 
-                    
-                    <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
+                <div class="searchRst"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
+                <div class="rstTap">
+                    <a class="btnBasic" href="/search?searchTxt=${searchTxt}">통합검색</a>	
                 
-                    <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
+                    <a class="btnBasic" href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
                                       
                      	<div class="dropdown2">
   							<span class="dropbtn2">곡</span>
@@ -167,7 +183,7 @@
                     <!-- </form> -->
                            	                    		
                      	<div class="dropdown2">
-  							<span class="dropbtn2">앨범</span>
+  							<span class="dropbtn3">앨범</span>
   								<div class="dropdown-content2">
  									<a href="/search/albumartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/albumtitle?searchTxt=${searchTxt}">앨범명으로</a>
@@ -175,7 +191,7 @@
 						</div>                    	
                     <!-- </form> -->
                     
-                    <a href="/search/lyrics?searchTxt=${searchTxt}">가사</a>	
+                    <a class="btnBasic" href="/search/lyrics?searchTxt=${searchTxt}">가사</a>	
                 </div>
                 
      
@@ -189,8 +205,9 @@
                             <tr>
                             <th class="th0"><input type="checkbox" name="checkAll" class="checkAll"></th>
                             <th class="th1">번호</th>
-                        	<th class="th3">제목</th>
+                        	<th style="color:grey">제목</th>
                         	<th class="th2">가수</th>
+                        	<th class="th2">앨범</th>
                         	<th class="th4">듣기</th>
                         	<th class="th4">좋아요</th>
                             </tr>
@@ -202,6 +219,8 @@
                         		<c:out value="${searchSong.trackTtl}" /></a></td>
                         	<td><a style="color:grey" href="/detail/artist?gropId=<c:out value='${searchSong.gropId}'/>">          
                         		<c:out value="${searchSong.nm}" /></a></td>
+                        	<td><a style="color:grey" href="/detail/album?albumId=<c:out value='${searchRst.albumId}'/>">      
+                        		<c:out value="${searchSong.albumTtl}" /></a></td>	
                         	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
                         		onclick='popupPlayer("/player/track?trackId=${searchSong.trackId}")'></td>
                         	<td>

@@ -12,10 +12,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link rel="stylesheet" href="/resources/css/mypage.css"/>
-<link rel="stylesheet" href="/resources/css/swiper.css">
-<!-- Swiper JS -->
-<script src="/resources/js/swiper.js"></script>
+<link rel="stylesheet" href="/resources/css/mypage.css" />
 </head>
 
 <%@include file="../includes/header.jsp" %>
@@ -345,21 +342,5 @@
 			$("#myModal").attr("style", "display:block");
 			setTimeout(function(){$("#myModal").attr("style", "display:none");}, 800);
 		}
-		
-		var swiper = new Swiper('.swiper-container', {
-		      slidesPerView: 4,
-		      spaceBetween: 5,
-		      slidesPerGroup: 4,
-		      loop: true,
-		      loopFillGroupWithBlank: true,
-		      pagination: {
-		        el: '.swiper-pagination',
-		        clickable: true,
-		      },
-		      navigation: {
-		        nextEl: '.swiper-button-next',
-		        prevEl: '.swiper-button-prev',
-		      },
-		});
 		</script>
 <%@include file="../includes/footer.jsp" %>
