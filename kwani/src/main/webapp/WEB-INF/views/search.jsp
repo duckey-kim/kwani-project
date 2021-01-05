@@ -17,14 +17,27 @@
     
     <style>
 .dropbtn2 {
-  color: black;
-  font-size: 16px;
+  	font-size: 16px;
+  	background-color: white;
+	color: #b90000;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-weight: bold;
+	cursor: pointer;
+	border-bottom: 4px solid #b90000;
 }
 
-.dropdown2 {
-  position: relative;
-  display: inline-block;
+.dropbtn3 {
+  	color: black;
+  	font-size: 16px;
+  	padding: 10px 20px;
+	text-align: center;
+	cursor: pointer;
+	border-bottom: 4px solid #fff;
 }
+
 
 .dropdown-content2 {
   display: none;
@@ -162,7 +175,7 @@
                     <a class="btnBasic" href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
                   
                      	<div class="dropdown2">
-  							<span class="dropbtn2">곡</span>
+  							<span class="dropbtn3">곡</span>
   								<div class="dropdown-content2">
  									<a href="/search/songartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/songtitle?searchTxt=${searchTxt}">곡명으로</a>
@@ -170,7 +183,7 @@
 						</div><!-- dropdown -->  
                                	                    		
                      	<div class="dropdown2">
-  							<span class="dropbtn2">앨범</span>
+  							<span class="dropbtn3">앨범</span>
   								<div class="dropdown-content2">
  									<a href="/search/albumartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/albumtitle?searchTxt=${searchTxt}">앨범명으로</a>
@@ -223,7 +236,7 @@
                             <th class="th1">번호</th>
                         	<th style="color:grey">제목</th>
                         	<th class="th2">가수</th>
-                        	<th class="th2">앨범</th>
+                        	<th class="th5">앨범</th>
                         	<th class="th4">듣기</th>
                         	<th class="th4">좋아요</th>
                             </tr>
@@ -261,7 +274,7 @@
                             <th class="th1">번호</th>
                         	<th style="color:grey">제목</th>
                         	<th class="th2">가수</th>
-                        	<th class="th2">앨범</th>
+                        	<th class="th5">앨범</th>
                         	<th class="th4">듣기</th>
                         	<th class="th4">좋아요</th>
                             </tr>
@@ -299,7 +312,7 @@
                             <th class="th1">번호</th>
                         	<th style="color:grey">제목</th>
                         	<th class="th2">가수</th>
-                        	<th class="th2">앨범</th>
+                        	<th class="th5">앨범</th>
                         	<th class="th4">듣기</th>
                         	<th class="th4">좋아요</th>
                             </tr>
