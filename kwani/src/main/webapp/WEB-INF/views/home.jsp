@@ -101,7 +101,7 @@
 					<button class="loginBtn" id="loginBtn"
 						onclick="location.href='/user/login'">Login</button>
 				</div>
-				<div id="welcomeBtn" class="loginBtn" style="display: none"
+				<div id="welcomeBtn" class="welcomeBtn" style="display: none"
 					onclick="location.href='/mypage/overview'">
 					<p>환영합니다!</p>
 					<p>${userNick}님</p>
