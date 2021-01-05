@@ -1,26 +1,31 @@
+      </div>
+        <!-- End of Content Wrapper -->
 
-</div>
-<!-- /#page-wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
 
-</div>
-<!-- /#wrapper -->
+    <!-- Scroll to Top Button-->
+   
 
+    <!-- Bootstrap core JavaScript-->
+    <script src="/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<!-- Metis Menu Plugin JavaScript -->
-<script src="/resources/vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/resources/js/sb-admin-2.min.js"></script>
 
-<!-- DataTables JavaScript -->
-<script src="/resources/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script
-	src="/resources/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-<script
-	src="/resources/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <!-- Page level plugins -->
+    <script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-<!-- Custom Theme JavaScript -->
-<script src="/resources/dist/js/sb-admin-2.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="/resources/js/demo/datatables-demo.js"></script>
+
+</body>
+
 
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
