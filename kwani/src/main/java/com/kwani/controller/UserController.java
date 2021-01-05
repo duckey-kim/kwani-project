@@ -127,7 +127,7 @@ public class UserController {
 
 		// 여기도 각자 폴더경로에 맞게 변경해줘야 할 듯.
 		File userUploadImg = new File(
-				"/Users/hoya/git/kwani-project/kwani/src/main/webapp/resources/image/userUpload" + fileName);
+				"C:\\Users\\cukik\\git\\kwani-project\\kwani\\src\\main\\webapp\\resources\\image\\userUpload" + fileName);
 
 		System.out.println("/display - file : " + userUploadImg);
 
@@ -157,7 +157,7 @@ public class UserController {
 
 		// 이미지가 저장될 폴더.
 		// 이 부분 각자 컴퓨터의 폴더위치에 맞게 변경해줘야 할 듯.
-		String uploadFolder = "/Users/hoya/git/kwani-project/kwani/src/main/webapp/resources/image/userUpload";
+		String uploadFolder = "C:\\Users\\cukik\\git\\kwani-project\\kwani\\src\\main\\webapp\\resources\\image\\userUpload";
 
 		// 저장될 폴더와 폴더경로를 받아서 업로드될 경로를 생성?
 		File uploadPath = new File(uploadFolder);
