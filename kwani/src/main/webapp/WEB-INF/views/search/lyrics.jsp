@@ -82,14 +82,16 @@
                 </div>
 
               
-                <div class="lyricsTxt"><p class="textInfo">가사</p></div>
+                <div class="lyricsTxt">
+                	<p class="textInfo">가사</p>
+                </div>
                 <div class="lyricsContainer">
                 	<c:forEach items="${searchLyrics}" var="searchLyrics" >
                 	<div class="eachLyrics">
                 	
                 	<div class="lyricsTtl">
                 		<p>
-                			<a href="/detail/track?trackId=<c:out value='${searchLyrics.trackId}'/>">
+                			<a class="title1" href="/detail/track?trackId=<c:out value='${searchLyrics.trackId}'/>">
                 			<c:out value="${searchLyrics.trackTtl}" /></a>
                 		</p>
                 	</div><!-- lyricsTtl -->   
@@ -99,16 +101,16 @@
                 	</div><!-- lyricsContent --> 
                 	<div class="lyricsInfoContainer">
                 	<div class="lyricsArtist">
-                		<h6>
+                		<div class="artist1">
                 			<a style="color:grey" href="/detail/artist?gropId=<c:out value='${searchLyrics.gropId}'/>">
                 			<c:out value="${searchLyrics.nm}" /></a>
-                		</h6>
+                		</div>
                 	</div><!-- lyricsArtist -->  
                 	<div class="lyricsAlbum">
-                		<h6>
+                		<div class="album1">
                 			<a style="color:grey" href="/detail/album?albumId=<c:out value='${searchLyrics.albumId}'/>">
                 			<c:out value="${searchLyrics.albumTtl}" /></a>
-                		</h6>
+                		</div>
                 	</div><!-- lyricsAlbum --> 
                 	</div><!-- lyricsInfoContainer -->      	
                 	</div><!-- eachLyrics --> 

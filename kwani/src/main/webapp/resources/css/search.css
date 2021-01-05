@@ -23,23 +23,23 @@ p {
 }
 
 .artist1 a, .album1 a {
-	font-size: 1.5rem;
+	font-size: 1.3rem;
 	cursor: pointer;
 }
 
 .textInfo {
-	font-size: 1.5rem;
+	font-size: 2rem;
 }
 
 hr.one{
 	border: 0.1px solid lightgray;
-	margin-top: 5rem;
-	margin-bottom: 2rem;
+	margin-top: 4rem;
+	margin-bottom: 1.5rem;
 }
 
 .title1 {
 	margin-top: 1rem;
-	font-size: 1.8rem;;
+	font-size: 1.3rem;;
 }
 
 
@@ -223,7 +223,6 @@ a{
 .lyricsTtl{
 	width: 100%;
 	height: auto;
-	font-size: 30px;
 	font-weight: bold;
 	margin-bottom: 1rem;
 }
@@ -237,7 +236,7 @@ a{
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
 	text-overflow: ellipsis;
-	font-size: 1.3rem;
+	font-size: 1.1rem;
 	margin-bottom: 1rem;
 }
 .lyricsInfoContainer{
