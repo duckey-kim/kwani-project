@@ -35,7 +35,6 @@
   	padding: 10px 20px;
 	text-align: center;
 	cursor: pointer;
-	border-bottom: 4px solid #fff;
 }
 
 
@@ -70,7 +69,7 @@
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
-                <div class="searchRst"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
+                <div class="searchRst" style="font-size:18px"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
                 <div class="rstTap">
                     <a class="btnBasic" href="/search?searchTxt=${searchTxt}">통합검색</a>	
 
@@ -96,7 +95,7 @@
                 </div>
              
                 
-                <div class="artistRstTxt"><p class="textInfo">아티스트</p></div>
+                <div class="artistRstTxt"><h2>아티스트</h2></div>
                 <div class="artistRstContainer">
                 	<div class="artistTable">
                 	  <table>

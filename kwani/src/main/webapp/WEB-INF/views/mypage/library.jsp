@@ -23,7 +23,7 @@
 						<img class="userImg" src="/resources/image/userUpload/${user.userImg}" />
 					</div>
 					<div>
-						<div>
+						<div class="userNick">
 							<c:out value="${user.nick}" />
 						</div>
 					</div>
