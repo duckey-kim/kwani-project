@@ -69,18 +69,18 @@
 </script>
 <div class="row">
 	<div class="col-lg-12">
-		<div class="panel panel-warning">
-			<div class="panel-heading">
+		<div class="card shadow">
+			<div class="card-header">
 			<h4>BAAM CHART</h4>
 			</div>
 		</div>
 		<!-- /.panel -->
 	</div>
 	<div class="col-lg-6">
-		<div class="panel panel-red">
-			<div class="panel-heading">장르 당 곡 수</div>
+		<div class="card card-red">
+			<div class="card-header">장르 당 곡 수</div>
 			<!-- /.panel-heading -->
-			<div class="panel-body">
+			<div class="card-body">
 				<div id=piechart></div>
 			</div>
 			<!-- /.panel-body -->
@@ -89,10 +89,10 @@
 	</div>
 	<!-- /.col-md-12 -->
 	<div class="col-lg-6">
-		<div class="panel panel-yellow">
-			<div class="panel-heading">일간 총 플레이 횟수</div>
+		<div class="card card-yellow">
+			<div class="card-header">일간 총 플레이 횟수</div>
 			<!-- /.panel-heading -->
-			<div class="panel-body">
+			<div class="card-body">
 				<div id="barchart"></div>
 			</div>
 			<!-- /.panel-body -->

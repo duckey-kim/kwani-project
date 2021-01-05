@@ -3,6 +3,7 @@
 	padding: 0;
 	border: 0;
 	box-sizing: border-box;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 a {
@@ -13,9 +14,6 @@ h2, h3 {
 	cursor: pointer;
 }
 
-body {
-	font-family: Arial, Helvetica, sans-serif;
-}
 
 #header {
 	width: 100%;
@@ -205,13 +203,13 @@ body {
 }
 
 #leftSideBar {
-	width: 10%;
+	width: 5%;
 	height: 1400px;
 	background-color: black;
 }
 
 #rightSideBar {
-	width: 10%;
+	width: 5%;
 	height: 1400px;
 	background-color: black;
 }

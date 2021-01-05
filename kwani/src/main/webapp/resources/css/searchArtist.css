@@ -1,3 +1,7 @@
+* {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
 #body {
     display: flex;
     width: 100%;
@@ -8,6 +12,28 @@
 #bodyContent {
     width: 80%;
     height: auto;
+}
+
+.btnEffect{
+	background-color: white;
+	color: #b90000;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-weight: bold;
+	cursor: pointer;
+	border-bottom: 4px solid #b90000;
+}
+.btnBasic{
+	background-color: white;
+	color: black;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	cursor: pointer;
+	border-bottom: 4px solid #fff;
 }
 
 .searchRst{
@@ -21,7 +47,6 @@
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    height: 50px;
     background-color: white;
     margin-bottom: 30px;
     border-bottom : 1px solid black;
@@ -98,9 +123,11 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-} 
+	display:inline-block;
+}
+
 .td1{
-	width: 20%;
+	width: 15%;
 }
 .td2{
 	width: 40%;
@@ -109,7 +136,7 @@
 	width: 20%;
 }
 .td4{
-	width: 10%;
+	width: 5%;
 }
 a{
 	text-decoration: none;
@@ -137,29 +164,31 @@ table{
 }
 th, td{
     padding: 5px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #ddd;
 }
+
 .th0{
-    width: 5%;
+    width: 3%;
 }
 .th1{
-    width: 15%;
+    width: 5%;
     color: rgb(141, 138, 138);
 }
 .th2{
-    width: 30%;
+    width: 15%;
     color: rgb(141, 138, 138);
 }
 .th3{
-    width: 20%;
+    width: 40%;
     color: rgb(141, 138, 138);
 }
 .th4{
-    width: 10%;
+    width: 5%;
     text-align: center;
     color: rgb(141, 138, 138);
 }
+
 .pull-right{
 	width: 400px;
 	height: 66px;

@@ -21,6 +21,7 @@
 		<result property="sex" column="sex" />
 		<result property="albumId" column="album_id" />
 		<result property="gropId" column="grop_id" />
+		<result property="soloId" column="solo_id" />
 		<result property="albumImg" column="album_img" />
 		<result property="gropImg" column="grop_img" />
 		<result property="trackLyrics" column="track_lyrics" />
@@ -141,11 +142,17 @@
 
 	<!-- 검색 페이지에서 아티스트 결과만 따로 보여주기 -->
 	<select id="getSearchArtist" resultMap="PListResult">
-		select grop_id, grop_img,
+		select distinct a2.nm,a2.grop_id, a2.grop_img, a2.type, to_char(a2.debut_dt, 'yyyy-mm-dd') as debut_dt
+		from t_artist a, t_artist_group ag, t_artist a2
+		where a.grop_id=ag.grop_id
+		and ag.solo_id=a2.grop_id
+		and a.nm like '%'||#{searchTxt}||'%'
+	
+		<!-- select grop_id, grop_img,
 		nm, type, to_char(debut_dt, 'yyyy-mm-dd') as
 		debut_dt
 		from t_artist
-		where nm like '%'||#{searchTxt}||'%'
+		where nm like '%'||#{searchTxt}||'%' -->
 	</select>
 
 	<!-- search/artist 페이지 -->
@@ -155,13 +162,14 @@
  		select grop_id, grop_img, nm, type, debut_dt
  		from
  		(
- 		select /*+index_desc(t_artist grop_id)*/
- 		  rownum rn, grop_id, grop_img, nm, type, debut_dt
- 	    from t_artist
- 	    where nm like '%'||#{searchTxt}||'%'
+ 		select distinct a2.nm,a2.grop_id, a2.grop_img, a2.type, to_char(a2.debut_dt, 'yyyy-mm-dd') as debut_dt
+		from t_artist a, t_artist_group ag, t_artist a2
+		where a.grop_id=ag.grop_id
+		and ag.solo_id=a2.grop_id
+		and a.nm like '%'||#{searchTxt}||'%'
  	    and rownum <= #{cri.pageNum} * #{cri.amount}
  	    )
- 	    where rn > (#{cri.pageNum} -1) * #{cri.amount}
+ 	    where rownum > (#{cri.pageNum} -1) * #{cri.amount}
  	]]>
 	</select>
 
@@ -439,10 +447,10 @@
 	<select id="recommendGenre" resultMap="selectMap">
 		select * from(
 		select DISTINCT
-		t.track_id,t.track_ttl,t.genre_cd,a.nm,a.grop_id
-		from t_tracks
-		t,t_artist_tracks at,t_artist a,t_code cd
+		t.track_id,t.track_ttl,t.genre_cd,a.nm,a.grop_id, al.album_img
+		from t_tracks t,t_artist_tracks at,t_artist a,t_code cd, t_album al
 		where at.track_id=t.track_id
+		and al.album_id=t.album_id
 		and at.grop_id=a.grop_id
 		and bitand(genre_cd,#{genreCd})=#{genreCd}
 		order by dbms_random.value
@@ -465,10 +473,10 @@
 	<select id="recommendType" resultMap="selectMap">
 		select * from(
 		select DISTINCT
-		t.track_id,t.track_ttl,t.genre_cd,a.nm,a.grop_id
-		from t_tracks
-		t,t_artist_tracks at,t_artist a,t_code cd
+		t.track_id,t.track_ttl,t.genre_cd,a.nm,a.grop_id, al.album_img
+		from t_tracks t,t_artist_tracks at,t_artist a,t_code cd, t_album al
 		where at.track_id=t.track_id
+		and al.album_id=t.album_id
 		and at.grop_id=a.grop_id
 		and bitand(mood_cd,#{typeCd})=#{typeCd}
 		order

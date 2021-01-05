@@ -1,3 +1,6 @@
+* {
+	font-family: 'Nanum Gothic', sans-serif;
+}
 
 #body {
     display: flex;
@@ -20,6 +23,28 @@
 	flex-direction:column;
 }
 
+.btnEffect{
+	background-color: white;
+	color: #b90000;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-weight: bold;
+	cursor: pointer;
+	border-bottom: 4px solid #b90000;
+}
+.btnBasic{
+	background-color: white;
+	color: black;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	cursor: pointer;
+	border-bottom: 4px solid #fff;
+}
+
 .searchRst{
     width: 100%;
     height: 100px;
@@ -31,7 +56,6 @@
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
-    height: 50px;
     background-color: white;
     margin-bottom: 30px;
     border-bottom : 1px solid black;
@@ -94,7 +118,7 @@
 }
 .albumImg{
 	width: 100%;
-	height: 250px;
+	margin-bottom: 10px;
 }
 .albumArtist{
 	width: 100%;

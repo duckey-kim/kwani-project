@@ -34,13 +34,13 @@
 									<div class="dropdown">
 										<div class="dropdown-toggle" data-toggle="dropdown">
 											${artist.nm}</div>
-										<ul class="dropdown-menu">
-											<li><a
-												href="/admin/modify/artist?gropId=${artist.gropId }">MODIFY</a></li>
-											<li><a href="/admin/modify/album/">REMOVE</a></li>
-										</ul>
+										
+											<div class="dropdown-menu dropdown-menu-right shadow">
+												<a class="dropdown-item" href="/admin/modify/artist?gropId=${artist.gropId }">
+													데이터수정
+												</a>
+										</div>
 									</div>
-
 								</td>
 								<td>${artist.sex}</td>
 								<td>${artist.type}</td>

@@ -399,9 +399,9 @@
 			str += "<tr>";
 			str += "<td>" + (i+1) + "</td>";
 			str += "<td><img class='myImg' src='/resources/image/album/" + obj[i].ALBUM_IMG + "'></td>";
-			str += '<td>' + obj[i].TRACK_TTL+ '</td>';
-			str += '<td>' + obj[i].ANM + '</td>';
-			str += '<td>' + obj[i].ALBUM_TTL+ '</td>';
+			str += '<td class="track-title"><a href="/detail/track?trackId=' + obj[i].TRACK_ID + '">' + obj[i].TRACK_TTL+ '</a></td>';
+			str += '<td class="artist-name"><a href="/detail/artist?gropId=' + obj[i].GROP_ID + '">' + obj[i].ANM + '</a></td>';
+			str += '<td class="album-title"><a href="/detail/album?albumId=' + obj[i].ALBUM_ID + '">' + obj[i].ALBUM_TTL+ '</a></td>';
 			str += '<td><input class="trackIdValue" type="hidden" value="' + obj[i].TRACK_ID + '" name="trackIdValue">';
 			str += "<td style='width:10%'><button class='delBtn button7'>Delete</button></td>";
 			str += "</tr>";

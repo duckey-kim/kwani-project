@@ -16,9 +16,9 @@
 					<thead>
 						<tr>
 							<th width="5%">ID</th>
-							<th >제목</th>
+							<th>제목</th>
 							<th width="9%">타이틀</th>
-							<th >URL</th>
+							<th>URL</th>
 							<th width="7%">앨범</th>
 							<th width="7%">분위기</th>
 							<th width="7%">장르</th>
@@ -31,21 +31,20 @@
 					<tbody>
 						<c:forEach items="${trackList}" var="track">
 							<tr>
-								<td>
-											${track.trackId}
-								</td>
+								<td>${track.trackId}</td>
 
 								<td>
+
 									<div class="dropdown">
 										<div class="dropdown-toggle" data-toggle="dropdown">
 											${track.trackTtl}</div>
-										<ul class="dropdown-menu">
-											<li><a
-												href="/admin/modify/tracks?trackId=${track.trackId }">MODIFY</a></li>
-											<li><a href="/admin/modify/album/">REMOVE</a></li>
-										</ul>
-									</div>
 
+										<div class="dropdown-menu dropdown-menu-right shadow">
+											<a class="dropdown-item"
+												href="/admin/modify/tracks?trackId=${track.trackId }">
+												데이터수정 </a>
+										</div>
+									</div>
 								</td>
 								<td>${track.ttlTrack}</td>
 								<td>${track.trackUrl}</td>

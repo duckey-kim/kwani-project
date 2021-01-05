@@ -36,12 +36,14 @@
 									<div class="dropdown">
 										<div class="dropdown-toggle" data-toggle="dropdown">
 											${user.nick}</div>
-										<ul class="dropdown-menu">
-											<li><a
-												href="/admin/modify/user?email=${user.email }">MODIFY</a></li>
-											<li><a href="/admin/modify/album/">REMOVE</a></li>
-										</ul>
+
+										<div class="dropdown-menu dropdown-menu-right shadow">
+											<a class="dropdown-item"
+												href="/admin/modify/user?email=${user.email }">
+												데이터수정 </a>
+										</div>
 									</div>
+								
 
 								</td>
 								<td>${user.pwd}</td>
