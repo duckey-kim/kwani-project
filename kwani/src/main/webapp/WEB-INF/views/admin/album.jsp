@@ -27,19 +27,18 @@
 					<tbody>
 						<c:forEach items="${albumList}" var="album">
 							<tr>
-								<td>
-											${album.albumId}
-								</td>
+								<td>${album.albumId}</td>
 
 								<td>
 									<div class="dropdown">
 										<div class="dropdown-toggle" data-toggle="dropdown">
 											${album.albumTtl}</div>
-										<ul class="dropdown-menu">
-											<li><a
-												href="/admin/modify/album?albumId=${album.albumId }">MODIFY</a></li>
-											<li><a href="/admin/modify/album/">REMOVE</a></li>
-										</ul>
+										
+											<div class="dropdown-menu dropdown-menu-right shadow">
+												<a class="dropdown-item" href="/admin/modify/album?albumId=${album.albumId }">
+													데이터수정
+												</a>
+										</div>
 									</div>
 
 								</td>
