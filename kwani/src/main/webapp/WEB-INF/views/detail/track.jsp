@@ -29,7 +29,7 @@
 	<div id="bodyContent">
 		<div class="emptybox"></div>
 		<div>
-			<h2>곡 정보 ></h2>
+			<h2>곡 정보</h2>
 		</div>
 
 		<div class="music-header">
@@ -139,8 +139,9 @@
 		
 		<!-- Swiper -->
 		<div class="subtitle">
-			<h2>관련 아티스트 앨범 ></h2>
+			<h2>관련 아티스트 앨범</h2>
 		</div>
+		<div class="emptybox2"></div>
 		<div class="swiper-container" id="related">
 		  <div class="swiper-wrapper" id="items">
 		    <c:forEach items="${getAlbumList }" var="AlbumList">
@@ -236,7 +237,6 @@
 	<!-- 알림용 모달창 -->
 	<div id="noticeModal">
 		<div class="modal-content">
-			<h3>알림 ></h3>
 			<div id="notice" style="text-align:center"></div>
 		</div>
 		<div class="modal-layer"></div>
@@ -451,7 +451,7 @@
 	      slidesPerView: 4,
 	      spaceBetween: 5,
 	      slidesPerGroup: 4,
-	      loop: true,
+	      loop: false,
 	      loopFillGroupWithBlank: true,
 	      pagination: {
 	        el: '.swiper-pagination',
