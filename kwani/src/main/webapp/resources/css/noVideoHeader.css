@@ -106,18 +106,18 @@ a {
 	line-height: 60px;
 }
 
+#pageLogo a {
+	color: #ff0101;
+	font-family: 'Archivo Black', sans-serif;
+}
+
 #pageLogo {
-	width: 20%;
-	height: 60px;
+	width: 30%;
+	height: auto;
 	text-align: center;
 	line-height: 60px;
-	font-size: 35px;
+	font-size: 3rem;
 }
-
-#pageLogo a {
-	color: red;
-}
-
 #navbarUtil {
 	display: flex;
 	align-items: center;

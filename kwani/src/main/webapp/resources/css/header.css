@@ -112,7 +112,7 @@ h2, h3 {
 
 #pageLogo a {
 	color: #ff0101;
-	font-weight: 1000;
+	font-family: 'Archivo Black', sans-serif;
 }
 
 #pageLogo {
@@ -121,20 +121,7 @@ h2, h3 {
 	text-align: center;
 	line-height: 60px;
 	font-size: 3rem;
-	animation: neon 5s ease infinite;
-  -moz-animation: neon 5s ease infinite;
-  -webkit-animation: neon 5s ease infinite;
 }
-
-
-@keyframes neon {
-  0%,
-  100% {
-    text-shadow: 0 0 1vw #FA1C16, 0 0 3vw #FA1C16, 0 0 10vw #FA1C16, 0 0 10vw #FA1C16, 0 0 .4vw #ff0101, .5vw .5vw .1vw #806914;
-    /* color: #FED128; */
-  }
-}
-
 
 
 #navbarUtil {
