@@ -3,6 +3,7 @@
 	padding: 0;
 	border: 0;
 	box-sizing: border-box;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 a {
@@ -13,9 +14,6 @@ h2, h3 {
 	cursor: pointer;
 }
 
-body {
-	font-family: Arial, Helvetica, sans-serif;
-}
 
 #header {
 	width: 100%;
@@ -112,17 +110,32 @@ body {
 	line-height: 60px;
 }
 
-#pageLogo {
-	width: 20%;
-	height: 60px;
-	text-align: center;
-	line-height: 60px;
-	font-size: 35px;
+#pageLogo a {
+	color: #ff0101;
+	font-weight: 1000;
 }
 
-#pageLogo a {
-	color: red;
+#pageLogo {
+	width: 30%;
+	height: auto;
+	text-align: center;
+	line-height: 60px;
+	font-size: 3rem;
+	animation: neon 5s ease infinite;
+  -moz-animation: neon 5s ease infinite;
+  -webkit-animation: neon 5s ease infinite;
 }
+
+
+@keyframes neon {
+  0%,
+  100% {
+    text-shadow: 0 0 1vw #FA1C16, 0 0 3vw #FA1C16, 0 0 10vw #FA1C16, 0 0 10vw #FA1C16, 0 0 .4vw #ff0101, .5vw .5vw .1vw #806914;
+    /* color: #FED128; */
+  }
+}
+
+
 
 #navbarUtil {
 	display: flex;

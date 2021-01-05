@@ -1,4 +1,8 @@
 
+* {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
 #body {
 	
     display: flex;

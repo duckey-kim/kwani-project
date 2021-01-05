@@ -1,3 +1,7 @@
+* {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
 a {
 	text-decoration: none;
 	color: black;
@@ -31,6 +35,15 @@ input[type=text], textarea{
 #change-img{
 	margin: 15px;
 }
+
+.userNick {
+	width: 150px;
+	height: auto;
+	text-align: center;
+	font-size: 1.5rem;
+	color: black;
+}
+
 
 .play-btn-div{
 	text-align: right;
@@ -127,8 +140,6 @@ input[type=text], textarea{
 
 .table tr:hover {background-color:#f5f5f5;}
 
-.p-table{
-}
 
 .p-table td{
 	display: flex;
@@ -549,6 +560,7 @@ li:hover {
 .userImg {
 	width: 126px;
 	height: 126px;
+	border-radius: 50%;
 }
 
 .table .td8 {
@@ -679,7 +691,6 @@ li:hover {
 .mypage-header .header-item {
 	height: 126px;
 	font: black;
-	background-color: green;
 }
 
 .mypage-nav {

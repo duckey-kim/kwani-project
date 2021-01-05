@@ -220,14 +220,14 @@
 						<td><c:out value='${Playlists.NM }' /></td>
 						<%-- <td><c:out value='${Playlists.TRACK_CNT }' />곡</td> --%>
 						<td>
-							<button value='${Playlists.PLYLST_ID }' class="selectPlaylist">선택</button>
+							<button value='${Playlists.PLYLST_ID }' class="selectPlaylist btn">선택</button>
 						</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
 		<div id="modal-buttons">
-			<button type="button" id="modalCloseBtn">취소</button>
+			<button type="button" id="modalCloseBtn" class="btn">닫기</button>
 		</div>
 	</div>
 	<div class="modal-layer"></div>
