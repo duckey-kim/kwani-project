@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="/resources/css/noVideoHeader.css">
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/noVideoHeader.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/footer.css">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"
@@ -10,8 +11,10 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href='https://fonts.googleapis.com/css?family=Open Sans'
-	rel='stylesheet'>
+	
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet"
@@ -39,11 +42,10 @@
 							<i class="fas fa-user-circle"></i>
 						</div>
 						<div id="myDropdown" class="dropdown-content">
-							<a href="/mypage/overview" id="toMypageBtn"
-								style="display: none">My Page</a>
-								<a href="/user/login" id="loginBtn">Login</a>
-								<a href="/user/checkUserInfo">Settings</a>
-							<a href="/user/logoutAction" id="logoutBtn" style="display: none">Logout</a>
+							<a href="/mypage/overview" id="toMypageBtn" style="display: none">My
+								Page</a> <a href="/user/login" id="loginBtn">Login</a> <a
+								href="/user/checkUserInfo">Settings</a> <a
+								href="/user/logoutAction" id="logoutBtn" style="display: none">Logout</a>
 						</div>
 					</div>
 				</div>
