@@ -27,7 +27,7 @@
 					</div>
 
 					<div>
-						<div>
+						<div class="userNick">
 							<c:out value="${user.nick}" />
 						</div>
 					</div>
@@ -62,7 +62,7 @@
 							<form action="/mypage/library" method="post">
 								<div class="head">
 									<button class="button">Library</button>
-									<button class="more-track"> more track</button>
+									<button class="more-track"> more track >></button>
 								</div>
 							</form>
 						</div>
@@ -95,7 +95,7 @@
 							<form action="/mypage/like" method="post">
 								<div class="head">
 									<button class="button">Liked Artists</button>
-									<button class="more-track"> more artist </button>
+									<button class="more-track"> more artist >> </button>
 								</div>
 							</form>
 						</div>
@@ -120,7 +120,7 @@
 							<form action="/mypage/like" method="post">
 								<div class="head">
 									<button class="button">Like Albums</button>
-									<button class="more-track"> more album </button>
+									<button class="more-track"> more album >> </button>
 								</div>
 							</form>
 						</div>

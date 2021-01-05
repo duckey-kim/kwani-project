@@ -64,7 +64,7 @@ tr:nth-child(even) {
 .list-nm {
 	width: 380px;
 	font-family: 'Do Hyeon', sans-serif;
-	font-size: 16px;
+	font-size: 23px;
 	text-align: center;
 }
 </style>
