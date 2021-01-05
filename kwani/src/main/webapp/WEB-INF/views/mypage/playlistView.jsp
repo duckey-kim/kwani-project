@@ -105,10 +105,10 @@
 										<c:forEach items="${playlistDetail}" var="playlistDetail" varStatus="status">
 											<tr>
 												<td>${status.count}</td>
-												<td><img class="myImg" src="/resources/image/album/${playlistDetail.ALBUM_IMG}" /></td>
-												<td class="track-title"><c:out value="${playlistDetail.TRACK_TTL}" /></td>
-												<td class="artist-name"><c:out value="${playlistDetail.ANM}" /></td>
-												<td class="album-title"><c:out value="${playlistDetail.ALBUM_TTL}" /></td>
+												<td><a href="/detail/album?albumId=${playlistDetail.ALBUM_ID}"><img class="myImg" src="/resources/image/album/${playlistDetail.ALBUM_IMG}" /></a></td>
+												<td class="track-title"><a href="/detail/track?trackId=${playlistDetail.TRACK_ID}"><c:out value="${playlistDetail.TRACK_TTL}" /></a></td>
+												<td class="artist-name"><a href="/detail/artist?gropId=${playlistDetail.GROP_ID}"><c:out value="${playlistDetail.ANM}" /></a></td>
+												<td class="album-title"><a href="/detail/album?albumId=${playlistDetail.ALBUM_ID}"><c:out value="${playlistDetail.ALBUM_TTL}" /></a></td>
 												<td>
 													<input class="trackIdValue" type="hidden" value="${playlistDetail.TRACK_ID}" name="trackIdValue">
 													<button class="delBtn button7">Delete</button>
@@ -165,10 +165,10 @@
 										<tr class="tr-check">
 											<td><input class="checkbox" type="checkbox" id="checkbox" name="trackId" value="${track.TRACK_ID}">
 											</td>
-											<td><a href="#"><img src="/resources/image/album/${track.ALBUM_IMG}" class="myImg"></a></td>
-											<td><c:out value="${track.TRACK_TTL}" /></td>
-											<td><c:out value="${track.NM}" /></td>
-											<td><c:out value="${track.ALBUM_TTL}" /></td>
+											<td><a href="/detail/album?albumId=${track.ALBUM_ID}"><img src="/resources/image/album/${track.ALBUM_IMG}" class="myImg"></a></td>
+											<td><a class="track-title" href="/detail/track?trackId=${track.TRACK_ID}"><c:out value="${track.TRACK_TTL}" /></a></td>
+											<td><a class="artist-name" href="/detail/artist?gropId=${track.GROP_ID}"><c:out value="${track.NM}" /></a></td>
+											<td><a class="album-title" href="/detail/album?albumId=${track.ALBUM_ID}"><c:out value="${track.ALBUM_TTL}" /></a></td>
 											<td>
 												<button class="addSelectedOneTrack button7"> + </button>
 											</td>
@@ -390,7 +390,7 @@
 		$("#change-img").append(str);
 		
 		$("#change-plylstDtl").empty();
-		str = "<tr><th></th><th style='width:10%'></th><th style='width:10%'></th><th style='width:40%'></th><th></th><th></th><th style='width:10%'></th></tr>";
+		str = "<tr><th style='width:5%'></th><th style='width:5%'></th><th style='width:40%'></th><th></th><th></th><th style='width:10%'></th></tr>";
 		$("#change-plylstDtl").append(str);
 		
 		str = "";
@@ -424,7 +424,7 @@
 			str += '<td>'+ obj[i].TRACK_TTL+ '</td>';
 			str += '<td>'+ obj[i].NM+ '</td>';
 			str += '<td>'+ obj[i].ALBUM_TTL+ '</td>';
-			str += "<td><button class='addSelectedTrack button7'>+</button></td>";
+			str += "<td><button class='addSelectedOneTrack'>+</button></td>";
 			str += "</tr>";
 		})
 		$(".changetr").append(str);	
