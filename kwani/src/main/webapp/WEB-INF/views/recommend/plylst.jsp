@@ -132,12 +132,12 @@
                     <div class="plylstCovers">
                     	<div class="plylstExplain">
                     		<h4><c:out value="${plistName.rcmdPlylstExplain}"></c:out></h4><br><br>
-                    		<h5>2021.01.03 수정</h5>
+                    		<h5 style="color:grey">2021.01.03 수정</h5>
                     	</div>
                     	<div class="plylstBtns">
                     		<div class="shareBtn">
                     			 
-                    			<input class="btn" type="button" value="공유하기" onclick="copyURL()">
+                    			<input class="button" type="button" value="공유하기" onclick="copyURL()">
 								<textarea id="address" style="display: none"></textarea>
                     		</div>
                     		<div class="likeBtn">

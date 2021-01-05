@@ -18,8 +18,7 @@
 <link rel="stylesheet" href="https://icono-49d6.kxcdn.com/icono.min.css">
 <script src="/resources/js/jquery-3.5.1.js" /></script>
 
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/plylstDetail.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/plylstDetail.css">
 <style type="text/css">
 a:link {
 	color: black;
@@ -62,10 +61,6 @@ a:active {
 	width: 30%;
 }
 
-#plylstInfo {
-	height: 100px;
-	margin-top: 50px;
-}
 </style>
 
 </head>

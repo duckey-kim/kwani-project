@@ -35,21 +35,19 @@
             <div id="leftSideBar"></div>
             <div id="bodyContent">   
 
-                <div class="recmd_text">오늘의 추천 플레이리스트</div>  
+                <div class="recmd_text"><h2>오늘의 추천 플레이리스트</h2></div>  
             
                 <div class="todayRecmd">     
                   <c:forEach items="${allplist}" var="plist" varStatus="status" begin="0" end="3">               	                                                                                                                                                      
                     <div id="recmd">
                     <div id="rec_img">
-                    	<a href='/recommend/plylst?plylstId=${plist.rcmdPlylstId}'><img class="plylstImg" src="/resources/image/rcmdplylst/<c:out value="${plist.rcmdPlylstImg}" />"
-                    	stlye = "max-height:350px"></a>
-                     
+                    	<a href='/recommend/plylst?plylstId=${plist.rcmdPlylstId}'><img class="plylstImg" src="/resources/image/rcmdplylst/<c:out value="${plist.rcmdPlylstImg}" />"></a>                     
                     </div>
                     <div id="rec_txt">
                     	<%-- <c:out value="${plist.rcmdPlylstId}" />   --%>
-                    	<form action="/recommend/plylst" method="get">
+                    	<form action="/recommend/plylst" method="get" style="text-align:center">
                     		<input type="hidden" value="${plist.rcmdPlylstId}" name="plylstId">
-                    		<button type="submit">         	
+                    		<button class="button2" type="submit">         	
                     		<c:out value="${plist.rcmdPlylstNm}" />
                     	</button></form>
                     	</div>
