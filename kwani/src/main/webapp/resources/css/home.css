@@ -297,8 +297,8 @@
     .loginBtn::before {
     content: '';
     border-radius: 1000px;
-    min-width: calc(220px + 12px);
-    min-height: calc(60px + 12px);
+    min-width: calc(270px + 12px);
+    min-height: calc(70px + 12px);
     border: 6px solid #FED128;
     box-shadow: 0 0 60px #FED128;
     position: absolute;
@@ -358,10 +358,10 @@
     letter-spacing: 1.3px;
     font-weight: 700;
     background: black;
-    background: linear-gradient(90deg, #2356FF; 0%, #2356FF; 100%);
+    background: linear-gradient(90deg, #39ff14; 0%, #39ff14; 100%);
     border: none;
     border-radius: 1000px;
-    box-shadow: 12px 12px 24px #2356FF;
+    box-shadow: 12px 12px 24px #39ff14;
     transition: all 0.3s ease-in-out 0s;
     cursor: pointer;
     outline: none;
@@ -369,7 +369,7 @@
     padding: 10px;
     z-index: 5;
     
-    text-shadow: 0 0 3vw #2356FF;
+    text-shadow: 0 0 3vw #39ff14;
     animation: flux 2s linear infinite;
   -moz-animation: flux 2s linear infinite;
   -webkit-animation: flux 2s linear infinite;
@@ -380,10 +380,10 @@
 .welcomeBtn::before {
     content: '';
     border-radius: 1000px;
-    min-width: calc(220px + 12px);
-    min-height: calc(60px + 12px);
-    border: 6px solid #426DFB;
-    box-shadow: 0 0 60px #426DFB;
+    min-width: calc(270px + 12px);
+    min-height: calc(90px + 12px);
+    border: 6px solid #39ff14;
+    box-shadow: 0 0 60px #39ff14;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -393,7 +393,7 @@
   }
   
   .welcomeBtn:hover, .welcomeBtn:focus {
-    color: #426DFB;
+    color: #39ff14;
     transform: translateY(-6px);
   }
   
@@ -405,7 +405,7 @@
     content: '';
     width: 50px; height: 50px;
     border-radius: 100%;
-    border: 6px solid #426DFB;
+    border: 6px solid #39ff14;
     position: absolute;
     z-index: -1;
     top: 50%;
@@ -424,7 +424,7 @@
   0%,
   100% {
     text-shadow: 0 0 1vw #1041FF, 0 0 3vw #1041FF, 0 0 10vw #1041FF, 0 0 10vw #1041FF, 0 0 .4vw #8BFDFE, .5vw .5vw .1vw #147280;
-    color: #28D7FE;
+    color: #39ff14;
   }
   50% {
     text-shadow: 0 0 .5vw #082180, 0 0 1.5vw #082180, 0 0 5vw #082180, 0 0 5vw #082180, 0 0 .2vw #082180, .5vw .5vw .1vw #0A3940;
