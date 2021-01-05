@@ -74,7 +74,7 @@
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
-                <div class="searchRst"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
+                <div class="searchRst" style="font-size:18px"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
                 <div class="rstTap"> 
                     <a class="btnBasic" href="/search?searchTxt=${searchTxt}">통합검색</a>	
 
@@ -101,19 +101,20 @@
 
               
                 <div class="lyricsTxt">
-                	<p class="textInfo">가사</p>
+                	<h2>가사</h2>
                 </div>
                 <div class="lyricsContainer">
+                <hr class="one">
                 	<c:forEach items="${searchLyrics}" var="searchLyrics" >
-                	<div class="eachLyrics">
-                	
+                	<div class="lyrics-div">
+                	<div class="eachLyrics">  	
                 	<div class="lyricsTtl">
                 		<p>
                 			<a class="title1" href="/detail/track?trackId=<c:out value='${searchLyrics.trackId}'/>">
                 			<c:out value="${searchLyrics.trackTtl}" /></a>
                 		</p>
                 	</div><!-- lyricsTtl -->   
-                	<div class="lyricsContent">    
+                	<div class="lyricsContent">  
                 		<a href="/detail/track?trackId=<c:out value='${searchLyrics.trackId}'/>">     	
                 		<c:out value="${searchLyrics.trackLyrics}" /></a>
                 	</div><!-- lyricsContent --> 
@@ -131,7 +132,8 @@
                 		</div>
                 	</div><!-- lyricsAlbum --> 
                 	</div><!-- lyricsInfoContainer -->      	
-                	</div><!-- eachLyrics --> 
+                	</div><!-- eachLyrics -->
+                	</div>
                 	<hr class="one">
                 	</c:forEach>
                 	

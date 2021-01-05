@@ -20,6 +20,10 @@
 	flex-direction:column;
 }
 
+th{
+	background-color: #f5f5f5;
+}
+
 .btnEffect{
 	background-color: white;
 	color: #b90000;
@@ -71,8 +75,8 @@
     background-color: white;
 }
 .artistImg{
-	height: 200px;
-	width: 200px;
+	height: 220px;
+	width: 220px;
 }
 .rstText{
     width: 30%;
@@ -114,7 +118,8 @@
 	margin-right: 15px;
 }
 .albumImg{
-	width: 100%;
+	width: 220px;
+	height: 220px;
 	margin-bottom: 10px;
 }
 .albumArtist{
@@ -154,13 +159,7 @@
 hr.one{
 	border: 0.1px solid lightgray;
 }
-a{
-	text-decoration: none;
-	color: inherit; 
-}
-a:hover{
-	text-decoration: underline gray;
-}
+
 .textInfo{
     line-height: 50px;
 }
@@ -199,26 +198,27 @@ th, td{
 }
 
 .pull-right{
-	width: 400px;
+	width: 550px;
 	height: 66px;
 	text-align: center;	 
 	margin-top: 20px;
+	margin-bottom: 100px;
 }
 .pagination{
 	display: inline-block;
 }
 .pagination a {
-    color: black;
+    color: white;
     padding: 4px 8px;
     text-decoration: none;
-    font-size: 0.8em;
+    font-size: 1.6rem;    
 }
 .pagination a.active{
-	background-color: rgb(189, 12, 12);
+	background-color: rgb(156, 6, 6);
 	color: white;
 }
 .pagination button.active{
-	background-color: rgb(189, 12, 12);
+	background-color: rgb(156, 6, 6);
 	color: white;
 }
 .pagination a:hover:not(.active){
@@ -232,11 +232,13 @@ th, td{
 .pagination button{
 	background-color: white;
 }
-.paginate_button{
-	color: white;
-}
 button:hover, .btn:hover {
 	background-color: black;
 	color: red;
+}
+
+a{
+	text-decoration: none;
+	color: inherit;
 }
  

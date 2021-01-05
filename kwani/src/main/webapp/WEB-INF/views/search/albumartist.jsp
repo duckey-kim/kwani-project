@@ -74,7 +74,7 @@
             <div id="leftSideBar"></div>
             <div id="bodyContent">
             
-                <div class="searchRst"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
+                <div class="searchRst" style="font-size:18px"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
                 <div class="rstTap">
                    <a class="btnBasic" href="/search?searchTxt=${searchTxt}">통합검색</a>	
 
@@ -108,8 +108,7 @@
                 	
                 	<div class="albumImg">    
                 		<a href='/detail/album?albumId=${searchAlbum.albumId}'>     	
-                		<img src="/resources/image/album/<c:out value="${searchAlbum.albumImg}" />" 
-                		style="max-height:200px"></a>        	
+                		<img class="albumImg" src="/resources/image/album/<c:out value="${searchAlbum.albumImg}" />"></a>        	
                 	</div><!-- albumImg --> 
                 	<div class="albumArtist">
                 		<p>

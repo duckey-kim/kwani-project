@@ -167,7 +167,7 @@
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
-                <div class="searchRst"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
+                <div class="searchRst" style="font-size:18px"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
                 <div class="rstTap"> 
 
                     <a class="btnEffect" href="/search?searchTxt=${searchTxt}">통합검색</a>	
@@ -193,7 +193,8 @@
                     <a class="btnBasic" href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
                 </div><!-- rstTap -->
                 
-                <div class="artistRstTxt"><p class="textInfo">아티스트</p></div>
+                <div class="artistRstTxt"><h2>아티스트</h2>
+                </div>
                 <div class="artistRstContainer">
                 	<div class="artistTable">
                 	  <table>
@@ -226,8 +227,10 @@
                 	</div>
                 </div>              
                 
-                <div class="trackHeader"><p class="textInfo">아티스트명으로 곡 검색 결과</p>
-                <button class="plylstBtn" id="plusPlylstBtn" >담기</button></div>
+                <h2>아티스트명으로 곡 검색 결과</h2>
+                <div class="trackHeader">
+                <button class="plylstBtn" id="plusPlylstBtn" >담기</button>
+                </div>
                 <div class="trackTable">
                     <div id="plylstTable">
                         <table>
@@ -242,7 +245,7 @@
                             </tr>
                             <c:forEach items="${searchRst}" var="searchRst" varStatus="status" begin="0" end="7">
                         	<tr>
-                        	<th><input type="checkbox" name="checkRow"></th>
+                        	<td><input type="checkbox" name="checkRow"></td>
                         	<td>${status.index+1}</td>
                         	<td><a style="color:black; font-weight:bold;" href="/detail/track?trackId=<c:out value='${searchRst.trackId}'/>">
                         		<c:out value="${searchRst.trackTtl}" /></a></td>
@@ -264,8 +267,10 @@
                     </div> 
                 </div>
                 
-                <div class="trackHeader"><p class="textInfo">곡명으로 곡 검색 결과</p>
-                <button class="plylstBtn" id="plusPlylstBtn2">담기</button></div>
+                <h2>곡명으로 곡 검색 결과</h2>
+                <div class="trackHeader">
+                <button class="plylstBtn" id="plusPlylstBtn2">담기</button>
+                </div>
                 <div class="trackTable">
                     <div id="plylstTable2">
                         <table>
@@ -280,7 +285,7 @@
                             </tr>
                             <c:forEach items="${searchRstWithSong}" var="searchRstWithSong" varStatus="status" begin="0" end="7">
                         	<tr>
-                        	<th><input type="checkbox" name="checkRow2"></th>
+                        	<td><input type="checkbox" name="checkRow2"></td>
                         	<td>${status.index+1}</td>
                         	<td><a style="color:black; font-weight:bold;" href="/detail/track?trackId=<c:out value='${searchRstWithSong.trackId}'/>">    
                         		<c:out value="${searchRstWithSong.trackTtl}" /></a></td>
@@ -302,7 +307,8 @@
                     </div> 
                 </div>
                 
-                <div class="trackHeader"><p class="textInfo">앨범명으로 곡 검색 결과</p>
+                <h2>앨범명으로 곡 검색 결과</h2>
+                <div class="trackHeader">
                 <button class="plylstBtn" id="plusPlylstBtn3">담기</button></div>
                 <div class="trackTable">
                     <div id="plylstTable3">
@@ -318,7 +324,7 @@
                             </tr>
                             <c:forEach items="${searchRstWithAlbum}" var="searchRstWithAlbum" varStatus="status" begin="0" end="7">
                         	<tr>
-                        	<th><input type="checkbox" name="checkRow3"></th>
+                        	<td><input type="checkbox" name="checkRow3"></td>
                         	<td>${status.index+1}</td>
                         	<td><a style="color:black; font-weight:bold;" href="/detail/track?trackId=<c:out value='${searchRstWithAlbum.trackId}'/>">     
                         		<c:out value="${searchRstWithAlbum.trackTtl}" /></a></td>
@@ -342,7 +348,7 @@
                 
                 
                 
-                <div class="albumTxt"><p class="textInfo">앨범</p></div>
+                <div class="artistRstTxt"><h2>앨범</h2></div>
                 <div class="albumImgContainer">
                 	<c:forEach items="${searchAlbum}" var="searchAlbum" varStatus="status" begin="0" end="3">
                 	<div class="eachAlbum">
@@ -367,11 +373,11 @@
                 </div><!-- alblumImgContainer --> 
           
                 
-                <div class="lyricsTxt">
-                	<p class="textInfo">가사</p>
-                </div>
+               <div class="artistRstTxt"> <h2>가사</h2> </div>
                 <div class="lyricsContainer">
+                <hr class="one">
                 	<c:forEach items="${searchLyrics}" var="searchLyrics" varStatus="status" begin="0" end="2">
+                	<div class="lyrics-div">
                 	<div class="eachLyrics">
                 	
                 	<div class="lyricsTtl">
@@ -399,6 +405,7 @@
                 	</div><!-- lyricsAlbum --> 
                 	</div><!-- lyricsInfoContainer -->      	
                 	</div><!-- eachLyrics --> 
+                	</div>
                 	<hr class="one">
                 	</c:forEach>
                 </div><!-- lyricsContainer -->
