@@ -118,8 +118,8 @@
                         	<td class="td4"><c:out value="${searchArtist.type}" /></td>
                         	<td class="td5">
                         	<div class="heartParent">
-                        	<img class="defaultHeartImg"src="/resources/image/heart2.png">
-                        	<img class="redHeartImg" src="/resources/image/heart.png">
+                        	<img class="defaultHeartImg" name="${searchArtist.gropId}" src="/resources/image/heart2.png">
+                        	<img class="redHeartImg" name="${searchArtist.gropId}" src="/resources/image/heart.png">
                         	</div>
                         	</td>
                         	</tr>
