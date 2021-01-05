@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-
 <div id="footer">
 	<div class="footerContainer">
 		<div class="information">
@@ -36,25 +35,18 @@
 <!-- footer -->
 </div>
 <!-- main -->
-
-</body>
-
 <script type="text/javascript">
-
 	//세션값이 잘 넘어왔는지 확인한다.
 	console.log('${user}');
 	console.log('${list}');
 	console.log('${slideImg}');
 	console.log('${allPlist}');
-	
-
 
 	let logoutBtn = document.getElementById("logoutBtn");
 	let loginBtn = document.getElementById("loginBtn");
 	let welcomeBtn = document.getElementById("welcomeBtn");
 	let toMypageBtn = document.getElementById("toMypageBtn");
 	let joinBtn = document.getElementById("joinBtn");
-	
 
 	//세션이 있으면 loginBtn을 없애고, logoutBtn, toMypageBtn, welcomeBtn을 보이게 한다.
 
@@ -65,11 +57,7 @@
 		welcomeBtn.style.display = "block";
 		toMypageBtn.style.display = "block";
 	}
-	
-</script>
 
-
-<script type="text/javascript">
 	//서치바 설정-------------------------------------------------------------------------
 	var result2 = $("input[name=searchTxt]");
 
@@ -102,4 +90,5 @@
 		}
 	}
 </script>
+</body>
 </html>

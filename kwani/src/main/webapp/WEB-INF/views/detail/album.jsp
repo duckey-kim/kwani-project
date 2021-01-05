@@ -26,7 +26,7 @@
 			<div id="bodyContent">
 				<div class="emptybox"></div>
 				<div>
-					<h2>앨범 정보 ></h2>
+					<h2>앨범 정보</h2>
 				</div>
 
 				<div class="music-header">
@@ -100,7 +100,7 @@
 				<div class="emptybox"></div>
 				<div class="related">
 					<div class="subtitle">
-						<h2>앨범 수록곡 ></h2>
+						<h2>앨범 수록곡</h2>
 					</div>
 					<div class="subtitle" style="text-align:right">
 						<button class="btn" onclick="addPlayer()"> 듣기 </button>
@@ -263,7 +263,6 @@
 	<!-- 알림용 모달창 -->
 	<div id="noticeModal">
 		<div class="modal-content">
-			<h3>알림 ></h3>
 			<div id="notice" style="text-align:center"></div>
 		</div>
 		<div class="modal-layer"></div>
@@ -537,7 +536,7 @@
 		function noticeModal(notice){
 			$("#notice").html(notice);
 			$("#noticeModal").attr('style', 'display:block');
-			//setTimeout(function(){$("#noticeModal").attr('style', 'display:none')}, 800);
+			setTimeout(function(){$("#noticeModal").attr('style', 'display:none')}, 800);
 		}
 
 		function addLikeAlbum(albumId) {

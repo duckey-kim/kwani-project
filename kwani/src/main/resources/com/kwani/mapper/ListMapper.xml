@@ -447,10 +447,10 @@
 	<select id="recommendGenre" resultMap="selectMap">
 		select * from(
 		select DISTINCT
-		t.track_id,t.track_ttl,t.genre_cd,a.nm,a.grop_id
-		from t_tracks
-		t,t_artist_tracks at,t_artist a,t_code cd
+		t.track_id,t.track_ttl,t.genre_cd,a.nm,a.grop_id, al.album_img
+		from t_tracks t,t_artist_tracks at,t_artist a,t_code cd, t_album al
 		where at.track_id=t.track_id
+		and al.album_id=t.album_id
 		and at.grop_id=a.grop_id
 		and bitand(genre_cd,#{genreCd})=#{genreCd}
 		order by dbms_random.value
@@ -473,10 +473,10 @@
 	<select id="recommendType" resultMap="selectMap">
 		select * from(
 		select DISTINCT
-		t.track_id,t.track_ttl,t.genre_cd,a.nm,a.grop_id
-		from t_tracks
-		t,t_artist_tracks at,t_artist a,t_code cd
+		t.track_id,t.track_ttl,t.genre_cd,a.nm,a.grop_id, al.album_img
+		from t_tracks t,t_artist_tracks at,t_artist a,t_code cd, t_album al
 		where at.track_id=t.track_id
+		and al.album_id=t.album_id
 		and at.grop_id=a.grop_id
 		and bitand(mood_cd,#{typeCd})=#{typeCd}
 		order

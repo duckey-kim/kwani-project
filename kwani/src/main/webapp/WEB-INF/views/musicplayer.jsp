@@ -91,7 +91,9 @@ tr:nth-child(even) {
 		var player;
 		var index = sessionStorage.getItem("index");
 		var time = sessionStorage.getItem("time");
-
+		var user = '${user.getEmail()}';
+		var isSameUser = user==sessionStorage.getItem("email");
+		console.log("is same"+isSameUser);
 		let videoMap = ${
 			videoMap
 		};
@@ -127,7 +129,7 @@ tr:nth-child(even) {
 
 		// 4. The API will call this function when the video player is ready.
 		function onPlayerReady(event) {
-			if (time == null || index == null) {
+			if (!isSameUser||time == null || index == null) {
 				event.target.loadPlaylist(playList);
 				event.target.playVideo();
 			} else {
@@ -164,6 +166,7 @@ tr:nth-child(even) {
 			sessionStorage.setItem("index", index);
 			time = player.getCurrentTime();
 			sessionStorage.setItem("time", time);
+			sessionStorage.setItem("email",user);
 			console.log("MUSIC_PAYER LOADING");
 			console.log("index : " + index);
 			console.log("time :" + time);

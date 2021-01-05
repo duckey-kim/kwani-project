@@ -53,78 +53,70 @@
 	<div id="rightSideBar"></div>
 </div>
 <!-- body -->
-
-
-
-<!-- ----------------------------- JavaScript------------------------------- -->
-<!-- ---------------------------------------------------------------------------------------- -->
-
 <script type="text/javascript">
-	// 서버에서 해당 정보를 가져온다.
+//서버에서 해당 정보를 가져온다.
+let email = document.getElementById("email").value;
+let pwd = document.getElementById("password").value;
+
+/* 서버에 입력한 정보가 없을 때, null일 때 */
+console.log('${pwdMsg}');
+console.log('${sessionMsg}')
+console.log('${redirectMsg}')
+
+if ("${pwdMsg}" != "") {
+	alert("${pwdMsg}");
+}
+
+if ("${msg}" != "") {
+	alert("${msg}");
+}
+
+function checkInput() {
+
 	let email = document.getElementById("email").value;
 	let pwd = document.getElementById("password").value;
 
-	/* 서버에 입력한 정보가 없을 때, null일 때 */
-	console.log('${pwdMsg}');
-	console.log('${sessionMsg}')
-	console.log('${redirectMsg}')
-	
-	if ("${pwdMsg}" != "") {
-		alert("${pwdMsg}");
+	if (email.length == 0) {
+		alert('이메일을 입력하세요');
+		return false;
 	}
 
-
-	if ("${msg}" != "") {
-		alert("${msg}");
+	if (pwd.length == 0) {
+		alert('비밀번호를 입력하세요');
+		return false;
 	}
 
-	function checkInput() {
+	return true;
+}
 
-		let email = document.getElementById("email").value;
-		let pwd = document.getElementById("password").value;
+let checkUtilBtn = document.getElementById("update");
 
-		if (email.length == 0) {
-			alert('이메일을 입력하세요');
-			return false;
+$(document).ready(function() {
+	$(".update").click(function() {
+		$(this).css("background-color", "rgb(211, 2, 2)");
+		$(this).css("color", "whitesmoke");
+		if ($(this).css("color", "whitesmoke")) {
+			checkUtilBtn = "updateBtn";
+			console.log("checkUtilBtn : " + checkUtilBtn);
+			$(".hiddenValue").val(checkUtilBtn);
+			console.log("hiddenValue : " + $(".hiddenValue").val());
 		}
 
-		if (pwd.length == 0) {
-			alert('비밀번호를 입력하세요');
-			return false;
-		}
-
-		return true;
-	}
-
-	let checkUtilBtn = document.getElementById("update");
-
-	$(document).ready(function() {
-		$(".update").click(function() {
-			$(this).css("background-color", "rgb(211, 2, 2)");
-			$(this).css("color", "whitesmoke");
-			if ($(this).css("color", "whitesmoke")) {
-				checkUtilBtn = "updateBtn";
-				console.log("checkUtilBtn : " + checkUtilBtn);
-				$(".hiddenValue").val(checkUtilBtn);
-				console.log("hiddenValue : " + $(".hiddenValue").val());
-			}
-
-			$(".delete").css("background-color", "transparent");
-			$(".delete").css("color", "black");
-		});
-		$(".delete").click(function() {
-			$(this).css("background-color", "rgb(211, 2, 2)");
-			$(this).css("color", "whitesmoke");
-			if ($(this).css("color", "whitesmoke")) {
-				checkUtilBtn = "withdrawalBtn";
-				console.log("checkUtilBtn : " + checkUtilBtn);
-				$(".hiddenValue").val(checkUtilBtn);
-				console.log("hiddenValue : " + $(".hiddenValue").val());
-			}
-			$(".update").css("background-color", "transparent");
-			$(".update").css("color", "black");
-		});
+		$(".delete").css("background-color", "transparent");
+		$(".delete").css("color", "black");
 	});
+	$(".delete").click(function() {
+		$(this).css("background-color", "rgb(211, 2, 2)");
+		$(this).css("color", "whitesmoke");
+		if ($(this).css("color", "whitesmoke")) {
+			checkUtilBtn = "withdrawalBtn";
+			console.log("checkUtilBtn : " + checkUtilBtn);
+			$(".hiddenValue").val(checkUtilBtn);
+			console.log("hiddenValue : " + $(".hiddenValue").val());
+		}
+		$(".update").css("background-color", "transparent");
+		$(".update").css("color", "black");
+	});
+});
 </script>
-
 <%@include file="../includes/footer.jsp"%>

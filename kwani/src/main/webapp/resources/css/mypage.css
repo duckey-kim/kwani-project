@@ -152,20 +152,20 @@ li:hover {
 }
 
 .myArtistImg{
-	width: 230px;
-	height: 230px;
+	width: 220px;
+	height: 220px;
 	object-fit: cover;
 }
 
-.artist-td {
+.artist-td, #artist-td {
 	position: relative;
 }
 
 .img-background{
 	background-color: black;
 	position: relative;
-	width: 230px;
-	height: 230px;
+	width: 220px;
+	height: 220px;
 	overflow: hidden;
 	margin: 0 15px 0 15px;
 	cursor: pointer;
@@ -186,15 +186,15 @@ li:hover {
 	text-align: center;
 }
 
-.artist-td:hover .myArtistImg {
+.artist-td:hover .myArtistImg, #artist-td:hover .myArtistImg {
 	opacity: 0.3;
 }
 
-.artist-td:hover .play-png {
+.artist-td:hover .play-png, #artist-td:hover .play-png {
 	opacity: 0.95;
 }
 
-.artist-td:hover .middle {
+.artist-td:hover .middle, .artist-td:hover .middle {
 	opacity: 1;
 }
 
@@ -294,8 +294,8 @@ li:hover {
 
 .img-container{
 	position: relative;
-	width: 240px;
-	height: 240px;
+	width: 220px;
+	height: 220px;
 }
 
 .img-container .myPlaylistImg{
@@ -342,14 +342,15 @@ li:hover {
 	color: #b90000;
 }
 
-.item-div {
+.item-div, #item-div{
 	width: 90%;
 	margin: 0 5% 0 5%;
 	min-height: 150px;
 	position: relative;
 	display: flex;
-	justify-content: left;
 	overflow: hidden;
+	justify-content: left;
+	overflow-x: scroll;	
 }
 
 .item-div-basic {
@@ -366,21 +367,13 @@ li:hover {
 	margin-bottom: 5%;
 }
 
-.item-div::-webkit-scrollbar {
-    display: none;
-}
-
-.item-div-basic::-webkit-scrollbar {
-    display: none;
-}
-
-.item-div .table {
-	width: 230px;
+.item-div .table, #item-div .table {
+	width: 220px;
 	margin: 0 1vw 0 1vw;
 }
 
 .item-div-basic .table {
-	width: 230px;
+	width: 220px;
 	margin: 0 1vw 0 1vw;
 }
 
@@ -446,7 +439,7 @@ li:hover {
 	display: inline-block;
 	font-size: 13px;
 	cursor: pointer;
-	width: 230px;
+	width: 220px;
 	height: 40px;
 	text-overflow: ellipsis;
 	overflow: hidden; 
@@ -470,7 +463,7 @@ li:hover {
 	cursor: pointer;
 	width: auto;
 	padding: 10px 20px;
-	width: 240px;
+	width: 220px;
 	overflow: hidden; 
   	text-overflow: ellipsis;
  	white-space: nowrap; 
@@ -529,7 +522,7 @@ li:hover {
 
 .etc-background{
 	width: 100%;
-	max-height: 230px;
+	max-height: 220px;
 	background-color: black;
 	position:relative;
 	display:flex;
@@ -639,14 +632,14 @@ li:hover {
 }
 
 .myPlaylistImg{
-	width: 240px;
-	height: 240px;
+	width: 220px;
+	height: 220px;
 }
 
 .play-background{
 	background-color: black;
-	width: 240px;
-	height: 240px;
+	width: 220px;
+	height: 220px;
 	overflow: hidden;
 	cursor: pointer;
 }
@@ -669,8 +662,8 @@ li:hover {
 }
 
 .myAlbumImg {
-	width: 230px;
-	height: 230px;
+	width: 220px;
+	height: 220px;
 }
 
 .mypage-header {

@@ -1,16 +1,16 @@
 console.log("module");
 
-let mypageService = (function(){
-	
-	function deleteTrackList(trackList, plylstId, callback, error){
-		
+let mypageService = (function() {
+
+	function deleteTrackList(trackList, plylstId, callback, error) {
+
 		console.log("delete TrackList");
-		
+
 		let dataAll = {
 			"trackList" : trackList,
 			"plylstId" : plylstId
 		}
-		
+
 		$.ajax({
 			type : "post",
 			url : "/mypage/playlist/deletetrack",
@@ -18,7 +18,7 @@ let mypageService = (function(){
 			data : dataAll,
 			dataType : 'json',
 			success : function(result, status, xhr) {
-				if(callback){
+				if (callback) {
 					callback(result);
 				}
 			},
@@ -28,7 +28,7 @@ let mypageService = (function(){
 			}
 		});
 	}
-	
+
 	function addTrackList(trackList, plylstId, callback, error) {
 
 		console.log("add TrackList");
@@ -45,7 +45,7 @@ let mypageService = (function(){
 			data : dataAll,
 			dataType : 'json',
 			success : function(result, status, xhr) {
-				if(callback){
+				if (callback) {
 					callback(result);
 				}
 			},
@@ -57,7 +57,7 @@ let mypageService = (function(){
 		});
 
 	}
-	
+
 	function getLikedList(callback, error) {
 
 		$.ajax({
@@ -76,7 +76,7 @@ let mypageService = (function(){
 			}
 		});
 	}
-	
+
 	function getLibraryList(callback, error) {
 
 		$.ajax({
@@ -95,12 +95,12 @@ let mypageService = (function(){
 			}
 		});
 	}
-	
-	return{
+
+	return {
 		deleteTrackList : deleteTrackList,
 		addTrackList : addTrackList,
 		getLikedList : getLikedList,
 		getLibraryList : getLibraryList
 	};
-	
+
 })();

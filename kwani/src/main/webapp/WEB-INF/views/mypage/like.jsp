@@ -11,7 +11,6 @@
 <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script defer src="/resources/js/indexNoVideo.js"></script>
 
 <link rel="stylesheet" href="/resources/css/mypage.css" />
 </head>

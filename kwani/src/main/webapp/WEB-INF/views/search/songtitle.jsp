@@ -16,8 +16,25 @@
     <link rel="stylesheet" type = "text/css" href="/resources/css/searchSongTitle.css">
     <style>
 .dropbtn2 {
-  color: black;
-  font-size: 16px;
+  	font-size: 16px;
+  	background-color: white;
+	color: #b90000;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-weight: bold;
+	cursor: pointer;
+	border-bottom: 4px solid #b90000;
+}
+
+.dropbtn3 {
+  	color: black;
+  	font-size: 16px;
+  	padding: 10px 20px;
+	text-align: center;
+	cursor: pointer;
+	border-bottom: 4px solid #fff;
 }
 
 .dropdown2 {
@@ -145,11 +162,11 @@
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
-                <div class="searchRst"><p><c:out value="${searchTxt}"/>에 대한 검색 결과</p></div>
+                <div class="searchRst"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
                 <div class="rstTap"> 
-                     <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
+                     <a class="btnBasic" href="/search?searchTxt=${searchTxt}">통합검색</a>	
 
-                    <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
+                    <a class="btnBasic" href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
                   
                      	<div class="dropdown2">
   							<span class="dropbtn2">곡</span>
@@ -160,14 +177,14 @@
 						</div>
                                	                    		
                      	<div class="dropdown2">
-  							<span class="dropbtn2">앨범</span>
+  							<span class="dropbtn3">앨범</span>
   								<div class="dropdown-content2">
  									<a href="/search/albumartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/albumtitle?searchTxt=${searchTxt}">앨범명으로</a>
  								</div>
 						</div>                    	
                   
-                    <a href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
+                    <a class="btnBasic" href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
                 </div>               
      
 			
