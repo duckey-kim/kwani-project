@@ -17,9 +17,27 @@
     
 <style>
 .dropbtn2 {
-  color: black;
-  font-size: 16px;
+  	font-size: 16px;
+  	background-color: white;
+	color: #b90000;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-weight: bold;
+	cursor: pointer;
+	border-bottom: 4px solid #b90000;
 }
+
+.dropbtn3 {
+  	color: black;
+  	font-size: 16px;
+  	padding: 10px 20px;
+	text-align: center;
+	cursor: pointer;
+	border-bottom: 4px solid #fff;
+}
+
 
 .dropdown2 {
   position: relative;
@@ -56,14 +74,14 @@
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
-                <div class="searchRst"><p><c:out value="${searchTxt}"/>에 대한 검색 결과</p></div>
+                <div class="searchRst"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
                 <div class="rstTap"> 
-                    <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
+                    <a class="btnBasic" href="/search?searchTxt=${searchTxt}">통합검색</a>	
 
-                    <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
+                    <a class="btnBasic" href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
                   
                      	<div class="dropdown2">
-  							<span class="dropbtn2">곡</span>
+  							<span class="dropbtn3">곡</span>
   								<div class="dropdown-content2">
  									<a href="/search/songartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/songtitle?searchTxt=${searchTxt}">곡명으로</a>
@@ -71,25 +89,27 @@
 						</div>
                                	                    		
                      	<div class="dropdown2">
-  							<span class="dropbtn2">앨범</span>
+  							<span class="dropbtn3">앨범</span>
   								<div class="dropdown-content2">
  									<a href="/search/albumartist?searchTxt=${searchTxt}">아티스트명으로</a>									 
  									<a href="/search/albumtitle?searchTxt=${searchTxt}">앨범명으로</a>
  								</div>
 						</div>                    	
                   
-                    <a href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
+                    <a class="btnEffect" href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
                 </div>
 
               
-                <div class="lyricsTxt"><p class="textInfo">가사</p></div>
+                <div class="lyricsTxt">
+                	<p class="textInfo">가사</p>
+                </div>
                 <div class="lyricsContainer">
                 	<c:forEach items="${searchLyrics}" var="searchLyrics" >
                 	<div class="eachLyrics">
                 	
                 	<div class="lyricsTtl">
                 		<p>
-                			<a href="/detail/track?trackId=<c:out value='${searchLyrics.trackId}'/>">
+                			<a class="title1" href="/detail/track?trackId=<c:out value='${searchLyrics.trackId}'/>">
                 			<c:out value="${searchLyrics.trackTtl}" /></a>
                 		</p>
                 	</div><!-- lyricsTtl -->   
@@ -99,16 +119,16 @@
                 	</div><!-- lyricsContent --> 
                 	<div class="lyricsInfoContainer">
                 	<div class="lyricsArtist">
-                		<h6>
+                		<div class="artist1">
                 			<a style="color:grey" href="/detail/artist?gropId=<c:out value='${searchLyrics.gropId}'/>">
                 			<c:out value="${searchLyrics.nm}" /></a>
-                		</h6>
+                		</div>
                 	</div><!-- lyricsArtist -->  
                 	<div class="lyricsAlbum">
-                		<h6>
+                		<div class="album1">
                 			<a style="color:grey" href="/detail/album?albumId=<c:out value='${searchLyrics.albumId}'/>">
                 			<c:out value="${searchLyrics.albumTtl}" /></a>
-                		</h6>
+                		</div>
                 	</div><!-- lyricsAlbum --> 
                 	</div><!-- lyricsInfoContainer -->      	
                 	</div><!-- eachLyrics --> 

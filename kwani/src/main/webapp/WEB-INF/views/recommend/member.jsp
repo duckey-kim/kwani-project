@@ -76,7 +76,7 @@ a:active {
 	<div id="leftSideBar"></div>
 	<div id="bodyContent">
 		<div id="plylstInfo">
-			<h1>${user.nick}을위한장르 추천</h1>
+			<h1>${user.nick}님을 위한 장르 추천</h1>
 		</div>
 		<!--plylstInfo-->
 
@@ -94,24 +94,33 @@ a:active {
 					<th class="th0"><input type="checkbox" name="checkAll-one"
 						onclick='checkAll("one")' class="checkAll-one"></th>
 					<th class="th1">번호</th>
-					<th class="th2">가수</th>
-					<th class="th3">제목</th>
+					<th class="th5"></th>
+					<th class="th2">제목</th>
+					<th class="th3">가수</th>
 					<th class="th4">듣기</th>
+					<th class="th4">좋아요</th>
 				</tr>
 
 				<c:forEach items="${genreList}" var="genreList" varStatus="status"
 					begin="0" end="19">
 					<tr>
-						<th><input type="checkbox" name="checkRow-one"
-							value="${genreList.TRACK_ID }"></th>
-						<td class="num">${status.index+1}</td>
-						<td><a href="/detail/artist?gropId=${genreList.GROP_ID }"><c:out
-									value="${genreList.NM}" /></a></td>
-						<td><a href="/detail/track?trackId=${genreList.TRACK_ID }"><c:out
+						<td><input type="checkbox" name="checkRow-one"
+							value="${genreList.TRACK_ID }"></td>
+						<td class="num" style="color:grey">${status.index+1}</td>
+						<td><div class="artistSmallImg" style="background-image:url(/resources/image/album/<c:out value='${genreList.ALBUM_IMG}'/>);"></div></td>
+						<td style="color:black; font-weight:bold;"><a href="/detail/track?trackId=${genreList.TRACK_ID}"><c:out
 									value="${genreList.TRACK_TTL}" /></a></td>
-						<td class="btnParent"><img class="playBtn"
+						<td><a href="/detail/artist?gropId=${genreList.GROP_ID }" style="color:grey"><c:out
+									value="${genreList.NM}" /></a></td>
+						<td class="btnParent th4"><img class="playBtn"
 							onclick='popupPlayer("/player/track?trackId=${genreList.TRACK_ID}")'
 							src="/resources/image/play-button.png"></td>
+						<td>
+						<div class="heartParent">
+                        <img class="defaultHeartImg" name="${genreList.TRACK_ID}" src="/resources/image/heart2.png" onclick="sessionCheck()">
+                        <img class="redHeartImg" name="${genreList.TRACK_ID}" src="/resources/image/heart.png">
+                        </div>						
+						</td>
 
 					</tr>
 				</c:forEach>
@@ -121,7 +130,7 @@ a:active {
 
 
 		<div id="plylstInfo">
-			<h1>${user.nick}을위한테마 추천</h1>
+			<h1>${user.nick}님을 위한 테마 추천</h1>
 		</div>
 
 		<div id="tracks">
@@ -138,26 +147,33 @@ a:active {
 					<th class="th0"><input type="checkbox" name="checkAll-two"
 						onclick='checkAll("two")' class="checkAll-two"></th>
 					<th class="th1">번호</th>
-					<th class="th2">가수</th>
-					<th class="th3">제목</th>
+					<th class="th5"></th>
+					<th class="th2">제목</th>
+					<th class="th3">가수</th>
 					<th class="th4">듣기</th>
-
+					<th class="th4">좋아요</th>
 				</tr>
 
 				<c:forEach items="${typeList}" var="typeList" varStatus="status"
 					begin="0" end="19">
 					<tr>
-						<th><input type="checkbox" name="checkRow-two"
-							value="${typeList.TRACK_ID }"></th>
-						<td class="num">${status.index+1}</td>
-						<td><a href="/detail/artist?gropId=${typeList.GROP_ID}"><c:out
-									value="${typeList.NM}" /></a></td>
-						<td><a href="/detail/track?trackId=${typeList.TRACK_ID }"><c:out
+						<td><input type="checkbox" name="checkRow-two"
+							value="${typeList.TRACK_ID }"></td>
+						<td class="num" style="color:grey">${status.index+1}</td>
+						<td><div class="artistSmallImg" style="background-image:url(/resources/image/album/<c:out value='${typeList.ALBUM_IMG}'/>);"></div></td>
+						<td style="color:black; font-weight:bold;"><a href="/detail/track?trackId=${typeList.TRACK_ID }"><c:out
 									value="${typeList.TRACK_TTL}" /></a></td>
+						<td><a href="/detail/artist?gropId=${typeList.GROP_ID}" style="color:grey"><c:out
+									value="${typeList.NM}" /></a></td>
 						<td class="btnParent"><img class="playBtn"
 							onclick='popupPlayer("/player/track?trackId=${typeList.TRACK_ID}")'
 							src="/resources/image/play-button.png"></td>
-
+						<td>
+						<div class="heartParent">
+                        <img class="defaultHeartImg" name="${typeist.TRACK_ID}" src="/resources/image/heart2.png" onclick="sessionCheck()">
+                        <img class="redHeartImg" name="${typeList.TRACK_ID}" src="/resources/image/heart.png">
+                        </div>						
+						</td>
 					</tr>
 				</c:forEach>
 
@@ -368,6 +384,41 @@ a:active {
 					}
 				});
 			}
+			
+			//좋아요 클릭하면 하트 색깔 바뀌게 설정(클릭한 곡의 track_id 값을 설정해놓음)--------------------------------------------------------                    
+            $(document).ready(function(){        
+            	
+            	 // 처음엔 모든 수록곡의 빨간하트를 숨기고 빈하트만 보여준다.
+                $(".redHeartImg").hide();
+                
+                // 좋아요한 노래에 해당하는 노래들은 빈하트를 숨기고 빨간 하트를 보여준다.(track_id 값을 설정해놓음)
+                <c:forEach items="${getLikedTrack}" var="getLikedTrack">
+                   $("img[name='${getLikedTrack.trackId}'][class=defaultHeartImg]").hide();
+                   $("img[name='${getLikedTrack.trackId}'][class=redHeartImg]").show();
+                </c:forEach>
+                
+                //빈 하트 클릭할 때
+                $(".defaultHeartImg").on("click", function(){
+                	sessionCheck();
+                   
+                   let index = $(".defaultHeartImg").index(this);   //누른 하트의 인덱스 저장
+                   
+                   $(".defaultHeartImg:eq(" + index + ")").hide();   //누른 하트를 숨기기
+                   $(".redHeartImg:eq(" + index + ")").show();   //누른 곳에 빨간 하트를 표시
+                   console.log("좋아요할 노래아이디 : " + $(".defaultHeartImg:eq(" + index + ")").attr("name"));
+                });
+                
+                //빨간 하트 클릭할때
+                $(".redHeartImg").on("click", function(){
+                   
+                   let index = $(".redHeartImg").index(this);      //누른 하트의 인덱스 저장
+                   
+                   $(".redHeartImg:eq(" + index + ")").hide();   //누른 하트를 숨기기
+                   $(".defaultHeartImg:eq(" + index + ")").show();   //누른 곳에 빈 하트를 표시
+                   console.log("좋아요 취소할 노래아이디 : " + $(".redHeartImg:eq(" + index + ")").attr("name"));
+                });
+			})
+            
 		</script>
 
 

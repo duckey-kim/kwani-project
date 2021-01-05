@@ -128,12 +128,14 @@ public class SearchController {
 	@GetMapping("/albumartist")
 	public void searchAlbumArtist(@ModelAttribute("searchTxt")String searchTxt, Model model, Criteria cri, HttpSession session) {
 		
-		log.info("searchAlbumArtist" + cri);
+		System.out.println("searchAlbumArtist" + cri);
 		
 		List<PListVO> searchAlbumList = plservice.getSearchAlbumWithPaging1(cri, searchTxt);
+		System.out.println(searchAlbumList);
 		model.addAttribute("searchAlbum", searchAlbumList);
 		
 		int total = plservice.getTotalCountAlbumArtist(searchTxt);
+		System.out.println("total : "+total);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 		model.addAttribute("sessionName", session.getAttribute("user"));
