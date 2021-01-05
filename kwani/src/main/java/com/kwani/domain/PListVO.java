@@ -26,6 +26,7 @@ public class PListVO {
 	private String sex;
 	private Integer albumId;
 	private Integer gropId;
+	private Integer soloId;
 	private String albumImg;
 	private String gropImg;
 	private String trackLyrics;
