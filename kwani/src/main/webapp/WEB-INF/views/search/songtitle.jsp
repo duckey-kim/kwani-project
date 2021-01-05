@@ -34,7 +34,6 @@
   	padding: 10px 20px;
 	text-align: center;
 	cursor: pointer;
-	border-bottom: 4px solid #fff;
 }
 
 .dropdown2 {
@@ -162,7 +161,7 @@
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
-                <div class="searchRst"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
+                <div class="searchRst" style="font-size:18px"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
                 <div class="rstTap"> 
                      <a class="btnBasic" href="/search?searchTxt=${searchTxt}">통합검색</a>	
 
@@ -188,27 +187,31 @@
                 </div>               
      
 			
-                <!-- 곡명으로 searchTxt를 검색했을 때의 곡 목록  -->                
-                <div class="trackHeader"><p class="textInfo">곡명으로 검색</p><button class="plylstBtn" id="plusPlylstBtn">담기</button></div>
+                <!-- 곡명으로 searchTxt를 검색했을 때의 곡 목록  -->  
+                <h2>곡명으로 검색</h2>              
+                <div class="trackHeader"><button class="plylstBtn" id="plusPlylstBtn">담기</button></div>
                 <div class="trackTable">
                     <div id="plylstTable">
                         <table>
                             <tr>
                             <th class="th0"><input type="checkbox" name="checkAll" class="checkAll"></th>
-                            <th class="th1">번호</th>
-                        	<th class="th3">제목</th>
+                            <th class="th4">번호</th>
+                        	<th>제목</th>
                         	<th class="th2">가수</th>
+                        	<th>앨범</th>
                         	<th class="th4">듣기</th>
                         	<th class="th4">좋아요</th>
                             </tr>
                             <c:forEach items="${searchSong2}" var="searchSong2" varStatus="status" begin="0" end="29">
                         	<tr>
-                        	<th><input type="checkbox" name="checkRow"></th>
+                        	<td><input type="checkbox" name="checkRow"></td>
                         	<td>${status.index+1}</td>
                         	<td><a style="color:black; font-weight:bold;" href="/detail/track?trackId=<c:out value='${searchSong2.trackId}'/>">      
                         		<c:out value="${searchSong2.trackTtl}" /></a></td>
                         	<td><a style="color:grey" href="/detail/artist?gropId=<c:out value='${searchSong2.gropId}'/>">      
                         		<c:out value="${searchSong2.nm}" /></a></td>
+                        	<td><a style="color:grey" href="/detail/album?albumId=<c:out value='${searchRst.albumId}'/>">      
+                        		<c:out value="${searchSong2.albumTtl}" /></a></td>	
                         	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
                         		onclick='popupPlayer("/player/track?trackId=${searchSong2.trackId}")'></td>
                         	<td>

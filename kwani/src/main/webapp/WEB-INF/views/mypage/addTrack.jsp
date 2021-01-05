@@ -25,7 +25,7 @@
 					</div>
 
 					<div>
-						<div>
+						<div class="userNick">
 							<c:out value="${user.nick}" />
 						</div>
 					</div>

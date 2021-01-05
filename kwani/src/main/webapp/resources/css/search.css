@@ -2,9 +2,6 @@
 * {
 	font-family: 'Nanum Gothic', sans-serif;
 }
-p {
-	font-size: 20px;
-}
 
 #body {
 	
@@ -42,14 +39,7 @@ p {
 	border-bottom: 4px solid #fff;
 }
 
-.artist1, .album1 {
-	width: 20rem;
-	height: auto;
-	margin-top: 10px;
-}
-
 .artist1 a, .album1 a {
-	font-size: 1.3rem;
 	cursor: pointer;
 }
 
@@ -58,14 +48,16 @@ p {
 }
 
 hr.one{
-	border: 0.1px solid lightgray;
-	margin-top: 4rem;
-	margin-bottom: 1.5rem;
+	border: 0.1px solid #cdcbcf;
 }
 
 .title1 {
 	margin-top: 1rem;
-	font-size: 1.3rem;;
+	font-size: 17px;
+}
+
+.lyrics-div{
+	height: 145px;
 }
 
 .plylstBtn{
@@ -124,13 +116,11 @@ hr.one{
     width: 100%;
     height: 50px;
     background-color: white;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1.8rem;
+    text-align: right;
 }
 .trackTable{
     width: 100%;
-    height: 300px;
+    min-height: 300px;
     background-color: white;
     margin-bottom: 50px;
 }
@@ -178,7 +168,6 @@ hr.one{
 }
 .albumArtist{
 	width: 100%;
-	height: 30px;
 	margin-top: 10px;
 }
 .albumTtl{
@@ -209,9 +198,6 @@ hr.one{
 	display:inline-block;
 }
 
-hr.one{
-	border: 0.1px solid lightgray;
-}
 a{
 	text-decoration: none;
 	color: inherit;
@@ -227,7 +213,7 @@ a{
 	width: 20%;
 }
 .td4{
-	width: 5%;
+	width: 7%;
 }
 
 a{
@@ -250,7 +236,8 @@ a{
     margin-bottom: 100px;
 }
 .eachLyrics{
-	width: 100%;
+	width: 98%;
+	margin:1% 0 0 1%;
 	height: 100px;
 	background-color: white;
 }
@@ -270,23 +257,21 @@ a{
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
 	text-overflow: ellipsis;
-	font-size: 1.1rem;
+	font-size: 16px;
 	margin-bottom: 1rem;
 }
-.lyricsInfoContainer{
+.lyricsInfoContainer a{
 	width: 100%;
-	height: 25px;
+	font-size: 16px;
+	color: grey;
 }
 
 .lyricsArtist{
 	width: 20%;
-	height: 25px;
 	display: inline-block;
-	margin-bottom: 1rem;
 }
 .lyricsAlbum{
 	width: 50%;
-	height: 25px;
 	display: inline-block;
 }
 
@@ -306,9 +291,13 @@ table{
     width: 100%;
 }
 th, td{
-    padding: 5px;
+    padding: 8px;
     text-align: center;
     border-bottom: 1px solid #ddd;
+}
+
+th{
+	background-color: #f5f5f5;
 }
 
 .th0{
@@ -327,7 +316,7 @@ th, td{
     color: rgb(141, 138, 138);
 }
 .th4{
-    width: 5%;
+    width: 7%;
     text-align: center;
     color: rgb(141, 138, 138);
 }

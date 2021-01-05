@@ -35,7 +35,6 @@
   	padding: 10px 20px;
 	text-align: center;
 	cursor: pointer;
-	border-bottom: 4px solid #fff;
 }
 
 .dropdown2 {
@@ -74,7 +73,7 @@
             <div id="leftSideBar"></div>
             <div id="bodyContent">
             
-                <div class="searchRst"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
+                <div class="searchRst" style="font-size:18px"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
                 <div class="rstTap">
                    <a class="btnBasic" href="/search?searchTxt=${searchTxt}">통합검색</a>	
 
@@ -101,15 +100,14 @@
                 
                 
                 <div id="tableContainer1">
-                <div class="albumTxt"><p class="textInfo">아티스트명으로 검색</p></div>
+                <div class="albumTxt"><h2>아티스트명으로 검색</h2></div>
                 <div class="albumImgContainer">
                 	<c:forEach items="${searchAlbum}" var="searchAlbum" varStatus="status" begin="0" end="4">
                 	<div class="eachAlbum">
                 	
                 	<div class="albumImg">    
                 		<a href='/detail/album?albumId=${searchAlbum.albumId}'>     	
-                		<img src="/resources/image/album/<c:out value="${searchAlbum.albumImg}" />" 
-                		style="max-height:200px"></a>        	
+                		<img class="albumImg" src="/resources/image/album/<c:out value="${searchAlbum.albumImg}" />"></a>        	
                 	</div><!-- albumImg --> 
                 	<div class="albumArtist">
                 		<p>

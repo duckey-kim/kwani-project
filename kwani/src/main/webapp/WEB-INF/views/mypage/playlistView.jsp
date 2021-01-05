@@ -27,7 +27,7 @@
 					</div>
 
 					<div>
-						<div>
+						<div class="userNick">
 							<c:out value="${user.nick}" />
 						</div>
 					</div>
@@ -424,7 +424,7 @@
 			str += '<td>'+ obj[i].TRACK_TTL+ '</td>';
 			str += '<td>'+ obj[i].NM+ '</td>';
 			str += '<td>'+ obj[i].ALBUM_TTL+ '</td>';
-			str += "<td><button class='addSelectedOneTrack'>+</button></td>";
+			str += "<td><button class='addSelectedOneTrack button7'>+</button></td>";
 			str += "</tr>";
 		})
 		$(".changetr").append(str);	
