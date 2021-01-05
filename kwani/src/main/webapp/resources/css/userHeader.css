@@ -119,7 +119,16 @@ h2, h3 {
 }
 
 #pageLogo a {
-	color: red;
+	color: #ff0101;
+	font-family: 'Archivo Black', sans-serif;
+}
+
+#pageLogo {
+	width: 30%;
+	height: auto;
+	text-align: center;
+	line-height: 60px;
+	font-size: 3rem;
 }
 
 #navbarUtil {
