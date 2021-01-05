@@ -67,7 +67,7 @@
 								<div class="playlist-div">
 								<form action="/mypage/playlist/delete" method="post">
 									<input type="hidden" value="${playlistVO.plylstId}" name="plylstId">
-									<button class="plylst-del button6"><b>DELETE</b></button>
+									<button class="plylst-del button6"><b>PLAYLIST DELETE</b></button>
 									<div id="change-img"><img class="myArtistImg" src="/resources/image/album/${playlistVO.plylstImg}">
 									</div>
 								</form>
@@ -75,7 +75,7 @@
 								
 									<input type="hidden" value="${playlistVO.plylstId}"
 										name="plylstId">
-									<button id="plylst-save" class="button6"><b>SAVE AND EXIT</b></button>
+									<button id="plylst-save" class="button6"><b>SAVE AND EXIST</b></button>
 									<div class="playlist-title">
 									<label for="title"><b>Playlist Title</b></label><br> <input
 										type="text" id="change-title" name="nm"
@@ -87,7 +87,7 @@
 								</form>
 								</div>
 
-								<button id="addBtn" class="button5"><b>Add Track</b></button>
+								<button id="addBtn" class="button5"><b>ADD TRACK</b></button>
 
 								<div class="item-body">
 									<table id="change-plylstDtl" class="table">
@@ -98,20 +98,20 @@
 											<th style="width:40%"></th>
 											<th style="width:10%"></th>
 											<th></th>
-											<th style="width:5%"></th>
+											<th style="width:10%"></th>
 										</tr>
 										</thead>
 										<tbody>
 										<c:forEach items="${playlistDetail}" var="playlistDetail" varStatus="status">
 											<tr>
 												<td>${status.count}</td>
-												<td><img class="myImg" src="/resources/image/album/${playlistDetail.ALBUM_IMG}" /></td>
-												<td><c:out value="${playlistDetail.TRACK_TTL}" /></td>
-												<td><c:out value="${playlistDetail.ANM}" /></td>
-												<td><c:out value="${playlistDetail.ALBUM_TTL}" /></td>
+												<td><a href="/detail/album?albumId=${playlistDetail.ALBUM_ID}"><img class="myImg" src="/resources/image/album/${playlistDetail.ALBUM_IMG}" /></a></td>
+												<td class="track-title"><a href="/detail/track?trackId=${playlistDetail.TRACK_ID}"><c:out value="${playlistDetail.TRACK_TTL}" /></a></td>
+												<td class="artist-name"><a href="/detail/artist?gropId=${playlistDetail.GROP_ID}"><c:out value="${playlistDetail.ANM}" /></a></td>
+												<td class="album-title"><a href="/detail/album?albumId=${playlistDetail.ALBUM_ID}"><c:out value="${playlistDetail.ALBUM_TTL}" /></a></td>
 												<td>
 													<input class="trackIdValue" type="hidden" value="${playlistDetail.TRACK_ID}" name="trackIdValue">
-													<button class="delBtn button6">DELETE</button>
+													<button class="delBtn button7">Delete</button>
 												</td>
 											</tr>
 										</c:forEach>
@@ -165,10 +165,10 @@
 										<tr class="tr-check">
 											<td><input class="checkbox" type="checkbox" id="checkbox" name="trackId" value="${track.TRACK_ID}">
 											</td>
-											<td><a href="#"><img src="/resources/image/album/${track.ALBUM_IMG}" class="myImg"></a></td>
-											<td><c:out value="${track.TRACK_TTL}" /></td>
-											<td><c:out value="${track.NM}" /></td>
-											<td><c:out value="${track.ALBUM_TTL}" /></td>
+											<td><a href="/detail/album?albumId=${track.ALBUM_ID}"><img src="/resources/image/album/${track.ALBUM_IMG}" class="myImg"></a></td>
+											<td><a class="track-title" href="/detail/track?trackId=${track.TRACK_ID}"><c:out value="${track.TRACK_TTL}" /></a></td>
+											<td><a class="artist-name" href="/detail/artist?gropId=${track.GROP_ID}"><c:out value="${track.NM}" /></a></td>
+											<td><a class="album-title" href="/detail/album?albumId=${track.ALBUM_ID}"><c:out value="${track.ALBUM_TTL}" /></a></td>
 											<td>
 												<button class="addSelectedOneTrack button7"> + </button>
 											</td>
@@ -390,7 +390,7 @@
 		$("#change-img").append(str);
 		
 		$("#change-plylstDtl").empty();
-		str = "<tr><th class='th1'></th><th class='th4'></th><th class='th5'></th><th class='th5'></th><th class='th6'></th><th class='th1'></th><th class='th1'></th></tr>";
+		str = "<tr><th style='width:5%'></th><th style='width:5%'></th><th style='width:40%'></th><th></th><th></th><th style='width:10%'></th></tr>";
 		$("#change-plylstDtl").append(str);
 		
 		str = "";
@@ -403,7 +403,7 @@
 			str += '<td>' + obj[i].ANM + '</td>';
 			str += '<td>' + obj[i].ALBUM_TTL+ '</td>';
 			str += '<td><input class="trackIdValue" type="hidden" value="' + obj[i].TRACK_ID + '" name="trackIdValue">';
-			str += "<td><button class='delBtn button6'>DELETE</button></td>";
+			str += "<td style='width:10%'><button class='delBtn button7'>Delete</button></td>";
 			str += "</tr>";
 		})
 		$("#change-plylstDtl").append(str);
@@ -413,7 +413,7 @@
 	// 모달 창에 곡 리스트 보여주는 함수
 	function showTrack(obj) {
 		$(".changetr").empty();
-		let str = "<tr><th class='th1'><input type='checkbox' id='checkAll'></th><th></th><th></th><th></th><th></th><th></th></tr>";
+		let str = "<tr><th><input type='checkbox' id='checkAll'></th><th style='width:10%'></th><th style='width:40%'></th><th style='width:10%'></th><th></th><th style='width:5%'></tr>";
 		$(".changetr").append(str);
 		str = "";
 
@@ -424,7 +424,7 @@
 			str += '<td>'+ obj[i].TRACK_TTL+ '</td>';
 			str += '<td>'+ obj[i].NM+ '</td>';
 			str += '<td>'+ obj[i].ALBUM_TTL+ '</td>';
-			str += "<td><button class='addSelectedTrack button7'>+</button></td>";
+			str += "<td><button class='addSelectedOneTrack'>+</button></td>";
 			str += "</tr>";
 		})
 		$(".changetr").append(str);	
