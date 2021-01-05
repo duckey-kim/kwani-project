@@ -201,7 +201,7 @@
                             <th class="th1"></th>
                         	<th class="th2">가수</th>
                         	<th class="th3">데뷔일</th>
-                        	<th class="th3">솔로/그룹</th>
+                        	<th class="th2">솔로/그룹</th>
                         	<th class="th4">좋아요</th>
                             </tr> 
                             <c:forEach items="${searchArtist}" var="searchArtist" varStatus="status" begin="0" end="3">
