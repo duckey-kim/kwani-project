@@ -142,12 +142,17 @@
 
 	<!-- 검색 페이지에서 아티스트 결과만 따로 보여주기 -->
 	<select id="getSearchArtist" resultMap="PListResult">
-		select distinct a2.nm,a2.grop_id, a2.grop_img, a2.type, to_char(a2.debut_dt, 'yyyy-mm-dd') as debut_dt
+		select distinct a2.nm, a2.grop_id, a2.grop_img, a2.type, to_char(a2.debut_dt, 'yyyy-mm-dd') as debut_dt
 		from t_artist a, t_artist_group ag, t_artist a2
 		where a.grop_id=ag.grop_id
 		and ag.solo_id=a2.grop_id
 		and a.nm like '%'||#{searchTxt}||'%'
-	
+		union
+		select aa.nm, aa.grop_id, aa.grop_img, aa.type, to_char(aa.debut_dt, 'yyyy-mm-dd') as debut_dt
+		from t_artist aa, t_artist_group agag, t_artist a2a2
+		where aa.grop_id=agag.grop_id
+		and agag.solo_id=a2a2.grop_id
+		and a2a2.nm like '%'||#{searchTxt}||'%'
 		<!-- select grop_id, grop_img,
 		nm, type, to_char(debut_dt, 'yyyy-mm-dd') as
 		debut_dt
