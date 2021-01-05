@@ -1,5 +1,6 @@
 console.log("module");
 
+
 let likeService = (function(){
 	
 	function removeLikeArtist(artistId, callback, error) {
@@ -108,7 +109,7 @@ let likeService = (function(){
 		});
 
 	}
-	
+
 	function addLikeTrack(trackId, callback, error) {
 
 		console.log("Add Like Track");
@@ -131,7 +132,7 @@ let likeService = (function(){
 
 	}
 
-	return{
+	return {
 		addLikeTrack : addLikeTrack,
 		removeLikeTrack : removeLikeTrack,
 		addLikeArtist : addLikeArtist,
@@ -139,5 +140,5 @@ let likeService = (function(){
 		addLikeAlbum : addLikeAlbum,
 		removeLikeAlbum : removeLikeAlbum
 	};
-	
+
 })();

@@ -46,7 +46,7 @@
                      
                     </div>
                     <div id="rec_txt">
-                    	<c:out value="${plist.rcmdPlylstId}" />  
+                    	<%-- <c:out value="${plist.rcmdPlylstId}" />   --%>
                     	<form action="/recommend/plylst" method="get">
                     		<input type="hidden" value="${plist.rcmdPlylstId}" name="plylstId">
                     		<button type="submit">         	
