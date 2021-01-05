@@ -12,6 +12,8 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Chivo:wght@900&display=swap" rel="stylesheet">
+
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet"
