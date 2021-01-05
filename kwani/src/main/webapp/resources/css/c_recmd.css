@@ -16,10 +16,10 @@
 
 .todayRecmd{
     width: 100%;
-    height: 400px;
+    height: 300px;
     display: flex;
     justify-content: space-between;
-    background-color: tan;
+    margin-bottom:60px;
 }
 
 .recmd_text{
@@ -28,13 +28,18 @@
     background-color: white;
     color: black;
     line-height: 50px;
-    
+    margin-bottom: 25px;
 }
+.todayRecmd #recmd{
+	width:25%;
+}
+
 #rec_img{
 	width: 100%;
-	height: 350px;
-	background-color: gray;
+	height: 275px;
+	text-align:center;
 }
+
 #rec_txt{
 	width: 100%;
 	height: 50px;
@@ -43,12 +48,11 @@
 
 #recmd{ 
     width: 25%;
-    height: 400px;
-    background-color: pink;
+    height: 350px;
 }
 .plylstImg{
-	width: 100%;
-	height: 350px;
+	width: 265px;
+	height:265px;
 }
 .toLogin{
     width: 100%;
@@ -84,6 +88,21 @@
   	margin: 4px 2px;
   	cursor: pointer;
 }
+
+.button2{
+
+	background-color: white;
+	border: none;
+  	color: black;
+  	padding: 10px 16px;
+  	text-align: center;
+  	text-decoration: none;
+  	display: inline-block;
+  	font-size: 16px;
+  	margin: 4px 2px;
+  	cursor: pointer;
+}
+
 .showMv{
     width: 100%;
     height: 340px;

@@ -137,7 +137,7 @@
                     	<div class="plylstBtns">
                     		<div class="shareBtn">
                     			 
-                    			<input class="btn" type="button" value="공유하기" onclick="copyURL()">
+                    			<input class="button" type="button" value="공유하기" onclick="copyURL()">
 								<textarea id="address" style="display: none"></textarea>
                     		</div>
                     		<div class="likeBtn">

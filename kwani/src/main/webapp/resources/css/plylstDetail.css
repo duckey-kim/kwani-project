@@ -16,6 +16,7 @@
 }
 #plylstInfoContainer{
 	display: flex;
+	margin-bottom: 3%;
 }
 .plylstInfoImg{
 	width: 300px;
@@ -50,13 +51,13 @@
 	height: 50px;
 	display: flex;
 	flex-direction: row;
+	maring-top: 2%;
 }
 .shareBtn{
 	width: 15%;
 	text-align: left;
 	justify-content: center;
 	align-items: center;
-	padding-top: 7px;
 }
 .likeBtn{
 	width: 10%;
