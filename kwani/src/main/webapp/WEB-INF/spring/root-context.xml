@@ -14,11 +14,10 @@
 		<property name="driverClassName"
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
 		<property name="jdbcUrl"
-			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE" />
+			value="jdbc:log4jdbc:oracle:thin:@3.34.137.144:1521:XE"></property>
+		<property name="username" value="music"></property>
+		<property name="password" value="music#0727"></property>
 
-
-		<property name="username" value="duckhwan" />
-		<property name="password" value="1234" />
 	</bean>
 
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
