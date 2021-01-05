@@ -98,8 +98,32 @@
 .td4{
 	width: 10%;
 }
+
+.textInfo {
+	font-size: 2.5rem;
+	line-height: 50px;
+}
+
+.title1 {
+	margin-top: 1rem;
+	font-size: 1.3rem;;
+}
+
+.artist1, .album1 {
+	width: 20rem;
+	height: auto;
+	margin-top: 10px;
+}
+
+.artist1 a, .album1 a {
+	font-size: 1.3rem;
+	cursor: pointer;
+}
+
 hr.one{
 	border: 0.1px solid lightgray;
+	margin-top: 4rem;
+	margin-bottom: 1.5rem;
 }
 a{
 	text-decoration: none;
@@ -110,6 +134,7 @@ a{
     width: 100%;
     height: 50px;
     background-color: white;
+    margin-bottom: 1.5rem;
 }
 .lyricsContainer{
 	flex-direction: column;
@@ -127,13 +152,14 @@ a{
 }
 .lyricsTtl{
 	width: 100%;
-	height: 25px;
-	font-size: 0.9em;
+	height: auto;
+	font-size: 1rem;
 	font-weight: bold;
+	margin-bottom: 1rem;
 }
 .lyricsContent{
 	width: 100%;
-	height: 50px; 
+	height: auto; 
 	border: none;
 	overflow: hidden;
 	word-wrap: break-word;
@@ -141,7 +167,8 @@ a{
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
 	text-overflow: ellipsis;
-	font-size: 0.7em;
+	font-size: 1.1em;
+	margin-bottom: 1rem;
 }
 .lyricsContent:hover{
 	color: grey;
@@ -155,6 +182,7 @@ a{
 	width: 20%;
 	height: 25px;
 	display: inline-block;
+	margin-bottom: 1rem;
 }
 .lyricsAlbum{
 	width: 50%;
@@ -162,9 +190,7 @@ a{
 	display: inline-block;
 }
 
-.textInfo{
-    line-height: 50px;
-}
+
 .btnParent{
 	text-align: center;
 }
@@ -212,7 +238,7 @@ th, td{
     color: black;
     padding: 4px 8px;
     text-decoration: none;
-    font-size: 0.8em;
+    font-size: 2rem;
 }
 .pagination a.active{
 	background-color: rgb(189, 12, 12);
