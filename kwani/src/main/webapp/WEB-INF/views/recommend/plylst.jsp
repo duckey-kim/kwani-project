@@ -170,7 +170,7 @@
                           
                         <c:forEach items="${plistListDtl}" var="plstdtl" varStatus="status" begin="0" end="19">
                         <tr>
-                        <th><input type="checkbox" name="checkRow"></th>
+                        <td><input type="checkbox" name="checkRow"></td>
                         <td class="num">${status.index+1}</td>
                         <td>
                         	<div class="artistSmallImg" style="background-image:url(/resources/image/album/<c:out value='${plstdtl.albumImg}'/>);">
