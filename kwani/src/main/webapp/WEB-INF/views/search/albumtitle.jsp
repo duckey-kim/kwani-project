@@ -35,7 +35,6 @@
   	padding: 10px 20px;
 	text-align: center;
 	cursor: pointer;
-	border-bottom: 4px solid #fff;
 }
 
 .dropdown2 {
@@ -102,7 +101,7 @@
                 
                
                 <div id="tableContainer2">
-                <div class="albumTxt"><p class="textInfo">앨범명으로 검색</p></div>
+                <div class="albumTxt"><h2>앨범명으로 검색</h2></div>
                 <div class="albumImgContainer">
                 	<c:forEach items="${searchAlbum2}" var="searchAlbum2" varStatus="status" begin="0" end="4">
                 	<div class="eachAlbum">

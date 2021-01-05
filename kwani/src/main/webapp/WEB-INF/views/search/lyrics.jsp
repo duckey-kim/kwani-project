@@ -35,7 +35,6 @@
   	padding: 10px 20px;
 	text-align: center;
 	cursor: pointer;
-	border-bottom: 4px solid #fff;
 }
 
 

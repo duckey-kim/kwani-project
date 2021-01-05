@@ -224,7 +224,7 @@ li:hover {
 #addModal .modal-content{
 	max-width: 800px;
 	max-height: 500px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 #myModal{
@@ -329,7 +329,7 @@ li:hover {
 }
 
 .img-container ul {
-	left: 65%;
+	left: 62%;
 	top: 50px;
 	width: 80px;
 	height: auto;
@@ -354,14 +354,14 @@ li:hover {
 }
 
 .item-div, #item-div{
-	width: 90%;
-	margin: 0 5% 0 5%;
+	width: 88%;
+	margin: 0 5% 0 7%;
 	min-height: 150px;
 	position: relative;
 	display: flex;
 	overflow: hidden;
 	justify-content: left;
-	overflow-x: scroll;	
+	overflow-x: auto;
 }
 
 .item-div-basic {
@@ -494,7 +494,7 @@ li:hover {
 	border-radius: 3px;
 }
 
-.button6 {
+.button6, #button6{
     background-color: #e7e7e7;
     color: black;
     border: none;
@@ -508,7 +508,7 @@ li:hover {
     border-radius: 3px;
 }
 
-.button7 {
+.button7, #button7{
     background-color: #e7e7e7;
     color: black;
     border: none;

@@ -34,7 +34,6 @@
   	padding: 10px 20px;
 	text-align: center;
 	cursor: pointer;
-	border-bottom: 4px solid #fff;
 }
 
 .dropdown2 {
@@ -188,8 +187,9 @@
                 </div>               
      
 			
-                <!-- 곡명으로 searchTxt를 검색했을 때의 곡 목록  -->                
-                <div class="trackHeader"><p class="textInfo">곡명으로 검색</p><button class="plylstBtn" id="plusPlylstBtn">담기</button></div>
+                <!-- 곡명으로 searchTxt를 검색했을 때의 곡 목록  -->  
+                <h2>곡명으로 검색</h2>              
+                <div class="trackHeader"><button class="plylstBtn" id="plusPlylstBtn">담기</button></div>
                 <div class="trackTable">
                     <div id="plylstTable">
                         <table>
@@ -198,7 +198,7 @@
                             <th class="th4">번호</th>
                         	<th>제목</th>
                         	<th class="th2">가수</th>
-                        	<th class="th2">앨범</th>
+                        	<th>앨범</th>
                         	<th class="th4">듣기</th>
                         	<th class="th4">좋아요</th>
                             </tr>

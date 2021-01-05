@@ -35,7 +35,6 @@
   	padding: 10px 20px;
 	text-align: center;
 	cursor: pointer;
-	border-bottom: 4px solid #fff;
 }
 
 
@@ -96,7 +95,7 @@
                 </div>
              
                 
-                <div class="artistRstTxt"><p class="textInfo">아티스트</p></div>
+                <div class="artistRstTxt"><h2>아티스트</h2></div>
                 <div class="artistRstContainer">
                 	<div class="artistTable">
                 	  <table>

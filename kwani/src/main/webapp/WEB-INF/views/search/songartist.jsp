@@ -127,7 +127,6 @@
   	padding: 10px 20px;
 	text-align: center;
 	cursor: pointer;
-	border-bottom: 4px solid #fff;
 }
 
 .dropdown2 {
@@ -195,10 +194,11 @@
                 </div>
                 
      
-				<!-- 아티스트명으로 searchTxt를 검색했을 때의 곡 목록  -->                
-                <div class="trackHeader"><p class="textInfo">아티스트명으로 검색</p>
-                <button class="plylstBtn" id="plusPlylstBtn">담기</button>
-                	</div>
+				<!-- 아티스트명으로 searchTxt를 검색했을 때의 곡 목록  -->
+				<h2>아티스트명으로 검색</h2>
+                <div class="trackHeader">
+                <button class="plylstBtn" id="plusPlylstBtn" >담기</button>
+                </div>
                 <div class="trackTable">
                     <div id="plylstTable">
                         <table>

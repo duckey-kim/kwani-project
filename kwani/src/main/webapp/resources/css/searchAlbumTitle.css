@@ -122,6 +122,7 @@ th{
 .albumImg{
 	width: 220px;
 	height: 220px;
+	margin-bottom: 10px;
 }
 .albumArtist{
 	width: 100%;
