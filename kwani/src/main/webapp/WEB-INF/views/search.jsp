@@ -154,12 +154,12 @@
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
-                <div class="searchRst"><p><c:out value="${searchTxt}"/>에 대한 검색 결과</p></div>
+                <div class="searchRst"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
                 <div class="rstTap"> 
 
-                    <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
+                    <a class="btnEffect" href="/search?searchTxt=${searchTxt}">통합검색</a>	
 
-                    <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
+                    <a class="btnBasic" href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
                   
                      	<div class="dropdown2">
   							<span class="dropbtn2">곡</span>
@@ -177,7 +177,7 @@
  								</div><!-- dropdown-content -->
 						</div><!-- dropdown -->                	
                   
-                    <a href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
+                    <a class="btnBasic" href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
                 </div><!-- rstTap -->
                 
                 <div class="artistRstTxt"><p class="textInfo">아티스트</p></div>
@@ -185,7 +185,7 @@
                 	<div class="artistTable">
                 	  <table>
                             <tr>                            
-                            <th class="th1">이미지</th>
+                            <th class="th1"></th>
                         	<th class="th2">가수</th>
                         	<th class="th3">데뷔일</th>
                         	<th class="th3">솔로/그룹</th>
@@ -195,10 +195,9 @@
                         	<tr>
                         	<td class="td1">
                         		<a href='/detail/artist?gropId=${searchArtist.gropId}'>
-                        		<div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);">
-                        		</div></a>              				   	
+                        		<div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);"></div></a>              				   	
                         	</td>
-                        	<td class="td2"><a href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">     
+                        	<td class="td2" style="color:black; font-weight:bold;"><a href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">     
                         		<c:out value="${searchArtist.nm}" /></a></td>
                         	<td class="td3"><c:out value="${searchArtist.debutDt}" /></td>
                         	<td class="td4"><c:out value="${searchArtist.type}" /></td>
@@ -222,8 +221,9 @@
                             <tr>
                             <th class="th0"><input type="checkbox" name="checkAll" class="checkAll"></th>
                             <th class="th1">번호</th>
-                        	<th class="th3">제목</th>
+                        	<th style="color:grey">제목</th>
                         	<th class="th2">가수</th>
+                        	<th class="th2">앨범</th>
                         	<th class="th4">듣기</th>
                         	<th class="th4">좋아요</th>
                             </tr>
@@ -231,10 +231,12 @@
                         	<tr>
                         	<th><input type="checkbox" name="checkRow"></th>
                         	<td>${status.index+1}</td>
-                        	<td><a href="/detail/track?trackId=<c:out value='${searchRst.trackId}'/>">
+                        	<td><a style="color:black; font-weight:bold;" href="/detail/track?trackId=<c:out value='${searchRst.trackId}'/>">
                         		<c:out value="${searchRst.trackTtl}" /></a></td>
-                        	<td><a href="/detail/artist?gropId=<c:out value='${searchRst.gropId}'/>">
+                        	<td><a style="color:grey" href="/detail/artist?gropId=<c:out value='${searchRst.gropId}'/>">
                         		<c:out value="${searchRst.nm}" /></a></td>
+                        	<td><a style="color:grey" href="/detail/album?albumId=<c:out value='${searchRst.albumId}'/>">      
+                        		<c:out value="${searchRst.albumTtl}" /></a></td>
                         	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
                         		onclick='popupPlayer("/player/track?trackId=${searchRst.trackId}")'></td>
                         	<td>
@@ -257,8 +259,9 @@
                             <tr>
                             <th class="th0"><input type="checkbox" name="checkAll2" class="checkAll2"></th>
                             <th class="th1">번호</th>
-                        	<th class="th3">제목</th>
+                        	<th style="color:grey">제목</th>
                         	<th class="th2">가수</th>
+                        	<th class="th2">앨범</th>
                         	<th class="th4">듣기</th>
                         	<th class="th4">좋아요</th>
                             </tr>
@@ -266,10 +269,12 @@
                         	<tr>
                         	<th><input type="checkbox" name="checkRow2"></th>
                         	<td>${status.index+1}</td>
-                        	<td><a href="/detail/track?trackId=<c:out value='${searchRstWithSong.trackId}'/>">    
+                        	<td><a style="color:black; font-weight:bold;" href="/detail/track?trackId=<c:out value='${searchRstWithSong.trackId}'/>">    
                         		<c:out value="${searchRstWithSong.trackTtl}" /></a></td>
-                        	<td><a href="/detail/artist?gropId=<c:out value='${searchRstWithSong.gropId}'/>">    
+                        	<td><a style="color:grey" href="/detail/artist?gropId=<c:out value='${searchRstWithSong.gropId}'/>">    
                         		<c:out value="${searchRstWithSong.nm}" /></a></td>
+                        	<td><a style="color:grey" href="/detail/album?albumId=<c:out value='${searchRstWithSong.albumId}'/>">      
+                        		<c:out value="${searchRstWithSong.albumTtl}" /></a></td>
                         	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
                         		onclick='popupPlayer("/player/track?trackId=${searchRstWithSong.trackId}")'></td>
                         	<td>
@@ -292,7 +297,7 @@
                             <tr>
                             <th class="th0"><input type="checkbox" name="checkAll3" class="checkAll3"></th>
                             <th class="th1">번호</th>
-                        	<th class="th2">제목</th>
+                        	<th style="color:grey">제목</th>
                         	<th class="th2">가수</th>
                         	<th class="th2">앨범</th>
                         	<th class="th4">듣기</th>
@@ -302,11 +307,11 @@
                         	<tr>
                         	<th><input type="checkbox" name="checkRow3"></th>
                         	<td>${status.index+1}</td>
-                        	<td><a href="/detail/track?trackId=<c:out value='${searchRstWithAlbum.trackId}'/>">     
+                        	<td><a style="color:black; font-weight:bold;" href="/detail/track?trackId=<c:out value='${searchRstWithAlbum.trackId}'/>">     
                         		<c:out value="${searchRstWithAlbum.trackTtl}" /></a></td>
-                        	<td><a href="/detail/artist?gropId=<c:out value='${searchRstWithAlbum.gropId}'/>">     
+                        	<td><a style="color:grey" href="/detail/artist?gropId=<c:out value='${searchRstWithAlbum.gropId}'/>">     
                         		<c:out value="${searchRstWithAlbum.nm}" /></a></td>
-                        	<td><a href="/detail/album?albumId=<c:out value='${searchRstWithAlbum.albumId}'/>">      
+                        	<td><a style="color:grey" href="/detail/album?albumId=<c:out value='${searchRstWithAlbum.albumId}'/>">      
                         		<c:out value="${searchRstWithAlbum.albumTtl}" /></a></td>
                         	<td class="btnParent"><img class="playBtn" src="/resources/image/play-button.png"
                         		onclick='popupPlayer("/player/track?trackId=${searchRstWithAlbum.trackId}")'></td>

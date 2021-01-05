@@ -57,11 +57,11 @@
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
-                <div class="searchRst"><p><c:out value="${searchTxt}"/>에 대한 검색 결과</p></div>
+                <div class="searchRst"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
                 <div class="rstTap">
-                    <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
+                    <a class="btnBasic" href="/search?searchTxt=${searchTxt}">통합검색</a>	
 
-                    <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
+                    <a class="btnEffect" href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
                   
                      	<div class="dropdown2">
   							<span class="dropbtn2">곡</span>
@@ -79,7 +79,7 @@
  								</div>
 						</div>                    	
                   
-                    <a href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
+                    <a class="btnBasic" href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
                 </div>
              
                 
@@ -88,23 +88,22 @@
                 	<div class="artistTable">
                 	  <table>
                             <tr>                            
-                            <th class="th1">이미지</th>
+                            <th class="th1"></th>
                         	<th class="th2">가수</th>
-                        	<th class="th3">솔로/그룹</th>
                         	<th class="th3">데뷔일</th>
+                        	<th class="th3">솔로/그룹</th>
                         	<th class="th4">좋아요</th>
                             </tr> 
                             <c:forEach items="${searchArtist}" var="searchArtist" >
                         	<tr>
                         	<td class="td1">
                         		<a href='/detail/artist?gropId=${searchArtist.gropId}'>
-                        		<div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);">
-                        		</div></a>              				   	
+                        		<div class="artistSmallImg" style="background-image:url(/resources/image/artist/<c:out value='${searchArtist.gropImg}'/>);"></div></a>              				   	
                         	</td>
-                        	<td class="td2"><a style="color:grey" href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">     
+                        	<td class="td2"><a style="color:black; font-weight:bold;" href="/detail/artist?gropId=<c:out value='${searchArtist.gropId}'/>">     
                         		<c:out value="${searchArtist.nm}" /></a></td>
-                        	<td class="td3"><c:out value="${searchArtist.type}" /></td>
-                        	<td class="td4"><c:out value="${searchArtist.debutDt}" /></td>
+                        	<td class="td3"><c:out value="${searchArtist.debutDt}" /></td>
+                        	<td class="td4"><c:out value="${searchArtist.type}" /></td>
                         	<td class="td5">
                         	<div class="heartParent">
                         	<img class="defaultHeartImg"src="/resources/image/heart2.png">

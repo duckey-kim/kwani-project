@@ -58,7 +58,7 @@
             <div id="leftSideBar"></div>
             <div id="bodyContent">
             
-                <div class="searchRst"><p><c:out value="${searchTxt}"/>에 대한 검색 결과</p></div>
+                <div class="searchRst"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
                 <div class="rstTap">
                      <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
 

@@ -56,11 +56,11 @@
         <div id="body">
             <div id="leftSideBar"></div>
             <div id="bodyContent">
-                <div class="searchRst"><p><c:out value="${searchTxt}"/>에 대한 검색 결과</p></div>
+                <div class="searchRst"><p>"<c:out value="${searchTxt}"/>" 에 대한 검색 결과</p></div>
                 <div class="rstTap"> 
-                    <a href="/search?searchTxt=${searchTxt}">통합검색</a>	
+                    <a class="btnBasic" href="/search?searchTxt=${searchTxt}">통합검색</a>	
 
-                    <a href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
+                    <a class="btnBasic" href="/search/artist?searchTxt=${searchTxt}">아티스트</a>	
                   
                      	<div class="dropdown2">
   							<span class="dropbtn2">곡</span>
@@ -78,7 +78,7 @@
  								</div>
 						</div>                    	
                   
-                    <a href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
+                    <a class="btnEffect" href="/search/lyrics?searchTxt=${searchTxt}">가사</a>
                 </div>
 
               
