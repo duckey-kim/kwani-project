@@ -121,9 +121,9 @@
 						</table>
 						
 					</div>
-					<div class="btn" style="width:100%;text-align: end;">
+					<div  style="width:100%;text-align: end;cursor: pointer; color:gray; margin-top: 1vh;">
 						
-						더보기
+						more track >>
 						</div>
 				</div>
 

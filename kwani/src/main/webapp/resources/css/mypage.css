@@ -361,7 +361,6 @@ li:hover {
 	display: flex;
 	overflow: hidden;
 	justify-content: left;
-	overflow-x: auto;
 }
 
 .item-div-basic {
