@@ -216,8 +216,8 @@
                         		onclick='popupPlayer("/player/track?trackId=${searchSong2.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
-                        	<img class="defaultHeartImg"src="/resources/image/heart2.png">
-                        	<img class="redHeartImg" src="/resources/image/heart.png">
+                        	<img class="defaultHeartImg" name="${searchSong2.trackId}" src="/resources/image/heart2.png">
+                        	<img class="redHeartImg" name="${searchSong2.trackId}" src="/resources/image/heart.png">
                         	</div>
                         	</td>
                         	</tr>
@@ -419,36 +419,38 @@
            			actionForm.submit();
            		});
                 
-              //좋아요 클릭하면 하트 색깔 바뀌게 설정--------------------------------------------------------    
-                $(document).ready(function(){           		
-                		
-                		$(".defaultHeartImg").show();
-    					$(".redHeartImg").hide();
-    					
-    					//기본 하트를 누르면
-    					$(".defaultHeartImg").click(function(){
-    						
-    						//누른 하트의 인덱스를 가져와서
-    						let index = $(".defaultHeartImg").index(this);
-    						
-    						//기본 하트는 숨기고 빨간 하트를 보여준다
-    						$(".defaultHeartImg:eq(" + index + ")").hide();
-    						$(".redHeartImg:eq(" + index + ")").show();
-    						console.log("defaultHeartImg clicked!");  						    						
-    					});
-    					
-    					//빨간 하트를 누르면
-    					$(".redHeartImg").click(function(){
-    						
-    						//누른 하트의 인덱스를 가져와서
-    						let index = $(".redHeartImg").index(this);
-    						
-    						//빨간 하트는 숨기고 기본 하트를 보여준다
-    						$(".defaultHeartImg:eq(" + index + ")").show();
-    						$(".redHeartImg:eq(" + index + ")").hide();
-    						console.log("redHeartImg clicked!");
-    					});		
-               
+           	//좋아요 클릭하면 하트 색깔 바뀌게 설정(클릭한 곡의 track_id 값을 설정해놓음)--------------------------------------------------------                    
+                $(document).ready(function(){        
+                	
+                	 // 처음엔 모든 수록곡의 빨간하트를 숨기고 빈하트만 보여준다.
+                    $(".redHeartImg").hide();
+                    
+                    // 좋아요한 노래에 해당하는 노래들은 빈하트를 숨기고 빨간 하트를 보여준다.(track_id 값을 설정해놓음)
+                    <c:forEach items="${getLikedTrack}" var="getLikedTrack">
+                       $("img[name='${getLikedTrack.trackId}'][class=defaultHeartImg]").hide();
+                       $("img[name='${getLikedTrack.trackId}'][class=redHeartImg]").show();
+                    </c:forEach>
+                    
+                    //빈 하트 클릭할 때
+                    $(".defaultHeartImg").on("click", function(){
+                    	sessionCheck();
+                       
+                       let index = $(".defaultHeartImg").index(this);   //누른 하트의 인덱스 저장
+                       
+                       $(".defaultHeartImg:eq(" + index + ")").hide();   //누른 하트를 숨기기
+                       $(".redHeartImg:eq(" + index + ")").show();   //누른 곳에 빨간 하트를 표시
+                       console.log("좋아요할 노래아이디 : " + $(".defaultHeartImg:eq(" + index + ")").attr("name"));
+                    });
+                    
+                    //빨간 하트 클릭할때
+                    $(".redHeartImg").on("click", function(){
+                       
+                       let index = $(".redHeartImg").index(this);      //누른 하트의 인덱스 저장
+                       
+                       $(".redHeartImg:eq(" + index + ")").hide();   //누른 하트를 숨기기
+                       $(".defaultHeartImg:eq(" + index + ")").show();   //누른 곳에 빈 하트를 표시
+                       console.log("좋아요 취소할 노래아이디 : " + $(".redHeartImg:eq(" + index + ")").attr("name"));
+                    });
 				})
                 
                    

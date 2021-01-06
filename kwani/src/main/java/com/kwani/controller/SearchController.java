@@ -172,19 +172,4 @@ public class SearchController {
 		model.addAttribute("sessionName", session.getAttribute("user"));
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
