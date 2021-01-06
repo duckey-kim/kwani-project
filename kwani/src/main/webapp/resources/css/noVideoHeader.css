@@ -17,6 +17,17 @@ a {
 	box-sizing: border-box;
 }
 
+
+body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+
 #header_navbar {
 	display: flex;
 	width: 100%;

@@ -17,7 +17,7 @@
 
 </head>
 
-<%@include file="../includes/mainHeader.jsp"%>
+<%@include file="../includes/userHeader.jsp"%>
 
 <div id="body">
 	<div id="leftSideBar"></div>
