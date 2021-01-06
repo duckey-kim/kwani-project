@@ -216,8 +216,8 @@
                         	<td class="td4"><c:out value="${searchArtist.type}" /></td>
                         	<td class="td5">
                         	<div class="heartParent">
-                        	<img class="defaultHeartImg"src="/resources/image/heart2.png">
-                        	<img class="redHeartImg" src="/resources/image/heart.png">
+                        	<img class="defaultHeartImg" name="${searchArtist.gropId}" src="/resources/image/heart2.png">
+                        	<img class="redHeartImg" name="${searchArtist.gropId}" src="/resources/image/heart.png">
                         	</div>
                         	</td>
                         	</tr>
@@ -256,8 +256,8 @@
                         		onclick='popupPlayer("/player/track?trackId=${searchRst.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
-                        	<img class="defaultHeartImg"src="/resources/image/heart2.png">
-                        	<img class="redHeartImg" src="/resources/image/heart.png">
+                        	<img class="defaultHeartImg" name="${searchRst.trackId}" src="/resources/image/heart2.png">
+                        	<img class="redHeartImg" name="${searchRst.trackId}" src="/resources/image/heart.png">
                         	</div>
                         	</td>
                         	</tr>
@@ -296,8 +296,8 @@
                         		onclick='popupPlayer("/player/track?trackId=${searchRstWithSong.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
-                        	<img class="defaultHeartImg"src="/resources/image/heart2.png">
-                        	<img class="redHeartImg" src="/resources/image/heart.png">
+                        	<img class="defaultHeartImg" name="${searchRstWithSong.trackId}" src="/resources/image/heart2.png">
+                        	<img class="redHeartImg" name="${searchRstWithSong.trackId}" src="/resources/image/heart.png">
                         	</div>
                         	</td>
                         	</tr>
@@ -335,8 +335,8 @@
                         		onclick='popupPlayer("/player/track?trackId=${searchRstWithAlbum.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
-                        	<img class="defaultHeartImg"src="/resources/image/heart2.png">
-                        	<img class="redHeartImg" src="/resources/image/heart.png">
+                        	<img class="defaultHeartImg" name="${searchRstWithAlbum.trackId}" src="/resources/image/heart2.png">
+                        	<img class="redHeartImg" name="${searchRstWithAlbum.trackId}" src="/resources/image/heart.png">
                         	</div>
                         	</td>
                         	</tr>
@@ -518,6 +518,7 @@
                     
                     // 좋아요한 노래에 해당하는 노래들은 빈하트를 숨기고 빨간 하트를 보여준다.(track_id 값을 설정해놓음)
                     <c:forEach items="${getLikedTrack}" var="getLikedTrack">
+                    	console.log("??????" + ${getLikedTrack.trackId});
                        $("img[name='${getLikedTrack.trackId}'][class=defaultHeartImg]").hide();
                        $("img[name='${getLikedTrack.trackId}'][class=redHeartImg]").show();
                     </c:forEach>

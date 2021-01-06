@@ -118,6 +118,8 @@ public class HomeController {
 			//회원의 플레이리스트 목록을 가져온다 
 			model.addAttribute("getUserPlylst",plservice.getListPlylst(email)); 
 			
+			System.out.println("&&&&&&&&&&&&&&&&&&" + plservice.getLikedTrack(email));
+			
 			model.addAttribute("sessionName", session.getAttribute("user"));
 			
 			System.out.println(session.getAttribute("user"));

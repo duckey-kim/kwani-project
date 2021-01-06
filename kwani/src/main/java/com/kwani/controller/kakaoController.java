@@ -75,9 +75,9 @@ public class kakaoController {
 		
 		userNick = properties.path("nickname").asText();
 		kakaoEmail = kakao_account.path("email").asText();
-		kakaoImg = properties.get("thumbnail_image").asText();
+//		kakaoImg = properties.get("thumbnail_image").asText();
 		
-		System.out.println("kakaoImg : " + kakaoImg);
+//		System.out.println("kakaoImg : " + kakaoImg);
 		System.out.println("kakaoEmail : " + kakaoEmail);
 		System.out.println("userNick : " + userNick);
 		// 정보가 없으면,

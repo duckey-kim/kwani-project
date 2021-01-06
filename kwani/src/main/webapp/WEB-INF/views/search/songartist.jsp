@@ -225,8 +225,8 @@
                         		onclick='popupPlayer("/player/track?trackId=${searchSong.trackId}")'></td>
                         	<td>
                         	<div class="heartParent">
-                        	<img class="defaultHeartImg"src="/resources/image/heart2.png">
-                        	<img class="redHeartImg" src="/resources/image/heart.png">
+                        	<img class="defaultHeartImg" name="${searchSong.trackId}" src="/resources/image/heart2.png">
+                        	<img class="redHeartImg" name="${searchSong.trackId}" src="/resources/image/heart.png">
                         	</div>
                         	</td>
                         	</tr>
