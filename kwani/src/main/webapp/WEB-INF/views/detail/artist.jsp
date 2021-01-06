@@ -90,7 +90,7 @@
 								<th>듣기</th>
 								<th>좋아요</th>
 							</tr>
-							<c:forEach items="${getArtistTrackList }" var="ArtistTrack">
+							<c:forEach items="${getArtistTrackList }" var="ArtistTrack" begin="0" end="7">
 								<tr>
 									<td><input type="checkbox" id="checkRow" name="trackId" value="${ArtistTrack.TRACK_ID }"></td>
 									<td><img
@@ -119,7 +119,12 @@
 								</tr>
 							</c:forEach>
 						</table>
+						
 					</div>
+					<div class="btn" style="width:100%;text-align: end;">
+						
+						더보기
+						</div>
 				</div>
 
 				<div class="emptybox"></div>
