@@ -7,130 +7,226 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<resultMap type="hashMap" id="selectMap"></resultMap>
 	<resultMap type="int" id="Integer"></resultMap>
-	
+
 	<resultMap type="com.kwani.domain.UserVO" id="UserResult">
-		<result property="email" column="email"/>
-		<result property="nick" column="nick"/>
-		<result property="userImg" column="user_img"/>
+		<result property="email" column="email" />
+		<result property="nick" column="nick" />
+		<result property="userImg" column="user_img" />
 	</resultMap>
 
-<!-- 	<resultMap type="com.kwani.domain.PlaylistVO" id="PlayListResult">
+	<resultMap type="com.kwani.domain.PlaylistVO"
+		id="PlayListResult">
 		<result property="email" column="email" />
 		<result property="plylstId" column="plylst_id" />
 		<result property="nm" column="nm" />
 		<result property="desc" column="descp" />
+		<result property="plylstImg" column="plylst_img" />
 	</resultMap>
 
-	<resultMap type="com.kwani.domain.PlaylistDetailVO" id="PlayListDetailResult">
-		<result property="plylstId" column="plylst_id" />
-		<result property="trackId" column="track_id" />
-		<result property="plyNo" column="ply_no" />
-	</resultMap> -->
+	<!-- <resultMap type="com.kwani.domain.PlaylistDetailVO" id="PlayListDetailResult"> 
+		<result property="plylstId" column="plylst_id" /> <result property="trackId" 
+		column="track_id" /> <result property="plyNo" column="ply_no" /> </resultMap> -->
+
+	<delete id="deleteLikeAlbums">
+		DELETE FROM T_LIKE_ALBUMS
+		WHERE ALBUM_ID = #{albumId}
+		AND EMAIL = #{email}
+	</delete>
+
+	<insert id="insertLikeAlbums">
+		INSERT INTO T_LIKE_ALBUMS(ALBUM_ID, EMAIL)
+		VALUES(#{albumId}, #{email})
+	</insert>
+
+	<delete id="deleteLikeArtists">
+		DELETE FROM T_LIKE_ARTISTS
+		WHERE GROP_ID = #{artistId}
+		AND EMAIL = #{email}
+	</delete>
+
+	<insert id="insertLikeArtists">
+		INSERT INTO T_LIKE_ARTISTS(GROP_ID, EMAIL)
+		VALUES(#{artistId}, #{email})
+	</insert>
+
+	<delete id="deleteLikeTracks">
+		DELETE FROM T_LIKE_TRACKS
+		WHERE TRACK_ID = #{trackId}
+		AND EMAIL = #{email}
+	</delete>
+
+	<insert id="insertLikeTracks">
+		INSERT INTO T_LIKE_TRACKS(TRACK_ID, EMAIL)
+		VALUES(#{trackId}, #{email})
+	</insert>
+
+	<insert id="updatePlaylistImg">
+		UPDATE T_PLYLST
+		SET PLYLST_IMG = (SELECT A.ALBUM_IMG
+		FROM T_TRACKS T, T_ALBUM A
+		WHERE T.ALBUM_ID = A.ALBUM_ID
+		AND T.TRACK_ID= #{trackId})
+		WHERE PLYLST_ID = #{plylstId}
+	</insert>
 	
-	<select id="getListPlaylist" resultMap="selectMap">
-		SELECT NM, PLYLST_ID, PLYLST_IMG FROM T_PLYLST WHERE EMAIL = #{email}
+	<insert id="updatePlaylistBasicImg">
+		UPDATE T_PLYLST
+		SET PLYLST_IMG = 'noplaylist.png'
+		WHERE PLYLST_ID = #{plylstId}
+	</insert>
+
+	<select id="getPlaylistTrackList" resultMap="Integer">
+		SELECT PD.TRACK_ID
+		AS TRACK_ID
+		FROM T_PLYLST P, T_PLYLST_DTL PD
+		WHERE PD.PLYLST_ID =
+		#{plylstId}
+		AND P.EMAIL = #{email}
+		AND P.PLYLST_ID = PD.PLYLST_ID
 	</select>
-	
+
+	<select id="getListPlaylist" resultMap="PlayListResult">
+		SELECT NM, PLYLST_ID, PLYLST_IMG FROM T_PLYLST
+		WHERE EMAIL = #{email}
+		ORDER BY PLYLST_ID ASC
+	</select>
+
 	<select id="getUser" resultMap="UserResult">
-		SELECT EMAIL, NICK, USER_IMG FROM T_USER
+		SELECT EMAIL, NICK, USER_IMG FROM
+		T_USER
 		WHERE EMAIL = #{email}
 	</select>
 
-	<!-- <select id="getPlaylistImg" resultMap="selectMap">
-		SELECT P.NM, P.PLYLST_ID, AL.ALBUM_IMG FROM T_PLYLST P, T_PLYLST_DTL PD, T_TRACKS T, T_ALBUM AL
-        WHERE P.PLYLST_ID = PD.PLYLST_ID
-        AND PD.TRACK_ID = T.TRACK_ID
-        AND AL.ALBUM_ID = T.ALBUM_ID
-        AND PD.PLY_NO = 1
-        AND P.PLYLST_ID = #{plylstId}
-        AND P.EMAIL = #{email};
-	</select> -->
+	<select id="countPlaylist" resultMap="Integer">
+		SELECT COUNT(*) FROM
+		T_PLYLST
+		WHERE EMAIL = #{email}
+	</select>
 
 	<select id="countPlaylistTrack" resultMap="Integer">
-		SELECT COUNT(*) FROM T_PLYLST_DTL
+		SELECT COUNT(*) FROM
+		T_PLYLST_DTL
 		WHERE PLYLST_ID = #{plylstId}
 	</select>
 
 	<select id="getLikedTrackList" resultMap="selectMap">
-		SELECT DISTINCT H.TRACK_ID AS TRACK_ID FROM T_LIKE_TRACKS LT, T_HISTORY H
-		WHERE H.EMAIL = #{email}
+		SELECT DISTINCT
+		H.TRACK_ID AS TRACK_ID FROM T_LIKE_TRACKS LT, T_HISTORY H
+		WHERE H.EMAIL
+		= #{email}
 		AND LT.TRACK_ID = H.TRACK_ID
 	</select>
 
 	<select id="getPlaylistDetail" resultMap="selectMap">
-		SELECT P.NM, PD.PLYLST_ID, T.TRACK_TTL, A.NM AS ANM, AL.ALBUM_TTL, AL.ALBUM_IMG, PD.PLY_NO
-		FROM T_PLYLST P, T_PLYLST_DTL PD, T_TRACKS T, T_ARTIST A, T_ARTIST_TRACKS AT, T_ALBUM AL
-		WHERE PD.PLYLST_ID = #{plylstId}
+		SELECT PD.PLYLST_ID,T.TRACK_TTL, A.NM AS ANM, AL.ALBUM_TTL, AL.ALBUM_ID, AL.ALBUM_IMG AS ALBUM_IMG,PD.PLY_NO, PD.TRACK_ID AS TRACK_ID, A.GROP_ID, P.NM, P.DESCP, P.PLYLST_IMG
+		FROM T_PLYLST P, T_PLYLST_DTL PD,
+		T_TRACKS T, T_ARTIST A, T_ARTIST_TRACKS AT, T_ALBUM AL
+		WHERE
+		PD.PLYLST_ID = #{plylstId}
+		AND P.EMAIL = #{email}
 		AND P.PLYLST_ID = PD.PLYLST_ID
 		AND AL.ALBUM_ID = T.ALBUM_ID
 		AND AT.TRACK_ID = T.TRACK_ID
 		AND AT.GROP_ID = A.GROP_ID
 		AND PD.TRACK_ID = AT.TRACK_ID
-		ORDER BY PLY_NO ASC
 	</select>
- 
+
 	<select id="getListLibrary" resultMap="selectMap">
-		SELECT T.TRACK_ID AS TRACK_ID, T.TRACK_TTL, A.NM , TO_CHAR(H.PLAY_DT, 'YYYYMMDDHH24MISS') AS PLAY_DT, AL.ALBUM_IMG
-		FROM T_HISTORY H, T_TRACKS T, T_ALBUM AL, T_ARTIST_TRACKS AT, T_ARTIST A
+		SELECT T.TRACK_ID AS TRACK_ID, T.TRACK_TTL, A.NM , TO_CHAR(H.PLAY_DT, 'YYYYMMDDHH24MISS') AS PLAY_DT, AL.ALBUM_IMG, AL.ALBUM_TTL,
+		AL.ALBUM_ID, A.GROP_ID
+		FROM T_HISTORY H, T_TRACKS T, T_ALBUM AL,
+		T_ARTIST_TRACKS AT, T_ARTIST A
 		WHERE H.EMAIL = #{email}
-		AND H.TRACK_ID = T.TRACK_ID
+		AND H.TRACK_ID =
+		T.TRACK_ID
 		AND T.ALBUM_ID = AL.ALBUM_ID
-        AND T.TRACK_ID = AT.TRACK_ID
-        AND AT.GROP_ID = A.GROP_ID
-        ORDER BY H.PLAY_DT DESC
+		AND T.TRACK_ID = AT.TRACK_ID
+		AND AT.GROP_ID = A.GROP_ID
+		ORDER BY H.PLAY_DT DESC
 	</select>
-	
+
 	<select id="getListLikedArtist" resultMap="selectMap">
-		SELECT A.NM, A.GROP_IMG
+		SELECT A.NM, A.GROP_IMG, A.GROP_ID
 		FROM T_LIKE_ARTISTS LA, T_ARTIST A
 		WHERE LA.EMAIL = #{email}
 		AND LA.GROP_ID = A.GROP_ID
 	</select>
 
 	<select id="getListLikedTrack" resultMap="selectMap">
-		SELECT T.TRACK_TTL, A.NM, AL.ALBUM_TTL, AL.ALBUM_IMG
+		SELECT T.TRACK_TTL, A.NM, AL.ALBUM_TTL, AL.ALBUM_IMG, T.TRACK_ID AS TRACK_ID, AL.ALBUM_ID, A.GROP_ID
 		FROM T_LIKE_TRACKS LT, T_TRACKS T, T_ALBUM AL, T_ARTIST_TRACKS AT, T_ARTIST A
 		WHERE LT.EMAIL = #{email}
 		AND LT.TRACK_ID = T.TRACK_ID
-        AND T.ALBUM_ID = AL.ALBUM_ID
-        AND T.TRACK_ID = AT.TRACK_ID
-        AND AT.GROP_ID = A.GROP_ID
+		AND T.ALBUM_ID = AL.ALBUM_ID
+		AND T.TRACK_ID = AT.TRACK_ID
+		AND AT.GROP_ID = A.GROP_ID
 	</select>
 
 	<select id="getListLikedAlbum" resultMap="selectMap">
-		SELECT DISTINCT AL.ALBUM_TTL, A.NM, AL.ALBUM_IMG
-		FROM T_LIKE_ALBUMS LA, T_ALBUM AL, T_TRACKS T, T_ARTIST_TRACKS AT, T_ARTIST A
+		SELECT DISTINCT
+		AL.ALBUM_TTL, A.NM, AL.ALBUM_IMG, AL.ALBUM_ID, A.GROP_ID
+		FROM T_LIKE_ALBUMS LA, T_ALBUM AL,
+		T_TRACKS T, T_ARTIST_TRACKS AT, T_ARTIST A
 		WHERE LA.EMAIL = #{email}
 		AND LA.ALBUM_ID = AL.ALBUM_ID
-        AND T.ALBUM_ID = AL.ALBUM_ID
-        AND T.TRACK_ID = AT.TRACK_ID
-        AND AT.GROP_ID = A.GROP_ID
+		AND T.ALBUM_ID = AL.ALBUM_ID
+		AND T.TRACK_ID = AT.TRACK_ID
+		AND AT.GROP_ID = A.GROP_ID
 	</select>
-	
-<!-- ************ 2차 개발 ***********
- -->	
-	<select id="findTrack" resultMap="selectMap">
-		SELECT * FROM T_TRACKS T
-		WHERE T.TRACK_TTL LIKE '%'||#{trackTitle}||'%'
-	</select>
-	
+
+	<insert id="insertTrack">
+		INSERT INTO T_PLYLST_DTL(PLYLST_ID, TRACK_ID)
+		VALUES(#{plylstId}, #{trackId})
+	</insert>
+
 	<delete id="deletePlaylist">
-		DELETE FROM T_PLYLST 
+		DELETE FROM T_PLYLST
+		WHERE PLYLST_ID = #{plylstId}
+		AND EMAIL = #{email}
+	</delete>
+
+	<delete id="deletePlaylistDetail">
+		DELETE FROM T_PLYLST_DTL
 		WHERE PLYLST_ID = #{plylstId}
 	</delete>
 	
+	<delete id="deletePlaylistTrack">
+		DELETE FROM T_PLYLST_DTL
+		WHERE PLYLST_ID = #{plylstId}
+		AND TRACK_ID = #{trackId}
+	</delete>
+	
+	<select id="getOnePlaylist" resultMap="Integer">
+		SELECT PLYLST_ID FROM T_PLYLST
+		WHERE PLYLST_ID = #{plylstId}
+		AND EMAIL = #{email}
+	</select>
+	
+	<select id="getOnePlaylistVO" resultMap="PlayListResult">
+		SELECT * FROM T_PLYLST
+		WHERE PLYLST_ID = #{plylstId}
+		AND EMAIL = #{email}
+	</select>
+	
+	<select id="getOneTrackInPlaylist" resultMap="Integer">
+		SELECT TRACK_ID FROM T_PLYLST_DTL
+		WHERE PLYLST_ID = #{plylstId}
+		AND TRACK_ID = #{trackId}	
+	</select>
+
 	<update id="updatePlaylist">
 		UPDATE T_PLYLST
-		SET NM = #{nm}, DESCP = #{desc}
-		WHERE PLYLST_ID = #{plylstId}
+		SET NM = #{plylst.nm}, DESCP = #{plylst.desc}
+		WHERE PLYLST_ID = #{plylst.plylstId}
+		AND EMAIL = #{email}
 	</update>
-	
 
-	<insert id="insertPlaylist">
-		<selectKey keyProperty="plylstId" order="BEFORE" resultType="integer">
+	<insert id="insertSelectKeyPlaylist">
+		<selectKey keyProperty="plylstId" order="BEFORE"
+			resultType="integer">
 			SELECT SEQ_PLYLST.NEXTVAL FROM DUAL
 		</selectKey>
-	
+
 		INSERT INTO T_PLYLST(EMAIL, PLYLST_ID, NM, DESCP, PLYLST_IMG)
 		VALUES(#{email}, #{plylstId}, #{nm}, #{desc}, 'noplaylist.png')
 	</insert>

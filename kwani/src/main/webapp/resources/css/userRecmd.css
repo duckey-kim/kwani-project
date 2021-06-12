@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     border: 0;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 a {
@@ -140,7 +141,6 @@ a {
 
 #bodyContent {
     width: 80%;
-    /* margin-top: 60px; */
     height: 1700px;
 }
 

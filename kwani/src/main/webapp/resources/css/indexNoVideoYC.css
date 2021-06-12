@@ -1,0 +1,174 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+#header {
+    width: 100%;
+    height: 60px;
+    box-sizing: border-box;
+}
+
+#header_navbar {
+    display: flex;
+    width: 100%;
+    height: 60px;
+    background-color: black;
+    transition: top 0.3s;
+    top: 0;
+    position: fixed;
+}
+
+#navbarUtil button {
+    float: right;
+    padding: 10px;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 16px; 
+    background: rgb(70, 69, 69);
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+#navbarUtil button:hover {
+    background: rgb(104, 102, 102);
+}
+
+.emptybox {
+	height: 50px;
+}
+
+.emptybox2 {
+	height: 30px;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.overlay {
+    margin-top: 60px;
+    height: 100%;
+    width: 100%;
+    display: none;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0, 0);
+  }
+  
+.overlay-content {
+    position: relative;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    margin: auto;
+  }
+  
+.overlay input[type=text] {
+    padding: 15px 0;
+    font-size: 17px;
+    border: none;
+    float: left;
+    width: 90%;
+    background: rgb(199, 198, 198);
+  }
+  
+.overlay input[type=text]:hover {
+    background: #f1f1f1;
+  }
+  
+.overlay button {
+    float: right;
+    width: 10%;
+    padding: 15px;
+    background: rgb(165, 163, 163);
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+  }
+  
+.overlay button:hover {
+    background: rgb(116, 115, 115);
+  }
+
+#musicPlayer {
+    width: 40%;
+    height: 60px;
+    color: red;
+    text-align: center;
+    line-height: 60px;
+}
+
+#pageLogo {
+    width: 20%;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    font-size: 35px;
+}
+
+#pageLogo a {
+    color: red;
+}
+
+#navbarUtil {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 40%;
+    height: 60px;
+}
+
+#navbarUtil a {
+    font-size: 15px;
+    color: whitesmoke;
+}
+
+
+#body {
+    display: flex;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+#leftSideBar {
+    width: 10%;
+    height: auto;
+    background-color: white;
+}
+
+#bodyContent {
+    width: 80%;
+    height: auto;
+}
+
+#rightSideBar {
+    width: 10%;
+    height: auto;
+    background-color: white;
+}
+
+#footer {
+    width: 100%;
+    height: 126px;
+    background-color: black;
+}
+
+button:hover, .btn:hover {
+	background-color: black;
+	color: red;
+}
+

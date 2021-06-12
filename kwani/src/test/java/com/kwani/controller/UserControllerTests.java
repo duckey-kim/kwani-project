@@ -105,11 +105,6 @@ public class UserControllerTests {
 		log.info(resultPage);
 	}
 	
-	
-	
-	
-	
-	
 	@Test
 	public void testRemove() throws Exception {
 		

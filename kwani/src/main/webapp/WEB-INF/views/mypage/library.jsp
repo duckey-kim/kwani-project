@@ -8,54 +8,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Library</title>
+<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script defer src="/resources/js/indexNoVideo.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/indexNoVideomh.css">
-<link rel="stylesheet" href="/resources/css/mainmh.css" />
+<link rel="stylesheet" href="/resources/css/mypage.css" />
 </head>
 
-<body>
-	<div id="main">
-		<div id="header">
-			<div id="header_navbar">
-				<div id="musicPlayer">musicPlayer</div>
-				<div id="pageLogo">
-					<a href="#">Last.fm</a>
-				</div>
-				<div id="navbarUtil">
-					<button class="subnavbtn" onclick="openSearch()">
-						<i class="fa fa-search"></i>
-					</button>
-					<a href="#">Home</a> <a href="#">Recommend</a> <a href="#">Find
-						music</a> <a href="#">Join</a>
-				</div>
-			</div>
-			<div id="myOverlay" class="overlay">
-				<div class="overlay-content">
-					<form action="/action_page.php">
-						<input type="text" placeholder="Search.." name="search">
-						<button type="submit">
-							<i class="fa fa-search"></i>
-						</button>
-					</form>
-				</div>
-			</div>
-			<!--myOverlay-->
-
-		</div>
-		<!--header-->
-
-		<div id="body" style="height:100px">
+<%@include file="../includes/header.jsp" %>
+		<div id="body">
 			<div id="leftSideBar"></div>
 			<div id="bodyContent">
 				<div class="mypage-header">
 					<div class="header-item">
-						<img class="userImg" src="/resources/image/${user.userImg}" />
+						<img class="userImg" src="/resources/image/userUpload/${user.userImg}" />
 					</div>
 					<div>
-						<div>
+						<div class="userNick">
 							<c:out value="${user.nick}" />
 						</div>
 					</div>
@@ -64,34 +32,22 @@
 					<div class='nav-left'>
 						<div class="nav-item">
 							<form action="/mypage/overview" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Overview</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/playlist" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Playlist</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/like" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
 								<button class="button">Like</button>
 							</form>
 						</div>
 						<div class="nav-item">
 							<form action="/mypage/library" method="post">
-								<input type="hidden" value="${user.email}" name="email">
-								<input type="hidden" value="${user.nick}" name="nick">
-								<input type="hidden" value="${user.userImg}" name="userImg">
-								<button class="button">Library</button>
+								<button class="button2">Library</button>
 							</form>
 						</div>
 					</div>
@@ -100,27 +56,28 @@
 					<div class="body-item bg-bl">
 						<div class="item-header">
 							<h3>
-								<a href="#">Recent Tracks</a>
+								<button class="button">Recent Tracks</button>
 							</h3>
 						</div>
 						<div class="item-body">
-							<table style="width: 100%">
+							<table class="table">
 								<tr>
-									<th class="th1"></th>
-									<th class="th2"></th>
-									<th class="th3"></th>
-									<th class="th4">곡명</th>
-									<th class="th5">가수</th>
-									<th class="th6">마지막재생일</th>
+								<th style="width:10%"></th>
+								<th style="width:40%"></th>
+								<th style="width:10%"></th>
+								<th></th>
+								<th style="width:5%"></th>
+								<th style="width:5%"></th>
 								</tr>
 								<c:forEach items="${libraryList}" var="library">
 									<tr>
-										<td><a href="#"><img src="/resources/image/play-button.png" class="play"></a></td>
-										<td><a href="#"><img src="/resources/image/${library.heart}" class="play"></a></td>
-										<td><a href="#"><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"></a></td>
-										<td><c:out value="${library.TRACK_TTL}" /></td>
-										<td><c:out value="${library.NM}" /></td>
-										<td><c:out value="${library.PLAY_DT}" /></td>
+										<td><a href="/detail/album?albumId=${library.ALBUM_ID}"><img src="/resources/image/album/${library.ALBUM_IMG}" class="myImg"></a></td>
+										<td><a class="track-title" href="/detail/track?trackId=${library.TRACK_ID}"><c:out value="${library.TRACK_TTL}" /></a></td>
+										<td><a class="artist-name" href="/detail/artist?gropId=${library.GROP_ID}"><c:out value="${library.NM}" /></a></td>
+										<td class="play-date"><c:out value="${library.PLAY_DT}" /></td>
+										<td onclick='popupPlayer("/player/track?trackId=${library.TRACK_ID}")'><img src="/resources/image/play-button.png" class="play"></td>
+										<td><img class="track-heart" name="${library.TRACK_ID}" src="/resources/image/heart.png">
+										<img class="track-heart-empty" name="${library.TRACK_ID}" src="/resources/image/heart2.png"></td>
 									</tr>
 								</c:forEach>
 							</table>
@@ -132,8 +89,100 @@
 			<!--bodyContent-->
 			<div id="rightSideBar"></div>
 		</div>
+
+		<!-- 모달창 -->
+		<div id="myModal" class="modal">
+			<div class="modal-overlay"></div>
+			<!-- content -->
+			<div class="modal-content">
+				<div class="modal-close">&times;</div>
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<div class="modal-body">기본</div>
+				<div class="modal-footer">
+				<div>
+					<form action="/mypage/playlist/delete" method="post">
+						<input class="plylstDel" type="hidden" value="" name="plylstId">
+						<input class="email" type="hidden" value="${user.email}" name="email">
+						<button class="modalBtn">삭제하기</button>
+					</form>
+				</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="/resources/js/like.js"></script>
+		<script>
+		      let popupPlayer = function(url){
+		          let moveTop=screen.height-440;
+		           let moveLeft=screen.width-537;
+		         window.open(url, 'player', 'width=380,height=285,directories=no,location=no,toolbar=no,menubar=no,resizable=no,top='+moveTop+',left='+moveLeft);
+		      }
+		</script>
+		
+		<script>
+			$(document).ready(function(){
+				showLike();
+				likeTrack();
+			});
+			
+			// 좋아요 여부에 따라 하트 나타나도록..
+			function showLike(){
+				$("img[class=track-heart-empty]").show();
+				$("img[class=track-heart]").hide();
+				
+				<c:forEach items="${likedTrackList}" var="track">
+					$("img[name='${track.TRACK_ID}'][class=track-heart]").show();
+					$("img[name='${track.TRACK_ID}'][class=track-heart-empty]").hide();
+				</c:forEach>
+			}
+			
+			function likeTrack(){
+				
+				let trackId = "";
+				let idx = "";
+				
+				// 빨간 하트 누르면 좋아요 테이블에 삭제
+			 	$(document).on("click", ".track-heart", function(){
+			 		idx = $(".track-heart").index(this);
+			 		$(".track-heart:eq(" + idx + ")").hide();
+					$(".track-heart-empty:eq(" + idx + ")").show();
+					trackId = $(".track-heart:eq(" + idx + ")").attr("name");
+					likeService.removeLikeTrack(trackId, function(obj){
+						if(obj === 'SUCCESS'){
+							basicModalContent("좋아요를 취소했습니다");
+							return;
+						}
+						basicModalContent("좋아요 취소를 실패했습니다");
+					});
+			 	});
+				
+				// 빈 하트 누르면 좋아요 테이블에 추가
+			 	$(document).on("click", ".track-heart-empty", function(){
+			 		idx = $(".track-heart-empty").index(this);
+			 		$(".track-heart:eq(" + idx + ")").show();
+					$(".track-heart-empty:eq(" + idx + ")").hide();
+					trackId = $(".track-heart-empty:eq(" + idx + ")").attr("name");
+					likeService.addLikeTrack(trackId, function(obj){
+						if(obj === 'SUCCESS'){
+							basicModalContent("이 노래를 좋아합니다");
+							return;
+						}
+						basicModalContent("좋아요 리스트 추가에 실패했습니다");
+					});
+			 	});
+			
+			}
+			
+			// 기본 모달 내용 변경 함수
+			function basicModalContent(content){
+				$(".modal-body").text(content);
+				$(".modalBtn").hide();
+				$(".modal-close").hide();
+				$("#myModal").attr("style", "display:block");
+				setTimeout(function(){$("#myModal").attr("style", "display:none");}, 800);
+			}
+		</script>
 		<!--body-->
-		<div id="footer"></div>
-	<!--main-->
-</body>
-</html>
+<%@include file="../includes/footer.jsp" %>

@@ -1,70 +1,104 @@
 package com.kwani.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kwani.domain.UserVO;
+import com.kwani.service.LikeAndPlaylistService;
 import com.kwani.service.PListService;
+import com.kwani.service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/recommend/*" )
+@RequestMapping("/recommend/*")
 @AllArgsConstructor
 public class PListController {
 
 	private PListService plservice;
-	
-	//ÀÏ¹İ »ç¿ëÀÚ ÃßÃµ ÆäÀÌÁö
+	private LikeAndPlaylistService likeAndPlaylistService;
+
+	// ì¼ë°˜ ì‚¬ìš©ì ì¶”ì²œ í˜ì´ì§€
 	@GetMapping("/common")
-	public void list(Model model) {
-		
-		//Àå¸£º° ÇÃ·¹ÀÌ¸®½ºÆ® id¿Í ÀÌ¸§À» º¸¿©ÁØ´Ù 
-		//ÇÃ·¹ÀÌ¸®½ºÆ® ¹øÈ£¿Í ÀÌ¸§¸¸ º¸¿©ÁÖ±â
+	public void list(Model model, HttpSession session) {
+
+		// ì¥ë¥´ë³„ í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ idì™€ ì´ë¦„ì„ ë³´ì—¬ì¤€ë‹¤
+		// í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ ë²ˆí˜¸ì™€ ì´ë¦„ë§Œ ë³´ì—¬ì£¼ê¸°
 		log.info("allplist...");
-		model.addAttribute("allplist", plservice.getAllList());	
-	}
-	
-	//ÇÃ·¹ÀÌ¸®½ºÆ® »ó¼¼ ÆäÀÌÁö
-	@PostMapping("/plylst")
-	public void plylst(@ModelAttribute("plylstId")int plylstId, Model model) {
+		model.addAttribute("allplist", plservice.getAllList());
 		
+		model.addAttribute("sessionName", session.getAttribute("user"));
+	}
+
+	// í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ ìƒì„¸ í˜ì´ì§€
+	@GetMapping("/plylst")
+	public void plylst(Integer plylstId, Model model, HttpSession session) {
+
 		System.out.println(plylstId);
 		log.info("plist name....");
 		System.out.println(plservice.getListName(plylstId));
-		//plylstId°ª°ú °°Àº id°ªÀ» °¡Áø plylstNmÀ» °¡Á®¿Â´Ù  
+
+		// plylstIdê°’ê³¼ ê°™ì€ idê°’ì„ ê°€ì§„ plylstNmì„ ê°€ì ¸ì˜¨ë‹¤
 		model.addAttribute("plistName", plservice.getListName(plylstId));
-		//plylstId °ªÀ» ÅëÇØ °°Àº id °ªÀ» °¡Áø ÇÃ·¹ÀÌ¸®½ºÆ® ¸ñ·ÏÀ» °¡Á®¿Â´Ù
-		model.addAttribute("plistListDtl", plservice.getListDtl(plylstId));	
+
+		// plylstId ê°’ì„ í†µí•´ ê°™ì€ id ê°’ì„ ê°€ì§„ í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ ëª©ë¡ì„ ê°€ì ¸ì˜¨ë‹¤
+		model.addAttribute("plistListDtl", plservice.getListDtl(plylstId));
+
+		
+		//ì„¸ì…˜ ì²´í¬ë¥¼ í•´ì„œ ì„¸ì…˜ì´ ìˆìœ¼ë©´(ë¡œê·¸ì¸í–ˆë‹¤ë©´) 
+		if(session.getAttribute("user") != null) {
+			
+			UserVO user = (UserVO)session.getAttribute("user");
+			String email = user.getEmail();
+		
+			//íŠ¸ë™ ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤ 
+			model.addAttribute("getLikedTrack",plservice.getLikedTrack(email));
+		  
+			//ì•„ë˜ ì½”ë“œëŠ” search.jsp ì—ì„œ ì“°ê¸°! 
+			model.addAttribute("getLikedArtist",plservice.getLikedArtist(email));
+		  
+			//íšŒì›ì˜ í”Œë ˆì´ë¦¬ìŠ¤íŠ¸ ëª©ë¡ì„ ê°€ì ¸ì˜¨ë‹¤ 
+			model.addAttribute("getUserPlylst",plservice.getListPlylst(email)); 
+			
+			model.addAttribute("sessionName", session.getAttribute("user"));
+			
+			System.out.println(session.getAttribute("user"));
+		 }
+
 	}
 	
-	//³ë·¡ °Ë»ö ÆäÀÌÁö
-	@GetMapping("/search")
-	public void search(@ModelAttribute("searchTxt")String searchTxt, Model model) {
-		//°Ë»öÃ¢¿¡ ÀÔ·ÂÇÑ °¡¼ö ÅØ½ºÆ®¸¦ search ÆäÀÌÁö¿¡ º¸³»ÁØ´Ù
-		//search ÆäÀÌÁö¿¡¼­ ±× °ªÀ» ¹Ş¾Æ¼­ °ª°ú ÀÏÄ¡ÇÏ´Â °á°ú¸¦ º¸¿©ÁØ´Ù
-		System.out.println("@@@");
-		log.info("search result....");
-		model.addAttribute("searchRst", plservice.getSearchRst(searchTxt));
+	
+	
+	//ë•í™˜ë¶€ë¶„
+	
+	
+	
+	@GetMapping("/member")
+	public void memberRecommend(HttpSession session,Model model) {
+		UserVO user= (UserVO)session.getAttribute("user");
+		String email=user.getEmail();
+		int genreCode = plservice.getUserLikeGenre(email,100);
+		log.info("genreCode :"+genreCode);
+		int typeCode = plservice.getUserLikeType(email,200);
+		log.info("typeCode : "+typeCode);
+		System.out.println("genreCd  :"+genreCode);
+		System.out.println("typeCd  :"+typeCode);
+		List<Map<String,String>> listByGenre =plservice.recommendGenre(genreCode);
+		List<Map<String,String>> listByType = plservice.recommendType(typeCode);
+		
+		model.addAttribute("getPlaylists", likeAndPlaylistService.getPlaylists(email));
+		model.addAttribute("genreList",listByGenre);
+		model.addAttribute("typeList",listByType);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
+
+

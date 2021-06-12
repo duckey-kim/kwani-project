@@ -24,7 +24,7 @@ public class MyPageMapperTests {
 
 	@Test
 	public void testGetListLibrary() {
-		log.info(mapper.getListLibrary("qwani@"));
+		log.info(mapper.getListLibrary("a@naver.com"));
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class MyPageMapperTests {
 		playlistVO.setNm("");
 
 		log.info("Before : " + playlistVO);
-		mapper.insertPlaylist(playlistVO);
+		mapper.insertSelectKeyPlaylist(playlistVO);
 		log.info("After : " + playlistVO);
 	}
 

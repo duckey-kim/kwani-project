@@ -1,29 +1,44 @@
+      </div>
+        <!-- End of Content Wrapper -->
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+    </div>
+    <!-- End of Page Wrapper -->
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="/resources/vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Scroll to Top Button-->
+   
 
-    <!-- DataTables JavaScript -->
-    <script src="/resources/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="/resources/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="/resources/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="/resources/dist/js/sb-admin-2.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-        $(".sidebar-nav").attr("class","sidebar-nav navbar-collapse collapse")
-        .attr("aria-expanded",'false')
-        .attr("style","height:1px");
-    });
-    </script>
+    <!-- Custom scripts for all pages-->
+    <script src="/resources/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/resources/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/resources/js/demo/datatables-demo.js"></script>
+
+</body>
+
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script>
+	$(document).ready(
+			function() {
+				$('#dataTables-example').DataTable({
+					responsive : true
+				});
+				$(".sidebar-nav").attr("class",
+						"sidebar-nav navbar-collapse collapse").attr(
+						"aria-expanded", 'false').attr("style", "height:1px");
+			});
+</script>
 
 </body>
 

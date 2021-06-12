@@ -1,83 +1,119 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript" src="/resources/js/jquery-3.5.1.js"></script>
-<link rel="stylesheet" href="/resources/css/admin.css" />
-</head>
-<body>
-	<h4>${msg }</h4>
-	<form action="/admin/inputalbumAction" method="post"
-		onsubmit="return checkInput();">
-		<h5>T_ALBUM</h5>
-		<div>
-			img <input type="text" name="albumImg">
+<%@include file="/WEB-INF/views/includes/adminheader.jsp"%>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<form action="/admin/inputalbumAction" method="post"
+						enctype="multipart/form-data" onsubmit="return checkInput();">
+						<h4>${msg }</h4>
+						<h4>T_ALBUM</h4>
+						<div class="form-group">
+							<label>이미지</label> <input class="form-control" type="file"
+								name="imgFile" id=imgFile>
+						</div>
+						<div class="form-group">
+							<label>제목</label> <input class="form-control"
+								placeholder="album_title" type="text" name="albumTtl"
+								id="albumTtl" value="${album.albumTtl }">
+						</div>
+						<div class="form-group">
+							<label>상태코드</label> <input class="form-control"
+								placeholder="상태코드" type="text" name="stusCd" id="stusCd"
+								value="${album.stusCd }">
+						</div>
+						<div class="form-group">
+							<label>발매일</label> <input class="form-control"
+								placeholder="releaseDate" type="date" name="rlesDt" id="rlesDt"
+								placeholder="2020-10-31" value="${album.rlesDt }">
+						</div>
+
+						<input type="hidden" name="upUser" id="upUser" value="${mngrId} ">
+						<button class="btn btn-sm btn-success">등록</button>
+					</form>
+				</div>
+			</div>
 		</div>
-		<div>
-			album_title <input type="text" name="albumTtl" id="albumTtl">
-		</div>
-		<div>
-			releaseDate <input type="text" name="rlesDt" id="rlesDt"
-				placeholder="2020-10-31">
-		</div>
+	</div>
+</div>
 
-
-
-		<button>등록</button>
-	</form>
-	<a href="/admin/home">HOME</a>
-
-
-
-	<script type="text/javascript">
-		function check(pattern, input, message) {
-			if (pattern.test(input.value)) {
-				return true;
-			}
-			alert(message);
-			input.value = "";
-			input.focus();
+<script type="text/javascript">
+	let checkExtension = function(fileName, fileSize) {
+		const imgRegex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+		const maxSize = 5242880;
+		if (fileSize >= maxSize) {
+			alert("파일사이즈 초과");
+			return false;
 		}
+		if (imgRegex.test(fileName)) {
+			alert("해당 종류의 파일은 업로드 할 수 없습니다.");
+			return false;
+		}
+		return true;
+	}
 
-		function checkInput() {
-			let album = document.getElementById("albumTtl");
-			let date = document.getElementById("rlesDt");
-			
-			
-			let albumTtl=album.value.trim();
-			let rlesDt=date.value.trim();
-			
-			
-			const specialPattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
-			const datePattern = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
-
-			if (specialPattern.test(album.value)) {
-				alert("특수문자는 사용이 안됩니다");
-				album.value="";
-				return false;
-			}
-
-			if (!check(datePattern, date, "날짜는 yyyy-MM-dd형식을 지켜주세요")) {
-				return false;
-			}
-
-			if (albumTtl=="") {
-				alert("album_title is empty")
-				return false;
-			} else if (albumTtl.length > 30) {
-				alert("album_title의 길이가 30을 넘습니다")
-				album.value="";
-				return false
-			}
-			if (rlesDt== "") {
-				alert("releaseDate is empty")
-				return false;
-			}
+	let check = function(pattern, input, message) {
+		if (!pattern.test(input.value)) {
 			return true;
 		}
-	</script>
-</body>
-</html>
+		alert(message);
+		input.value = "";
+		input.focus();
+	}
+
+	let checkInput = function() {
+
+		let titleFld = document.getElementById("albumTtl");
+		let dateFld = document.getElementById("rlesDt");
+		let stusCdFld = document.getElementById("stusCd");
+		let imgFld = document.getElementById("imgFile");
+
+		let albumImg = imgFld.files.item(0);
+		let albumTtl = titleFld.value.trim();
+		let rlesDt = dateFld.value.trim();
+		let stusCd = stusCdFld.value.trim();
+
+		const specialPattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+		const numRegex = /[^0-9]/g;
+
+		if (!check(specialPattern, titleFld, "제목에 특수문자는 안됩니다 ")) {
+			return false;
+		}
+
+		if (albumTtl == "") {
+			alert("제목이 비었습니다");
+			return false;
+		} else if (albumTtl.length > 30) {
+			alert("album_title의 길이가 30을 넘습니다");
+			titleFld.value = "";
+			return false;
+		}
+		if (rlesDt == "") {
+			alert("발매일을 입력해주세요");
+			return false;
+		}
+		if (stusCd == "") {
+			alert("상태코드를 입력해주세요");
+			return false;
+		} else if (stusCd.length > 2) {
+			alert("stusCd 의 길이가 2을 넘습니다");
+			stusCdFld.value = "";
+			return false
+		}
+		if (!check(numRegex, stusCdFld, "상태코드는  숫자만 입력해주세요")) {
+			return false;
+		}
+
+		if (albumImg == null) {
+			alert("파일을 선택해주세요");
+			return false;
+		}else if (!checkExtension(albumImg.name, albumImg.size)) {
+			return false;
+		}
+
+		return true;
+	}
+</script>
+<%@include file="/WEB-INF/views/includes/adminfooter.jsp"%>

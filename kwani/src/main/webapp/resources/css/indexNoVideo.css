@@ -1,19 +1,12 @@
-* {
+ * {
     margin: 0;
     padding: 0;
     border: 0;
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 a {
     text-decoration: none;
-}
-
-tr{
-	width: 10%;	
-}
-
-td {
-	width: 30%;
 }
 
 #header {

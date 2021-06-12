@@ -1,7 +1,10 @@
+* {
+	font-family: 'Nanum Gothic', sans-serif;
+}
 .music-header {
 	width: 100%;
 	height: 200px;
-	background-color: lightskyblue;
+	/* background-color: lightskyblue; */
 	display: flex;
 	align-items: center;
 }
@@ -22,13 +25,13 @@
 }
 
 .header-buttons {
-	background-color: lightskyblue;
+	/* background-color: lightskyblue; */
 	flex-direction: row;
 	justify-content: flex-start;
 }
 
 .music-play {
-	background-color: #339999;
+	background-color: black;
 	color: white;
 	display: flex;
 	width: 100%;
@@ -37,12 +40,10 @@
 }
 
 .music-play .youtube-link {
-	background: tomato;
 	width: 50%;
 }
 
 .music-play .lyrics {
-	background-color: lightpink;
 	display: flex;
 	width: 50%;
 	text-align: center;
@@ -54,15 +55,24 @@
 }
 
 .related {
-	background-color: plum;
+	/* background-color: plum; */
 	display: flex;
 	width: 100%;
-	height: 300px;
+	height: 280px;
+	flex-direction: column;
+	overflow-x:auto
+}
+
+#related {
+	overflow: hidden;
+	display: flex;
+	width: 100%;
+	height: auto;
 	flex-direction: column;
 }
 
 .subtitle {
-	color: white;
+	color: black;
 }
 
 .items {
@@ -70,11 +80,25 @@
 	flex-direction: row;
 }
 
+#items {
+	display: flex;
+	flex-direction: row;
+	height: auto;
+}
+
 .item {
 	background-color: red;
 	width: 200px;
 	height: 200px;
-	margin: 10px;
+	margin: 15px;
+}
+
+#item {
+	display: flex;
+	flex-direction: column;
+	width: 100px;
+	height: auto;
+	/* margin: 10px; */
 }
 
 .temp {
@@ -104,3 +128,138 @@
 	height: 50px;
 	margin: 10px;
 }
+
+.emptyHeart, .redHeart {
+	width: 20px;
+	height: 20px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+/* 모달 */
+#modal {
+	display: none;
+	position: fixed;
+	left: 10px;
+	top: -30px;
+	width: 100%;
+	height: 100%;
+	z-index: 3;
+}
+
+#noticeModal {
+	background-color: white;
+	display: none;
+	position: fixed;
+	left: 400px;
+	top: 100px;
+	width: 40%;
+	height: auto%;
+	z-index: 1;
+}
+
+#modal h2 {
+	margin: 0;
+}
+
+#noticeModal h2 {
+	margin: 0;
+}
+
+#modal button {
+	display: inline-block;
+	margin: 5px auto;
+	/* width: 10px;
+	margin-left: calc(100% - 100px - 10px); */
+}
+
+#modal .modal-content {
+	width: 500px;
+	margin: 100px auto;
+	padding: 20px 10px;
+	background: #fff;
+	border: 2px solid #666;
+}
+
+#noticeModal .modal-content {
+	width: auto;
+	height: auto;
+	margin: auto;
+	padding: 20px 10px;
+	background: #fff;
+	border: 2px solid #666;
+}
+
+#modal .modal-layer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: -1;
+}
+
+#noticeModal .modal-layer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: -1;
+}
+
+#modal-buttons {
+	display: flex;
+}
+/* 모달끝 */
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+	padding: 1px;
+}
+
+tr:hover {background-color:#f5f5f5;}
+
+.btn {
+    background-color: #e7e7e7;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+    height: 36px;
+    margin: 5px;
+}
+
+.swiper-slide {
+      text-align: center;
+      font-size: 16px;
+      background: #fff;
+
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }

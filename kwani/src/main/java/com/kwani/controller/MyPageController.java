@@ -1,8 +1,12 @@
 package com.kwani.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,131 +15,149 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kwani.domain.PlaylistVO;
 import com.kwani.domain.UserVO;
 import com.kwani.service.MyPageService;
+import com.kwani.service.UserService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping(value = "/mypage/*", method=RequestMethod.POST)
+@RequestMapping(value = "/mypage/*", method = RequestMethod.POST)
 @Log4j
 @AllArgsConstructor
 public class MyPageController {
-	
+
 	private MyPageService myPageService;
 
 	// 전체보기 (플레이리스트, 좋아요, 최근들은 곡 요약)
-	// TODO: session 연결
-	@RequestMapping(value = "/overview", method= {RequestMethod.POST, RequestMethod.GET})
-	public String overview(Model model) {
+	@RequestMapping(value = "/overview", method = { RequestMethod.POST, RequestMethod.GET })
+	public String overview(HttpSession session, Model model) {
 
-		String email="a@naver.com";
-		
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+
 		model.addAttribute("libraryList", myPageService.getListLibrary(email));
 		model.addAttribute("likedArtistList", myPageService.getListLikedArtist(email));
 		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
 		model.addAttribute("likedAlbumList", myPageService.getListLikedAlbum(email));
-		model.addAttribute("user", myPageService.getUser(email));
 		
 		return "/mypage/overview";
 	}
 
 	// 좋아요
 	@PostMapping("/like")
-	public String like(@ModelAttribute("user") UserVO user, Model model) {
-		
-		model.addAttribute("likedArtistList", myPageService.getListLikedArtist(user.getEmail()));
-		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(user.getEmail()));
-		model.addAttribute("likedAlbumList", myPageService.getListLikedAlbum(user.getEmail()));		
+	public String like(HttpSession session, Model model) {
+
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+
+		model.addAttribute("likedArtistList", myPageService.getListLikedArtist(email));
+		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
+		model.addAttribute("likedAlbumList", myPageService.getListLikedAlbum(email));
 
 		return "/mypage/like";
 	}
 
 	// 최근들은 곡
 	@PostMapping("/library")
-	public String trackList(@ModelAttribute("user") UserVO user, Model model) {
-		
-		model.addAttribute("libraryList", myPageService.getListLibrary(user.getEmail()));
-		model.addAttribute("user", myPageService.getUser(user.getEmail()));
+	public void trackList(HttpSession session, Model model) {
 
-		return "/mypage/library";
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+		
+		model.addAttribute("libraryList", myPageService.getListLibrary(email));
+		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
+
 	}
 
 	// 플레이리스트 목록 보여주기
-	@RequestMapping(value = "/playlist", method= {RequestMethod.POST, RequestMethod.GET})
-	public String playlist(@ModelAttribute("user") UserVO user, Model model, RedirectAttributes rttr) {
-		
-		System.out.println("어디가문젠데");
-		System.out.println( "*****" + myPageService.getListPlaylist(user.getEmail()));
-		model.addAttribute("playlist", myPageService.getListPlaylist(user.getEmail()));
-		System.out.println("?????????");
-		
+	@RequestMapping(value = "/playlist", method = { RequestMethod.POST, RequestMethod.GET })
+	public String playlist(HttpSession session, Model model) {
+
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+
+		model.addAttribute("playlistVO", myPageService.getListPlaylist(email));
+		model.addAttribute("playlistCount", myPageService.countPlaylist(email));
+
 		return "/mypage/playlist";
 	}
 
-	// 플레이리스트 상세 보여주기
+	// 플레이리스트 상세(곡)보여주기
 	@PostMapping("/playlistDetail")
-	public String playlistDetail(@ModelAttribute("plylstId")Integer plylstId, @ModelAttribute("user") UserVO user, Model model) {
-		
-		model.addAttribute("playlistDetail", myPageService.getPlaylistDetail(plylstId));
+	public String playlistDetail(@ModelAttribute("plylstId") Integer plylstId, HttpSession session, Model model) {
+
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+
+		model.addAttribute("playlistVO", myPageService.getOnePlaylistVO(plylstId, email));
+		model.addAttribute("playlistDetail", myPageService.getListPlaylistDetail(plylstId, email));
 		model.addAttribute("trackCount", myPageService.countPlaylistTrack(plylstId));
-		
+
 		return "/mypage/playlistDetail";
 	}
 	
-	
-	// *****************************************
-	// ************* 2차 개발 미완성 **************
-	// *****************************************
-	// 플레이리스트 생성 수정 삭제
-	// 새 플레이리스트 seq 만들고 넘겨주는 페이지
+	// TODO : Null check
+	// 새 플레이리스트 생성
 	@PostMapping("/playlist/create")
-	public String playlistCreate(@ModelAttribute("user") UserVO user, Model model) {
+	public String createPlaylist(@ModelAttribute("playlistVO")PlaylistVO playlistVO, HttpSession session , Model model) {
+			
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 		
-		PlaylistVO playlistVO = new PlaylistVO();
-		playlistVO.setEmail(user.getEmail());
-		playlistVO.setNm("제목을 입력하세요.");
-		playlistVO.setDesc("내용을 입력하세요.");
+		playlistVO.setEmail(email);
+			
+		myPageService.createPlaylist(playlistVO);
+		model.addAttribute("playlistVO", playlistVO);
+					
+		return "redirect:/mypage/playlist/" + playlistVO.getPlylstId();
+	}
+
+	// 수정 페이지
+	@GetMapping("/playlist/{plylstId}")
+	public String showPlaylist(@PathVariable("plylstId")Integer plylstId, HttpSession session , Model model) {
 		
-		myPageService.setPlaylistId(playlistVO);
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+
+		PlaylistVO playlistVO =  myPageService.getOnePlaylistVO(plylstId, email);
 		
-		model.addAttribute("plylstId", playlistVO.getPlylstId());
-		System.out.println(playlistVO.getPlylstId());
-		model.addAttribute("user", user);
-		System.out.println("create" + user);
+		if(playlistVO == null) {
+			return "errorAccess";
+		}
 		
+		model.addAttribute("playlistVO", playlistVO);
+		model.addAttribute("playlistDetail", myPageService.getListPlaylistDetail(plylstId, email));		
+		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
+				
 		return "/mypage/playlistView";
 	}
-	
+
+	// 플레이리스트 삭제
 	@PostMapping("/playlist/delete")
-	public String deletePlaylist(@ModelAttribute("plylstId") Integer plylstId, @ModelAttribute("user") UserVO user, RedirectAttributes rttr) {
+	public String deletePlaylist(Integer plylstId, HttpSession session, RedirectAttributes rttr) {
+
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
 		
-		myPageService.removePlaylist(plylstId);
-		rttr.addFlashAttribute("user", user);
+		boolean result = myPageService.removePlaylist(plylstId, email);	
+		rttr.addFlashAttribute("successDel", result ? "SUCCESS" : "FAIL");
+		rttr.addFlashAttribute("playlistCount", myPageService.countPlaylist(email));
+		
+		return "redirect:/mypage/playlist";
+	}
+
+	// 플레이리스트 수정
+	@PostMapping("/playlist/modify")
+	public String getPlaylistEdit(@ModelAttribute("playlistVO") PlaylistVO playlistVO, HttpSession session, RedirectAttributes rttr) {
+		
+		//유효성체크.. 본인만 수정할 수 있도록
+		UserVO user = (UserVO) session.getAttribute("user");
+		String email = user.getEmail();
+		
+		boolean result = myPageService.modifyPlaylist(playlistVO, email);		
+		rttr.addFlashAttribute("result", result ? playlistVO.getNm() : "FAIL");
 
 		return "redirect:/mypage/playlist";
 	}
-	
-	
-	// 플레이리스트 생성 및 수정 페이지
-	@PostMapping("/playlist/modify")
-	public String getPlaylistEdit(@ModelAttribute("playlistVO") PlaylistVO playlistVO, @ModelAttribute("user") UserVO user, RedirectAttributes rttr) {
-		
-		myPageService.modifyPlaylist(playlistVO);
-		rttr.addFlashAttribute("user", user);
-		
-		return "redirect:/mypage/playlist";
-	}
-	
-//	@PostMapping("/playlist/addtrack")
-//	public String addTrack(Model model) {
-//		
-//		// search keyword 받으면 (일단 곡제목으로)
-//		// 검색한 곡들 보여주기
-//		// 버튼 누르면 보내기 playlist/123으로 보내기
-//		
-//		//model.addAttribute("findTrackList", myPageMapper.findTrack(trackTitle));
-//		
-//		return "/mypage/addTrack";
-//	}
 
 }

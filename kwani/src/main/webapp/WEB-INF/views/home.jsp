@@ -1,157 +1,408 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-
-<%-- <%@include file="../includes/header.jsp"%> --%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
-    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
-    <link rel="stylesheet" type = "text/css" href="/resources/css/home.css">
-</head> 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>home</title>
+<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
+</head>
+
+<%@include file="includes/mainHeader.jsp"%>
+
+<div id="body">
+	<div id="leftSideBar"></div>
+	<div id="bodyContent">
+		<div class="sysdate">${year}.${month}.${date}</div>
+		<div class="btnDotContainer">
+			<div class="contentBtn">오늘은 뭘 듣지?</div>
+			<div class="dotContainer">
+				<span class="dot" onclick="currentSlide(1)"></span> <span
+					class="dot" onclick="currentSlide(2)"></span> <span class="dot"
+					onclick="currentSlide(3)"></span> <span class="dot"
+					onclick="currentSlide(4)"></span> <span class="dot"
+					onclick="currentSlide(5)"></span> <span class="dot"
+					onclick="currentSlide(6)"></span>
+			</div>
+			<div class="etc"></div>
+		</div>
+		<div class="topContentBox">
+			<div class="todayRecmd">
+				<div class="recmdContainer_1">
+					<c:forEach items="${list}" var="getList" begin="0" end="2">
+						<div class="recmdFlip-box">
+							<div class="recmdFlip-box-inner">
+								<div class="recmdFront">
+									<img src="/resources/image/album/${getList.albumImg}"
+										class="recmdImage" alt="">
+									<div class="recmdArtistName">
+										<h2>${getList.name}</h2>
+									</div>
+								</div>
+								<div class="recmdBack">
+									<div class="backBlank"></div>
+									<div class="backText">
+										<h2
+											onclick="location.href='/detail/album?albumId=${getList.albumId}'">${getList.albumTtl}</h2>
+										<h3
+											onclick="location.href='/detail/artist?gropId=${getList.gropId}'">${getList.name}</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+				<div class="recmdContainer_2">
+					<c:forEach items="${list}" var="getList" begin="3" end="5">
+						<div class="recmdFlip-box">
+							<div class="recmdFlip-box-inner">
+								<div class="recmdFront">
+									<img src="/resources/image/album/${getList.albumImg}"
+										class="recmdImage" alt="">
+									<div class="recmdArtistName">
+										<h2>${getList.name}</h2>
+									</div>
+								</div>
+								<div class="recmdBack">
+									<div class="backBlank"></div>
+									<div class="backText">
+										<h2
+											onclick="location.href='/detail/album?albumId=${getList.albumId}'">${getList.albumTtl}</h2>
+										<h3
+											onclick="location.href='/detail/artist?gropId=${getList.gropId}'">${getList.name}</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+			<div class="slideBox">
+				<c:forEach items="${allPlist}" var="getAllList">
+					<div class="slides fade">
+						<img src="/resources/image/rcmdplylst/${getAllList.rcmdPlylstImg}"
+							class="slideBoxImg"
+							onclick="location.href='/recommend/plylst?plylstId=${getAllList.rcmdPlylstId}'"
+							alt="">
+						<p class="slidesTxt">${getAllList.rcmdPlylstNm}</p>
+					</div>
+				</c:forEach>
+				<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a
+					class="next" onclick="plusSlides(1)">&#10095;</a>
+			</div>
 
 
-
-<body>
-    <div id="main">
-        <div id="header">
-        <div id="header_cover">
-                <video id="video"src="/resources/video/AudioWave.mp4" type="video/mp4" autoplay muted loop></video>
-            </div>
-            <div id="header_navbar">
-                <div id="musicPlayer">musicPlayer</div>
-                <div id="pageLogo">
-                    <a href="/">Last.fm</a>
-                </div>
-                <div id="navbarUtil"> 
-                    <button class="subnavbtn" onclick="openSearch()">
-                      <i class="fa fa-search"></i></button>
-                    <a href="/">Home</a>
-                    <a href="#">Recommend</a>
-                    <a href="#">Find music</a>
-                    <a href="/user/register" id="joinBtn">Join</a>
-                    <a href="/user/logoutAction" id="logoutBtn" style="display:none">Logout</a>
-                    <a href="#" id="toMypageBtn" style="display:none">My page</a>
-                </div>
-            </div>
-            <div id="myOverlay" class="overlay">
-                <div class="overlay-content">
-                  <form action="#">
-                    <input type="text" placeholder="Search.." name="search">
-                    <button type="submit"><i class="fa fa-search"></i></button>
-                  </form>
-                </div>
-            </div><!--myOverlay-->
-        </div><!--header-->
-
-        
-
-        <div id="body">
-            <div id="leftSideBar"></div>
-            <div id="bodyContent">
-                <div class="sysdate">
-                    12월 25일 / 오늘은 뭐 들을까??
-                </div>
-                <div class="contentBtn">
-                    오늘의 추천곡
-                </div>
-                <div class="topContentBox">
-                    <div class="todayRecmd">
-                        <div class="recmdContainer_1">
-                            <div class="recmd_1"></div>
-                            <div class="recmd_2"></div>
-                            <div class="recmd_3"></div>
-                        </div>
-                        <div class="recmdContainer_2">
-                            <div class="recmd_4"></div>
-                            <div class="recmd_5"></div>
-                            <div class="recmd_6"></div>
-                        </div>
-                    </div>
-                    <div class="slideBox">추천목록 슬라이드</div>
-                    <div class="loginFormBox">
-                        <a href="/user/login" class="loginBtn" id="loginBtn">Login</a>
-                        <div id="welcomeBtn" class="welcomeBtn" style="display:none">
-                        환영합니다!<br>
-                        ${userNick} 님
-                        </div>
-                    </div>
-                </div>
-                <div class="bottomContentBox">
-                    <div class="genreYear">장르 & 연도</div>
-                    <div class="akinator">아키네이터</div>
-                </div>
-            </div><!--bodyContent-->
-            <div id="rightSideBar"></div>
-        </div><!--body-->
-        <div id="footer"></div>
-    </div><!--main-->
-</body>
-
-<%-- <%@include file="../includes/footer.jsp"%> --%>
+			<div class="loginFormBox">
+				<div class="loginBtnWrap">
+					<button class="loginBtn" id="loginBtn"
+						onclick="location.href='/user/login'">Login</button>
+				</div>
+				<div id="welcomeBtn" class="welcomeBtn" style="display: none"
+					onclick="location.href='/mypage/overview'">
+					<p>환영합니다!</p>
+					<p>${userNick}님</p>
+				</div>
+			</div>
 
 
-<!-- ----------------------------- JavaScript------------------------------- -->
-<!-- ---------------------------------------------------------------------------------------- -->
+		</div>
+		<!-- topContentBox -->
+
+		<div class="bottomContentBox">
+
+			<div class="bottomLeftBox">
+				<div class="genreYearContainer">
+					<div class="yearCntBox">
+						<p id="yearCnt"></p>
+						<form action="/" method="get" name="yearDate">
+							<input type="hidden" id="startDate" name="startDate"> <input
+								type="hidden" id="finishDate" name="finishDate">
+						</form>
+					</div>
+					<div style="width: 10px;"></div>
+
+					<div class="genreYearImg"
+						style="background-image: url(/resources/image/artist/아이유.jpg);">
+						<div class="circle red">
+							<div class="year">
+								<div class="yearWrap"></div>
+								<div class="content"></div>
+							</div>
+						</div>
+						<div class="circle blue">
+							<div class="genre">
+								<div class="genreWrap"></div>
+								<div class="content"></div>
+							</div>
+						</div>
+					</div>
+					<div style="width: 10px"></div>
+					<div class="genreCntBox">
+						<p id="genreName"></p>
+						<input type="hidden" id="inputGenre" name="genreName">
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- bottomContentBox-->
+	</div>
+	<!--bodyContent-->
+	<div id="rightSideBar"></div>
+</div>
+<!--body-->
 
 <script type="text/javascript">
+	console.log('${result}')
+	console.log('${userNick}');
 
-// 세션값 잘 넘어왔는지 확인한다.
-console.log('${sessionName}');
-console.log('${userNick}')
+	/*-------------------------------------------- searchBox ----------------------------------------------------- */
 
-let logoutBtn = document.getElementById("logoutBtn");
-let loginBtn = document.getElementById("loginBtn");
-let welcomeBtn = document.getElementById("welcomeBtn");
-let toMypageBtn = document.getElementById("toMypageBtn");
-let joinBtn = document.getElementById("joinBtn");
-	
-// 세션이 있으면 loginBtn을 없애고, logoutBtn, toMypageBtn, welcomeBtn을 보이게 한다.
+	window.onclick = function(event) {
+		if (event.target == overlay) {
+			overlay.style.display = "none";
+		}
+		if (!event.target.matches('.dropbtn')) {
+			let dropdowns = document.getElementsByClassName("dropdown-content");
+			let i;
+			for (i = 0; i < dropdowns.length; i++) {
+				let openDropdown = dropdowns[i];
+				if (openDropdown.classList.contains('show')) {
+					openDropdown.classList.remove('show');
+				}
+			}
 
-if('${sessionName}' != "") {
-	loginBtn.style.display = "none";
-	joinBtn.style.display = "none";
-	logoutBtn.style.display = "block";
-	welcomeBtn.style.display = "block";
-	toMypageBtn.style.display = "block";
-}
+		}
+	}
 
+	/*---------------------------------------------------------------------------------------------------------------- */
+	let slideCount = 1;
+	countSlides(slideCount);
 
-window.onscroll = function() {myFunction()};  
-let navbar = document.getElementById("header_navbar");
-let sticky = navbar.offsetTop;
-        
-function myFunction(){
-    if(window.pageYOffset >= sticky){
-        navbar.classList.add("sticky")
-    }else{
-        navbar.classList.remove("sticky");
-    }
-}
+	function plusSlides(n) {
+		countSlides(slideCount += n);
+	}
 
-function openSearch() {
-    document.getElementById("myOverlay").style.display = "block";
-}
+	function currentSlide(n) {
+		countSlides(slideCount = n);
+	}
 
-let overlay = document.getElementById('myOverlay');
+	function countSlides(n) {
+		let i;
+		let slides = document.getElementsByClassName("slides");
+		let dots = document.getElementsByClassName("dot");
+		if (n > slides.length) {
+			slideCount = 1
+		}
+		if (n < 1) {
+			slideCount = slides.length
+		}
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace("active", "");
+		}
+		slides[slideCount - 1].style.display = "block";
+		dots[slideCount - 1].className += " active";
+	}
 
-window.onclick = function(event){
-    if(event.target == overlay){
-        overlay.style.display = "none";
-    }
-}
+	var slideIndex = 0;
+	showSlides();
 
+	function showSlides() {
+		let i;
+		let slides = document.getElementsByClassName("slides");
+		let dots = document.getElementsByClassName("dot");
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		slideIndex++;
+		if (slideIndex > slides.length) {
+			slideIndex = 1
+		}
+		for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace(" active", "");
+		}
+		slides[slideIndex - 1].style.display = "block";
+		dots[slideIndex - 1].className += " active";
+		setTimeout(showSlides, 3000);
+	}
+
+	/*---------------------------------------------------------------------------------------------------------------- */
+
+	$("#yearCnt").text("2010s");
+
+	let startDate = "2010"
+	let finishDate = "2019";
+	let genreName = "댄스";
+	let gropId = "12";
+
+	$(".genreYearImg").click(function() {
+		location.href = "/detail/artist?gropId=" + gropId
+	});
+
+	$(".year").on(
+			'click',
+			function() {
+				$(".year").mousemove(function(event) {
+
+					$(".year").text("");
+
+					let yearCnt = $(".year").css('top');
+					let yearCntPx = parseInt(yearCnt, 10);
+
+					if (yearCntPx >= 0 && yearCntPx <= 140) {
+						$("#yearCnt").text("2020s");
+						$("#yearCnt").css("display", "show");
+					} else if (yearCntPx > 140 && yearCntPx <= 300) {
+						$("#yearCnt").text("2010s");
+						$("#yearCnt").css("display", "show");
+					} else if (yearCntPx > 300 && yearCntPx <= 440) {
+						$("#yearCnt").text("2000s");
+						$("#yearCnt").css("display", "show");
+					}
+
+				});
+
+				console.log(startDate + "-" + finishDate + "-" + genreName)
+
+				$.ajax({
+					type : "GET",
+					url : "/homeAjax/" + startDate + "/" + finishDate + "/"
+							+ genreName + ".json",
+					data : {
+						startDate : startDate,
+						finishDate : finishDate,
+						genreName : genreName
+					},
+					dataType : "json",
+					contentType : "application/json; charset=UTF-8",
+					success : function(data) {
+						console.log(data);
+						$(".genreYearImg").css(
+								"background-image",
+								"url(/resources/image/artist/"
+										+ data[0].gropImg + ")");
+						gropId = data[0].gropId;
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown) {
+						$(".genreYearImg").css("background-image",
+								"url(/resources/image/nodata.jpg)");
+					}
+				});
+
+				startDate = $('#yearCnt').text().split("s")[0];
+				finishDate = $('#yearCnt').text().substring(0, 3) + 9;
+				startDate = $("#startDate").val(startDate);
+				finishDate = $("#finishDate").val(finishDate);
+				year();
+			});
+
+	function year() {
+		startDate = startDate.val();
+		finishDate = finishDate.val();
+	}
+
+	/* ------------------------------------------------------------ */
+
+	$("#genreName").text("댄스");
+
+	$(".genre").on(
+			'click',
+			function() {
+				$(".genre").mousemove(function(event) {
+
+					$(".genre").text("");
+
+					let genreCnt = $(".genre").css('top');
+					let genreCntPx = parseInt(genreCnt, 10);
+					genreName = $("#genreName").text();
+
+					if (genreCntPx >= 0 && genreCntPx <= 60) {
+						$("#genreName").text("락");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 60 && genreCntPx <= 130) {
+						$("#genreName").text("발라드");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 130 && genreCntPx <= 190) {
+						$("#genreName").text("힙합");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 190 && genreCntPx <= 250) {
+						$("#genreName").text("댄스");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 250 && genreCntPx <= 310) {
+						$("#genreName").text("트로트");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 310 && genreCntPx <= 370) {
+						$("#genreName").text("R&B");
+						$("#genreName").css("display", "show");
+					} else if (genreCntPx > 370 && genreCntPx <= 440) {
+						$("#genreName").text("OST");
+						$("#genreName").css("display", "show");
+					}
+				});
+				console.log(startDate + "-" + finishDate + "-" + genreName)
+
+				$.ajax({
+					type : "GET",
+					url : "/homeAjax/" + startDate + "/" + finishDate + "/"
+							+ genreName + ".json",
+					data : {
+						startDate : startDate,
+						finishDate : finishDate,
+						genreName : genreName
+					},
+					dataType : "json",
+					contentType : "application/json; charset=UTF-8",
+					success : function(data) {
+						console.log(data);
+
+						if (data[0].gropImg != undefined) {
+							$(".genreYearImg").css(
+									"background-image",
+									"url(/resources/image/artist/"
+											+ data[0].gropImg + ")");
+
+							gropId = data[0].gropId
+						}
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown) {
+					}
+				});
+
+				genreName = $('#genreName').text();
+				genreName = $("#inputGenre").val(genreName);
+				genre();
+			});
+
+	function genre() {
+		genreName = genreName.val();
+	}
+
+	$(function() {
+		$(".year").draggable({
+			yearWrap : ".yearWrap",
+			cursor : "grab",
+			containment : ".red",
+			axis : "y",
+			revert : false,
+		});
+	});
+
+	$(function() {
+		$(".genre").draggable({
+			genreWrap : ".genreWrap",
+			cursor : "grab",
+			containment : ".blue",
+			axis : "y",
+			revert : false,
+		});
+	});
 </script>
 
-
-
-</html>
-
-
+<%@include file="includes/mainFooter.jsp"%>

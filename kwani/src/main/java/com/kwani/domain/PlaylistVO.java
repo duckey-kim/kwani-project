@@ -9,5 +9,6 @@ public class PlaylistVO {
 	private Integer plylstId;
 	private String nm;
 	private String desc;
+	private String plylstImg;
 	
 }
