@@ -75,6 +75,7 @@ public class UserServiceImpl implements UserService {
 		System.out.println("탈퇴한 회원인지 확인한다.");
 		System.out.println(IdEmail);
 
+		// TODO : null일 경우 처리 필요.
 		// 2를 반환하면 탈퇴한 회원.
 		if (mapper.checkWithdrawUser(IdEmail) == 2) {
 			System.out.println(mapper.checkWithdrawUser(IdEmail));
@@ -105,6 +106,7 @@ public class UserServiceImpl implements UserService {
 		// 1. 사용자가 입력한 값으로 DB에 일치하는 정보가 있는지 확인한다.
 		// 이메일 일치여부 확인.
 		// 이메일이 존재하지 않으면, 0을 반환한다.(false를 반환)
+		System.out.println("user email count : "+ mapper.isUserIdVaild(email));
 		if (mapper.isUserIdVaild(email) != 1) {
 			String msg = "유효하지 않은 이메일입니다";
 			rttr.addFlashAttribute("msg", msg);
@@ -186,6 +188,8 @@ public class UserServiceImpl implements UserService {
 
 		Cookie ck = null;
 		UserVO user = mapper.get(email);
+		
+		System.out.println("userMapper get : " + mapper.get(email));
 		// 정보가 일치하면 쿠키를 생성한다.
 		// 만약 checked가 on이면,
 		if (("on").equals(checked)) {

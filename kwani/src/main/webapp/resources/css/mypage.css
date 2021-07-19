@@ -36,6 +36,21 @@ input[type=text], textarea{
 	margin: 15px;
 }
 
+.pagination {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.pagination li{
+	margin : 2px;
+	padding: 5px;
+}
+
+.pagination a:hover {
+	color : #b90000;
+}
+
+
 .userNick {
 	width: 150px;
 	height: auto;

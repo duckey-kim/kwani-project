@@ -247,11 +247,18 @@ public class UserController {
 			HttpServletRequest request, HttpServletResponse response, RedirectAttributes rttr, String prevPath) {
 		// 회원 로그인.
 		// checkUserIdPwd가 true면(즉, 사용자가 입력한 정보가 서버에 없으면)
+		
+		System.out.println("*로그인 : "+ email);
+		System.out.println("*prevPath"+ prevPath);
+		
 		String path = "";
 		if ("".equals(prevPath)) {
 			path = "/home";
-		} else 
+		} else {
 			path = prevPath;
+		}
+		
+		System.out.println("service.isUserValid : " + service.isUserIdValid(email, rttr));
 		
 		if (!(service.isUserIdValid(email, rttr))) {
 

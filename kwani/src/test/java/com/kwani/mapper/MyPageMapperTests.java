@@ -1,6 +1,9 @@
 package com.kwani.mapper;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
+
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.kwani.domain.Criteria;
 import com.kwani.domain.PlaylistVO;
-import com.kwani.mapper.MyPageMapper;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -22,6 +25,17 @@ public class MyPageMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private MyPageMapper mapper;
 
+	/*현재 개발중*/
+	@Test
+	public void testLibraryPaging() {
+		Criteria cri = new Criteria();
+		cri.setAmount(5);
+		cri.setPageNum(2);
+		
+		List<Map<String, String>> list = mapper.getListLibraryWithPaging(cri, "a@naver.com");
+		list.forEach(board -> log.info(board));
+	}
+	
 	@Test
 	public void testGetListLibrary() {
 		log.info(mapper.getListLibrary("a@naver.com"));

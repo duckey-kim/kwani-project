@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
+import com.kwani.domain.Criteria;
 import com.kwani.domain.UserVO;
 import com.kwani.service.MyPageService;
 import com.kwani.service.PlayerService;
@@ -41,7 +42,7 @@ public class PlayerController {
 	public String playNomalList(HttpSession session, HttpServletResponse response, Model model) {
 
 		System.out.println("/like");
-		UserVO user = (UserVO)session.getAttribute(USER);
+		UserVO user = (UserVO) session.getAttribute(USER);
 		String email = user.getEmail();
 		List<Map<String, String>> listMap = playerService.getListLikedTrack(email);
 		List<Map<String, String>> currentList = new ArrayList<Map<String, String>>();
@@ -68,7 +69,7 @@ public class PlayerController {
 	}
 
 	// 앨범 전체 듣기
-	@RequestMapping(value = "/album",method = {RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value = "/album", method = { RequestMethod.POST, RequestMethod.GET })
 	public String playAlbum(HttpSession session, Integer albumId, Model model, HttpServletResponse response) {
 		System.out.println("/album");
 		log.info("이곳은 앨범전체를 플레이 하는 곳입니다");
@@ -162,10 +163,10 @@ public class PlayerController {
 
 	// 유저의 최신들은곡 전체 듣기
 	@GetMapping("/library")
-	public String playNomalList2(HttpSession session, Model model, HttpServletResponse response) {
+	public String playNomalList2(HttpSession session, Model model, HttpServletResponse response, Criteria cri) {
 		System.out.println("/library");
 		String email = (String) session.getAttribute(USER);
-		List<Map<String, String>> listMap = myPageService.getListLibrary(email);
+		List<Map<String, String>> listMap = myPageService.getListLibrary(cri, email);
 		List<Map<String, String>> currentList = new ArrayList<Map<String, String>>();
 		// 현재재생목록과 합치기
 		playerService.setCurrentList(currentList, session);

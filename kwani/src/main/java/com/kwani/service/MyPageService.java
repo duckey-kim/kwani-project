@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.kwani.domain.Criteria;
 import com.kwani.domain.PlaylistVO;
 import com.kwani.domain.UserVO;
 
@@ -35,7 +36,11 @@ public interface MyPageService {
 	public Integer getOnePlaylist(Integer plylstId, String email);
 	public PlaylistVO getOnePlaylistVO(Integer plylstId, String email);
 	public List<PlaylistVO> getListPlaylist(String email);
-	public List<Map<String,String>> getListLibrary(String object);
+	
+	/*현재 개발중*/
+	public List<Map<String,String>> getListLibrary(Criteria cri, String email);
+	public int getTotal(Criteria cri, String email);
+	
 	public List<Map<String,String>> getListLikedArtist(String email);
 	public List<Map<String,String>> getListLikedTrack(String email);
 	public List<Map<String,String>> getListLikedAlbum(String email);

@@ -12,6 +12,7 @@ import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kwani.domain.Criteria;
 import com.kwani.domain.PlaylistVO;
 import com.kwani.domain.UserVO;
 import com.kwani.mapper.MyPageMapper;
@@ -110,12 +111,61 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageMapper.updatePlaylistBasicImg(plylstId);
 	}
 	
+//	@Override
+//	public List<Map<String, String>> getListLibrary(String email) {
+//
+//		log.info("getList Library...");
+//
+//		List<Map<String, String>> libraryList = myPageMapper.getListLibrary(email);
+//		List<Map<String, String>> LikedTrackList = myPageMapper.getLikedTrackList(email);
+//
+//		// 최근 들은 곡
+//		// 1일 이내 들은 경우 : 시간(몇시간 전에 들었는지)
+//		// 1일 이후 들은 경우 : 날짜
+//
+//		// 현재 시간
+//		LocalDateTime timeNow = LocalDateTime.now();
+//
+//		DateTimeFormatter myFormat1 = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+//		DateTimeFormatter myFormat2 = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+//
+//		for (Map<String, String> map : libraryList) {
+//
+//			String playlistDate = map.get("PLAY_DT");
+//
+//			// 곡 들은 시각
+//			LocalDateTime timePoint = LocalDateTime.parse(playlistDate, myFormat1);
+//
+//			// 현재시간 - 곡 들은 시각
+//			long timeDiff = timePoint.until(timeNow, ChronoUnit.HOURS);
+//
+//			map.replace("PLAY_DT", myFormat2.format(timePoint));
+//
+//			// 1일 이내인 경우
+//			if (timeDiff < 24) {
+//				map.replace("PLAY_DT", timeDiff + " 시간 전");
+//			}
+//
+//			map.put("heart", "heart2.png");
+//
+//			// 좋아요 곡 확인
+//			for (Map<String, String> map2 : LikedTrackList) {
+//				// 좋아요에 해당하는 경우
+//				if (map.containsValue(map2.get("TRACK_ID"))) {
+//					map.put("heart", "heart.png");
+//				}
+//			}
+//		}
+//
+//		return libraryList;
+//	}
+	
 	@Override
-	public List<Map<String, String>> getListLibrary(String email) {
+	public List<Map<String, String>> getListLibrary(Criteria cri, String email) {
 
 		log.info("getList Library...");
 
-		List<Map<String, String>> libraryList = myPageMapper.getListLibrary(email);
+		List<Map<String, String>> libraryList = myPageMapper.getListLibraryWithPaging(cri, email);
 		List<Map<String, String>> LikedTrackList = myPageMapper.getLikedTrackList(email);
 
 		// 최근 들은 곡
@@ -157,6 +207,11 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 
 		return libraryList;
+	}
+	
+	@Override
+	public int getTotal(Criteria cri, String email) {
+		return myPageMapper.getTotalCountLibrary(cri, email);
 	}
 
 	@Override

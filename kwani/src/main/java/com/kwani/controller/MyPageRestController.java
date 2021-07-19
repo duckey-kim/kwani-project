@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.kwani.domain.Criteria;
 import com.kwani.domain.UserVO;
 import com.kwani.service.MyPageService;
 
@@ -117,13 +118,13 @@ public class MyPageRestController {
 	
 	// 최근들은 곡 목록 가져오기
 	@GetMapping(value = "/libraryList", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public String getLibraryList(HttpSession session, Model model) {
+	public String getLibraryList(HttpSession session, Model model, Criteria cri) {
 
 		UserVO user = (UserVO) session.getAttribute("user");
 		String email = user.getEmail();
 
 		Gson gson = new Gson();
-		String data = gson.toJson(myPageService.getListLibrary(email));
+		String data = gson.toJson(myPageService.getListLibrary(cri, email));
 
 		return data;
 	}

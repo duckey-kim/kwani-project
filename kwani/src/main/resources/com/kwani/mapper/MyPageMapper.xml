@@ -144,6 +144,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND AT.GROP_ID = A.GROP_ID
 		ORDER BY H.PLAY_DT DESC
 	</select>
+	
+	<select id="getListLibraryWithPaging" resultMap="selectMap">
+	<![CDATA[		
+		SELECT B.TRACK_ID, B.TRACK_TTL, B.NM, B.PLAY_DT, B.ALBUM_IMG, B.ALBUM_TTL, B.ALBUM_ID, B.GROP_ID
+		FROM(
+			SELECT C.RN, C.TRACK_ID, C.TRACK_TTL, C.NM, C.PLAY_DT, C.ALBUM_IMG, C.ALBUM_TTL, C.ALBUM_ID, C.GROP_ID
+			FROM(
+				SELECT ROWNUM AS RN, T.TRACK_ID, T.TRACK_TTL, A.NM, TO_CHAR(H.PLAY_DT, 'YYYYMMDDHH24MISS') AS PLAY_DT, AL.ALBUM_IMG, AL.ALBUM_TTL, AL.ALBUM_ID, A.GROP_ID
+				FROM T_HISTORY H, T_TRACKS T, T_ALBUM AL, T_ARTIST_TRACKS AT, T_ARTIST A
+				WHERE H.EMAIL = 'a@naver.com'
+				AND H.TRACK_ID = T.TRACK_ID
+				AND T.ALBUM_ID = AL.ALBUM_ID
+				AND T.TRACK_ID = AT.TRACK_ID
+				AND AT.GROP_ID = A.GROP_ID
+				ORDER BY PLAY_DT DESC)C
+			WHERE RN <= #{cri.pageNum} * #{cri.amount})B
+		WHERE B.RN > (#{cri.pageNum} -1) * #{cri.amount}
+	]]>
+	</select>
+	
 
 	<select id="getListLikedArtist" resultMap="selectMap">
 		SELECT A.NM, A.GROP_IMG, A.GROP_ID
@@ -214,6 +234,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND TRACK_ID = #{trackId}	
 	</select>
 
+	<select id="getTotalCountLibrary" resultType="Integer">
+		SELECT COUNT(*)
+		FROM T_HISTORY H, T_TRACKS T, T_ALBUM AL,
+		T_ARTIST_TRACKS AT, T_ARTIST A
+		WHERE H.EMAIL = #{email}
+		AND H.TRACK_ID =
+		T.TRACK_ID
+		AND T.ALBUM_ID = AL.ALBUM_ID
+		AND T.TRACK_ID = AT.TRACK_ID
+		AND AT.GROP_ID = A.GROP_ID
+		ORDER BY H.PLAY_DT DESC
+	</select>
+	
 	<update id="updatePlaylist">
 		UPDATE T_PLYLST
 		SET NM = #{plylst.nm}, DESCP = #{plylst.desc}

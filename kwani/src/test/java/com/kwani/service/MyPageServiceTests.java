@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.kwani.domain.Criteria;
 import com.kwani.domain.PlaylistVO;
 import com.kwani.service.MyPageService;
 
@@ -32,6 +33,11 @@ public class MyPageServiceTests {
 		myPageService.createPlaylist(playlistVO);
 		log.info("After : " + playlistVO);
 		
+	}
+	
+	@Test
+	public void testListPaging() {
+		myPageService.getListLibrary(new Criteria(2,4), "a@naver.com").forEach(board -> log.info(board));
 	}
 
 }

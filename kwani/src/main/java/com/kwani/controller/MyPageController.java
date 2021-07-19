@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kwani.domain.Criteria;
+import com.kwani.domain.PageDTO;
 import com.kwani.domain.PlaylistVO;
 import com.kwani.domain.UserVO;
 import com.kwani.service.MyPageService;
@@ -30,12 +32,12 @@ public class MyPageController {
 
 	// 전체보기 (플레이리스트, 좋아요, 최근들은 곡 요약)
 	@RequestMapping(value = "/overview", method = { RequestMethod.POST, RequestMethod.GET })
-	public String overview(HttpSession session, Model model) {
+	public String overview(Criteria cri, HttpSession session, Model model) {
 
 		UserVO user = (UserVO) session.getAttribute("user");
 		String email = user.getEmail();
 
-		model.addAttribute("libraryList", myPageService.getListLibrary(email));
+		model.addAttribute("libraryList", myPageService.getListLibrary(cri, email));
 		model.addAttribute("likedArtistList", myPageService.getListLikedArtist(email));
 		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
 		model.addAttribute("likedAlbumList", myPageService.getListLikedAlbum(email));
@@ -58,13 +60,17 @@ public class MyPageController {
 	}
 
 	// 최근들은 곡
-	@PostMapping("/library")
-	public void trackList(HttpSession session, Model model) {
+	@GetMapping("/library")
+	public void trackList(Criteria cri, HttpSession session, Model model) {
 
 		UserVO user = (UserVO) session.getAttribute("user");
 		String email = user.getEmail();
 		
-		model.addAttribute("libraryList", myPageService.getListLibrary(email));
+		model.addAttribute("libraryList", myPageService.getListLibrary(cri, email));
+		System.out.println("1");
+		int total = myPageService.getTotal(cri, email);
+		System.out.println("@@@@@@@@@" + total);
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		model.addAttribute("likedTrackList", myPageService.getListLikedTrack(email));
 
 	}

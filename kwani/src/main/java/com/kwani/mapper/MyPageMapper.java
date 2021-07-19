@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.kwani.domain.Criteria;
 import com.kwani.domain.PlaylistVO;
 import com.kwani.domain.UserVO;
 
@@ -32,6 +33,8 @@ public interface MyPageMapper {
 	public Integer deletePlaylistTrack(@Param("trackId")Integer trackId, @Param("plylstId")Integer plylstId);
 	public Integer getOnePlaylist(@Param("plylstId")Integer plylstId, @Param("email")String email);
 	public Integer getOneTrackInPlaylist(@Param("plylstId")Integer plylstId, @Param("trackId")Integer trackId);
+	/*페이징*/
+	public Integer getTotalCountLibrary(@Param("cri")Criteria cri, @Param("email") String email);
 
 	public UserVO getUser(String email);
 
@@ -39,6 +42,8 @@ public interface MyPageMapper {
 	public List<Integer> getPlaylistTrackList(@Param("plylstId")Integer plylstId, @Param("email")String email);
 	public List<PlaylistVO> getListPlaylist(String email);
 	public List<Map<String,String>> getListLibrary(String email);
+	/*현재 개발중*/
+	public List<Map<String,String>> getListLibraryWithPaging(@Param("cri") Criteria cri, @Param("email") String email);	
 	public List<Map<String,String>> getLikedTrackList(String email);
 	public List<Map<String,String>> getListLikedArtist(String email);
 	public List<Map<String,String>> getListLikedTrack(String email);
